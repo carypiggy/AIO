@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: Cary
+Build-Jdk: 10.0.1
+Implementation-Title: AIO
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: com.mprs.aio
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+
