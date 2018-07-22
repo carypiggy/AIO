@@ -29,6 +29,13 @@
 		<optional>true</optional>
 		<scope>true</scope>
 	</dependency>
+	
+	<!--测试环境-->
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+	</dependency>
 
 	<!--MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot-->
 	<dependency>

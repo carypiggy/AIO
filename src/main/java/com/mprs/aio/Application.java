@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.mprs.aio")
+@MapperScan("com.mprs.aio.base.mapper")
 public class Application {
 	public static void main(String[] args) {
 		System.out.println("Hello World!");

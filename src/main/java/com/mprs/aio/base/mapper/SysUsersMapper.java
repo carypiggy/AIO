@@ -1,4 +1,4 @@
-package com.mprs.aio.base.dao;
+package com.mprs.aio.base.mapper;
 
 import com.mprs.aio.base.model.SysUsers;
 
@@ -9,7 +9,7 @@ public interface SysUsersMapper {
 
     int insertSelective(SysUsers record);
 
-    SysUsers selectByPrimaryKey(Long id);
+    SysUsers selectByPrimaryKey(long id);
 
     int updateByPrimaryKeySelective(SysUsers record);
 
