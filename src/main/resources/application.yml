@@ -39,3 +39,11 @@ mybatis:
   mapper-locations: classpath:mapping/*.xml
   #对应实体类的路径
   type-aliases-package: com.mprs.aio.base.model
+  #日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+    
+# 打印sql
+logging:
+  level: 
+    com.onepro.custom.mapper: DEBUG
