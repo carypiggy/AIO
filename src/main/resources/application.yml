@@ -42,8 +42,16 @@ mybatis:
   #日志打印
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+
+#pagehelper分页配置 
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql    
     
-# 打印sql
+# 打印日志
 logging:
   level: 
     com.onepro.custom.mapper: DEBUG
+    

@@ -50,7 +50,21 @@
 		<artifactId>mybatis</artifactId>
 		<version>3.4.6</version>
 	</dependency>
-
+	
+	<!--mapper-->
+	<dependency>
+	    <groupId>tk.mybatis</groupId>
+	    <artifactId>mapper-spring-boot-starter</artifactId>
+	    <version>1.2.4</version>
+	</dependency>
+	
+	<!-- 分页插件 -->
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper-spring-boot-starter</artifactId>
+	    <version>1.2.3</version>
+	</dependency>
+    
 	<!-- mysql 连接-->
 	<dependency>
 		<groupId>mysql</groupId>
