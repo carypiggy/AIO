@@ -20,7 +20,8 @@ public class UsersTest extends ApplicationTests {
 	@Test
     public void testGetUsers(){
 		SysUsers su= sysUsersService.getSysUsers(0);
-		System.out.println(su.getUserId());
+		super.outprint("com.mprs.aio.base.model.SysUsers", su);
+		
 		
     }
 
