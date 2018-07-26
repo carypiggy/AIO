@@ -12,13 +12,13 @@
             <property name="suppressAllComments" value="false"/>    
         </commentGenerator>    
         <!--数据库链接URL，用户名、密码 -->    
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://66.42.40.232:3306/aio_db?characterEncoding=utf8" userId="aio" password="Aio54321.">    
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.150.9:3306/smmp?serverTimezone=GMT&amp;characterEncoding=utf8" userId="root" password="root">    
         </jdbcConnection>    
         <javaTypeResolver>    
             <property name="forceBigDecimals" value="false"/>    
         </javaTypeResolver>    
         <!-- 生成模型的包名和位置-->    
-        <javaModelGenerator targetPackage="com.mprs.aio.base.model" targetProject="src/main/java">    
+        <javaModelGenerator targetPackage="com.mprs.aio.system.model" targetProject="src/main/java">    
             <property name="enableSubPackages" value="true"/>    
             <property name="trimStrings" value="true"/>    
         </javaModelGenerator>    
@@ -27,10 +27,10 @@
             <property name="enableSubPackages" value="true"/>    
         </sqlMapGenerator>    
         <!-- 生成DAO的包名和位置-->    
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mprs.aio.base.mapper" targetProject="src/main/java">    
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mprs.aio.system.mapper" targetProject="src/main/java">    
             <property name="enableSubPackages" value="true"/>    
         </javaClientGenerator>    
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->    
-        <table tableName="sys_users" domainObjectName="SysUsers" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+        <table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
     </context>    
 </generatorConfiguration>    
