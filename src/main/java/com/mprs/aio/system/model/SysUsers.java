@@ -1,4 +1,4 @@
-package com.mprs.aio.base.model;
+package com.mprs.aio.system.model;
 
 import java.util.Date;
 

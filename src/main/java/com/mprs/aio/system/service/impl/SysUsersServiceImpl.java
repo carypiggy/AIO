@@ -1,13 +1,15 @@
-package com.mprs.aio.base.service.impl;
+package com.mprs.aio.system.service.impl;
+
+
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mprs.aio.base.mapper.SysUsersMapper;
-import com.mprs.aio.base.model.SysUsers;
-import com.mprs.aio.base.service.SysUsersService;
+import com.mprs.aio.system.mapper.SysUsersMapper;
+import com.mprs.aio.system.model.SysUsers;
+import com.mprs.aio.system.service.SysUsersService;
 
 /**
 * 用户信息接口实现

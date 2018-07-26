@@ -1,6 +1,6 @@
-package com.mprs.aio.base.mapper;
+package com.mprs.aio.system.mapper;
 
-import com.mprs.aio.base.model.SysUsers;
+import com.mprs.aio.system.model.SysUsers;
 
 public interface SysUsersMapper {
     /**

@@ -1,8 +1,8 @@
-package com.mprs.aio.base.service;
+package com.mprs.aio.system.service;
 
 import java.util.List;
 
-import com.mprs.aio.base.model.SysUsers;
+import com.mprs.aio.system.model.SysUsers;
 
 /**
  * 用户管理接口

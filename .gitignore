@@ -3,3 +3,6 @@ target
 .settings/org.eclipse.wst.common.component
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.eclipse.core.resources.prefs
+.externalToolBuilders/org.eclipse.m2e.core.maven2Builder (1).launch
+.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder (1).launch
+.externalToolBuilders/org.eclipse.wst.validation.validationbuilder (1).launch
