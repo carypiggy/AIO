@@ -6,12 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service基类
+ * 
  * @author Cary
- * @version 2018-07-26
+ * @Date 2018-07-26
  */
 @Transactional(readOnly = true)
 public abstract class BaseService {
-	
+
 	/**
 	 * 日志对象
 	 */

@@ -4,10 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.mprs.aio.base.mapper")
+@MapperScan("com.mprs.aio.system.mapper")
 public class Application {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
 		SpringApplication.run(Application.class, args);
 	}
+	
+	
+	
+	
+
 }
