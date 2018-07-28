@@ -29,7 +29,7 @@ public class UserTest extends ApplicationTests {
 	
 	//@Test
     public void testGetUsers(){
-    	SysUser sysUser=sysUserMapper.selectByPrimaryKey("befeb34614b940d29cfaf1d01456c476");
+    	SysUser sysUser=sysUserMapper.get("befeb34614b940d29cfaf1d01456c476");
 		
 		super.outprint("com.mprs.aio.system.model.SysUser", sysUser);
 		

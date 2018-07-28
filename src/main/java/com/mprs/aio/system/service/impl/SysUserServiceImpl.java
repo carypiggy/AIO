@@ -1,14 +1,13 @@
 package com.mprs.aio.system.service.impl;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.mprs.aio.base.mapper.CrudMapper;
+import com.mprs.aio.base.model.DataEntity;
 import com.mprs.aio.system.mapper.SysUserMapper;
 import com.mprs.aio.system.model.SysUser;
 import com.mprs.aio.system.service.SysUserService;
@@ -19,23 +18,43 @@ import com.mprs.aio.system.service.SysUserService;
 * @date 2018年7月22日
 */
 @Service
-public class SysUserServiceImpl implements SysUserService  {
+public class SysUserServiceImpl <M extends CrudMapper<SysUser>, T extends DataEntity<SysUser>> implements SysUserService  {
 	
 	@Autowired
 	private SysUserMapper sysUserMapper;
 	
 	
-	@Override
-	public int addSysUsers(SysUser sysUser) {
-		
-		return sysUserMapper.insert(sysUser);
-	}
 
 	@Override
-	public int editSysUsers(SysUser sysUser) {
+	public SysUser getSysUserByUsername(String username) {
 		
-		return sysUserMapper.updateByPrimaryKey(sysUser);
+		return sysUserMapper.getSysUserByUsername(username);
 	}
+
+
+
+	@Override
+	public int addSysUsers(SysUser sysUsers) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public int editSysUsers(SysUser sysUsers) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public SysUser getSysUser(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	@Override
@@ -44,23 +63,12 @@ public class SysUserServiceImpl implements SysUserService  {
 		return null;
 	}
 
-	@Override
-	public SysUser getSysUser(String id) {
-		return sysUserMapper.selectByPrimaryKey(id);
-	}
+
 
 	@Override
 	public Page<SysUser> findByPage(int pageNo, int pageSize) {
-		
-		PageHelper.startPage(pageNo, pageSize);
-		Page<SysUser> pageList=sysUserMapper.findByPage();
-        return pageList;
-	}
-
-	@Override
-	public SysUser getSysUserByUsername(String username) {
-		
-		return sysUserMapper.getSysUserByUsername(username);
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
