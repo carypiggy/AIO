@@ -14,6 +14,7 @@ import com.mprs.aio.system.model.SysUser;
 import com.mprs.aio.system.service.SysUserService;
 
 public class ShiroRealm extends AuthenticatingRealm {
+	
     @Autowired
     private SysUserService sysUserService;
 

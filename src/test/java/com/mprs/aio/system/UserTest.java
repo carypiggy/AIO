@@ -36,15 +36,15 @@ public class UserTest extends ApplicationTests {
 		
     }
 	
-	@Test
+	//@Test
     public void testAddUsers(){
 		//条数
 		int num=30;
 		//循环新增
 		for(int i=0;i<=num;i++) {
 			SysUser su= new SysUser();
-			String id=IdGen.uuid();
-			su.setId(id);
+			//String id=IdGen.uuid();
+			//su.setId(id);
 			su.setFlag("0");
 			su.setEmail(i+"@123.com");
 			su.setUsername("test"+i);
@@ -52,7 +52,7 @@ public class UserTest extends ApplicationTests {
 			su.setName("test"+i);
 			su.setOrgId("0");
 			//加盐炒三次
-			ByteSource salt = ByteSource.Util.bytes(id);
+			ByteSource salt = ByteSource.Util.bytes("test"+i);
 			String result = new Md5Hash("test"+i,salt,3).toString();
 			su.setPassword(result);
 			su.setPhone("10086"+i);
@@ -61,7 +61,7 @@ public class UserTest extends ApplicationTests {
 			su.setType("0");
 			try {
 				
-				sysUserService.addSysUsers(su);
+				sysUserService.save(su);
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -70,12 +70,12 @@ public class UserTest extends ApplicationTests {
 
     }
     
-    //@Test
+    @Test
     public void testloadUsers(){
     	
     	try{
-    		
-    		Page<SysUser> p=sysUserService.findByPage(1, 10);
+    		SysUser su=new SysUser();
+    		Page<SysUser> p=sysUserService.findPage(1, 10, su);
     		super.outprint("com.github.pagehelper.Page", p);
     	}catch(Exception e) {
     		e.printStackTrace();

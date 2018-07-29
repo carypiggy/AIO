@@ -70,7 +70,7 @@ public interface CrudMapper<T> extends BaseMapper{
 	public int delete(String id);
 	
 	/**
-	 * 删除数据（一般为逻辑删除，更新del_flag字段为1）
+	 * 删除数据（一般为逻辑删除，更新flag字段为1）
 	 * @param entity
 	 * @return
 	 */
