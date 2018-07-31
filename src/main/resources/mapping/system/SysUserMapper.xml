@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mprs.aio.system.mapper.SysUserMapper">
+
+  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="safecode" jdbcType="VARCHAR" property="safecode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="flag" jdbcType="CHAR" property="flag" />
+  </resultMap>
+  
+  <!-- 基础字段定义 -->
+  <sql id="Base_Column_List">
+    id, org_id, username, password, safecode, name, idcard, photo, mobile, email, type, 
+    remark, flag
+  </sql>
+  
+  <!-- 查询条件定义 -->
+  <sql id="query_where" >
+    <if test="entity!=null">
+       <if test="entity.id!=null and entity.id!='' ">
+           and id=#{entity.orgId}
+       </if>
+       <if test="entity.orgId!=null and entity.orgId!='' ">
+           and org_id=#{entity.orgId}
+       </if>
+       <if test="entity.username!=null and entity.username!='' ">
+           and username=#{entity.username}
+       </if>
+       <if test="entity.password!=null and entity.password!='' ">
+           and password=#{entity.password}
+       </if>
+       <if test="entity.name!=null and entity.name!='' ">
+           and name LIKE '%${entity.name}%'
+       </if>
+       <if test="entity.idcard!=null and entity.idcard!='' ">
+           and idcard=#{entity.idcard}
+       </if>
+       <if test="entity.mobile!=null and entity.mobile!='' ">
+           and mobile=#{entity.mobile}
+       </if>
+       <if test="entity.email!=null and entity.email!='' ">
+           and email=#{entity.email}
+       </if>
+       <if test="entity.orgId!=null and entity.orgId!='' ">
+           and type=#{entity.type}
+       </if>
+           and flag= #{entity.FLAG_NORMAL}
+	</if>
+  </sql>
+ 
+ 
+  <!-- 根据username查询对象 -->
+  <select id="getSysUserByUsername" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
+  </select>
+ 
+  <!-- 根据id查询对象 #{@com.base.model.BaseEntity@FLAG_NORMAL}-->
+  <select id="get" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  </select>
+  
+  <!-- 插入对象 -->
+  <insert id="insert" parameterType="com.mprs.aio.system.model.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="safecode != null">
+        safecode,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="safecode != null">
+        #{safecode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新对象 -->
+  <update id="update" parameterType="com.mprs.aio.system.model.SysUser">
+    update sys_user
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="safecode != null">
+        safecode = #{safecode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除对象 -->
+  <update id="delete" parameterType="com.mprs.aio.system.model.SysUser">
+    update sys_user set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询对象 -->
+  <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user 
+    <where>
+	  <include refid="query_where"></include>
+    </where>
+  </select>
+  
+  <!-- 依照条件查询所有对象 -->
+  <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user 
+	<where>
+	  <include refid="query_where"></include>
+    </where>
+  </select>
+  
+</mapper>

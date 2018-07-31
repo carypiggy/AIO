@@ -16,7 +16,10 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	
 
 	public SysUser getSysUserByUsername(String username) {
-		return mapper.getSysUserByUsername(username);
+		
+		SysUser sysUser=new SysUser();
+		sysUser.setUsername(username);
+		return mapper.getSysUserByUsername(sysUser);
 	}
 	
 

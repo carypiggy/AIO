@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mprs.aio.base.controller.BaseController;
 
-@RestController
-@EnableAutoConfiguration
+//@RestController
+//@EnableAutoConfiguration
 public class SysUserController extends BaseController {
 
 }

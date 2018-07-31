@@ -2,6 +2,8 @@ package com.mprs.aio.base.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.pagehelper.Page;
 
 /**
@@ -17,7 +19,7 @@ public interface CrudMapper<T> extends BaseMapper{
 	 * @param id
 	 * @return
 	 */
-	public T get(String id);
+	public T get(T entity);
 	
 	/**
 	 * 插入数据
@@ -39,29 +41,21 @@ public interface CrudMapper<T> extends BaseMapper{
 	 * @see public int delete(T entity)
 	 * @return
 	 */
-	public int delete(String id);
+	public int delete(T entity);
 	
 	/**
 	 * 依据条件，分页查询数据列表
 	 * @param entity
 	 * @return
 	 */
-	public Page<T> loadByPage(T entity);
+	public Page<T> loadByPage(@Param("entity")T entity);
 	
 	/**
 	 * 依据条件，查询所有数据列表
 	 * @param entity
 	 * @return
 	 */
-	public List<T> loadAllListBy(T entity);
-	
-	/**
-	 * 查询所有数据列表
-	 * @see public List<T> findAllList(T entity)
-	 * @return
-	 */
-	public List<T> loadAllList();
-	
+	public List<T> loadAllListBy(@Param("entity")T entity);
 	
 	
 }

@@ -15,6 +15,10 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	protected String remark;	// 备注
 	protected String flag; 	// 删除标记（0：正常；1：删除；2：审核）
 	
+	public DataEntity() {
+		super();
+		this.flag = FLAG_NORMAL;
+	}
 	
 	/**
 	 * 插入之前执行方法，需要手动调用
@@ -33,12 +37,6 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	@Override
 	public void preUpdate(){
 
-	}
-	
-	
-	public DataEntity() {
-		super();
-		this.flag = "0";
 	}
 	
 	public DataEntity(String id) {
