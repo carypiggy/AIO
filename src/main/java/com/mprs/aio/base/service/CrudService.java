@@ -33,13 +33,14 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 		return mapper.get(id);
 	}
 	
+	
 	/**
-	 * 获取单条数据
+	 * 根据条件查询所有列表数据
 	 * @param entity
 	 * @return
 	 */
-	public T get(T entity) {
-		return mapper.get(entity);
+	public List<T> findAllListBy(T entity) {
+		return mapper.loadAllListBy(entity);
 	}
 	
 	/**
@@ -47,8 +48,8 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 	 * @param entity
 	 * @return
 	 */
-	public List<T> findList(T entity) {
-		return mapper.loadAllList(entity);
+	public List<T> findAllList() {
+		return mapper.loadAllList();
 	}
 	
 	/**

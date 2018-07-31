@@ -21,8 +21,7 @@ public class ShiroRealm extends AuthenticatingRealm {
     private SimpleAuthenticationInfo info = null;
 
     /**
-     * 1.doGetAuthenticationInfo，获取认证消息，如果数据库中没有数，返回null，如果得到了正确的用户名和密码，
-     * 返回指定类型的对象
+     * 1.doGetAuthenticationInfo，获取认证消息，如果数据库中没有数，返回null，如果得到了正确的用户名和密码，返回指定类型的对象
      *
      * 2.AuthenticationInfo 可以使用SimpleAuthenticationInfo实现类，封装正确的用户名和密码。
      *
@@ -31,7 +30,6 @@ public class ShiroRealm extends AuthenticatingRealm {
      * @return
      * @throws AuthenticationException
      */
-
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         // 将token装换成UsernamePasswordToken
@@ -59,4 +57,35 @@ public class ShiroRealm extends AuthenticatingRealm {
 
         return info;
     }
+    
+//    /**
+//      *  获取用户角色和权限
+//     */
+//    @Override
+//    protected AuthenticationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
+//        User user = (User) SecurityUtils.getSubject().getPrincipal();
+//        String userName = user.getUserName();
+//        
+//        System.out.println("用户" + userName + "获取权限-----ShiroRealm.doGetAuthorizationInfo");
+//        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+//        
+//        // 获取用户角色集
+//        List<Role> roleList = userRoleMapper.findByUserName(userName);
+//        Set<String> roleSet = new HashSet<String>();
+//        for (Role r : roleList) {
+//            roleSet.add(r.getName());
+//        }
+//        simpleAuthorizationInfo.setRoles(roleSet);
+//        
+//        // 获取用户权限集
+//        List<Permission> permissionList = userPermissionMapper.findByUserName(userName);
+//        Set<String> permissionSet = new HashSet<String>();
+//        for (Permission p : permissionList) {
+//            permissionSet.add(p.getName());
+//        }
+//        simpleAuthorizationInfo.setStringPermissions(permissionSet);
+//        return simpleAuthorizationInfo;
+//    }
+
+    
 }
