@@ -1,11 +1,9 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.mprs.aio.base.service;
 
 /**
  * Service层公用的Exception, 从由Spring管理事务的函数中抛出时会触发事务回滚.
- * @author ThinkGem
+ * @author Cary
+ * @date 2018年8月1日
  */
 public class ServiceException extends RuntimeException {
 

@@ -10,11 +10,11 @@ import com.github.pagehelper.PageHelper;
 import com.mprs.aio.base.mapper.CrudMapper;
 import com.mprs.aio.base.model.DataEntity;
 
-/**
- * Service基类
- * @author ThinkGem
- * @version 2014-05-16
- */
+ /**
+  * Service基类
+  * @author Cary
+  * @date 2018年8月1日
+  */
 @Transactional(readOnly = true)
 public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<T>> extends BaseService {
 	
