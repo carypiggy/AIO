@@ -15,6 +15,11 @@ import com.mprs.aio.system.model.SysUser;
 public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	
 
+	/**
+	 * 根据用户名获取用户对象
+	 * @param username
+	 * @return
+	 */
 	public SysUser getSysUserByUsername(String username) {
 		
 		SysUser sysUser=new SysUser();

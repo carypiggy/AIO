@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mprs.aio.system.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysRole">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="flag" jdbcType="CHAR" property="flag" />
+  </resultMap>
+  <!-- 基础字段定义 -->
+  <sql id="Base_Column_List">
+    id, name, code, type, remark, flag
+  </sql>
+  
+  <!-- 查询条件定义 -->
+  <sql id="query_where" >
+    <if test="entity!=null">
+       <if test="entity.id!=null and entity.id!='' ">
+           and id=#{entity.id}
+       </if>
+       <if test="entity.name!=null and entity.name!='' ">
+           and name LIKE '%${entity.name}%'
+       </if>
+       <if test="entity.code!=null and entity.code!='' ">
+           and code=#{entity.code}
+       </if>
+       <if test="entity.type!=null and entity.type!='' ">
+           and type=#{entity.type}
+       </if> n
+           and flag= #{entity.FLAG_NORMAL}
+	</if>
+  </sql>
+  
+  <!-- 根据id查询对象-->
+  <select id="get" parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=VARCHAR} and flag= #{FLAG_NORMAL}
+  </select>
+  
+  <!-- 插入对象 -->
+  <insert id="insertSelective" parameterType="com.mprs.aio.system.model.SysRole">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新对象 -->
+  <update id="update" parameterType="com.mprs.aio.system.model.SysRole">
+    update sys_role
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除对象 -->
+  <update id="delete" parameterType="com.mprs.aio.system.model.SysRole">
+    update sys_role set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询对象 -->
+  <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role 
+    <where>
+	  <include refid="query_where"></include>
+    </where>
+  </select>
+  
+  <!-- 依照条件查询所有对象 -->
+  <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role 
+	<where>
+	  <include refid="query_where"></include>
+    </where>
+  </select>
+  
+  <!-- 依照角色id查询所有菜单权限 -->
+  <select id="loadRoleByUser"  parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role sr
+	 inner join sys_user_role srm
+	 where
+	 sr.id = srm.role_id
+	 and sr.flag = #{FLAG_NORMAL}
+	 and srm.user_id = #{id,jdbcType=VARCHAR}
+  </select>
+	
+</mapper>

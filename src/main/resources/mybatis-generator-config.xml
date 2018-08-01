@@ -7,7 +7,7 @@
     <!--<classPathEntry  location="mysql-connector-java-5.1.25-bin.jar"/>  -->  
     <context id="DB2Tables"  targetRuntime="MyBatis3">    
         <commentGenerator>    
-            <property name="suppressDate" value="true"/>    
+            <property name="suppressDate" value="false"/>    
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->    
             <property name="suppressAllComments" value="false"/>    
         </commentGenerator>    
@@ -37,7 +37,13 @@
             <property name="enableSubPackages" value="true"/>    
         </javaClientGenerator>    
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->    
-        <table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table tableName="sys_menu" domainObjectName="SysMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table> 
+        <table tableName="sys_role" domainObjectName="SysRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table> 
+        <table tableName="sys_role_menu" domainObjectName="SysRoleMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table> 
+        <table tableName="sys_user_role" domainObjectName="SysUserRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         	<!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； -->
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>  

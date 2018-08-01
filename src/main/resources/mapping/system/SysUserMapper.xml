@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mprs.aio.system.mapper.SysUserMapper">
-
+  
+  <!-- 基础返回值定义 -->
   <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysUser">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="org_id" jdbcType="VARCHAR" property="orgId" />
@@ -28,7 +29,7 @@
   <sql id="query_where" >
     <if test="entity!=null">
        <if test="entity.id!=null and entity.id!='' ">
-           and id=#{entity.orgId}
+           and id=#{entity.id}
        </if>
        <if test="entity.orgId!=null and entity.orgId!='' ">
            and org_id=#{entity.orgId}
@@ -67,7 +68,7 @@
     where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
  
-  <!-- 根据id查询对象 #{@com.base.model.BaseEntity@FLAG_NORMAL}-->
+  <!-- 根据id查询对象-->
   <select id="get" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

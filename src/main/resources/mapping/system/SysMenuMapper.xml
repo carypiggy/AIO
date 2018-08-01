@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mprs.aio.system.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysMenu">
+	<!-- 基础返回值定义 -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="sort" jdbcType="DECIMAL" property="sort" />
+    <result column="target" jdbcType="CHAR" property="target" />
+    <result column="is_show" jdbcType="CHAR" property="isShow" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="flag" jdbcType="CHAR" property="flag" />
+  </resultMap>
+  
+  <!-- 基础字段定义 -->
+  <sql id="Base_Column_List">
+    id, parent_id, parent_ids, name, code, href, icon, type, permission, sort, target, 
+    is_show, remark, flag
+  </sql>
+  
+  <!-- 查询条件定义 -->
+  <sql id="query_where" >
+    <if test="entity!=null">
+       <if test="entity.id!=null and entity.id!='' ">
+           and id=#{entity.id}
+       </if>
+       <if test="entity.name!=null and entity.name!='' ">
+           and name LIKE '%${entity.name}%'
+       </if>
+       <if test="entity.code!=null and entity.code!='' ">
+           and code=#{entity.code}
+       </if>
+       <if test="entity.sort!=null and entity.sort!='' ">
+           and sort=#{entity.sort}
+       </if>
+       <if test="entity.target!=null and entity.target!='' ">
+           and target=#{entity.target}
+       </if>
+       <if test="entity.is_show!=null and entity.is_show!='' ">
+           and is_show=#{entity.is_show}
+       </if>
+           and flag= #{entity.FLAG_NORMAL}
+	</if>
+  </sql>
+  
+  <!-- 根据id查询对象-->
+  <select id="get" parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  </select>
+  
+  <!-- 插入对象 -->
+  <insert id="insertSelective" parameterType="com.mprs.aio.system.model.SysMenu">
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="parentIds != null">
+        parent_ids,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="href != null">
+        href,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="permission != null">
+        permission,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="target != null">
+        target,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIds != null">
+        #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=CHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新对象 -->
+  <update id="update" parameterType="com.mprs.aio.system.model.SysMenu">
+    update sys_menu
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIds != null">
+        parent_ids = #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="target != null">
+        target = #{target,jdbcType=CHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 删除对象 -->
+  <update id="delete" parameterType="com.mprs.aio.system.model.SysMenu">
+    update sys_menu set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询对象 -->
+  <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu 
+    <where>
+	  <include refid="query_where"></include>
+    </where>
+  </select>
+  
+  <!-- 依照条件查询所有对象 -->
+  <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu 
+	<where>
+	  <include refid="query_where"></include>
+    </where>
+  </select>
+  
+  <!-- 依照用户id查询所有角色 -->
+  <select id="loadRoleByUser"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role sr
+	 inner join sys_user_role sur
+	 where
+	 sr.id = sur.role_id
+	 and sur.flag = #{FLAG_NORMAL}
+	 and sur.user_id = #{id,jdbcType=VARCHAR}
+  </select>
+ 
+</mapper>

@@ -1,7 +1,11 @@
 package com.mprs.aio.system.model;
 
 import com.mprs.aio.base.model.DataEntity;
-
+/**
+ * 
+ * @author Cary
+ * @Date  2018年7月31日
+ */
 public class SysUser extends DataEntity<SysUser> {
 
 	private static final long serialVersionUID = 1L;
