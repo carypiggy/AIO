@@ -37,15 +37,8 @@
             <property name="enableSubPackages" value="true"/>    
         </javaClientGenerator>    
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->    
-        <table tableName="sys_menu" domainObjectName="SysMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table tableName="sys_dict" domainObjectName="SysDict" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         </table> 
-        <table tableName="sys_role" domainObjectName="SysRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table> 
-        <table tableName="sys_role_menu" domainObjectName="SysRoleMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table> 
-        <table tableName="sys_user_role" domainObjectName="SysUserRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        	<!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； -->
-            <property name="ignoreQualifiersAtRuntime" value="true"/>
-        </table>  
+   
     </context>    
 </generatorConfiguration>    

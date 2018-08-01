@@ -9,6 +9,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
   </resultMap>
+  
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
     id, name, code, type, remark, flag
