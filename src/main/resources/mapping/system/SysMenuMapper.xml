@@ -10,10 +10,10 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="href" jdbcType="VARCHAR" property="href" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="type" jdbcType="CHAR" property="type" />
     <result column="permission" jdbcType="VARCHAR" property="permission" />
     <result column="sort" jdbcType="DECIMAL" property="sort" />
-    <result column="target" jdbcType="CHAR" property="target" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
     <result column="is_show" jdbcType="CHAR" property="isShow" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
