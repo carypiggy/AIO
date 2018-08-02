@@ -1,26 +1,48 @@
 package com.mprs.aio.system.shiro;
 
 
+import java.io.Serializable;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.mprs.aio.common.servlet.ValidateCodeServlet;
+import com.mprs.aio.system.controller.LoginController;
 import com.mprs.aio.system.model.SysUser;
 import com.mprs.aio.system.service.SysUserService;
-
+import com.mprs.aio.system.utils.UserUtils;
+/**
+ * 系统安全认证实现类
+ * @author Cary
+ * @date 2018年8月2日
+ */
+@Service
 public class ShiroRealm extends AuthorizingRealm {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
     @Autowired
     private SysUserService sysUserService;
-
+    
+    @Autowired
+	private SessionDAO sessionDao;
+    
+    public SessionDAO getSessionDao() {
+		return sessionDao;
+	}
+    
     private SimpleAuthenticationInfo info = null;
 
     /**
@@ -37,6 +59,23 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         // 将token装换成UsernamePasswordToken
         UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
+       
+        int activeSessionSize = getSessionDao().getActiveSessions(false).size();
+        
+		if (logger.isDebugEnabled()){
+			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, upToken.getUsername());
+		}
+		
+		// 校验登录验证码
+		if (LoginController.isValidateCodeLogin(upToken.getUsername(), false, false)){
+			Session session = UserUtils.getSession();
+			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
+			if (upToken.getCaptcha() == null || !upToken.getCaptcha().toUpperCase().equals(code)){
+				throw new AuthenticationException("msg:验证码错误, 请重试.");
+			}
+		}
+		
+		
         // 获取用户名即可
         String username = upToken.getUsername();
         // 查询数据库，是否查询到用户名和密码的用户
@@ -117,5 +156,55 @@ public class ShiroRealm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
 
     }
+    
+
+    
+	/**
+	 * 授权用户信息
+	 */
+	public static class Principal implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+		
+		private String id; // 编号
+		private String userName; // 登录名
+		private String name; // 姓名
+
+		public Principal(SysUser user, boolean mobileLogin) {
+			this.id = user.getId();
+			this.userName = user.getUsername();
+			this.name = user.getName();
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		public String getUserName() {
+			return userName;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+
+		/**
+		 * 获取SESSIONID
+		 */
+		public String getSessionid() {
+			try{
+				return (String) UserUtils.getSession().getId();
+			}catch (Exception e) {
+				return "";
+			}
+		}
+		
+		@Override
+		public String toString() {
+			return id;
+		}
+
+	}
     
 }

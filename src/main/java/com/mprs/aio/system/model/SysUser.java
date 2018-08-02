@@ -1,5 +1,9 @@
 package com.mprs.aio.system.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
 import com.mprs.aio.base.model.DataEntity;
 /**
  * 
@@ -30,6 +34,7 @@ public class SysUser extends DataEntity<SysUser> {
 
     private String type;
     
+    private List<SysRole> roleList = Lists.newArrayList(); // 拥有角色列表
 
     public String getOrgId() {
         return orgId;
@@ -110,5 +115,23 @@ public class SysUser extends DataEntity<SysUser> {
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
     }
+    
+    @JsonIgnore
+	public List<String> getRoleIdList() {
+		List<String> roleIdList = Lists.newArrayList();
+		for (SysRole role : roleList) {
+			roleIdList.add(role.getId());
+		}
+		return roleIdList;
+	}
+
+	public void setRoleIdList(List<String> roleIdList) {
+		roleList = Lists.newArrayList();
+		for (String roleId : roleIdList) {
+			SysRole role = new SysRole();
+			role.setId(roleId);
+			roleList.add(role);
+		}
+	}
     
 }

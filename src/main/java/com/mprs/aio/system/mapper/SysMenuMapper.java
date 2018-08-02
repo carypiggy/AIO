@@ -2,6 +2,8 @@ package com.mprs.aio.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.mprs.aio.base.mapper.CrudMapper;
 import com.mprs.aio.system.model.SysMenu;
 import com.mprs.aio.system.model.SysRole;
@@ -11,6 +13,7 @@ import com.mprs.aio.system.model.SysRole;
  * @author Cary
  * @date 2018年8月1日
  */
+@Mapper
 public interface SysMenuMapper extends CrudMapper<SysMenu>{
     
 	/**
