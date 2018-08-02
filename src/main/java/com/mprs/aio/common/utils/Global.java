@@ -48,7 +48,7 @@ public class Global {
 	/**
 	 * 属性文件加载对象
 	 */
-	private static PropertiesLoader loader = new PropertiesLoader("jeesite.properties");
+	//private static PropertiesLoader loader = new PropertiesLoader("jeesite.properties");
 
 	/**
 	 * 显示/隐藏
@@ -73,48 +73,48 @@ public class Global {
 	 */
 	public static final String USERFILES_BASE_URL = "/userfiles/";
 
-	/**
-	 * 获取配置
-	 * 
-	 * @see ${fns:getConfig('adminPath')}
-	 */
-	public static String getConfig(String key) {
-		String value = map.get(key);
-		if (value == null) {
-			value = loader.getProperty(key);
-			map.put(key, value != null ? value : StringUtils.EMPTY);
-		}
-		return value;
-	}
+//	/**
+//	 * 获取配置
+//	 * 
+//	 * @see ${fns:getConfig('adminPath')}
+//	 */
+//	public static String getConfig(String key) {
+//		String value = map.get(key);
+//		if (value == null) {
+//			value = loader.getProperty(key);
+//			map.put(key, value != null ? value : StringUtils.EMPTY);
+//		}
+//		return value;
+//	}
 
-	/**
-	 * 获取管理端根路径
-	 */
-	public static String getAdminPath() {
-		return getConfig("adminPath");
-	}
-
-	/**
-	 * 获取前端根路径
-	 */
-	public static String getFrontPath() {
-		return getConfig("frontPath");
-	}
-
-	/**
-	 * 获取URL后缀
-	 */
-	public static String getUrlSuffix() {
-		return getConfig("urlSuffix");
-	}
-
-	/**
-	 * 是否是演示模式，演示模式下不能修改用户、角色、密码、菜单、授权
-	 */
-	public static Boolean isDemoMode() {
-		String dm = getConfig("demoMode");
-		return "true".equals(dm) || "1".equals(dm);
-	}
+//	/**
+//	 * 获取管理端根路径
+//	 */
+//	public static String getAdminPath() {
+//		return getConfig("adminPath");
+//	}
+//
+//	/**
+//	 * 获取前端根路径
+//	 */
+//	public static String getFrontPath() {
+//		return getConfig("frontPath");
+//	}
+//
+//	/**
+//	 * 获取URL后缀
+//	 */
+//	public static String getUrlSuffix() {
+//		return getConfig("urlSuffix");
+//	}
+//
+//	/**
+//	 * 是否是演示模式，演示模式下不能修改用户、角色、密码、菜单、授权
+//	 */
+//	public static Boolean isDemoMode() {
+//		String dm = getConfig("demoMode");
+//		return "true".equals(dm) || "1".equals(dm);
+//	}
 
 //	/**
 //	 * 在修改系统用户和角色时是否同步到Activiti
@@ -164,32 +164,32 @@ public class Global {
 	 * 
 	 * @return
 	 */
-	public static String getProjectPath() {
-		// 如果配置了工程路径，则直接返回，否则自动获取。
-		String projectPath = Global.getConfig("projectPath");
-		if (StringUtils.isNotBlank(projectPath)) {
-			return projectPath;
-		}
-		try {
-			File file = new DefaultResourceLoader().getResource("").getFile();
-			if (file != null) {
-				while (true) {
-					File f = new File(file.getPath() + File.separator + "src" + File.separator + "main");
-					if (f == null || f.exists()) {
-						break;
-					}
-					if (file.getParentFile() != null) {
-						file = file.getParentFile();
-					} else {
-						break;
-					}
-				}
-				projectPath = file.toString();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return projectPath;
-	}
+//	public static String getProjectPath() {
+//		// 如果配置了工程路径，则直接返回，否则自动获取。
+//		String projectPath = Global.getConfig("projectPath");
+//		if (StringUtils.isNotBlank(projectPath)) {
+//			return projectPath;
+//		}
+//		try {
+//			File file = new DefaultResourceLoader().getResource("").getFile();
+//			if (file != null) {
+//				while (true) {
+//					File f = new File(file.getPath() + File.separator + "src" + File.separator + "main");
+//					if (f == null || f.exists()) {
+//						break;
+//					}
+//					if (file.getParentFile() != null) {
+//						file = file.getParentFile();
+//					} else {
+//						break;
+//					}
+//				}
+//				projectPath = file.toString();
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return projectPath;
+//	}
 
 }

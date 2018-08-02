@@ -8,6 +8,7 @@ import com.mprs.aio.base.service.CrudService;
 import com.mprs.aio.system.mapper.SysMenuMapper;
 import com.mprs.aio.system.model.SysMenu;
 import com.mprs.aio.system.model.SysRole;
+import com.mprs.aio.system.model.SysUser;
 /**
  * 
  * @author Cary
@@ -26,5 +27,16 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 		SysRole sysRole=new SysRole();
 		sysRole.setId(id);
 		return mapper.loadPerByRole(sysRole);
+	}
+	
+	/**
+	 * 根据用户id获取所有权限
+	 * @param id
+	 * @return
+	 */
+	public List<SysMenu> loadPerByUser(String id) {
+		SysUser sysUser=new SysUser();
+		sysUser.setId(id);
+		return mapper.loadPerByUser(sysUser);
 	}
 }

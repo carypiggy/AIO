@@ -3,6 +3,8 @@
  */
 package com.mprs.aio.system.utils;
 
+import java.security.Principal;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.session.InvalidSessionException;
@@ -13,7 +15,6 @@ import com.mprs.aio.base.utils.SpringUtil;
 import com.mprs.aio.system.mapper.SysMenuMapper;
 import com.mprs.aio.system.mapper.SysRoleMapper;
 import com.mprs.aio.system.mapper.SysUserMapper;
-import com.mprs.aio.system.shiro.ShiroRealm.Principal;
 
 
 /**

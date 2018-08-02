@@ -223,16 +223,34 @@
     </where>
   </select>
   
-  <!-- 依照用户id查询所有角色 -->
-  <select id="loadRoleByUser"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+  <!-- 依照角色id查询所有权限菜单 -->
+  <select id="loadPerByRole"  parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from sys_role sr
-	 inner join sys_user_role sur
+    from sys_menu sm
+	 inner join sys_role_menu srm
 	 where
-	 sr.id = sur.role_id
-	 and sur.flag = #{FLAG_NORMAL}
-	 and sur.user_id = #{id,jdbcType=VARCHAR}
+	 sm.id = srm.menu_id
+	 and sm.flag = #{FLAG_NORMAL}
+	 and srm.role_id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 依照用户id查询所有角色 -->
+  <select id="loadPerByUser"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu sm
+		inner join sys_role_menu srm
+		inner join sys_role sr
+		inner join sys_user_role sur
+		inner join sys_user su
+	WHERE
+		sm.flag = #{FLAG_NORMAL}
+		and sm.id = srm.menu_id
+		and srm.role_id = sr.id
+		and sr.id = sur.role_id
+		and sur.user_id = su.id
+		and su.id = #{id,jdbcType=VARCHAR}
   </select>
  
 </mapper>

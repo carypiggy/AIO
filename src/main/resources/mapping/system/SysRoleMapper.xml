@@ -135,8 +135,8 @@
     </where>
   </select>
   
-  <!-- 依照角色id查询所有菜单权限 -->
-  <select id="loadRoleByUser"  parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap" >
+  <!-- 依照用户id查询所有角色列表 -->
+  <select id="loadRoleByUser"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_role sr

@@ -8,37 +8,62 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 @Configuration
 public class ShiroConfig {
-    @Bean
+  
+  /**
+     * ShiroFilterFactoryBean 处理拦截资源文件问题。
+     * 0、注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
+     *
+		Filter Chain定义说明
+       	1、一个URL可以配置多个Filter，使用逗号分隔
+       	2、当设置多个过滤器时，全部验证通过，才视为通过
+       	3、部分过滤器可指定参数，如perms，roles
+     *
+     */
+    @Bean("shiroFilter")
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    	//1.定义shiroFactoryBean
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        //2.设置securityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 拦截器。匹配原则是最上面的最优先匹配
-        Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
-        // 配置不会被拦截的链接
+        //3.LinkedHashMap是有序的，进行顺序拦截器配置
+        Map<String,String> filterChainDefinitionMap  = new LinkedHashMap<String,String>();
+        //4.配置logout过滤器，退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
+        filterChainDefinitionMap.put("/doLogout", "logout");
+        //5.所有url必须通过认证才可以访问
+        filterChainDefinitionMap.put("/**", "authc");
+        //6.设置默认通过的的url
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/doLogin", "anon");
         filterChainDefinitionMap.put("/doRegister", "anon");
         filterChainDefinitionMap.put("/register", "anon");
-
-        // 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/doLogout", "logout");
-
-        // 剩余请求需要身份认证
-        filterChainDefinitionMap.put("/**", "authc");
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        //7.设置成功之后要跳转的链接
         shiroFilterFactoryBean.setLoginUrl("/login");
-
-        // 未授权界面;
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        //8.设置未授权界面
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        //9.设置shiroFilterFactoryBean的FilterChainDefinitionMap
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
-
+    
+    /**
+     * 配置安全管理器 
+     * @param matcher
+     * @return
+     */
+    @Bean
+    public SecurityManager securityManager(){
+        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+        return securityManager;
+    }
+    
+    
     @Bean(name = "myShiroRealm")
     public ShiroRealm myShiroRealm(HashedCredentialsMatcher matcher){
         ShiroRealm myShiroRealm = new ShiroRealm();
@@ -46,13 +71,17 @@ public class ShiroConfig {
         return myShiroRealm;
     }
 
-
     @Bean
-    public SecurityManager securityManager(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher matcher){
-        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm(matcher));
-        return securityManager;
+    public FilterRegistrationBean<DelegatingFilterProxy> delegatingFilterProxy(){
+        FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean = new FilterRegistrationBean<DelegatingFilterProxy>();
+        DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+        proxy.setTargetFilterLifecycle(true);
+        proxy.setTargetBeanName("shiroFilter");
+        filterRegistrationBean.setFilter(proxy);
+        return filterRegistrationBean;
     }
+    
+    
 
     /**
       * 密码匹配凭证管理器

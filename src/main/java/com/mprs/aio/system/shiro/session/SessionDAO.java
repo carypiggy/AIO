@@ -1,4 +1,4 @@
-package com.mprs.aio.system.shiro;
+package com.mprs.aio.system.shiro.session;
 
 import java.util.Collection;
 
