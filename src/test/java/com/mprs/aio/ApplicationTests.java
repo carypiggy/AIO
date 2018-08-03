@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
- * 测试类
+ * .主测试类
  * 
  * @author Cary
  * @date 2018年7月22日

@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.mprs.aio.common.servlet;
+package com.mprs.aio.system.utils;
 
 import java.awt.Color;
 import java.awt.Font;

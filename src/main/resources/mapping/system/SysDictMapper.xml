@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mprs.aio.system.mapper.SysDictMapper">
+  
+  	<!--基础返回值定义-->
+	<resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysDict">
+	    <id column="id" jdbcType="VARCHAR" property="id" />
+	    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+	    <result column="label" jdbcType="VARCHAR" property="label" />
+	    <result column="value" jdbcType="VARCHAR" property="value" />
+	    <result column="sort" jdbcType="DECIMAL" property="sort" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	    <result column="flag" jdbcType="CHAR" property="flag" />
+  	</resultMap>
+  
+  	<!--基础字段定义-->
+  	<sql id="Base_Column_List">
+    	id, type_code, label, value, sort, remark, flag
+  	</sql>
+  	
+  	<!-- 查询条件定义 -->
+  	<sql id="query_where">
+  	  	<if test="entity!=null">
+  	  		<if test="entity.id != null and entity.id!='' ">
+        		and id=#{entity.id}
+      		</if>
+ 			<if test="entity.typeCode != null and entity.typeCode!='' ">
+        		and typeCode=#{entity.typeCode}
+      		</if>
+      		<if test="entity.label != null and entity.label!='' ">
+        		and label=#{entity.label}
+      		</if>
+      		<if test="entity.value != null and entity.value!='' ">
+        		and value=#{entity.value}
+      		</if>
+      		<if test="entity.sort != null and entity.sort!='' ">
+        		and sort=#{entity.sort}
+      		</if>
+      		and flag= #{entity.FLAG_NORMAL}
+		</if>
+  	</sql>
+  
+  	<!-- 根据id查询 -->
+  	<select id="get" parameterType="com.mprs.aio.system.model.SysDict" resultMap="BaseResultMap">
+   	    select 
+    		<include refid="Base_Column_List" />
+    	from sys_dict
+    	where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  	</select>
+  
+  	<!-- 根据typecode查询 -->
+  	<select id="getSysDictByTypecode" parameterType="com.mprs.aio.system.model.SysDict" resultMap="BaseResultMap">
+    	select 
+    		<include refid="Base_Column_List" />
+   	 	from sys_dict
+   		where type_code = #{typeCode,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
+	</select>
+ 	 
+ 	<!-- 分页查询 -->
+    <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysDict" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sys_dict 
+    	<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+  
+  	<!-- 依照条件查询所有对象 -->
+  	<select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysDict" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sys_dict 
+		<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+  
+	<!-- 删除对象 -->
+  	<update id="delete" parameterType="com.mprs.aio.system.model.SysDict">
+    	update sys_dict set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
+  	</update>
+  
+	<!-- 插入数据 -->
+  	<insert id="insert" parameterType="com.mprs.aio.system.model.SysDict">
+    	insert into sys_dict
+    	<trim prefix="(" suffix=")" suffixOverrides=",">
+      		<if test="id != null">
+        		id,
+      		</if>
+      		<if test="typeCode != null">
+        		type_code,
+      		</if>
+      		<if test="label != null">
+        		label,
+      		</if>
+      		<if test="value != null">
+        		value,
+      		</if>
+      		<if test="sort != null">
+        		sort,
+      		</if>
+      		<if test="remark != null">
+        		remark,
+      		</if>
+     		<if test="flag != null">
+        		flag,
+      		</if>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides=",">
+      		<if test="id != null">
+        		#{id,jdbcType=VARCHAR},
+      		</if>
+      		<if test="typeCode != null">
+       			#{typeCode,jdbcType=VARCHAR},
+     	 	</if>
+      		<if test="label != null">
+        		#{label,jdbcType=VARCHAR},
+      		</if>
+      		<if test="value != null">
+        		#{value,jdbcType=VARCHAR},
+      		</if>
+      		<if test="sort != null">
+        		#{sort,jdbcType=DECIMAL},
+      		</if>
+      		<if test="remark != null">
+        		#{remark,jdbcType=VARCHAR},
+      		</if>
+      		<if test="flag != null">
+        		#{flag,jdbcType=CHAR},
+      		</if>
+    	</trim>
+  	</insert>
+  	
+  	<!-- 更新数据 -->
+  	<update id="update" parameterType="com.mprs.aio.system.model.SysDict">
+    	update sys_dict
+    	<set>
+      		<if test="typeCode != null">
+        		type_code = #{typeCode,jdbcType=VARCHAR},
+      		</if>
+      		<if test="label != null">
+        		label = #{label,jdbcType=VARCHAR},
+      		</if>
+      		<if test="value != null">
+        		value = #{value,jdbcType=VARCHAR},
+      		</if>
+      		<if test="sort != null">
+        		sort = #{sort,jdbcType=DECIMAL},
+      		</if>
+      		<if test="remark != null">
+        		remark = #{remark,jdbcType=VARCHAR},
+      		</if>
+      		<if test="flag != null">
+        		flag = #{flag,jdbcType=CHAR},
+      		</if>
+    	</set>
+    	where id = #{id,jdbcType=VARCHAR}
+	</update>
+  
+</mapper>
