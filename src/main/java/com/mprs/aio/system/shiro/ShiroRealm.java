@@ -1,6 +1,5 @@
 package com.mprs.aio.system.shiro;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -91,8 +90,11 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+    	 // TODO Auto-generated method stub  
+         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");  
     	 SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-         SysUser sysUser = (SysUser) principalCollection.getPrimaryPrincipal();
+         String username = (String) principalCollection.getPrimaryPrincipal();
+         SysUser sysUser=sysUserService.getSysUserByUsername(username);
          //保存角色
          List<SysRole> roles = sysRoleService.loadRoleByUser(sysUser.getId());
          

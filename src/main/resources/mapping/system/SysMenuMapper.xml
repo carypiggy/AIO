@@ -21,8 +21,8 @@
   
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
-    id, parent_id, parent_ids, name, code, href, icon, type, permission, sort, target, 
-    is_show, remark, flag
+    sm.id, sm.parent_id, sm.parent_ids, sm.name, sm.code, sm.href, sm.icon, sm.type, sm.permission, sm.sort, sm.target, 
+    sm.is_show, sm.remark, sm.flag
   </sql>
   
   <!-- 查询条件定义 -->
@@ -54,7 +54,7 @@
   <select id="get" parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sys_menu
+    from sys_menu sm
     where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
   </select>
   
@@ -207,7 +207,7 @@
   <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from sys_menu 
+    from sys_menu sm
     <where>
 	  <include refid="query_where"></include>
     </where>
@@ -217,7 +217,7 @@
   <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from sys_menu 
+    from sys_menu sm
 	<where>
 	  <include refid="query_where"></include>
     </where>

@@ -24,13 +24,21 @@ public class MenuTest extends ApplicationTests {
 	/**
 	 * 根据角色id查询权限列表 - 通过
 	 */
-    @Test
+    //@Test
     public void  testLoadPerByRole() {
 		List<SysMenu> sysUserList=sysMenuService.loadPerByRole("1");
 		super.outprint("java.util.List", sysUserList);
 		   
     }
-    
+    /**
+	 * 根据用户id查询权限列表 - 通过
+	 */
+    @Test
+    public void  testLoadPerByUser() {
+		List<SysMenu> list=sysMenuService.loadPerByUser("0e207e95eb9d4f3985120ec7d5528013");
+		super.outprint("java.util.List", list);
+		   
+    }
     
 
 }
