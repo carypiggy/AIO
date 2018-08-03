@@ -1,6 +1,6 @@
 package com.mprs.aio.system.shiro;
 
-import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -15,8 +15,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,6 @@ import com.mprs.aio.system.model.SysUser;
 import com.mprs.aio.system.service.SysMenuService;
 import com.mprs.aio.system.service.SysRoleService;
 import com.mprs.aio.system.service.SysUserService;
-import com.mprs.aio.system.utils.UserUtils;
 
 /**
  * 系统安全认证实现类
@@ -73,13 +70,11 @@ public class ShiroRealm extends AuthorizingRealm {
             ByteSource salt = ByteSource.Util.bytes(sysUser.getSafecode());
             // 将账户名，密码，盐值，name实例化到SimpleAuthenticationInfo中交给Shiro来管理
             SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(sysUser.getUsername(), sysUser.getPassword(), salt,sysUser.getName());
- 
             return authenticationInfo;
         } else {
             throw new UnknownAccountException("用户名不存在！"); //未找到账号
         }
     }
-    
     /**
      * 此方法调用  hasRole,hasPermission的时候才会进行回调.
      *

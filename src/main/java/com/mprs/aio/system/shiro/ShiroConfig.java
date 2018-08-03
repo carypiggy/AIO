@@ -7,12 +7,15 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
-
+/**
+ * shiro 定义配置类
+ * @author Cary
+ * @date 2018年8月3日
+ */
 @Configuration
 public class ShiroConfig {
   
@@ -36,13 +39,12 @@ public class ShiroConfig {
         Map<String,String> filterChainDefinitionMap  = new LinkedHashMap<String,String>();
         //4.配置logout过滤器，退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/doLogout", "logout");
-        //5.所有url必须通过认证才可以访问
-        filterChainDefinitionMap.put("/**", "authc");
-        //6.设置默认通过的的url
+        //5.设置默认通过的的url
+        filterChainDefinitionMap.put("/captcha", "anon");
+        filterChainDefinitionMap.put("/static/js/**", "anon");
         filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/doLogin", "anon");
-        filterChainDefinitionMap.put("/doRegister", "anon");
-        filterChainDefinitionMap.put("/register", "anon");
+        //6.所有url必须通过认证才可以访问
+        filterChainDefinitionMap.put("/**", "authc");
         //7.设置成功之后要跳转的链接
         shiroFilterFactoryBean.setLoginUrl("/login");
         //8.设置未授权界面
@@ -60,14 +62,16 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+        //设置realm,这里不设置的话会报错
+        securityManager.setRealm(myShiroRealm());
         return securityManager;
     }
     
     
-    @Bean(name = "myShiroRealm")
-    public ShiroRealm myShiroRealm(HashedCredentialsMatcher matcher){
+    @Bean
+    public ShiroRealm myShiroRealm(){
         ShiroRealm myShiroRealm = new ShiroRealm();
-        myShiroRealm.setCredentialsMatcher(matcher);
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return myShiroRealm;
     }
 
@@ -88,7 +92,7 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean(name = "hashedCredentialsMatcher")
+    @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         // 采用MD5方式加密

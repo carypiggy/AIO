@@ -4,6 +4,7 @@ package com.mprs.aio.system;
 import java.util.List;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,7 +39,7 @@ public class UserTest extends ApplicationTests {
 	/**
 	 * 根据条件查询所有列表数据 - 通过
 	 */
-    @Test
+    //@Test
     public void  testloadAllListBy() {
     	SysUser su=new SysUser();
     	su.setType("0");
@@ -50,10 +51,10 @@ public class UserTest extends ApplicationTests {
 	/**
 	 * 新增- 通过
 	 */
-	//@Test
+	@Test
     public void testAddUsers(){
 		//条数
-		int num=30;
+		int num=13;
 		//循环新增
 		for(int i=0;i<=num;i++) {
 			SysUser su= new SysUser();
@@ -66,8 +67,9 @@ public class UserTest extends ApplicationTests {
 			su.setIdcard(String.valueOf(i));;
 			String safecode=IdGen.uuid();
 			su.setSafecode(safecode);
+			ByteSource salt = ByteSource.Util.bytes(safecode);
 			//加盐炒三次safecode=salt
-			String result = new Md5Hash("test"+i,safecode,3).toString();
+			String result = new Md5Hash("test"+i,salt,3).toString();
 			su.setPassword(result);
 			su.setPhoto("");
 			su.setRemark("nothing"+i);

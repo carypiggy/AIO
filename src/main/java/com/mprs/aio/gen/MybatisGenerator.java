@@ -1,4 +1,4 @@
-package com.mprs.aio;
+package com.mprs.aio.gen;
 
 import org.mybatis.generator.api.ShellRunner;
 

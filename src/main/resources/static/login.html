@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+	  $(function () {
+	      $("#kanbuq").click(function(){
+	          var imageHtml = '<img id="yzm" src="/captcha?rand=' + Math.random() + '"/>';
+	          $("#yzm").replaceWith(imageHtml);
+	      });
+	  })
+	</script>
 </head>
 <body>
 <form action="/login">
-    userName: <input type="text" name="username">
-    <br/>
-    password: <input type="password" name="password">
+    userName: <input type="text" name="username"><br/>
+    password: <input type="password" name="password"><br/>
+    authCode:<input type="text" name="authCode">
+    <img src="/captcha" id="yzm"> <a id="kanbuq" href="javascript:;">看不清，换一张</a>
     <br/>
     <button type="submit" value="login">login</button>
 </form>
+
+
+
 </body>
 </html>
