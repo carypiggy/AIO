@@ -1,4 +1,4 @@
-# ALL In One
+# ALL In One   呸呸呸
 
 1.当前最新的框架整合样例
 2.加入layui及其相关内容
