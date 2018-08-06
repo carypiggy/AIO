@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import com.mprs.aio.ApplicationTests;
 import com.mprs.aio.common.page.PageIo;
 import com.mprs.aio.system.model.SysDict;
@@ -126,6 +123,7 @@ public class DictTest extends ApplicationTests{
     	try{
     		SysDict sysDict = new SysDict();
     		PageIo<SysDict> p = sysDictService.loadByPage(1, 6, sysDict);
+
     		super.outprint("com.github.pagehelper.Page", p);
     	}catch(Exception e) {
     		e.printStackTrace();

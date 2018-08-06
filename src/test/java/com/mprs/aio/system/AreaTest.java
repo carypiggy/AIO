@@ -1,10 +1,11 @@
 package com.mprs.aio.system;
 
 import java.util.List;
-import com.github.pagehelper.Page;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.github.pagehelper.PageInfo;
 import com.mprs.aio.ApplicationTests;
 import com.mprs.aio.common.page.PageIo;
 import com.mprs.aio.common.utils.IdGen;
@@ -108,6 +109,7 @@ public class AreaTest extends ApplicationTests {
     		
     		SysArea area=  new SysArea();
     		PageIo<SysArea> p=sysAreaService.loadByPage(1, 10, area);
+
     		super.outprint("com.github.pagehelper.Page", p);
     	}catch(Exception e) {
     		e.printStackTrace();

@@ -1,12 +1,12 @@
 package com.mprs.aio.system.model;
 
-import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Lists;
 import com.mprs.aio.base.model.DataEntity;
 /**
- * 
+ * 用户实体类-JSR380校验
  * @author Cary
  * @Date  2018年7月31日
  */
@@ -16,12 +16,18 @@ public class SysUser extends DataEntity<SysUser> {
 
     private String orgId;
 
+    @NotNull(message="用户名不能为空")
+    @Size(min = 2, max = 64, message = "用户名长度必须大于 2 且小于 64 字")
     private String username;
 
+    @NotNull(message="密码不能为空")
     private String password;
 
+    @NotNull(message="安全码不能为空")
     private String safecode;
     
+    @NotNull(message="姓名不能为空")
+    @Size(min = 2, max = 64, message = "姓名长度必须大于 2 且小于 64 字")
     private String name;
 
     private String idcard;
@@ -30,11 +36,12 @@ public class SysUser extends DataEntity<SysUser> {
 
     private String mobile;
 
+    @Email(message="姓名不能为空")
     private String email;
-
+    
+    @NotNull(message="类型不能为空")
     private String type;
     
-    private List<SysRole> roleList = Lists.newArrayList(); // 拥有角色列表
 
     public String getOrgId() {
         return orgId;
@@ -115,23 +122,6 @@ public class SysUser extends DataEntity<SysUser> {
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
     }
-    
-    @JsonIgnore
-	public List<String> getRoleIdList() {
-		List<String> roleIdList = Lists.newArrayList();
-		for (SysRole role : roleList) {
-			roleIdList.add(role.getId());
-		}
-		return roleIdList;
-	}
 
-	public void setRoleIdList(List<String> roleIdList) {
-		roleList = Lists.newArrayList();
-		for (String roleId : roleIdList) {
-			SysRole role = new SysRole();
-			role.setId(roleId);
-			roleList.add(role);
-		}
-	}
     
 }

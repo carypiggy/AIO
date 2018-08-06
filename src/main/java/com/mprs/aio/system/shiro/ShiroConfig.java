@@ -126,4 +126,5 @@ public class ShiroConfig {
         hashedCredentialsMatcher.setHashIterations(3);
         return hashedCredentialsMatcher;
     }
+    
 }

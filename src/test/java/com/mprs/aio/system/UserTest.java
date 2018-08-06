@@ -126,6 +126,7 @@ public class UserTest extends ApplicationTests {
     		SysUser su=new SysUser();
     		PageIo<SysUser> p=sysUserService.loadByPage(1, 10, su);
     		super.outprint("com.mprs.aio.common.page.PageIo", p);
+
     	}catch(Exception e) {
     		e.printStackTrace();
     	}

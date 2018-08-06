@@ -2,6 +2,9 @@ package com.mprs.aio.base.model;
 
 import java.io.Serializable;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.mprs.aio.common.utils.StringUtils;
 
 /**
@@ -17,6 +20,8 @@ public abstract class BaseEntity<T> implements Serializable {
 	/**
 	 * 实体编号（唯一标识）
 	 */
+	@Id
+	@GeneratedValue
 	protected String id;	
 	/**
 	 * 删除标记（0：正常；1：删除；2：审核；）
