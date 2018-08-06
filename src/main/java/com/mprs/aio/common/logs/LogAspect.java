@@ -24,8 +24,8 @@ import com.mprs.aio.system.service.SysLogsService;
  * @author Cary
  * @date 2018年8月6日
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class LogAspect {
 	@Autowired
     private SysLogsService sysLogsService;

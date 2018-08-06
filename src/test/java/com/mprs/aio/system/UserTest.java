@@ -8,7 +8,7 @@ import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.mprs.aio.ApplicationTests;
 import com.mprs.aio.common.utils.IdGen;
 import com.mprs.aio.system.model.SysUser;
@@ -51,7 +51,7 @@ public class UserTest extends ApplicationTests {
 	/**
 	 * 新增- 通过
 	 */
-	@Test
+	//@Test
     public void testAddUsers(){
 		//条数
 		int num=13;
@@ -119,13 +119,13 @@ public class UserTest extends ApplicationTests {
     /**
      * 分页查询数据 -- 通过
      */
-    //@Test
+    @Test
     public void testloadUsers(){
     	
     	try{
     		SysUser su=new SysUser();
-    		Page<SysUser> p=sysUserService.findPage(1, 10, su);
-    		super.outprint("com.github.pagehelper.Page", p);
+    		PageInfo<SysUser> p=sysUserService.findPage(1, 10, su);
+    		super.outprint("com.github.pagehelper.PageInfo", p);
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
