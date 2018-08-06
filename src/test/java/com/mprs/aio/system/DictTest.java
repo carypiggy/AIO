@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.mprs.aio.ApplicationTests;
+import com.mprs.aio.common.page.PageIo;
 import com.mprs.aio.system.model.SysDict;
 import com.mprs.aio.system.service.SysDictService;
 /**
@@ -22,7 +24,7 @@ public class DictTest extends ApplicationTests{
 	/**
 	 * 新增--通过
 	 */
-	@Test
+//	@Test
     public void testAddDicts(){
 		//条数
 		int num = 10;
@@ -47,7 +49,7 @@ public class DictTest extends ApplicationTests{
 	 /**
 	  * 删除--通过
      */
-    @Test
+//    @Test
     public void testDelete() {
     	SysDict sysDict = new SysDict();
     	sysDict.setId("6fcac6beaabc46e1a8c3729d53827fc4");
@@ -58,7 +60,7 @@ public class DictTest extends ApplicationTests{
     /**
 	 * 根据id获取单条数据 - 通过
 	 */
-	@Test
+//	@Test
     public void testGet(){
 		SysDict sd = new SysDict();
 		sd.setId("77717f621e9c4ad694020d9ad86e3e2b");
@@ -71,7 +73,7 @@ public class DictTest extends ApplicationTests{
 	 /**
 	  * 根据typecode获取对象  --通过
      */
-    @Test
+//    @Test
     public void testGetDictByTypecode(){
     	
     	List<SysDict> sysDict = sysDictService.getSysDictByTypecode("A10");
@@ -82,7 +84,7 @@ public class DictTest extends ApplicationTests{
     /**
 	 * 根据条件查询所有列表数据 --通过
 	 */
-    @Test
+//    @Test
     public void  testloadAllListBy() {
     	SysDict sysDict = new SysDict();
     	sysDict.setSort((long)1);
@@ -96,7 +98,7 @@ public class DictTest extends ApplicationTests{
     /**
 	 * 更新-通过
 	 */
-	@Test
+//	@Test
     public void testUpdateDict(){
 		
 			SysDict sysDict = new SysDict();
@@ -123,7 +125,7 @@ public class DictTest extends ApplicationTests{
     	
     	try{
     		SysDict sysDict = new SysDict();
-    		Page<SysDict> p = sysDictService.findPage(1, 6, sysDict);
+    		PageIo<SysDict> p = sysDictService.loadByPage(1, 6, sysDict);
     		super.outprint("com.github.pagehelper.Page", p);
     	}catch(Exception e) {
     		e.printStackTrace();

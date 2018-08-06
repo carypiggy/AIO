@@ -25,7 +25,7 @@
         		and id=#{entity.id}
       		</if>
  			<if test="entity.typeCode != null and entity.typeCode!='' ">
-        		and typeCode=#{entity.typeCode}
+        		and type_code=#{entity.typeCode}
       		</if>
       		<if test="entity.label != null and entity.label!='' ">
         		and label=#{entity.label}
