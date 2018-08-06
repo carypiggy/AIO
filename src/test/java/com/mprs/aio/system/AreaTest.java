@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageInfo;
 import com.mprs.aio.ApplicationTests;
+import com.mprs.aio.common.page.PageIo;
 import com.mprs.aio.common.utils.IdGen;
 import com.mprs.aio.system.model.SysArea;
 import com.mprs.aio.system.service.SysAreaService;
@@ -101,13 +102,14 @@ public class AreaTest extends ApplicationTests {
     /**
      * .分页查询数据  -- 通过
      */
-    //@Test
+    @Test
     public void testloadUsers(){
     	
     	try{
     		
     		SysArea area=  new SysArea();
-    		PageInfo<SysArea> p=sysAreaService.findPage(1, 10, area);
+    		PageIo<SysArea> p=sysAreaService.loadByPage(1, 10, area);
+
     		super.outprint("com.github.pagehelper.Page", p);
     	}catch(Exception e) {
     		e.printStackTrace();

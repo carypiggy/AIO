@@ -8,8 +8,8 @@ import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.github.pagehelper.PageInfo;
 import com.mprs.aio.ApplicationTests;
+import com.mprs.aio.common.page.PageIo;
 import com.mprs.aio.common.utils.IdGen;
 import com.mprs.aio.system.model.SysUser;
 import com.mprs.aio.system.service.SysUserService;
@@ -124,8 +124,9 @@ public class UserTest extends ApplicationTests {
     	
     	try{
     		SysUser su=new SysUser();
-    		PageInfo<SysUser> p=sysUserService.findPage(1, 10, su);
-    		super.outprint("com.github.pagehelper.PageInfo", p);
+    		PageIo<SysUser> p=sysUserService.loadByPage(1, 10, su);
+    		super.outprint("com.mprs.aio.common.page.PageIo", p);
+
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
