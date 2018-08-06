@@ -24,13 +24,13 @@ import com.mprs.aio.system.service.SysLogsService;
  * @author Cary
  * @date 2018年8月6日
  */
-//@Aspect
-//@Component
+@Aspect
+@Component
 public class LogAspect {
 	@Autowired
     private SysLogsService sysLogsService;
     
-    @Pointcut("@annotation(com.springboot.annotation.Log)")
+    @Pointcut("@annotation(com.mprs.aio.common.logs.Logs)")
     public void pointcut() { }
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) {
