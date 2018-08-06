@@ -16,6 +16,7 @@ public class ExceptionResult<T> implements Serializable {
 	public static final Integer SYS_ERROR = 500;
 	
 	
+	
 	//请求状态
     private int code;
     //信息

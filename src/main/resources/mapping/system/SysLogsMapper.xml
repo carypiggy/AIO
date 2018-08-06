@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mprs.aio.system.mapper.SysLogsMapper">
+  <!-- 基础返回值定义 -->
+  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysLogs">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remote_addr" jdbcType="VARCHAR" property="remoteAddr" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="request_uri" jdbcType="VARCHAR" property="requestUri" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+  	<result column="params" jdbcType="LONGVARCHAR" property="params" />
+    <result column="exc_content" jdbcType="LONGVARCHAR" property="excContent" />  
+  </resultMap>
+  
+  <!-- 基础字段定义 -->
+  <sql id="Base_Column_List">
+    id, type, create_by, create_date, remote_addr, user_agent, request_uri, method,params, exc_content
+  </sql>
+  
+  <!-- 根据id查询对象-->
+  <select id="get" parameterType="com.mprs.aio.system.model.SysLogs" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_logs
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 插入对象 -->
+  <insert id="insert" parameterType="com.mprs.aio.system.model.SysLogs">
+    insert into sys_logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remoteAddr != null">
+        remote_addr,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+      <if test="requestUri != null">
+        request_uri,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="excContent != null">
+        exc_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remoteAddr != null">
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null">
+        #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="excContent != null">
+        #{excContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新对象 -->
+  <update id="update" parameterType="com.mprs.aio.system.model.SysLogs">
+    update sys_logs
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remoteAddr != null">
+        remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null">
+        request_uri = #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="excContent != null">
+        exc_content = #{excContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除对象 -->
+  <update id="delete" parameterType="com.mprs.aio.system.model.SysLogs">
+    update sys_logs set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
