@@ -1,0 +1,10 @@
+{
+	"legendData":["北京","上海","广州","深圳","西安"],
+	"seriesData":[
+			                { "value": 6335, "name": "北京" },
+			                { "value": 4310, "name": "上海" },
+			                { "value": 2310, "name": "广州" },
+			                { "value": 3310, "name": "深圳" },
+			                { "value": 9310, "name": "西安" }
+			            ]
+}

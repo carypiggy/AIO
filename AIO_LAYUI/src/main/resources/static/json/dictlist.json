@@ -1,0 +1,207 @@
+
+{
+	"code": 0,
+	"msg": "",
+	"count": 15,
+	"list": [{
+		"id": "980614919739478017",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_area_type",
+		"dictName": "区域类型"
+	}, {
+		"id": "980614919672369152",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_device_type",
+		"dictName": "客户端设备类型"
+	}, {
+		"id": "980614919936610306",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_job_event",
+		"dictName": "作业任务事件"
+	}, {
+		"id": "980614919869501443",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_job_group",
+		"dictName": "作业分组"
+	}, {
+		"id": "980614919869501444",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_job_misfire_instruction",
+		"dictName": "作业错过策略"
+	}, {
+		"id": "980614919936610304",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_job_status",
+		"dictName": "作业状态"
+	}, {
+		"id": "980614919936610305",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_job_type",
+		"dictName": "作业任务类型"
+	}, {
+		"id": "980614919609454594",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_lang_type",
+		"dictName": "国际化语言类型"
+	}, {
+		"id": "980614919869501442",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_log_type",
+		"dictName": "日志类型"
+	}, {
+		"id": "980614919672369153",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_menu_sys_code",
+		"dictName": "菜单归属系统"
+	}, {
+		"id": "980614919672369154",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_menu_type",
+		"dictName": "菜单类型"
+	}, {
+		"id": "980614919739478016",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_menu_weight",
+		"dictName": "菜单权重"
+	}, {
+		"id": "980614919936610308",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_msg_push_status",
+		"dictName": "推送状态"
+	}, {
+		"id": "980614919999524864",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_msg_read_status",
+		"dictName": "读取状态"
+	}, {
+		"id": "980614919936610307",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_msg_type",
+		"dictName": "消息类型"
+	}, {
+		"id": "980614919739478018",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_office_type",
+		"dictName": "机构类型"
+	}, {
+		"id": "980614919869501441",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_post_type",
+		"dictName": "岗位分类"
+	}, {
+		"id": "980614919869501440",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_role_data_scope",
+		"dictName": "角色数据范围"
+	}, {
+		"id": "980614919806586882",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_role_type",
+		"dictName": "角色分类"
+	}, {
+		"id": "980614919739478019",
+		"updateDate": "2018-04-02 09:16",
+		"updateBy": "system",
+		"createBy": "system",
+		"status": "0",
+		"createDate": "2018-04-02 09:16",
+		"isSys": "1",
+		"dictType": "sys_search_status",
+		"dictName": "查询状态"
+	}]
+}
