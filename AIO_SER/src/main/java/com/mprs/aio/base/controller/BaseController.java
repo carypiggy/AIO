@@ -46,6 +46,9 @@ public class BaseController {
 	@Autowired
 	protected Validator validator;
 
+	/**返回成功**/
+	public static final String SUCCESS = "success";
+	
 	/**
 	 * 服务端参数有效性验证
 	 * @param object 验证的实体对象
