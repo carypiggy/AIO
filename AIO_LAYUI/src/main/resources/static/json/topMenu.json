@@ -1,0 +1,26 @@
+[
+	{
+		"name": "校友",
+		"id": "schoolfellow"
+	},
+	{
+		"name": "信息",
+		"id": "info"
+	},
+	{
+		"name": "活动",
+		"id": "activity"
+	},
+	{
+		"name": "消息",
+		"id": "news"
+	},
+	{
+		"name": "统计",
+		"id": "statistics"
+	},
+	{
+		"name": "系统",
+		"id": "system"
+	}
+]

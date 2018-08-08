@@ -1,0 +1,17 @@
+[
+        {"id":"1", "parentId":"0", "name":"长安大学校友会","open":true},
+        {"id":"11", "parentId":"1", "name":"信息工程学院校友会","open":true},
+        {"id":"12", "parentId":"1", "name":"建筑学院校友会","open":true},
+        {"id":"13", "parentId":"1", "name":"汽车学院校友会"},
+        {"id":"111", "parentId":"11", "name":"计科系校友会","click":true},
+        {"id":"112", "parentId":"11", "name":"网络工程系校友会"},
+        {"id":"113", "parentId":"11", "name":"软件工程系校友会"},
+		{"id":"121", "parentId":"12", "name":"建筑学系校友会"},
+        {"id":"122", "parentId":"12", "name":"城市规划系校友会"},
+        {"id":"131", "parentId":"12", "name":"交通运输系校友会"},
+        {"id":"132", "parentId":"13", "name":"车辆工程系校友会"},
+        {"id":"133", "parentId":"13", "name":"交通安全系校友会"},
+        {"id":"134", "parentId":"13", "name":"物流工程系校友会"},
+        {"id":"135", "parentId":"13", "name":"服务工程系校友会"}
+
+    ]
