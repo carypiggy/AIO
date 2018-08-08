@@ -5,9 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.mprs.aio.base.controller.BaseController;
@@ -28,8 +32,7 @@ public class SysDictController extends BaseController {
 	
 	@Autowired
 	private SysDictService sysDictService;
-	
-	
+		
 	/**
 	 * 获取字典列表
 	* <p>Title: list</p>  
@@ -40,7 +43,7 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@ResponseBody
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@GetMapping(value = "/list")
 	public PageInfo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
 		PageIo<SysDict> pageInfo =  sysDictService.loadByPage(pageNo,pageSize,sysDict);							
 		return pageInfo;
@@ -57,10 +60,10 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@ResponseBody
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String save(SysDict sysDict) {
+	@GetMapping(value = "/save")
+	public String save(@Validated SysDict sysDict){
 		sysDictService.save(sysDict);							
-		return "success";
+		return SUCCESS;
 	}	
 	
 	/**
@@ -72,10 +75,10 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@ResponseBody
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@GetMapping(value = "/delete")
 	public String delete(SysDict sysDict) {
 		sysDictService.delete(sysDict);
-		return "success";
+		return SUCCESS;
 	}
 		
 }

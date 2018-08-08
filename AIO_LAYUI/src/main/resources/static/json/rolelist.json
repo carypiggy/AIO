@@ -1,0 +1,76 @@
+
+{
+	"code": 200,
+	"msg": "",
+	"count": 15,
+	"list": [
+        {
+            "id": "dept",
+            "updateDate": "2018-04-02 09:16",
+            "updateBy": "system",
+            "createBy": "system",
+            "status": "1",
+            "createDate": "2018-04-02 09:16",
+            "remarks": "部门经理",
+            "roleMenuList": [],
+            "roleName": "部门经理",
+            "roleCode": "dept",
+            "userType": "employee",
+            "roleSort": 40,
+            "userRoleList": [],
+            "isSys": "0",
+            "dataScope": "0"
+        },
+        {
+            "id": "user",
+            "updateDate": "2018-04-02 09:16",
+            "updateBy": "system",
+            "createBy": "system",
+            "status": "0",
+            "createDate": "2018-04-02 09:16",
+            "remarks": "普通员工",
+            "roleMenuList": [],
+            "roleName": "普通员工",
+            "roleCode": "user",
+            "userType": "employee",
+            "roleSort": 50,
+            "userRoleList": [],
+            "isSys": "0",
+            "dataScope": "0"
+        },
+        {
+            "id": "default",
+            "updateDate": "2018-04-02 09:16",
+            "updateBy": "system",
+            "createBy": "system",
+            "status": "0",
+            "createDate": "2018-04-02 09:16",
+            "remarks": "非管理员用户，共有的默认角色，在参数配置里指定",
+            "roleMenuList": [],
+            "roleName": "默认角色",
+            "roleCode": "default",
+            "userType": "none",
+            "roleSort": 100,
+            "userRoleList": [],
+            "isSys": "1",
+            "dataScope": "0"
+        },
+        {
+            "id": "corpAdmin",
+            "updateDate": "2018-04-02 09:16",
+            "updateBy": "system",
+            "createBy": "system",
+            "status": "0",
+            "createDate": "2018-04-02 09:16",
+            "remarks": "客户方使用的管理员角色，客户方管理员，集团管理员",
+            "roleMenuList": [],
+            "roleName": "系统管理员",
+            "roleCode": "corpAdmin",
+            "userType": "none",
+            "roleSort": 200,
+            "userRoleList": [],
+            "isSys": "1",
+            "dataScope": "0"
+        }
+    ]
+}
