@@ -48,7 +48,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/static/js/**", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         //6.所有url必须通过认证才可以访问
-        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
         //7.设置成功之后要跳转的链接
         shiroFilterFactoryBean.setLoginUrl("/login");
         //8.设置未授权界面

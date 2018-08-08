@@ -27,9 +27,6 @@
 	<classpathentry kind="var" path="M2_REPO/org/yaml/snakeyaml/1.19/snakeyaml-1.19.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-json/2.0.3.RELEASE/spring-boot-starter-json-2.0.3.RELEASE.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-web/5.0.7.RELEASE/spring-web-5.0.7.RELEASE.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.9.6/jackson-databind-2.9.6.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.9.6/jackson-core-2.9.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.9.6/jackson-datatype-jdk8-2.9.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.9.6/jackson-datatype-jsr310-2.9.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/module/jackson-module-parameter-names/2.9.6/jackson-module-parameter-names-2.9.6.jar"/>
@@ -70,6 +67,7 @@
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
