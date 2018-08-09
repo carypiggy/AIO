@@ -55,7 +55,6 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
         PageHelper.startPage(pageNo, pageSize);
         Page<T> pageList=mapper.loadByPage(entity);
         PageIo<T> pageInfo = new PageIo<>(pageList);
-
 		return pageInfo;
 	}
 	

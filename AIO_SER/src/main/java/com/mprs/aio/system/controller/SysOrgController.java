@@ -9,97 +9,86 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.mprs.aio.base.controller.BaseController;
-import com.mprs.aio.common.logs.Logs;
 import com.mprs.aio.common.page.PageIo;
-import com.mprs.aio.system.model.SysDict;
-import com.mprs.aio.system.service.SysDictService;
+import com.mprs.aio.system.model.SysOrg;
+import com.mprs.aio.system.service.SysOrgService;
 
-/**
- * 
-* <p>Title: SysDictController</p>  
-* <p>Description: </p>  
-* @author syp  
-* @date 2018年8月6日
+ /**   
+ *  
+ * @Description:  机构——Controller
+ * @Author:       SYP
+ * @project 	  AIO 
+ * @CreateDate:   Wed Aug 08 17:21:42 CST 2018
+ * @Version:      v_1.0
+ *    
  */
 @Controller
-@RequestMapping("/sys/sysdict")
-public class SysDictController extends BaseController {
+@RequestMapping("/sys/sysOrg")
+public class SysOrgController extends BaseController {
 	
 	@Autowired
-	private SysDictService sysDictService;
+	private SysOrgService sysOrgService;
 		
 	/**
-	 * 获取字典列表
+	 * 获取机构列表
 	* <p>Title: list</p>  
 	* <p>Description: </p>  
 	* @param pageNo
-	* @param pageSize 
-	* @param sysDict
+	* @param pageSize
+	* @param sysOrg
 	* @return
 	 */
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(value = "/list")
-	public PageInfo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
-		PageIo<SysDict> pageInfo =  sysDictService.loadByPage(pageNo,pageSize,sysDict);							
+	public PageInfo<SysOrg> list(int pageNo,int pageSize,SysOrg sysOrg) {
+		PageIo<SysOrg> pageInfo =  sysOrgService.loadByPage(pageNo,pageSize,sysOrg);							
 		return pageInfo;
 	}
 	
 	
 	/**
-	 * 增加或者更新字典
+	 * 增加或者更新机构
 	* <p>Title: add</p>  
 	* <p>Description: </p>  
-	* @param sysDict
+	* @param sysOrg
 	* @return
 	 */
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(value = "/save")
-	public String save(@Validated SysDict sysDict){
-		sysDictService.save(sysDict);							
+	public String save(@Validated SysOrg sysOrg){
+		sysOrgService.save(sysOrg);							
 		return SUCCESS;
 	}	
 	
 	/**
-	 * 删除字典（逻辑删除）
+	 * 删除机构（逻辑删除）
 	* <p>Title: delete</p>  
 	* <p>Description: </p>  
-	* @param sysDict
+	* @param sysOrg
 	* @return
 	 */
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(value = "/delete")
-	public String delete(SysDict sysDict) {
-		sysDictService.delete(sysDict);
+	public String delete(SysOrg sysOrg) {
+		sysOrgService.delete(sysOrg);
 		return SUCCESS;
 	}
 	
 	/**
-	 * 根据id获取字典
+	 * 获取机构
 	* <p>Title: get</p>  
 	* <p>Description: </p>  
-	* @param id
+	* @param sysOrg
 	* @return
 	 */
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(value = "/get")
-	public SysDict get(SysDict sysDict) {
-		return sysDictService.get(sysDict);		
+	public SysOrg get(SysOrg sysOrg) {
+		return sysOrgService.get(sysOrg);
 	}
 		
 }
-
-
-
-
-
-
-
-
-
-
-
-

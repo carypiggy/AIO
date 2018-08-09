@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mprs.aio.system.mapper.SysOrgMapper">
+
+  	<!-- 基础返回值定义 -->
+	<resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysOrg">
+			<result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+			<result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+			<result column="name" jdbcType="VARCHAR" property="name" />
+			<result column="code" jdbcType="VARCHAR" property="code" />
+			<result column="type" jdbcType="CHAR" property="type" />
+			<result column="url" jdbcType="VARCHAR" property="url" />
+			<result column="icon" jdbcType="VARCHAR" property="icon" />
+			<result column="grade" jdbcType="CHAR" property="grade" />
+			<result column="sort" jdbcType="DECIMAL" property="sort" />
+			<result column="master" jdbcType="VARCHAR" property="master" />
+			<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+			<result column="useable" jdbcType="CHAR" property="useable" />
+	</resultMap>
+	
+    <!-- 基础字段定义 -->
+	<sql id="Base_Column_List">
+    	parent_id, parent_ids, name, code, type, url, icon, grade, sort, master, mobile, useable
+	</sql>
+
+	<!-- 查询条件定义 -->
+	<sql id="query_where">
+		<if test="entity!=null">
+			<if test="entity.parentId != null and entity.parentId!='' ">
+        		and parent_id=#{entity.parentId}
+      		</if>	      	
+			<if test="entity.parentIds != null and entity.parentIds!='' ">
+        		and parent_ids=#{entity.parentIds}
+      		</if>	      	
+	       	<if test="entity.name!=null and entity.name!='' ">
+	           	and name LIKE %#{entity.name}%
+	       	</if>		
+			<if test="entity.code != null and entity.code!='' ">
+        		and code=#{entity.code}
+      		</if>	      	
+			<if test="entity.type != null and entity.type!='' ">
+        		and type=#{entity.type}
+      		</if>	      	
+			<if test="entity.url != null and entity.url!='' ">
+        		and url=#{entity.url}
+      		</if>	      	
+			<if test="entity.icon != null and entity.icon!='' ">
+        		and icon=#{entity.icon}
+      		</if>	      	
+			<if test="entity.grade != null and entity.grade!='' ">
+        		and grade=#{entity.grade}
+      		</if>	      	
+			<if test="entity.sort != null and entity.sort!='' ">
+        		and sort=#{entity.sort}
+      		</if>	      	
+			<if test="entity.master != null and entity.master!='' ">
+        		and master=#{entity.master}
+      		</if>	      	
+			<if test="entity.mobile != null and entity.mobile!='' ">
+        		and mobile=#{entity.mobile}
+      		</if>	      	
+			<if test="entity.useable != null and entity.useable!='' ">
+        		and useable=#{entity.useable}
+      		</if>	      	
+		</if>
+	</sql>
+	
+  	<!-- 根据id查询 -->
+  	<select id="get" parameterType="com.mprs.aio.system.model.SysOrg" resultMap="BaseResultMap">
+   	    select 
+    		<include refid="Base_Column_List" />
+    	from sys_org
+    	where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  	</select>
+ 
+ 	<!-- 分页查询 -->
+    <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysOrg" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sys_org 
+    	<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+  	<!-- 依照条件查询所有对象 -->
+  	<select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysOrg" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sys_org 
+		<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+	<!-- 删除对象 -->
+  	<update id="delete" parameterType="com.mprs.aio.system.model.SysOrg">
+    	update sys_org set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<!-- 插入数据 -->
+  	<insert id="insert" parameterType="com.mprs.aio.system.model.SysDict">
+		insert into sys_org
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+	   		<if test="parentId != null">
+	    		parent_id,
+	  		</if>   			
+	   		<if test="parentIds != null">
+	    		parent_ids,
+	  		</if>   			
+	   		<if test="name != null">
+	    		name,
+	  		</if>   			
+	   		<if test="code != null">
+	    		code,
+	  		</if>   			
+	   		<if test="type != null">
+	    		type,
+	  		</if>   			
+	   		<if test="url != null">
+	    		url,
+	  		</if>   			
+	   		<if test="icon != null">
+	    		icon,
+	  		</if>   			
+	   		<if test="grade != null">
+	    		grade,
+	  		</if>   			
+	   		<if test="sort != null">
+	    		sort,
+	  		</if>   			
+	   		<if test="master != null">
+	    		master,
+	  		</if>   			
+	   		<if test="mobile != null">
+	    		mobile,
+	  		</if>   			
+	   		<if test="useable != null">
+	    		useable,
+	  		</if>   			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+	   		<if test="parentId != null">
+	   			#{parentId,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="parentIds != null">
+	   			#{parentIds,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="name != null">
+	   			#{name,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="code != null">
+	   			#{code,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="type != null">
+	   			#{type,jdbcType=CHAR},
+	  		</if>   			
+	   		<if test="url != null">
+	   			#{url,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="icon != null">
+	   			#{icon,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="grade != null">
+	   			#{grade,jdbcType=CHAR},
+	  		</if>   			
+	   		<if test="sort != null">
+	   			#{sort,jdbcType=DECIMAL},
+	  		</if>   			
+	   		<if test="master != null">
+	   			#{master,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="mobile != null">
+	   			#{mobile,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="useable != null">
+	   			#{useable,jdbcType=CHAR},
+	  		</if>   			
+		</trim>
+  	</insert>
+
+  	<!-- 更新数据 -->
+  	<update id="update" parameterType="com.mprs.aio.system.model.SysOrg">
+    	update sys_org
+    	<set>
+			<if test="parentId != null">
+	   			parent_id = #{parentId,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="parentIds != null">
+	   			parent_ids = #{parentIds,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="name != null">
+	   			name = #{name,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="code != null">
+	   			code = #{code,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="type != null">
+	   			type = #{type,jdbcType=CHAR},
+	  		</if>  
+			<if test="url != null">
+	   			url = #{url,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="icon != null">
+	   			icon = #{icon,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="grade != null">
+	   			grade = #{grade,jdbcType=CHAR},
+	  		</if>  
+			<if test="sort != null">
+	   			sort = #{sort,jdbcType=DECIMAL},
+	  		</if>  
+			<if test="master != null">
+	   			master = #{master,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="mobile != null">
+	   			mobile = #{mobile,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="useable != null">
+	   			useable = #{useable,jdbcType=CHAR},
+	  		</if>  
+    	</set>
+    	where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

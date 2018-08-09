@@ -3,7 +3,6 @@ package com.mprs.aio.system.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import com.mprs.aio.base.service.CrudService;
 import com.mprs.aio.system.mapper.SysDictMapper;
 import com.mprs.aio.system.model.SysDict;
