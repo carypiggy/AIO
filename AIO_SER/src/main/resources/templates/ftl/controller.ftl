@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
-import com.mprs.aio.base.controller.BaseController;
-import com.mprs.aio.common.page.PageIo;
+import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.page.PageIo;
 import ${entityUrl}.${genTableInfo.entityName};
 import ${serviceUrl}.${genTableInfo.entityName}Service;
 

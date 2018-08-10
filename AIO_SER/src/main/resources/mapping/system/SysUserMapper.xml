@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mprs.aio.system.mapper.SysUserMapper">
+<mapper namespace="com.mpri.aio.system.mapper.SysUserMapper">
   
   <!-- 基础返回值定义 -->
-  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysUser">
+  <resultMap id="BaseResultMap" type="com.mpri.aio.system.model.SysUser">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="org_id" jdbcType="VARCHAR" property="orgId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -61,7 +61,7 @@
  
  
   <!-- 根据username查询对象 -->
-  <select id="getSysUserByUsername" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap">
+  <select id="getSysUserByUsername" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
@@ -69,7 +69,7 @@
   </select>
  
   <!-- 根据id查询对象-->
-  <select id="get" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap">
+  <select id="get" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
@@ -77,7 +77,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insert" parameterType="com.mprs.aio.system.model.SysUser">
+  <insert id="insert" parameterType="com.mpri.aio.system.model.SysUser">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -164,7 +164,7 @@
   </insert>
   
   <!-- 更新对象 -->
-  <update id="update" parameterType="com.mprs.aio.system.model.SysUser">
+  <update id="update" parameterType="com.mpri.aio.system.model.SysUser">
     update sys_user
     <set>
       <if test="orgId != null">
@@ -208,12 +208,12 @@
   </update>
   
   <!-- 删除对象 -->
-  <update id="delete" parameterType="com.mprs.aio.system.model.SysUser">
+  <update id="delete" parameterType="com.mpri.aio.system.model.SysUser">
     update sys_user set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
   </update>
   
   <!-- 分页查询对象 -->
-  <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+  <select id="loadByPage" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_user 
@@ -223,7 +223,7 @@
   </select>
   
   <!-- 依照条件查询所有对象 -->
-  <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+  <select id="loadAllListBy"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_user 

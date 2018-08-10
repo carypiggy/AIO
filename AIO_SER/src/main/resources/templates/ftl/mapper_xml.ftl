@@ -73,7 +73,7 @@
   	</update>
   	
   	<!-- 插入数据 -->
-  	<insert id="insert" parameterType="com.mprs.aio.system.model.SysDict">
+  	<insert id="insert" parameterType="com.mpri.aio.system.model.SysDict">
 		insert into ${genTableInfo.table}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list genTableInfo.columuInfos as ci>

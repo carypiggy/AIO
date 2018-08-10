@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mprs.aio.system.mapper.SysMenuMapper">
-  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysMenu">
+<mapper namespace="com.mpri.aio.system.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.mpri.aio.system.model.SysMenu">
 	<!-- 基础返回值定义 -->
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
@@ -51,7 +51,7 @@
   </sql>
   
   <!-- 根据id查询对象-->
-  <select id="get" parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap">
+  <select id="get" parameterType="com.mpri.aio.system.model.SysMenu" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_menu sm
@@ -59,7 +59,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insertSelective" parameterType="com.mprs.aio.system.model.SysMenu">
+  <insert id="insertSelective" parameterType="com.mpri.aio.system.model.SysMenu">
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -152,7 +152,7 @@
   </insert>
   
   <!-- 更新对象 -->
-  <update id="update" parameterType="com.mprs.aio.system.model.SysMenu">
+  <update id="update" parameterType="com.mpri.aio.system.model.SysMenu">
     update sys_menu
     <set>
       <if test="parentId != null">
@@ -199,12 +199,12 @@
   </update>
 
   <!-- 删除对象 -->
-  <update id="delete" parameterType="com.mprs.aio.system.model.SysMenu">
+  <update id="delete" parameterType="com.mpri.aio.system.model.SysMenu">
     update sys_menu set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
   </update>
   
   <!-- 分页查询对象 -->
-  <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap" >
+  <select id="loadByPage" parameterType="com.mpri.aio.system.model.SysMenu" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_menu sm
@@ -214,7 +214,7 @@
   </select>
   
   <!-- 依照条件查询所有对象 -->
-  <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysMenu" resultMap="BaseResultMap" >
+  <select id="loadAllListBy"  parameterType="com.mpri.aio.system.model.SysMenu" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_menu sm
@@ -224,7 +224,7 @@
   </select>
   
   <!-- 依照角色id查询所有权限菜单 -->
-  <select id="loadPerByRole"  parameterType="com.mprs.aio.system.model.SysRole" resultMap="BaseResultMap" >
+  <select id="loadPerByRole"  parameterType="com.mpri.aio.system.model.SysRole" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_menu sm
@@ -236,7 +236,7 @@
   </select>
   
   <!-- 依照用户id查询所有角色 -->
-  <select id="loadPerByUser"  parameterType="com.mprs.aio.system.model.SysUser" resultMap="BaseResultMap" >
+  <select id="loadPerByUser"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_menu sm

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mprs.aio.system.mapper.SysOrgMapper">
+<mapper namespace="com.mpri.aio.system.mapper.SysOrgMapper">
 
   	<!-- 基础返回值定义 -->
-	<resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysOrg">
+	<resultMap id="BaseResultMap" type="com.mpri.aio.system.model.SysOrg">
 			<id column="id" jdbcType="VARCHAR" property="id" />
 			<result column="parent_id" jdbcType="VARCHAR" property="parentId" />
 			<result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
@@ -78,7 +78,7 @@
 	</sql>
 	
   	<!-- 根据id查询 -->
-  	<select id="get" parameterType="com.mprs.aio.system.model.SysOrg" resultMap="BaseResultMap">
+  	<select id="get" parameterType="com.mpri.aio.system.model.SysOrg" resultMap="BaseResultMap">
    	    select 
     		<include refid="Base_Column_List" />
     	from sys_org
@@ -86,7 +86,7 @@
   	</select>
  
  	<!-- 分页查询 -->
-    <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysOrg" resultMap="BaseResultMap" >
+    <select id="loadByPage" parameterType="com.mpri.aio.system.model.SysOrg" resultMap="BaseResultMap" >
     	select
     		<include refid="Base_Column_List" />
     	from sys_org 
@@ -96,7 +96,7 @@
   	</select>
 
   	<!-- 依照条件查询所有对象 -->
-  	<select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysOrg" resultMap="BaseResultMap" >
+  	<select id="loadAllListBy"  parameterType="com.mpri.aio.system.model.SysOrg" resultMap="BaseResultMap" >
     	select
     		<include refid="Base_Column_List" />
     	from sys_org 
@@ -106,12 +106,12 @@
   	</select>
 
 	<!-- 删除对象 -->
-  	<update id="delete" parameterType="com.mprs.aio.system.model.SysOrg">
+  	<update id="delete" parameterType="com.mpri.aio.system.model.SysOrg">
     	update sys_org set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
   	</update>
   	
   	<!-- 插入数据 -->
-  	<insert id="insert" parameterType="com.mprs.aio.system.model.SysDict">
+  	<insert id="insert" parameterType="com.mpri.aio.system.model.SysDict">
 		insert into sys_org
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 	   		<if test="id != null">
@@ -210,7 +210,7 @@
   	</insert>
 
   	<!-- 更新数据 -->
-  	<update id="update" parameterType="com.mprs.aio.system.model.SysOrg">
+  	<update id="update" parameterType="com.mpri.aio.system.model.SysOrg">
     	update sys_org
     	<set>
 			<if test="parentId != null">
