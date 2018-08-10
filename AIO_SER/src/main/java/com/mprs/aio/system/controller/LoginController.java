@@ -9,6 +9,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.mprs.aio.base.controller.BaseController;
 import com.mprs.aio.system.shiro.ShiroToken;
@@ -19,7 +20,7 @@ import com.mprs.aio.system.shiro.ShiroToken;
  * @Date  2018年7月27日
  */
 
-@Controller
+@RestController
 public class LoginController extends BaseController {
 	
 	/**

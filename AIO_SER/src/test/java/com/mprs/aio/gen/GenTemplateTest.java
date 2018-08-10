@@ -39,7 +39,7 @@ public class GenTemplateTest extends ApplicationTests {
 	public static final String TABLE = "sys_org";    //表名
 	public static final String CLASSCOMMENT ="机构"; //模块名称
 	public static final String JAVA_URL = "E:\\git_res\\AIO\\AIO_SER\\src\\main\\java\\";  // 物理路径       E:\git_res\AIO\AIO_SER\src\main\java
-	public static final String XML_URL = "E:\\git_res\\AIO\\AIO_SER\\src\\resource\\";
+	public static final String XML_URL = "E:\\git_res\\AIO\\AIO_SER\\src\\main\\resources\\mapping\\";
 	public static final String TIME=new Date().toString();  // 创建时间
 	public static final String AGILE=new Date().getTime()+"";	//序列化 -扩展字段
 	
@@ -69,15 +69,15 @@ public class GenTemplateTest extends ApplicationTests {
 		genConfigInfo.setGenTableInfo(genTableInfo);
 		
 		
-		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,NOT_LODE);				
-		//生成实体类  checked
-		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createEntity(JAVA_URL, genConfigInfo));
-		//生成Dao   chedked
-		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createDao(JAVA_URL, genConfigInfo));
-		//生成Service   checked
-		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createService(JAVA_URL, genConfigInfo));
-		//生成Controller   checked
-		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createController(JAVA_URL, genConfigInfo));
+//		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,NOT_LODE);				
+//		//生成实体类  checked
+//		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createEntity(JAVA_URL, genConfigInfo));
+//		//生成Dao   chedked
+//		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createDao(JAVA_URL, genConfigInfo));
+//		//生成Service   checked
+//		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createService(JAVA_URL, genConfigInfo));
+//		//生成Controller   checked
+//		super.outprint("com.mprs.aio.gen.model.GenExecuteResult", generator.createController(JAVA_URL, genConfigInfo));
 		
 		//此处需要id remark flag等数据操作
 		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,LODE);

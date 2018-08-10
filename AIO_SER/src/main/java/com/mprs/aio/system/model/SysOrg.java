@@ -4,7 +4,7 @@
  * @Description:  机构
  * @Author:       SYP
  * @project       AIO   
- * @CreateDate:   Wed Aug 08 17:21:42 CST 2018
+ * @CreateDate:   Fri Aug 10 15:38:06 CST 2018
  * @Version:      v_1.0
  *    
  */
@@ -13,7 +13,7 @@ import com.mprs.aio.base.model.DataEntity;
 
 public class SysOrg extends DataEntity<SysOrg> {
 
-	private static final long serialVersionUID = 1533720102148L;
+	private static final long serialVersionUID = 1533886686794L;
 	
 	private String parentId;
 	private String parentIds;

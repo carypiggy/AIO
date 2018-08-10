@@ -10,7 +10,7 @@ import com.mprs.aio.system.model.SysOrg;
  * @Description:  机构——DAO
  * @Author:       SYP
  * @project 	  AIO 
- * @CreateDate:   Wed Aug 08 17:21:42 CST 2018
+ * @CreateDate:   Fri Aug 10 15:38:06 CST 2018
  * @Version:      v_1.0
  *    
  */
