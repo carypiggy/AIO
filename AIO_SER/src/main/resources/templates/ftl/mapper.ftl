@@ -1,7 +1,7 @@
 package ${daoUrl};
 import org.apache.ibatis.annotations.Mapper;
 
-import com.mprs.aio.base.mapper.CrudMapper;
+import com.mpri.aio.base.mapper.CrudMapper;
 import ${entityUrl}.${genTableInfo.entityName};
 
 

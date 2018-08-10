@@ -1,7 +1,7 @@
 package ${serviceUrl};
 
 import org.springframework.stereotype.Service;
-import com.mprs.aio.base.service.CrudService;
+import com.mpri.aio.base.service.CrudService;
 import ${entityUrl}.${genTableInfo.entityName};
 import ${daoUrl}.${genTableInfo.entityName}Mapper;
 

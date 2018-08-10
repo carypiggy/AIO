@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mprs.aio.system.mapper.SysLogsMapper">
+<mapper namespace="com.mpri.aio.system.mapper.SysLogsMapper">
   <!-- 基础返回值定义 -->
-  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysLogs">
+  <resultMap id="BaseResultMap" type="com.mpri.aio.system.model.SysLogs">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="type" jdbcType="CHAR" property="type" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -21,7 +21,7 @@
   </sql>
   
   <!-- 根据id查询对象-->
-  <select id="get" parameterType="com.mprs.aio.system.model.SysLogs" resultMap="BaseResultMap">
+  <select id="get" parameterType="com.mpri.aio.system.model.SysLogs" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_logs
@@ -29,7 +29,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insert" parameterType="com.mprs.aio.system.model.SysLogs">
+  <insert id="insert" parameterType="com.mpri.aio.system.model.SysLogs">
     insert into sys_logs
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -98,7 +98,7 @@
   </insert>
   
   <!-- 更新对象 -->
-  <update id="update" parameterType="com.mprs.aio.system.model.SysLogs">
+  <update id="update" parameterType="com.mpri.aio.system.model.SysLogs">
     update sys_logs
     <set>
       <if test="type != null">
@@ -133,7 +133,7 @@
   </update>
   
   <!-- 删除对象 -->
-  <update id="delete" parameterType="com.mprs.aio.system.model.SysLogs">
+  <update id="delete" parameterType="com.mpri.aio.system.model.SysLogs">
     update sys_logs set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
   </update>
 

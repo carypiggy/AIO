@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mprs.aio.system.mapper.SysAreaMapper">
+<mapper namespace="com.mpri.aio.system.mapper.SysAreaMapper">
   
   <!--基础返回值定义-->
-  <resultMap id="BaseResultMap" type="com.mprs.aio.system.model.SysArea">
+  <resultMap id="BaseResultMap" type="com.mpri.aio.system.model.SysArea">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
@@ -43,7 +43,7 @@
   </sql>
   
   <!-- 根据id查询对象-->
-  <select id="get" parameterType="com.mprs.aio.system.model.SysArea" resultMap="BaseResultMap" >
+  <select id="get" parameterType="com.mpri.aio.system.model.SysArea" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from sys_area
@@ -51,7 +51,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insert" parameterType="com.mprs.aio.system.model.SysArea">
+  <insert id="insert" parameterType="com.mpri.aio.system.model.SysArea">
     insert into sys_area
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -114,7 +114,7 @@
   </insert>
   
     <!-- 更新对象 -->
-  <update id="update" parameterType="com.mprs.aio.system.model.SysArea">
+  <update id="update" parameterType="com.mpri.aio.system.model.SysArea">
     update sys_area
     <set>
       <if test="parentId != null">
@@ -146,7 +146,7 @@
   </update>
   
   <!-- 根据地区编码查询对象 -->
-  <select id="getSysAreaByCode" parameterType="com.mprs.aio.system.model.SysArea" resultMap="BaseResultMap">
+  <select id="getSysAreaByCode" parameterType="com.mpri.aio.system.model.SysArea" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_area
@@ -154,12 +154,12 @@
   </select>
   
   <!-- 删除对象 -->
-  <update id="delete" parameterType="com.mprs.aio.system.model.SysArea">
+  <update id="delete" parameterType="com.mpri.aio.system.model.SysArea">
     update sys_area set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
   </update>
   
   <!-- 分页查询对象 -->
-  <select id="loadByPage" parameterType="com.mprs.aio.system.model.SysArea" resultMap="BaseResultMap" >
+  <select id="loadByPage" parameterType="com.mpri.aio.system.model.SysArea" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_area 
@@ -169,7 +169,7 @@
   </select>
   
   <!-- 依照条件查询所有对象 -->
-  <select id="loadAllListBy"  parameterType="com.mprs.aio.system.model.SysArea" resultMap="BaseResultMap" >
+  <select id="loadAllListBy"  parameterType="com.mpri.aio.system.model.SysArea" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_area 
@@ -179,7 +179,7 @@
   </select>
   
   <!-- 根据父地区获取所有子地区 -->
-  <select id="loadChildrenByParent"  parameterType="com.mprs.aio.system.model.SysArea" resultMap="BaseResultMap" >
+  <select id="loadChildrenByParent"  parameterType="com.mpri.aio.system.model.SysArea" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_area 

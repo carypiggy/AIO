@@ -70,7 +70,7 @@ mybatis:
   #对应mapper映射xml文件的所在路径
   mapper-locations: classpath:mapping/*/*.xml
   #对应实体类的路径
-  type-aliases-package: com.mprs.aio.base.model
+  type-aliases-package: com.mpri.aio.base.model
   #日志打印
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
