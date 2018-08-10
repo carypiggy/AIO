@@ -1,10 +1,11 @@
 package ${controllerUrl};
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
@@ -22,7 +23,7 @@ import ${serviceUrl}.${genTableInfo.entityName}Service;
  * @Version:      ${version}
  *    
  */
-@Controller
+@RestController
 @RequestMapping("/sys/${genTableInfo.objectName}")
 public class ${genTableInfo.entityName}Controller extends BaseController {
 	
@@ -39,7 +40,6 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
 	@GetMapping(value = "/list")
 	public PageInfo<${genTableInfo.entityName}> list(int pageNo,int pageSize,${genTableInfo.entityName} ${genTableInfo.objectName}) {
 		PageIo<${genTableInfo.entityName}> pageInfo =  ${genTableInfo.objectName}Service.loadByPage(pageNo,pageSize,${genTableInfo.objectName});							
@@ -55,8 +55,7 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
-	@GetMapping(value = "/save")
+	@PostMapping(value = "/save")
 	public String save(@Validated ${genTableInfo.entityName} ${genTableInfo.objectName}){
 		${genTableInfo.objectName}Service.save(${genTableInfo.objectName});							
 		return SUCCESS;
@@ -70,8 +69,7 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
-	@GetMapping(value = "/delete")
+	@PostMapping(value = "/delete")
 	public String delete(${genTableInfo.entityName} ${genTableInfo.objectName}) {
 		${genTableInfo.objectName}Service.delete(${genTableInfo.objectName});
 		return SUCCESS;
@@ -85,8 +83,7 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
-	@GetMapping(value = "/get")
+	@PostMapping(value = "/get")
 	public ${genTableInfo.entityName} get(${genTableInfo.entityName} ${genTableInfo.objectName}) {
 		return ${genTableInfo.objectName}Service.get(${genTableInfo.objectName});
 	}

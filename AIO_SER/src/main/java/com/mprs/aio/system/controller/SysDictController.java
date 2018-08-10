@@ -1,15 +1,15 @@
 package com.mprs.aio.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.github.pagehelper.PageInfo;
 import com.mprs.aio.base.controller.BaseController;
-import com.mprs.aio.common.logs.Logs;
 import com.mprs.aio.common.page.PageIo;
 import com.mprs.aio.system.model.SysDict;
 import com.mprs.aio.system.service.SysDictService;
@@ -21,7 +21,7 @@ import com.mprs.aio.system.service.SysDictService;
 * @author syp  
 * @date 2018年8月6日
  */
-@Controller
+@RestController
 @RequestMapping("/sys/sysdict")
 public class SysDictController extends BaseController {
 	
@@ -38,7 +38,6 @@ public class SysDictController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
 	@GetMapping(value = "/list")
 	public PageInfo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
 		PageIo<SysDict> pageInfo =  sysDictService.loadByPage(pageNo,pageSize,sysDict);							
@@ -54,8 +53,7 @@ public class SysDictController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
-	@GetMapping(value = "/save")
+	@PostMapping(value = "/save")
 	public String save(@Validated SysDict sysDict){
 		sysDictService.save(sysDict);							
 		return SUCCESS;
@@ -69,8 +67,7 @@ public class SysDictController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
-	@GetMapping(value = "/delete")
+	@PostMapping(value = "/delete")
 	public String delete(SysDict sysDict) {
 		sysDictService.delete(sysDict);
 		return SUCCESS;
@@ -84,8 +81,7 @@ public class SysDictController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@ResponseBody
-	@GetMapping(value = "/get")
+	@PostMapping(value = "/get")
 	public SysDict get(SysDict sysDict) {
 		return sysDictService.get(sysDict);		
 	}

@@ -21,7 +21,7 @@ public class PageIo<T> extends PageInfo<T>{
 	
 	private Long count;
 	
-	private final static Integer STATU_CODE = 200;
+	private final static Integer STATU_CODE = 0;
 
 	public PageIo(List<T> list) {
 		super(list, 8);

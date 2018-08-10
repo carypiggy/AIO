@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.mprs.aio.system.utils.CaptchaUtil;
 
@@ -18,7 +19,7 @@ import com.mprs.aio.system.utils.CaptchaUtil;
  * @author Cary
  * @date 2018年8月3日
  */
-@Controller
+@RestController
 public class CaptchaController {
 
     @RequestMapping(value = "captcha")
