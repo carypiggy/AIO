@@ -34,7 +34,6 @@ import com.mprs.aio.system.service.SysUserService;
 @Service
 public class ShiroRealm extends AuthorizingRealm {
 	
-	
     @Autowired
     private SysUserService sysUserService;
     
@@ -107,7 +106,6 @@ public class ShiroRealm extends AuthorizingRealm {
              authorizationInfo.addStringPermission(sysMenu.getPermission());
          }
          return authorizationInfo;
-
     }
     
 }

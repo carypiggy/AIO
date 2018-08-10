@@ -36,7 +36,36 @@ spring:
           #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
           pool-prepared-statements: false
           max-pool-prepared-statement-per-connection-size: 20
-
+	cache: 
+    	type: CAFFEINE
+    	cache-names:
+      		- getPersonById
+      		- name2
+    	caffeine:
+      		spec: maximumSize=500,expireAfterWrite=5s
+	    
+	# REDIS (RedisProperties)  
+    redis : 
+    	# 服务地址
+	    host : 192.168.120.187
+	    #连接端口
+	    port : 6379 
+	    #密码
+	    password: 
+	    #连接池设置 
+	    pool.max-idle : 8 
+	    pool.min-idle : 1 
+	    pool.max-active : 8  
+	    pool.max-wait : -1 
+		#lettuce客户端
+	    lettuce:
+    		pool:
+    			min-idle: 0
+    			max-idle: 8
+    			max-wait: -1ms
+    			max-active:8
+    		shutdown-timeout:100s	
+	    
 mybatis:
   #对应mapper映射xml文件的所在路径
   mapper-locations: classpath:mapping/*/*.xml
