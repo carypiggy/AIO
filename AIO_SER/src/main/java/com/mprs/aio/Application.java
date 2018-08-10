@@ -2,6 +2,7 @@ package com.mprs.aio;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 /**
  *.主函数
  * @author Cary
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.mprs.aio.*.mapper,com.mprs.aio.system.shiro")
+@EnableCaching
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

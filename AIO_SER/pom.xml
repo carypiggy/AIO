@@ -2,7 +2,7 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mprs.aio</groupId>
-  <artifactId>AIO</artifactId>
+  <artifactId>AIO_SER</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>AIO</name>
@@ -11,8 +11,8 @@
   <!-- Inherit defaults from Spring Boot -->
   <parent>
     <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.3.RELEASE</version>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.0.4.RELEASE</version>
   </parent>
 
   <dependencies>
@@ -42,11 +42,25 @@
 		<scope>true</scope>
 	</dependency>
 	
+	<!-- spring boot缓存相关 -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-cache</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.github.ben-manes.caffeine</groupId>
+		<artifactId>caffeine</artifactId>
+	</dependency>
+
 	<!--测试环境-->
 	<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
 	</dependency>
 
 	<!--MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot-->
@@ -105,6 +119,7 @@
         <version>1.2.0</version>
         <scope>test</scope>
     </dependency>
+
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
@@ -192,6 +207,12 @@
 	    <artifactId>commons-text</artifactId>
 	    <version>1.3</version>
 	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-pool2</artifactId>
+		<version>2.4.2</version>
+	</dependency>
 
 	<!-- google java lib -->
 	<dependency>
@@ -199,7 +220,7 @@
 		<artifactId>guava</artifactId>
 		<version>21.0</version>
 	</dependency>
-	
+    
 	<!-- 条形码、二维码生成  -->
 	<dependency>
 		<groupId>com.google.zxing</groupId>
@@ -283,8 +304,7 @@
                <target>1.8</target>
            </configuration>
 	    </plugin>
- 
-		
+
 	</plugins>
     </build>
 </project>
