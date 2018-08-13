@@ -37,7 +37,7 @@ spring:
           pool-prepared-statements: false
           max-pool-prepared-statement-per-connection-size: 20	           
 
-cache: 
+    cache: 
       #两级缓存的配置
       multi: 
           caffeine: 
@@ -46,10 +46,10 @@ cache:
                 defaultExpiration: 60000
       cache-names: dictCache
       
-redis : 
-      host: 192.168.140.187
+    redis : 
+      host: 192.168.120.187
       port: 6379
-      password: 
+      password: 123456
       database: 0
       lettuce:
           pool:
