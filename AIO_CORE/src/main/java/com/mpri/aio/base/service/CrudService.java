@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.mapper.CrudMapper;
 import com.mpri.aio.base.model.DataEntity;
 import com.mpri.aio.common.page.PageIo;
@@ -51,6 +50,7 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 	 * @param entity
 	 * @return
 	 */
+	
 	public PageIo<T> loadByPage(int pageNo, int pageSize,T entity) {
         PageHelper.startPage(pageNo, pageSize);
         Page<T> pageList=mapper.loadByPage(entity);

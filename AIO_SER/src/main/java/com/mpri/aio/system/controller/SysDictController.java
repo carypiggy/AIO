@@ -82,20 +82,9 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
+  @CacheEvict(key = "'cache_dict_id_' + #sysDict.id", value = "dictCache", cacheManager = "cacheManager")
 	public SysDict get(SysDict sysDict) {
 		return sysDictService.get(sysDict);		
 	}
 		
 }
-
-
-
-
-
-
-
-
-
-
-
-
