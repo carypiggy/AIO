@@ -1,7 +1,6 @@
 package com.mpri.aio.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +47,7 @@ public class SysDictController extends BaseController {
 	
 	/**
 	 * 增加或者更新字典
-	* <p>Title: add</p>  
+	* <p>Title: save</p>  
 	* <p>Description: </p>  
 	* @param sysDict
 	* @return
@@ -83,21 +82,9 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-	@CacheEvict(key = "'cache_dict_id_' + #sysDict.id", value = "dictCache", cacheManager = "cacheManager")
+  @CacheEvict(key = "'cache_dict_id_' + #sysDict.id", value = "dictCache", cacheManager = "cacheManager")
 	public SysDict get(SysDict sysDict) {
 		return sysDictService.get(sysDict);		
 	}
 		
 }
-
-
-
-
-
-
-
-
-
-
-
-
