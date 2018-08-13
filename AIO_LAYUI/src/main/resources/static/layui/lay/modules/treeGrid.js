@@ -207,8 +207,8 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
 
         //请求参数的自定义格式
         options.request = $.extend({
-            pageName: 'page'
-            ,limitName: 'limit'
+            pageName: 'pageNo'
+            ,limitName: 'pageSize'
         }, options.request)
 
         //响应数据的自定义格式

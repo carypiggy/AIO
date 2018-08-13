@@ -43,8 +43,8 @@
        <if test="entity.target!=null and entity.target!='' ">
            and target=#{entity.target}
        </if>
-       <if test="entity.is_show!=null and entity.is_show!='' ">
-           and is_show=#{entity.is_show}
+       <if test="entity.isShow!=null and entity.isShow!='' ">
+           and is_show=#{entity.isShow}
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
