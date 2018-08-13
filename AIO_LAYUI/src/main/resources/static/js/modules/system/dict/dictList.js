@@ -4,7 +4,7 @@
  * @returns
  * @Time 2018-08-02
  */
- layui.config({
+layui.config({
 	base : "../../../../static/js/"
 }).extend({
 	"application" : "application"
@@ -29,11 +29,11 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
         id : "dictListTable",
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/
-            {field: 'typeCode', title: 'typeCode'},
-            {field: 'label', title: 'label'},
-            {field: 'value', title: 'value', align:'center'},
-            {field: 'remark', title: 'remark',  align:'center'},
-            {field: 'flag', title: 'flag', align:'center'},
+            {field: 'typeCode', title: '编码类型'},
+            {field: 'label', title: '编码名称'},
+            {field: 'value', title: '编码值'},
+			{field: 'sort',sort: true, title: '排序'},
+            {field: 'remark', title: '备注'},
             {title: '操作', width:170, templet:'#dictListBar',fixed:"right",align:"center"}
         ]]
     });
@@ -41,18 +41,15 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-        if($(".searchVal").val() != ''){
             table.reload("dictListTable",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	typeCode: $(".searchVal").val()  //搜索的关键字
+                	typeCode: $(".searchTypeCode").val(),
+					label: $(".searchLabel").val(),
                 }
             })
-        }else{
-            layer.msg("请输入搜索的内容");
-        }
     });
 
     //添加编码
@@ -64,16 +61,27 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
-                	body.find(".remark").val(edit.remark);
-                	body.find(".value").val(edit.value);
-                	body.find(".typeCode").val(edit.typeCode);
-                	body.find(".label").val(edit.label);
-                	body.find(".value").val(edit.value);
-                	body.find(".sort").val(edit.sort);            	
-                	//可参考如下
-//                    body.find(".newsStatus select").val(edit.newsStatus);
-//                    body.find(".openness input[name='openness'][title='"+edit.newsLook+"']").prop("checked","checked");
-//                    body.find(".newsTop input[name='newsTop']").prop("checked",edit.newsTop);
+					$.ajax({
+						url: application.SERVE_URL +'/sys/sysdict/get', //ajax请求地址
+						type: "POST",
+						data:{
+							id :edit.id,
+						},						
+						success: function (data) {
+							if(data){
+								body.find(".id").val(data.id);
+								body.find(".remark").val(data.remark);
+								body.find(".value").val(data.value);
+								body.find(".typeCode").val(data.typeCode);
+								body.find(".label").val(data.label);
+								body.find(".value").val(data.value);
+								body.find(".sort").val(data.sort);  	
+							}else{
+								//console.data();
+								top.layer.msg("编码获取失败！");
+							}
+						}
+					}); 
                     form.render();
                 }
                 setTimeout(function(){
@@ -103,7 +111,7 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
         	addDict(data);
         } else if(layEvent === 'del'){ //删除
             layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){
-                 $.get("http://127.0.0.1:8080/sys/sysdict/delete",{
+                 $.post("http://127.0.0.1:8080/sys/sysdict/delete",{
                      id : data.id  
                  },function(data){
                 	if(data = "success"){

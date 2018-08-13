@@ -39,4 +39,5 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 		sysUser.setId(id);
 		return mapper.loadPerByUser(sysUser);
 	}
+	
 }

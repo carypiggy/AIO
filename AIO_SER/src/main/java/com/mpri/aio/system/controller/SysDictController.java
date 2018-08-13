@@ -47,7 +47,7 @@ public class SysDictController extends BaseController {
 	
 	/**
 	 * 增加或者更新字典
-	* <p>Title: add</p>  
+	* <p>Title: save</p>  
 	* <p>Description: </p>  
 	* @param sysDict
 	* @return

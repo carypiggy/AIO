@@ -45,8 +45,19 @@ public class SysMenu extends DataEntity<SysMenu>{
    
     private String isShow;
 
-   
-    public String getParentId() {
+    private SysMenu parentSysMenu;
+    
+    public SysMenu getParentSysMenu() {
+		return parentSysMenu;
+	}
+
+
+	public void setParentSysMenu(SysMenu parentSysMenu) {
+		this.parentSysMenu = parentSysMenu;
+	}
+
+
+	public String getParentId() {
         return parentId;
     }
 
