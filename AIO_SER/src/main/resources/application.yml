@@ -38,13 +38,14 @@ spring:
           max-pool-prepared-statement-per-connection-size: 20	           
 
 cache: 
-      type: CAFFEINE
-      cache-names:
-          - getPersonById
-          - name2
-      caffeine:
-          spec: maximumSize=500,expireAfterWrite=5s
-                
+      #两级缓存的配置
+      multi: 
+          caffeine: 
+                expireAfterAccess: 5000
+          redis: 
+                defaultExpiration: 60000
+      cache-names: dictCache
+      
 # REDIS (RedisProperties)  
 redis : 
       # 服务地址
