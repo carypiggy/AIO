@@ -1,4 +1,4 @@
-package com.mpri.aio.system.utils;
+package com.mpri.aio.system.utils.logs;
 import java.lang.reflect.Method;
 import java.util.Date;
 
