@@ -2,6 +2,7 @@ package com.mpri.aio.system.service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.mpri.aio.base.service.CrudService;
 import com.mpri.aio.system.mapper.SysDictMapper;
@@ -24,6 +25,13 @@ public class SysDictService extends CrudService<SysDictMapper, SysDict>  {
 		SysDict sysDict = new SysDict();
 		sysDict.setTypeCode(typeCode);
 		return mapper.getSysDictByTypecode(sysDict);
+	}
+	
+	@Cacheable(value = "dictCache", key = "#sysDict.id",cacheManager="caffeineCacheManager")
+	public SysDict get2(SysDict entity) {
+		
+		return mapper.get(entity);
+		
 	}
 	
 

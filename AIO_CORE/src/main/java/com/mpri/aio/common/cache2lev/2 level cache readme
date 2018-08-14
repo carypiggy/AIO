@@ -1,5 +1,5 @@
 # 注意：内含spring session管理内容，相关注解已注释，启用时开启
-
+# @CacheEvict(key = "'cache_dict_id_' + #sysDict.id", value = "dictCache", cacheManager = "cacheManager")
     cache: 
       #两级缓存的配置
       multi: 
