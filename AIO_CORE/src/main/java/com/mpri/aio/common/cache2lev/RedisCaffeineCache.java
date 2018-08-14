@@ -1,4 +1,4 @@
-package com.mpri.aio.common.cache;
+package com.mpri.aio.common.cache2lev;
 
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import com.alibaba.druid.util.StringUtils;
 import com.github.benmanes.caffeine.cache.Cache;
-import com.mpri.aio.common.cache.message.CacheMessage;
+import com.mpri.aio.common.cache2lev.message.CacheMessage;
 
 /**
  * Cache接口的抽象类实现

@@ -1,4 +1,4 @@
-package com.mpri.aio.common.cache.message;
+package com.mpri.aio.common.cache2lev.message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.mpri.aio.common.cache.RedisCaffeineCacheManager;
+import com.mpri.aio.common.cache2lev.RedisCaffeineCacheManager;
 
 /**
  * 监听redis消息

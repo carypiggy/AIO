@@ -56,6 +56,12 @@
 		<artifactId>caffeine</artifactId>
 	</dependency>
 
+	<!-- spring session管理相关 -->
+	<dependency>
+	   <groupId>org.springframework.session</groupId>
+	   <artifactId>spring-session-data-redis</artifactId>
+	</dependency>
+	
 	<!--测试环境-->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -267,6 +273,13 @@
 		<version>2.9.1</version>
 	</dependency>
 	
+	<!-- fastjson依赖 -->
+    <dependency>
+      	<groupId>com.alibaba</groupId>
+      	<artifactId>fastjson</artifactId>
+      	<version>1.2.49</version>
+    </dependency>
+    
 	<!-- poi office -->
 	<dependency>
 		<groupId>org.apache.poi</groupId>

@@ -1,4 +1,4 @@
-package com.mpri.aio.common.cache;
+package com.mpri.aio.common.cache2lev;
 
 import java.util.Collection;
 import java.util.Set;
@@ -22,7 +22,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
  * @date 2018年8月13日
  */
 @Service
-public class RedisCaffeineCacheManager  implements CacheManager{
+public class RedisCaffeineCacheManager implements CacheManager{
 
 private final Logger logger = LoggerFactory.getLogger(RedisCaffeineCacheManager.class);
 	

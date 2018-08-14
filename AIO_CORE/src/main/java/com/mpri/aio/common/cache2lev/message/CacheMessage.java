@@ -1,4 +1,4 @@
-package com.mpri.aio.common.cache.message;
+package com.mpri.aio.common.cache2lev.message;
 
 import java.io.Serializable;
 /**
