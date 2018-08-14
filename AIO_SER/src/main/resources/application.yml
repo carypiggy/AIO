@@ -41,7 +41,7 @@ spring:
       #两级缓存的配置
       multi: 
           caffeine: 
-                expireAfterAccess: 500000
+                expireAfterAccess: 50000
           redis: 
                 defaultExpiration: 60000
       cache-names: dictCache
