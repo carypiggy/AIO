@@ -34,6 +34,7 @@
         <artifactId>spring-boot-starter-freemarker</artifactId>  
     </dependency>  
 
+
 	<!--热部署工具-->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -54,6 +55,12 @@
 	<dependency>
 		<groupId>com.github.ben-manes.caffeine</groupId>
 		<artifactId>caffeine</artifactId>
+	</dependency>
+	
+	<!-- spring session管理相关 -->
+	<dependency>
+	   <groupId>org.springframework.session</groupId>
+	   <artifactId>spring-session-data-redis</artifactId>
 	</dependency>
 
 	<!--测试环境-->
