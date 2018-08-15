@@ -31,7 +31,7 @@ import com.mpri.aio.system.service.SysUserService;
  * @author Cary
  * @date 2018年8月2日
  */
-@Service
+//@Service
 public class ShiroRealm extends AuthorizingRealm {
 	
     @Autowired

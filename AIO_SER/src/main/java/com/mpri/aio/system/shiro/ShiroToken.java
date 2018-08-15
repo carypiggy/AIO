@@ -12,6 +12,8 @@ public class ShiroToken extends UsernamePasswordToken {
 	private static final long serialVersionUID = 1L;
 	
 	private String authCode;
+	
+	private String token;
 
     public ShiroToken(String username, String password, String authCode) {
         super(username, password);
@@ -25,5 +27,15 @@ public class ShiroToken extends UsernamePasswordToken {
     public void setAuthCode(String authCode) {
         this.authCode = authCode;
     }
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+    
+    
 	
 }
