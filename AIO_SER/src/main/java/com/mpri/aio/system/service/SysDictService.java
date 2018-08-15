@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 import com.mpri.aio.base.service.CrudService;
 import com.mpri.aio.system.mapper.SysDictMapper;
 import com.mpri.aio.system.model.SysDict;
@@ -16,7 +17,7 @@ import com.mpri.aio.system.model.SysDict;
 public class SysDictService extends CrudService<SysDictMapper, SysDict>  {
 
 	/**
-	 * .根据编码获取字典集
+	 * 根据编码获取字典集
 	 * @param typeCode
 	 * @return
 	 */
@@ -25,13 +26,6 @@ public class SysDictService extends CrudService<SysDictMapper, SysDict>  {
 		SysDict sysDict = new SysDict();
 		sysDict.setTypeCode(typeCode);
 		return mapper.getSysDictByTypecode(sysDict);
-	}
-	
-	@Cacheable(value = "dictCache", key = "#sysDict.id",cacheManager="caffeineCacheManager")
-	public SysDict get2(SysDict entity) {
-		
-		return mapper.get(entity);
-		
 	}
 	
 
