@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.mpri.aio.ApplicationTests;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.system.model.SysDict;
@@ -57,11 +58,11 @@ public class DictTest extends ApplicationTests{
     /**
 	 * 根据id获取单条数据 - 通过
 	 */
-//	@Test
+	@Test
     public void testGet(){
 		SysDict sd = new SysDict();
-		sd.setId("77717f621e9c4ad694020d9ad86e3e2b");
-		SysDict sysDict=sysDictService.get(sd);
+		sd.setId("1e790d1e9ceb4425bbbca422fbd5836a");
+		SysDict sysDict=sysDictService.get2(sd);
 		
 		super.outprint("com.mpri.aio.system.model.SysDict", sysDict);
     }
@@ -117,7 +118,7 @@ public class DictTest extends ApplicationTests{
 	 /**
      * 分页查询数据  --通过
      */
-    @Test
+    //@Test
     public void testloadDict(){
     	
     	try{

@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 
 /**
  * Mapper基础类实现

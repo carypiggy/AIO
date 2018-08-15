@@ -34,6 +34,7 @@
         <artifactId>spring-boot-starter-freemarker</artifactId>  
     </dependency>  
 
+
 	<!--热部署工具-->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -47,15 +48,25 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-cache</artifactId>
 	</dependency>
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-data-redis</artifactId>
-	</dependency>
+	
 	<dependency>
 		<groupId>com.github.ben-manes.caffeine</groupId>
 		<artifactId>caffeine</artifactId>
 	</dependency>
-
+	
+	<!-- 二级缓存相关 
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	-->
+	<!-- spring session管理相关 
+	<dependency>
+	   <groupId>org.springframework.session</groupId>
+	   <artifactId>spring-session-data-redis</artifactId>
+	</dependency>
+	-->
+	
 	<!--测试环境-->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -267,6 +278,13 @@
 		<version>2.9.1</version>
 	</dependency>
 	
+	<!-- fastjson依赖 -->
+    <dependency>
+      	<groupId>com.alibaba</groupId>
+      	<artifactId>fastjson</artifactId>
+      	<version>1.2.49</version>
+    </dependency>
+	
 	<!-- poi office -->
 	<dependency>
 		<groupId>org.apache.poi</groupId>
@@ -286,7 +304,7 @@
   </dependencies>
 
   <build>
-	<finalName>AIO</finalName>
+	<finalName>AIO_SER</finalName>
 	<plugins>
 		<plugin>
 			<groupId>org.springframework.boot</groupId>
