@@ -86,7 +86,7 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-	@Cacheable(value = "dictCache", key = "#sysDict.id",cacheManager="caffeineCacheManager")
+	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public SysDict get(SysDict sysDict) {
 		return sysDictService.get(sysDict);		
 	}

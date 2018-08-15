@@ -20,7 +20,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
  * @author Cary
  * @date 2018年8月3日
  */
-@Configuration
+//@Configuration
 public class ShiroConfig {
   
   /**

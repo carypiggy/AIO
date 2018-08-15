@@ -9,13 +9,14 @@
 	    <result column="label" jdbcType="VARCHAR" property="label" />
 	    <result column="value" jdbcType="VARCHAR" property="value" />
 	    <result column="sort" jdbcType="DECIMAL" property="sort" />
+	    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
 	    <result column="remark" jdbcType="VARCHAR" property="remark" />
 	    <result column="flag" jdbcType="CHAR" property="flag" />
   	</resultMap>
   
   	<!--基础字段定义-->
   	<sql id="Base_Column_List">
-    	id, type_code, label, value, sort, remark, flag
+    	id, type_code, label, value, sort,create_date , remark, flag
   	</sql>
   	
   	<!-- 查询条件定义 -->
@@ -36,6 +37,12 @@
       		<if test="entity.sort != null and entity.sort!='' ">
         		and sort=#{entity.sort}
       		</if>
+      		<if test="entity.beginDate!=null and entity.beginDate!=''">
+           		and create_date &gt;= #{beginDate}  
+       		</if>
+	   		<if test="entity.endDate!=null and entity.endDate!='' ">
+           		and create_date &lt;= #{endDate}  
+       		</if>
       		and flag= #{entity.FLAG_NORMAL}
 		</if>
   	</sql>
@@ -100,6 +107,9 @@
       		<if test="sort != null">
         		sort,
       		</if>
+      		<if test="createDate != null">
+        		create_date,
+      		</if>
       		<if test="remark != null">
         		remark,
       		</if>
@@ -122,6 +132,9 @@
       		</if>
       		<if test="sort != null">
         		#{sort,jdbcType=DECIMAL},
+      		</if>
+      		<if test="createDate != null">
+        		#{createDate,jdbcType=TIMESTAMP},
       		</if>
       		<if test="remark != null">
         		#{remark,jdbcType=VARCHAR},
@@ -147,6 +160,9 @@
       		</if>
       		<if test="sort != null">
         		sort = #{sort,jdbcType=DECIMAL},
+      		</if>
+      		<if test="createDate != null">
+        		create_date = #{createDate,jdbcType=TIMESTAMP},
       		</if>
       		<if test="remark != null">
         		remark = #{remark,jdbcType=VARCHAR},

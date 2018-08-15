@@ -62,7 +62,7 @@ public class DictTest extends ApplicationTests{
     public void testGet(){
 		SysDict sd = new SysDict();
 		sd.setId("1e790d1e9ceb4425bbbca422fbd5836a");
-		SysDict sysDict=sysDictService.get2(sd);
+		SysDict sysDict=sysDictService.get(sd);
 		
 		super.outprint("com.mpri.aio.system.model.SysDict", sysDict);
     }
