@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE>菜单选择</TITLE>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="../../../../static/layui/css/layui.css" media="all" />
+	<link href="../../../../static/css/zTree/metroStyle/metroStyle.css" type="text/css" media="screen" rel="stylesheet"/>
+	<link href="../../../../static/css/zTree/demo.css" type="text/css" media="screen" rel="stylesheet"/>
+	<link rel="stylesheet" href="../../../../static/css/public.css" media="all" />
+	<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.core.min.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.excheck.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.exedit.js"></script>
+	<script type="text/javascript">	
+		var layer;var ztreeObj;
+		layui.config({
+			base : "../../../../static/js/"
+		}).extend({
+			"application" : "application",
+			"publicUtil" : "publicUtil"
+		})
+		layui.use(['layer','application',"publicUtil"],function(){
+			layer = parent.layer,
+			application = layui.application;
+			publicUtil  = layui.publicUtil
+			//ztree设置
+			var setting = {
+					view: {
+							selectedMulti: false
+					},
+
+					data: {
+							simpleData: {
+									enable: true
+							}
+					},
+					check: {
+						enable: true,
+						chkStyle: "radio",  //单选框
+						radioType: "all"   //对所有节点设置单选
+					}
+			};
+
+			$(document).ready(function(){
+				//重置按钮
+				//生产环境具体考虑
+				$("#reset").click(function(){
+					alert("66")
+					ztreeObj.checkAllNodes(true);
+				});
+				
+				
+				$.ajax({
+						url: application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
+						success: function (data) {	
+							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, covert(data.data));  //加载数据
+						}
+				 });	
+				 
+				 $("#getSelectData").click(function(){
+					 publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
+// 						$(window.parent.document).find(".parentId").val(ztreeObj.getCheckedNodes()[0].id);
+// 						$(window.parent.document).find(".parentName").val(ztreeObj.getCheckedNodes()[0].name);
+// 						var index=parent.layer.getFrameIndex(window.name);
+// 						parent.layer.close(index);
+				 })
+			});
+
+ 		});	
+
+
+		
+		
+		
+// 		function getSelectData(){
+// // 				console.log("选中的节点为：")
+// // 				console.log(ztreeObj.getCheckedNodes());
+// 			//生产情况下需对时父标签的过滤  isParent     
+// 			//提交后台
+// 
+// 			parent.layer.close();
+// 		}
+			//转换数据
+		 function covert(data){
+			 var nodes =[];
+			 for(var i =0;i<data.length;i++){
+				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 
+			 }
+			 return nodes;
+		 }
+	</script>
+</HEAD>
+
+<BODY class="childrenBody">
+		<div>
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+		<div class="layui-form-item layui-row layui-col-xs12" style="float: right;">
+			<div class="layui-input-block">
+				<a class="layui-btn layui-btn-sm" lay-submit="" lay-filter="getSelectData" id="getSelectData">确认</a>
+				<a  class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</a>
+			</div>
+<!-- 			<a class="layui-btn layui-btn-xs" lay-submit="getSelectData">确认</a>
+			<a type="reset" class="layui-btn layui-btn-xs layui-btn-danger" onclick="reset(	)">重置</a>	 -->		
+		</div>
+</BODY>
+</HTML>

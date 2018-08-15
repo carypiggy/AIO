@@ -4,9 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +31,7 @@ public class LoginController extends BaseController {
 		Subject currentUser = SecurityUtils.getSubject();
 		// 验证用户是否验证，即是否登录
 		if (!currentUser.isAuthenticated()) {
-			String msg = "";
+			String msg = " ";
 			// 把用户名和密码封装为 UsernamePasswordToken 对象
 			ShiroToken token = new ShiroToken(username,password,authCode);
 			// remembermMe记住密码

@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
-import com.google.zxing.common.reedsolomon.ReedSolomonDecoder;
 import com.mpri.aio.base.controller.BaseController;
-import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.page.ResJson;
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.service.SysMenuService;
@@ -57,8 +54,8 @@ public class SysMenuController extends BaseController {
 	 */
 	@CrossOrigin
 	@GetMapping(value = "/list")
-	public ResJson list(SysMenu sysMenu) {
-		ResJson rj = new ResJson();
+	public ResJson<SysMenu> list(SysMenu sysMenu) {
+		ResJson<SysMenu>rj = new ResJson<SysMenu>();
 		List<SysMenu> list =  sysMenuService.loadAllListBy(sysMenu);	
 		rj.setData(list);
 		return rj;
@@ -75,6 +72,14 @@ public class SysMenuController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public String save(@Validated SysMenu sysMenu){
+		if("".equals(sysMenu.getParentId())|| null == sysMenu.getParentId()) {
+			//setRoot 目录
+		}else {
+			SysMenu parentSysMenu = new SysMenu();
+			parentSysMenu.setId(sysMenu.getParentId());
+			parentSysMenu = sysMenuService.get(parentSysMenu);
+			sysMenu.setParentIds(parentSysMenu.getParentIds()+","+parentSysMenu.getId());
+		}
 		sysMenuService.save(sysMenu);							
 		return SUCCESS;
 	}	
