@@ -57,8 +57,8 @@ public class SysMenuController extends BaseController {
 	 */
 	@CrossOrigin
 	@GetMapping(value = "/list")
-	public ResJson list(SysMenu sysMenu) {
-		ResJson rj = new ResJson();
+	public ResJson<SysMenu> list(SysMenu sysMenu) {
+		ResJson<SysMenu>rj = new ResJson<SysMenu>();
 		List<SysMenu> list =  sysMenuService.loadAllListBy(sysMenu);	
 		rj.setData(list);
 		return rj;
@@ -75,6 +75,14 @@ public class SysMenuController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public String save(@Validated SysMenu sysMenu){
+		if("".equals(sysMenu.getParentId())|| null == sysMenu.getParentId()) {
+			//setRoot 目录
+		}else {
+			SysMenu parentSysMenu = new SysMenu();
+			parentSysMenu.setId(sysMenu.getParentId());
+			parentSysMenu = sysMenuService.get(parentSysMenu);
+			sysMenu.setParentIds(parentSysMenu.getParentIds()+","+parentSysMenu.getId());
+		}
 		sysMenuService.save(sysMenu);							
 		return SUCCESS;
 	}	

@@ -10,7 +10,7 @@ import java.util.List;
 * @author syp  
 * @date 2018年8月13日
  */
-public class ResJson {
+public class ResJson<T> {
 	
 	private final static Integer TREEGRID_CODE = 0;
 	
@@ -18,7 +18,7 @@ public class ResJson {
 	
 	private Integer code;
 	
-	private List data;
+	private List<T> data;
 
 		
 	public ResJson() {
@@ -47,12 +47,12 @@ public class ResJson {
 	}
 
 
-	public List getData() {
+	public List<T> getData() {
 		return data;
 	}
 
 
-	public void setData(List data) {
+	public void setData(List<T> data) {
 		this.data = data;
 	}
 	

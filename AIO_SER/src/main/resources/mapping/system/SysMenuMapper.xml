@@ -59,7 +59,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insertSelective" parameterType="com.mpri.aio.system.model.SysMenu">
+  <insert id="insert" parameterType="com.mpri.aio.system.model.SysMenu">
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
