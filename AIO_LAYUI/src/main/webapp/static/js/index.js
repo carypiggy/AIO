@@ -25,6 +25,7 @@ layui.use(['bodyTab','form','element','layer','jquery','application'],function()
 	
 	//初始化一级菜单
 	function initTopMenu(url){		              //Ajax调用处理
+		  
           $.ajax({
                url: "static/json/topMenu.json",
                success: function(data){
@@ -85,7 +86,7 @@ layui.use(['bodyTab','form','element','layer','jquery','application'],function()
 	
 	//页面加载时判断左侧菜单是否显示
 	//通过顶部菜单获取左侧菜单
-	$("#topLevelMenus").on('click','li',function(){
+	$("#topLevelMenus").on('click','li',function(){		
 		if($(this).parents(".mobileTopLevelMenus").length != "0"){
 			$(".topLevelMenus li").eq($(this).index()).addClass("layui-this").siblings().removeClass("layui-this");
 		}else{

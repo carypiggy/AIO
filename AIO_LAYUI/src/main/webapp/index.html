@@ -39,7 +39,7 @@
 						<a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
 					</li>
 					<li class="layui-nav-item" id="userInfo">
-						<a href="javascript:;"><img src="../static/images/face.png" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName">管理员</cite></a>
+						<a href="javascript:;"><img src="static/images/face.png" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName">管理员</cite></a>
 						<dl class="layui-nav-child">
 							<dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
 							<dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
@@ -54,7 +54,7 @@
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
-				<a class="img" title="我的头像" ><img src="../static/images/face.png" class="userAvatar"></a>
+				<a class="img" title="我的头像" ><img src="static/images/face.png" class="userAvatar"></a>
 				<p>你好！<span class="userName">管理员</span>, 欢迎登录</p>
 			</div>
 			<div class="navBar layui-side-scroll" id="navBar">
@@ -64,6 +64,9 @@
 		</div>					
 		<!-- 右侧内容 -->
 		<div class="layui-body layui-form">
+			<div style="float: right;">
+				<a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#xe661;</i> 刷新当前</a>
+			</div>
 			<div class="layui-tab mag0" lay-filter="bodyTab" id="top_tabs_box">
 				<ul class="layui-tab-title top_tab" id="top_tabs">
 					<li class="layui-this" lay-id=""><i class="layui-icon">&#xe68e;</i> <cite>首页</cite></li>
@@ -73,7 +76,7 @@
 						<iframe src="main.html"></iframe>
 					</div>
 				</div>			
-			</div>					
+			</div>
 		</div>	
 		<!-- 底部 -->
 		<div class="layui-footer footer">
