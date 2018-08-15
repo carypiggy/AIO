@@ -1,6 +1,9 @@
 package com.mpri.aio.system.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -86,6 +89,17 @@ public class SysDictController extends BaseController {
 	@Cacheable(value = "dictCache", key = "#sysDict.id",cacheManager="caffeineCacheManager")
 	public SysDict get(SysDict sysDict) {
 		return sysDictService.get(sysDict);		
+	}
+	
+	/**
+	 * .根据编码获取字典集
+	 * @param typeCode
+	 * @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/getByTypeCode")
+	public List<SysDict> getSysDictByTypecode(String typeCode) {
+		return sysDictService.getSysDictByTypecode(typeCode);
 	}
 		
 }

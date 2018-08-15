@@ -33,12 +33,16 @@ public class MenuTest extends ApplicationTests {
     /**
 	 * 根据用户id查询权限列表 - 通过
 	 */
-    @Test
+    //@Test
     public void  testLoadPerByUser() {
 		List<SysMenu> list=sysMenuService.loadPerByUser("0e207e95eb9d4f3985120ec7d5528013");
 		super.outprint("java.util.List", list);
 		   
     }
     
-
+    @Test
+    public void testloadAllListBy() {
+    	List<SysMenu> list = sysMenuService.loadAllListBy(new SysMenu());
+    	super.outprint("java.util.List", list);
+    }
 }
