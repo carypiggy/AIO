@@ -11,13 +11,14 @@
     <result column="sort" jdbcType="DECIMAL" property="sort" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="type" jdbcType="CHAR" property="type" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
   </resultMap>
   
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">   
-    id, parent_id, parent_ids, name, sort, code, type, remark, flag
+    id, parent_id, parent_ids, name, sort, code, type,create_date, remark, flag
   </sql>
   
   <!-- 查询条件定义 -->
@@ -37,6 +38,12 @@
        </if>
        <if test="entity.type!=null and entity.type!='' ">
            and type=#{entity.type}
+       </if>
+       <if test="entity.beginDate!=null and entity.beginDate!=''">
+           and create_date &gt;= #{beginDate}  
+       </if>
+	   <if test="entity.endDate!=null and entity.endDate!='' ">
+           and create_date &lt;= #{endDate}  
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
@@ -75,6 +82,9 @@
       <if test="type != null">
         type,
       </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
       <if test="remark != null">
         remark,
       </if>
@@ -104,6 +114,9 @@
       <if test="type != null">
         #{type,jdbcType=CHAR},
       </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
@@ -113,7 +126,7 @@
     </trim>
   </insert>
   
-    <!-- 更新对象 -->
+  <!-- 更新对象 -->
   <update id="update" parameterType="com.mpri.aio.system.model.SysArea">
     update sys_area
     <set>
@@ -134,6 +147,9 @@
       </if>
       <if test="type != null">
         type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
