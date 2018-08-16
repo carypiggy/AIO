@@ -23,6 +23,11 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	protected Date beginDate;
 	protected Date endDate;
 	
+	//扩展查询参数
+	protected String paramA;
+	protected String paramB; 
+	
+	
 	
 	public DataEntity() {
 		super();
@@ -94,4 +99,21 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		this.endDate = endDate;
 	}
 
+	public String getParamA() {
+		return paramA;
+	}
+
+	public void setParamA(String paramA) {
+		this.paramA = paramA;
+	}
+
+	public String getParamB() {
+		return paramB;
+	}
+
+	public void setParamB(String paramB) {
+		this.paramB = paramB;
+	}
+
+	
 }

@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class MenuVo {
 
+	private String id;
+	
 	private String code;
 	
 	private String name;
@@ -87,6 +89,14 @@ public class MenuVo {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
