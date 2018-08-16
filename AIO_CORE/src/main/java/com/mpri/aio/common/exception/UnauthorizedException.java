@@ -1,4 +1,4 @@
-package com.mpri.aio.system.shiro.exception;
+package com.mpri.aio.common.exception;
 
 
 /**

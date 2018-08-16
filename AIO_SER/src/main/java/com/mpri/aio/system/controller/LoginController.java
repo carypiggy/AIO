@@ -2,15 +2,24 @@ package com.mpri.aio.system.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.subject.Subject;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
-import com.mpri.aio.system.shiro.ShiroToken;
+import com.mpri.aio.common.exception.UnauthorizedException;
+import com.mpri.aio.common.response.RestResponse;
+import com.mpri.aio.system.model.SysUser;
+import com.mpri.aio.system.service.SysUserService;
+import com.mpri.aio.system.shiro.JWTUtil;
 
 /**
  * 登陆控制器
@@ -21,35 +30,48 @@ import com.mpri.aio.system.shiro.ShiroToken;
 @RestController
 public class LoginController extends BaseController {
 	
+	@Autowired
+	private SysUserService sysUserService;
+	
 	/**
 	 * 管理登录
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(String username, String password, String authCode, HttpSession session) {
-
-		// 获得当前Subject
-		Subject currentUser = SecurityUtils.getSubject();
-		// 验证用户是否验证，即是否登录
-		if (!currentUser.isAuthenticated()) {
-			String msg = " ";
-			// 把用户名和密码封装为 UsernamePasswordToken 对象
-			ShiroToken token = new ShiroToken(username,password,authCode);
-			// remembermMe记住密码
-			token.setRememberMe(true);
-			try {
-				// 执行登录.
-				currentUser.login(token);
-				// 登录成功...
-				return "/index.html";
-			} catch (Exception e) {
-				msg = "登录失败";
-				System.out.println("登录失败" + e);
-			} 
-			return "/login.html";
-		}else {
-			return "/index.html";
-		}
+	public RestResponse<String>  login(@RequestParam("username") String username,
+            			@RequestParam("password") String password, 
+            			@RequestParam("authCode")String authCode,HttpSession session) {
+		
+		SysUser sysUser=sysUserService.getSysUserByUsername(username);
+		
+		//加盐处理密码
+		String safeCode=sysUser.getSafecode();
+		ByteSource salt = ByteSource.Util.bytes(safeCode);
+		String result = new Md5Hash(password,salt,3).toString();
+		
+		//验证码获取
+		String severCode = (String)session.getAttribute("authCode");
+        String clientCode = authCode;
+        //首先校认验证码
+        if(true) {
+        	//登陆密码校验
+    		if (sysUser.getPassword().equals(result)) {
+                return new RestResponse<String>(0, "登陆成功！", JWTUtil.sign(username, result));
+            } else {
+                throw new UnauthorizedException();
+            }
+        	
+        }else {
+        	return new RestResponse<String>(1, "验证码错误！", null);
+        }
 	}
+	
+	
+	@GetMapping(path = "/401")
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public RestResponse<String> unauthorized() {
+        return new RestResponse<>(0, "Unauthorized", null);
+    }
+	
 	
 	
 	/**

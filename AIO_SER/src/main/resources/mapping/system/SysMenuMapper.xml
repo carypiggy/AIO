@@ -237,6 +237,7 @@
 	<where>
 	  <include refid="query_where"></include>
     </where>
+    order by sort asc
   </select>
   
   <!-- 依照角色id查询所有权限菜单 -->
