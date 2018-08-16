@@ -202,7 +202,18 @@ layui.use(['bodyTab','form','element','layer','jquery','application'],function()
 		window.sessionStorage.removeItem("curmenu");
 	}
 	
+	$("#indexJump").click(function(){
+		$.ajax({
+			url: application.SERVE_URL+"/index", //ajax请求地址
+			headers : { 'Authorization' : sessionStorage.getItem('token')},
+			type: "GET",		
+			success: function (data) {
+				console.log(data)
+			}
+		}); 
 
+	})
+	
 })
 
 //打开新窗口
