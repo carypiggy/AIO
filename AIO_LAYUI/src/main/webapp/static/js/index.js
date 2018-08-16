@@ -20,7 +20,7 @@ layui.use(['bodyTab','form','element','layer','jquery','application'],function()
 	
 	tab = layui.bodyTab({
 		openTabNum : "50",  //最大可打开窗口数量
-		url : "static/json/menu.json" //获取菜单json地址
+		url : "static/json/menu.json" //获取菜单json地址,
 	});
 	
 	//初始化一级菜单
