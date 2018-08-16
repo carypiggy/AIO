@@ -31,6 +31,13 @@ public abstract class BaseEntity<T> implements Serializable {
 	public static final String FLAG_AUDIT = "2";
 	
 	/**
+	 * 菜单标记（0：菜单；1：权限；）
+	 */
+	public static final String MENU_NORMAL = "0";
+	public static final String MENU_PER = "1";
+	
+	
+	/**
 	 * 是否是新记录（默认：false），调用setIsNewRecord()设置新记录，使用自定义ID。
 	 * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
 	 */
@@ -54,6 +61,8 @@ public abstract class BaseEntity<T> implements Serializable {
 		this.id = id;
 	}
 
+	
+	
 	/**
 	 * 插入之前执行方法，子类实现
 	 */
