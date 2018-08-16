@@ -1,5 +1,7 @@
 package com.mpri.aio.system.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -86,6 +88,17 @@ public class SysOrgController extends BaseController {
 	@PostMapping(value = "/get")
 	public SysOrg get(SysOrg sysOrg) {
 		return sysOrgService.get(sysOrg);
+	}
+	
+	/**
+	 * 根据条件查询所有列表数据不分页
+	 * @param entity
+	 * @return
+	 */
+	@CrossOrigin
+	@GetMapping(value = "/loadAllListBy")
+	public List<SysOrg> loadAllListBy(SysOrg sysOrg) {		
+		return sysOrgService.loadAllListBy(sysOrg);
 	}
 		
 }

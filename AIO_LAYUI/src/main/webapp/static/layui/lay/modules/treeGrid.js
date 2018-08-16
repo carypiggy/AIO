@@ -283,7 +283,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
             options = that.config
             ,initWidth = {
                 checkbox: 48
-                ,space: 15
+                ,space: 20
                 ,numbers: 40
             };
 
@@ -505,9 +505,8 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
         //设置默认参数
         for (var i = 0; i < data.length; i++) {
             var n = data[i];
-            n.isOpen=true;
+            n.isOpen=false;
         }
-
         //处理树结构
         var fa = function(upId) {
             var _array = [];
@@ -520,8 +519,10 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
             }
             return _array;
         }
-        treeList=fa(data[0][field_upId],"");//递归
+		
+		//
 
+        treeList=fa(data[0][field_upId],"");//递归
 
         //处理表格结构
         var fa2=function (l,level,upids) {
