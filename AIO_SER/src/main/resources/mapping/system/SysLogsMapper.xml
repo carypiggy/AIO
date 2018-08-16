@@ -12,20 +12,64 @@
     <result column="request_uri" jdbcType="VARCHAR" property="requestUri" />
     <result column="method" jdbcType="VARCHAR" property="method" />
   	<result column="params" jdbcType="LONGVARCHAR" property="params" />
-    <result column="exc_content" jdbcType="LONGVARCHAR" property="excContent" />  
+    <result column="exc_content" jdbcType="LONGVARCHAR" property="excContent" /> 
+    <result column="username" jdbcType="VARCHAR" property="username" />   
   </resultMap>
   
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
-    id, type, create_by, create_date, remote_addr, user_agent, request_uri, method,params, exc_content
+    sl.id, sl.type, sl.create_by, sl.create_date, sl.remote_addr, sl.user_agent, sl.request_uri, sl.method,params, sl.exc_content,su.username
   </sql>
+  
+	<!-- 查询条件定义 -->
+	<sql id="query_where">
+		<if test="entity!=null">
+			<if test="entity.id != null and entity.id!='' ">
+        		and id=#{entity.id}
+      		</if>	      	
+			<if test="entity.type != null and entity.type!='' ">
+        		and type =#{entity.type}
+      		</if>	      	
+			<if test="entity.createBy != null and entity.createBy!='' ">
+        		and create_by=#{entity.createBy} 
+      		</if>	      	
+			<if test="entity.createDate != null and entity.createDate!='' ">
+        		and create_date=#{entity.createDate}
+      		</if>	      	
+			<if test="entity.remoteAddr != null and entity.remoteAddr!='' ">
+        		and remote_addr=#{entity.remoteAddr}
+      		</if>	      	
+			<if test="entity.userAgent != null and entity.userAgent!='' ">
+        		and user_agent=#{entity.userAgent}
+      		</if>	      	
+			<if test="entity.requestUri != null and entity.requestUri!='' ">
+        		and request_uri=#{entity.requestUri}
+      		</if>	      	
+			<if test="entity.method != null and entity.method!='' ">
+        		and method=#{entity.method}
+      		</if>	      	
+			<if test="entity.params != null and entity.params!='' ">
+        		and params=#{entity.params}
+      		</if>	      	
+			<if test="entity.excContent != null and entity.excContent!='' ">
+        		and exc_content=#{entity.excContent}
+      		</if>	      	
+			<if test="entity.remark != null and entity.remark!='' ">
+        		and remark=#{entity.remark}
+      		</if>	      	
+			<if test="entity.flag != null and entity.flag!='' ">
+        		and flag= #{entity.FLAG_NORMAL}
+      		</if>
+		</if>
+	</sql>
   
   <!-- 根据id查询对象-->
   <select id="get" parameterType="com.mpri.aio.system.model.SysLogs" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sys_logs
-    where id = #{id,jdbcType=VARCHAR}
+    from sys_logs sl
+   	JOIN sys_user su ON su.id = sl.create_by  
+    where sl.id = #{id,jdbcType=VARCHAR}
   </select>
   
   <!-- 插入对象 -->
@@ -137,4 +181,18 @@
     update sys_logs set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
   </update>
 
+	<!-- 分页查询 -->
+   <select id="loadByPage" parameterType="com.mpri.aio.system.model.SysLogs" resultMap="BaseResultMap" >
+   	select
+   		<include refid="Base_Column_List" />
+   	from sys_logs sl
+   	
+   		JOIN sys_user su ON su.id = sl.create_by   	
+   	WHERE   	
+  		sl.flag = #{entity.FLAG_NORMAL}
+      <if test="entity.username != null">
+        and su.username like '%${entity.username}%'
+      </if>
+   	ORDER BY sl.create_date DESC
+ 	</select>
 </mapper>

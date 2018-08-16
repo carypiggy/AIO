@@ -116,7 +116,7 @@ public class LoginController extends BaseController {
         
         //权限数据组织
         if(null!=sysMenus) {      	
-        	userInfo.put("firstMenu", installMenu(sysMenus,parentId));
+        	userInfo.put("menu", installMenu(sysMenus,parentId));
         }
        
 		return userInfo;

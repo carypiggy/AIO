@@ -31,7 +31,8 @@ layui.use(['form','layer','jquery','application'],function(){
 				password : $("#password").val(),
 				authCode : $("#code").val()
 			},
-			success: function (data) {                 //将token保存在cookie中			
+			success: function (data) {                 
+				//将token保存在cookie中			
 				sessionStorage.setItem("token", data.data);
 				top.layer.msg("登陆成功");
 				window.location.href = "http://127.0.0.1:8848/AIO_LAYUI/src/main/webapp/index.html";
@@ -47,7 +48,7 @@ layui.use(['form','layer','jquery','application'],function(){
         return false;
     })
 
-	$("#codeImg").click(function(){
+	$("#codeImg").on('click',function(){
 		document.getElementById("codeImg").src = document.getElementById("codeImg").src + "?nocache=" + new Date().getTime();	
 	})
 
