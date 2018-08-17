@@ -12,7 +12,7 @@ layui.define(['form','layer'],function(exports){
 		setAcrossNames : function(value , _idClass ,_nameClass) {
 			for(var i=0; i<value.length ;i++){
 				var _idValue= $(window.parent.document).find(_idClass).val();
-				var _nameValue= $(window.parent.document).find(_idClass).val();
+				var _nameValue= $(window.parent.document).find(_nameClass).val();
 				$(window.parent.document).find(_idClass).val(value[i].id+","+_idValue);
 				$(window.parent.document).find(_nameClass).val(value[i].name+","+_nameValue);	
 			}
