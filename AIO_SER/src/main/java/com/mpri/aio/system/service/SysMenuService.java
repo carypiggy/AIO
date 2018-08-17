@@ -51,4 +51,18 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 		sysUser.setParamA(menuId);//临时借用查询参数，实际为页面编码
 		return mapper.loadPagePer (sysUser);
 	}
+	
+	/**
+	 * 根据用户id获取用户所有权限
+	 * @param id
+	 * @return
+	 */
+	public List<SysMenu> loadAllPer(String id) {
+		SysUser sysUser=new SysUser();
+		sysUser.setId(id);
+		return mapper.loadAllPer(sysUser);
+	}
+	
+	
+	
 }
