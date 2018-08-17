@@ -25,8 +25,19 @@ public class SysLogs extends DataEntity<SysLogs>{
     private String requestUri;
 
     private String method;
+    
+    private String username;
 
-    public String getId() {
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getId() {
         return id;
     }
 
