@@ -13,7 +13,7 @@ layui.define(["element","jquery"],function(exports){
 			this.tabConfig = {
 				openTabNum : undefined,  //最大可打开窗口数量
 				tabFilter : "bodyTab",  //添加窗口的filter
-				url : undefined  //获取菜单json地址
+				url : undefined  //获取菜单json地址，,
 			}
 		};
     //生成左侧菜单
@@ -25,6 +25,7 @@ layui.define(["element","jquery"],function(exports){
             data = strData;
         }
         var ulHtml = '';
+		console.log(data);
         for(var i=0;i<data.length;i++){
             if(data[i].spread || data[i].spread == undefined){
                 ulHtml += '<li class="layui-nav-item layui-nav-itemed">';
@@ -40,7 +41,7 @@ layui.define(["element","jquery"],function(exports){
                         ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
                     }
                 }
-                ulHtml += '<cite>'+data[i].title+'</cite>';
+                ulHtml += '<cite>'+data[i].name+'</cite>';
                 ulHtml += '<span class="layui-nav-more"></span>';
                 ulHtml += '</a>';
                 ulHtml += '<dl class="layui-nav-child">';
@@ -57,7 +58,7 @@ layui.define(["element","jquery"],function(exports){
                             ulHtml += '<i class="layui-icon" data-icon="'+data[i].children[j].icon+'">'+data[i].children[j].icon+'</i>';
                         }
                     }
-                    ulHtml += '<cite>'+data[i].children[j].title+'</cite></a></dd>';
+                    ulHtml += '<cite>'+data[i].children[j].name+'</cite></a></dd>';
                 }
                 ulHtml += "</dl>";
             }else{
@@ -73,7 +74,7 @@ layui.define(["element","jquery"],function(exports){
                         ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
                     }
                 }
-                ulHtml += '<cite>'+data[i].title+'</cite></a>';
+                ulHtml += '<cite>'+data[i].name+'</cite></a>';
             }
             ulHtml += '</li>';
         }
@@ -141,7 +142,7 @@ layui.define(["element","jquery"],function(exports){
 				if(_this.find("i.seraph").attr("data-icon") != undefined){
 					title += '<i class="seraph '+_this.find("i.seraph").attr("data-icon")+'"></i>';
 				}else{
-					title += '<i class="layui-icon">'+_this.find("i.layui-icon").attr("data-icon")+'</i>';
+					title += '<i class="layui-icon .refresh">'+_this.find("i.layui-icon").attr("data-icon")+'</i>';
 				}
 			}
 			//已打开的窗口中不存在
