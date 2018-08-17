@@ -17,13 +17,14 @@
 			<result column="master" jdbcType="VARCHAR" property="master" />
 			<result column="mobile" jdbcType="VARCHAR" property="mobile" />
 			<result column="useable" jdbcType="CHAR" property="useable" />
+			<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
 			<result column="remark" jdbcType="VARCHAR" property="remark" />
 			<result column="flag" jdbcType="CHAR" property="flag" />
 	</resultMap>
 	
     <!-- 基础字段定义 -->
 	<sql id="Base_Column_List">
-    	id, parent_id, parent_ids, name, code, type, url, icon, grade, sort, master, mobile, useable, remark, flag
+    	id, parent_id, parent_ids, name, code, type, url, icon, grade, sort, master, mobile, useable, create_date, remark, flag
 	</sql>
 
 	<!-- 查询条件定义 -->
@@ -67,7 +68,13 @@
       		</if>	      	
 			<if test="entity.useable != null and entity.useable!='' ">
         		and useable=#{entity.useable}
-      		</if>	      	
+      		</if>
+      		<if test="entity.beginDate!=null and entity.beginDate!=''">
+           		and create_date &gt;= #{beginDate}  
+       		</if>
+		   	<if test="entity.endDate!=null and entity.endDate!='' ">
+	           	and create_date &lt;= #{endDate}  
+	       	</if>    	
 			<if test="entity.remark != null and entity.remark!='' ">
         		and remark=#{entity.remark}
       		</if>	      	
@@ -152,7 +159,10 @@
 	  		</if>   			
 	   		<if test="useable != null">
 	    		useable,
-	  		</if>   			
+	  		</if> 
+	  		<if test="createDate != null">
+        		create_date,
+      		</if>	
 	   		<if test="remark != null">
 	    		remark,
 	  		</if>   			
@@ -199,7 +209,10 @@
 	  		</if>   			
 	   		<if test="useable != null">
 	   			#{useable,jdbcType=CHAR},
-	  		</if>   			
+	  		</if> 
+	  		<if test="createDate != null">
+        		#{createDate,jdbcType=TIMESTAMP},
+      		</if>			
 	   		<if test="remark != null">
 	   			#{remark,jdbcType=VARCHAR},
 	  		</if>   			
@@ -248,7 +261,10 @@
 	  		</if>  
 			<if test="useable != null">
 	   			useable = #{useable,jdbcType=CHAR},
-	  		</if>  
+	  		</if> 
+	  		<if test="createDate != null">
+        		create_date = #{createDate,jdbcType=TIMESTAMP},
+      		</if>
 			<if test="remark != null">
 	   			remark = #{remark,jdbcType=VARCHAR},
 	  		</if>  

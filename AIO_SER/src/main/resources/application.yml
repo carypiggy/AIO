@@ -2,6 +2,12 @@ server:
   port: 8080
 
 spring:
+    cache:
+        type: caffeine
+        cache-names: dictCache
+        caffeine:
+            spec: maximumSize=500, expireAfterWrite=15s
+              
     datasource:
         name: aio_db
         type: com.alibaba.druid.pool.DruidDataSource
@@ -13,9 +19,9 @@ spring:
           type: com.alibaba.druid.pool.DruidDataSource
           driver-class-name: com.mysql.jdbc.Driver
           #基本属性
-          url: jdbc:mysql://192.168.140.36:3306/smmp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT&useSSL=false
+          url: jdbc:mysql://192.168.120.187:3306/smmp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT&useSSL=false
           username: root
-          password: root
+          password: root123.
           #url: jdbc:mysql://66.42.40.232:3306/aio_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT
           #username: aio
           #password: Aio54321.
@@ -36,29 +42,8 @@ spring:
           #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
           pool-prepared-statements: false
           max-pool-prepared-statement-per-connection-size: 20	           
-
-    cache: 
-      #两级缓存的配置
-      multi: 
-          caffeine: 
-                expireAfterAccess: 500000
-          redis: 
-                defaultExpiration: 60000
-      cache-names: dictCache
-      
-    redis : 
-      host: 192.168.120.187
-      port: 6379
-      password: 123456
-      database: 0
-      lettuce:
-          pool:
-              min-idle: 0  # 连接池中的最小空闲连接
-              max-idle: 8  # 连接池中的最大空闲连接
-              max-wait: -1ms  # 连接池最大阻塞等待时间（使用负值表示没有限制）
-              max-active: 100  # 连接池最大连接数（使用负值表示没有限制）
-      timeout: 1000
-              
+    
+    
 mybatis:
   #对应mapper映射xml文件的所在路径
   mapper-locations: classpath:mapping/*/*.xml
@@ -77,6 +62,9 @@ pagehelper:
     
 # 打印日志
 logging:
+  pattern:
+      console: "%-5level - %msg%n"
   level: 
-    com.onepro.custom.mapper: DEBUG
+      - com.memorynotfound=trace
+      - com.onepro.custom.mapper: DEBUG
     

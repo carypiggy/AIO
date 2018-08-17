@@ -26,6 +26,7 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
         page : true,
         height : "full-125",
         limit : 10,
+        headers : { 'Authorization' : sessionStorage.getItem('token')},
         id : "dictListTable",
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/

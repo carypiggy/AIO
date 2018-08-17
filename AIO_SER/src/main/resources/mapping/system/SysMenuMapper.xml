@@ -15,6 +15,7 @@
     <result column="sort" jdbcType="DECIMAL" property="sort" />
     <result column="target" jdbcType="VARCHAR" property="target" />
     <result column="is_show" jdbcType="CHAR" property="isShow" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
   </resultMap>
@@ -22,7 +23,7 @@
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
     sm.id, sm.parent_id, sm.parent_ids, sm.name, sm.code, sm.href, sm.icon, sm.type, sm.permission, sm.sort, sm.target, 
-    sm.is_show, sm.remark, sm.flag
+    sm.is_show,sm.create_date, sm.remark, sm.flag
   </sql>
   
   <!-- 查询条件定义 -->
@@ -45,6 +46,12 @@
        </if>
        <if test="entity.isShow!=null and entity.isShow!='' ">
            and is_show=#{entity.isShow}
+       </if>
+       <if test="entity.beginDate!=null and entity.beginDate!=''">
+           and create_date &gt;= #{beginDate}  
+       </if>
+	   <if test="entity.endDate!=null and entity.endDate!='' ">
+           and create_date &lt;= #{endDate}  
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
@@ -98,6 +105,9 @@
       <if test="isShow != null">
         is_show,
       </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
       <if test="remark != null">
         remark,
       </if>
@@ -141,6 +151,9 @@
       </if>
       <if test="isShow != null">
         #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -188,6 +201,9 @@
       <if test="isShow != null">
         is_show = #{isShow,jdbcType=CHAR},
       </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -221,6 +237,7 @@
 	<where>
 	  <include refid="query_where"></include>
     </where>
+    order by sort asc
   </select>
   
   <!-- 依照角色id查询所有权限菜单 -->
@@ -235,7 +252,7 @@
 	 and srm.role_id = #{id,jdbcType=VARCHAR}
   </select>
   
-  <!-- 依照用户id查询所有角色 -->
+  <!-- 依照用户id查询所有菜单 -->
   <select id="loadPerByUser"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
@@ -246,6 +263,7 @@
 		inner join sys_user su
 	WHERE
 		sm.flag = #{FLAG_NORMAL}
+		and sm.type = #{MENU_NORMAL}
 		and sm.id = srm.menu_id
 		and srm.role_id = sr.id
 		and sr.id = sur.role_id
@@ -253,4 +271,23 @@
 		and su.id = #{id,jdbcType=VARCHAR}
   </select>
  
+ <!-- 依照用户id和菜单id 查询菜单下的所有权限 -->
+  <select id="loadPagePer"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu sm
+		inner join sys_role_menu srm
+		inner join sys_role sr
+		inner join sys_user_role sur
+		inner join sys_user su
+	WHERE
+		sm.flag = #{FLAG_NORMAL}
+		and sm.type = #{MENU_PER}
+		and su.id = #{id,jdbcType=VARCHAR}
+		and sm.parent_id = #{paramA,jdbcType=VARCHAR}
+		and sm.id = srm.menu_id
+		and srm.role_id = sr.id
+		and sr.id = sur.role_id
+		and sur.user_id = su.id
+  </select>
 </mapper>
