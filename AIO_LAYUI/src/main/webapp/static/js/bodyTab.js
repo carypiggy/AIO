@@ -25,7 +25,6 @@ layui.define(["element","jquery"],function(exports){
             data = strData;
         }
         var ulHtml = '';
-		console.log(data);
         for(var i=0;i<data.length;i++){
             if(data[i].spread || data[i].spread == undefined){
                 ulHtml += '<li class="layui-nav-item layui-nav-itemed">';
@@ -47,9 +46,9 @@ layui.define(["element","jquery"],function(exports){
                 ulHtml += '<dl class="layui-nav-child">';
                 for(var j=0;j<data[i].children.length;j++){
                     if(data[i].children[j].target == "_blank"){
-                        ulHtml += '<dd><a data-url="'+data[i].children[j].href+'" target="'+data[i].children[j].target+'">';
+                        ulHtml += '<dd><a  id='+data[i].id+' data-url="'+data[i].children[j].href+'" target="'+data[i].children[j].target+'">';
                     }else{
-                        ulHtml += '<dd><a data-url="'+data[i].children[j].href+'">';
+                        ulHtml += '<dd><a  id='+data[i].id+' data-url="'+data[i].children[j].href+'">';
                     }
                     if(data[i].children[j].icon != undefined && data[i].children[j].icon != ''){
                         if(data[i].children[j].icon.indexOf("icon-") != -1){
@@ -63,9 +62,9 @@ layui.define(["element","jquery"],function(exports){
                 ulHtml += "</dl>";
             }else{
                 if(data[i].target == "_blank"){
-                    ulHtml += '<a data-url="'+data[i].href+'" target="'+data[i].target+'">';
+                    ulHtml += '<a  id='+data[i].id+' data-url="'+data[i].href+'" target="'+data[i].target+'">';
                 }else{
-                    ulHtml += '<a data-url="'+data[i].href+'">';
+                    ulHtml += '<a  id='+data[i].id+' data-url="'+data[i].href+'">';
                 }
                 if(data[i].icon != undefined && data[i].icon != ''){
                     if(data[i].icon.indexOf("icon-") != -1){
@@ -142,7 +141,7 @@ layui.define(["element","jquery"],function(exports){
 				if(_this.find("i.seraph").attr("data-icon") != undefined){
 					title += '<i class="seraph '+_this.find("i.seraph").attr("data-icon")+'"></i>';
 				}else{
-					title += '<i class="layui-icon .refresh">'+_this.find("i.layui-icon").attr("data-icon")+'</i>';
+					title += '<i class="layui-icon">'+_this.find("i.layui-icon").attr("data-icon")+'</i>';
 				}
 			}
 			//已打开的窗口中不存在

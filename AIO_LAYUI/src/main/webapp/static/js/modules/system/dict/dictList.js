@@ -30,16 +30,34 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
         id : "dictListTable",
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/
+			{type:'checkbox'},
             {field: 'typeCode', title: '编码类型'},
             {field: 'label', title: '编码名称'},
             {field: 'value', title: '编码值'},
 			{field: 'sort',sort: true, title: '排序'},
-            {field: 'remark', title: '备注'},
-            {title: '操作', width:170, templet:'#dictListBar',fixed:"right",align:"center"}
+            {field: 'remark', title: '备注'}
         ]]
     });
 
+	//获取权限
+	function getPer(header,url,menuId,method){
+		$.ajax({
+			url: application.SERVE_URL+'/getPagePer', //ajax请求地址
+			type: 'get',
+			headers :{ 'Authorization' : sessionStorage.getItem('token')},
+			data:{
+				menuId : parent.cur_menu_id,
+			},						
+			success: function (data) {
+				console.log(data);
+			},
+			error: function(data){
+				top.layer.msg("失败！");
+			}
+		}); 
+	}
 
+	getPer();
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
             table.reload("dictListTable",{
@@ -101,6 +119,11 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
     $(".addDict_btn").click(function(){
     	addDict();
     })
+
+	//监听表格复选框选择
+	table.on('checkbox(dictList)', function(obj){
+		console.log(obj)
+	});
 
 
     //列表操作
