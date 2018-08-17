@@ -2,25 +2,16 @@ package com.mpri.aio.system.shiro;
 
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mpri.aio.common.exception.CaptchaException;
-import com.mpri.aio.common.exception.UnauthorizedException;
-import com.mpri.aio.common.response.RestResponse;
-import com.mpri.aio.common.utils.StringUtils;
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.model.SysRole;
 import com.mpri.aio.system.model.SysUser;
@@ -74,7 +65,7 @@ public class JWTRealm extends AuthorizingRealm {
 		    throw new AuthenticationException("Token认证失败");
 		}
 		
-		return new SimpleAuthenticationInfo(token, token, "jwtRealm");
+	   	return new SimpleAuthenticationInfo(token, token, "jwtRealm");
 
 	}
 	
@@ -92,7 +83,6 @@ public class JWTRealm extends AuthorizingRealm {
 		String username = JWTUtil.getUsername(principals.toString());
 		//获取用户对象
 		SysUser sysUser = sysUserService.getSysUserByUsername(username);
-		
 		//保存角色
         List<SysRole> roles = sysRoleService.loadRoleByUser(sysUser.getId());
         

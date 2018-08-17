@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>日志详情</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../../../../static/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../../../../static/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form " id= "dictForm" style="width:80%;">
+	<input type="text" class="layui-input id"  style="display: none;">
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">日志类型</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input type">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">创建者</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input username" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">创建日期</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input createDate" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">操作IP地址</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input requestUri" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">用户代理</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input userAgent" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">请求URI</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input requestUri" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">操作方式</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input method" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">操作提交的数据</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input params" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">异常信息</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input excContent" >
+		</div>
+	</div>
+</form>
+	<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../../static/js/modules/system/logs/logsInfo.js"></script>
+</body>
+</html>
