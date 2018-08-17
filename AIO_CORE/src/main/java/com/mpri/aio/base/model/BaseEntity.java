@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import com.mpri.aio.common.utils.StringUtils;
 
 /**
- * 
+ *  所有业务实体类基类
  * @author Cary
  * @Date  2018年7月27日
  * @param <T>
@@ -22,19 +22,20 @@ public abstract class BaseEntity<T> implements Serializable {
 	 */
 	@Id
 	@GeneratedValue
-	protected String id;	
-	/**
-	 * 删除标记（0：正常；1：删除；2：审核；）
-	 */
-	public static final String FLAG_NORMAL = "0";
-	public static final String FLAG_DELETE = "1";
-	public static final String FLAG_AUDIT = "2";
+	protected String id;
 	
 	/**
-	 * 菜单标记（0：菜单；1：权限；）
+	 * 删除标记
 	 */
-	public static final String MENU_NORMAL = "0";
-	public static final String MENU_PER = "1";
+	public static final String FLAG_NORMAL = "NORMAL";
+	public static final String FLAG_DELETE = "DELETE";
+	public static final String FLAG_HOLD = "HOLD";
+	
+	/**
+	 * 菜单标记
+	 */
+	public static final String MENU_NORMAL = "MENU";
+	public static final String MENU_PER = "PERMISSION";
 	
 	
 	/**
