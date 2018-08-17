@@ -131,12 +131,11 @@ public class LoginController extends BaseController {
 	public List<SysMenu> getPagePer(String menuId,HttpServletRequest request) {
 		
 		String username = JWTUtil.getUsername(request.getHeader("Authorization"));
-		
 		//获取用户对象
 		SysUser sysUser = sysUserService.getSysUserByUsername(username);
 		
-		
-		return sysMenuService.loadPagePer(sysUser.getId(), menuId);
+		List<SysMenu> sysmenus = sysMenuService.loadPagePer(sysUser.getId(), menuId);
+		return sysmenus;
 	}
 	
 

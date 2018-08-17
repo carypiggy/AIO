@@ -14,27 +14,43 @@
 </head>
 <body class="childrenBody">
 <div class="layui-fluid">
-	<blockquote class="layui-elem-quote quoteBox layui-elem-quote-blockquote">
+	
+	<blockquote class="layui-elem-quote ">
 		<form class="layui-form">
 			<div class="layui-inline">
-				<label>编码类型</label>
+				<label>编码类型：</label>
 				<div class="layui-input-inline">
 					<input type="text" class="layui-input searchTypeCode" placeholder="请输入编码类型" />
 				</div>
-				<label>编码名称</label>
+				
+				<label>编码名称：</label>
 				<div class="layui-input-inline">
 					<input type="text" class="layui-input searchLabel" placeholder="请输入编码名称" />
 				</div>
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
 			</div>
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal addDict_btn">添加</a>
-			</div>
+			
 		</form>
 	</blockquote>
+	
+	<div layui-inline class="layui-but-per">
+<!-- 		<div class="layui-inline">
+			<a class="layui-btn layui-btn-normal addDict_btn"><i class="layui-icon"></i>添加</a>
+		</div>
+		<div class="layui-inline">
+			<a class="layui-btn layui-btn-warm" lay-event="edit"><i class="layui-icon"></i>编辑</a>
+		</div>
+		<div class="layui-inline">
+			<a class="layui-btn layui-btn-danger" lay-event="del"><i class="layui-icon"></i>删除</a>
+		</div> -->
+		<div class="layui-btn-group">
+		<button class="layui-btn"><i class="layui-icon"></i>增加</button>
+		<button class="layui-btn "><i class="layui-icon"></i>编辑</button>
+		<button class="layui-btn"><i class="layui-icon"></i>删除</button>
+	  </div>
+	</div>
+
 	<table id="dictList" lay-filter="dictList"></table>
-
-
 	<!--操作-->
 	<script type="text/html" id="dictListBar">
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
