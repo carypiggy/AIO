@@ -193,6 +193,12 @@
       <if test="entity.username != null">
         and su.username like '%${entity.username}%'
       </if>
+       <if test="entity.beginDate!=null">
+           and sl.create_date &gt;= #{entity.beginDate}  
+       </if>
+	   <if test="entity.endDate!=null">
+           and sl.create_date &lt;= #{entity.endDate}  
+       </if>
    	ORDER BY sl.create_date DESC
  	</select>
 </mapper>

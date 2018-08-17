@@ -35,7 +35,7 @@ layui.use(['form','layer','jquery','application'],function(){
 				//将token保存在cookie中			
 				sessionStorage.setItem("token", data.data);
 				top.layer.msg("登陆成功");
-				window.location.href = "http://127.0.0.1:8848/AIO_LAYUI/src/main/webapp/index.html";
+				window.location.href = "../webapp/index.html";
 			},
 			error: function(data){
 				top.layer.msg("登陆失败！");

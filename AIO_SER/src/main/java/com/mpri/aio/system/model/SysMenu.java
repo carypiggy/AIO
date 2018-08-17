@@ -35,7 +35,8 @@ public class SysMenu extends DataEntity<SysMenu>{
 
  
     private String permission;
-
+    
+    private String operate;
   
     private Long sort;
 
@@ -157,6 +158,16 @@ public class SysMenu extends DataEntity<SysMenu>{
     public void setIsShow(String isShow) {
         this.isShow = isShow == null ? null : isShow.trim();
     }
+
+
+	public String getOperate() {
+		return operate;
+	}
+
+
+	public void setOperate(String operate) {
+		this.operate = operate;
+	}
 
   
 }
