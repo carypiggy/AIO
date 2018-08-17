@@ -303,4 +303,24 @@
 		and sr.id = sur.role_id
 		and sur.user_id = su.id
   </select>
+  
+  
+  <!-- 依照用户id和菜单id 查询菜单下的所有权限 -->
+  <select id="loadAllPer"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu sm
+		inner join sys_role_menu srm
+		inner join sys_role sr
+		inner join sys_user_role sur
+		inner join sys_user su
+	WHERE
+		sm.flag = #{FLAG_NORMAL}
+		and sm.type = #{MENU_PER}
+		and su.id = #{id,jdbcType=VARCHAR}
+		and sm.id = srm.menu_id
+		and srm.role_id = sr.id
+		and sr.id = sur.role_id
+		and sur.user_id = su.id
+  </select>
 </mapper>
