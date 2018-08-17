@@ -274,7 +274,7 @@
         <li>
             <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">ဂ</i>
             <div class="name">刷新</div>
-            <div class="code">&amp;#x1002;</div>
+            <div class="code">&amp;#xe63d;</div>
         </li>
 
         <li>
@@ -759,10 +759,12 @@
                 index = parent.layer.getFrameIndex(window.name);
 
         $(".site-doc-icon li").on("click",function () {
-			
-            var selectIcon = $(this).find("div.code").html();
+			// var selectIcon = $(this).find("i.layui-icon").html();
+            var selectIconCode = $(this).find("div.code").html();
+			// selectIconCode = selectIconCode.replace('&amp;','&');
             // parent.$("#realIcon").show().html(selectIcon);
-            parent.$(".icon").val(selectIcon);
+            // parent.$(".iconCode").val(selectIconCode);
+			parent.$(".icon").val(selectIconCode);
             parent.layer.close(index);
         });
     });

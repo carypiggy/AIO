@@ -40,9 +40,16 @@ public class MenuTest extends ApplicationTests {
 		   
     }
     
-    @Test
-    public void testloadAllListBy() {
+    //@Test
+    public void testLoadAllListBy() {
     	List<SysMenu> list = sysMenuService.loadAllListBy(new SysMenu());
     	super.outprint("java.util.List", list);
     }
+    
+    @Test
+    public void testLoadPagePer() {
+    	List<SysMenu> list = sysMenuService.loadPagePer("0e207e95eb9d4f3985120ec7d5528013","6002");
+    	super.outprint("java.util.List", list);
+    }
+    
 }

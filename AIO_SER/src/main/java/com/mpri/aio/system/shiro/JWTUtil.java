@@ -1,6 +1,5 @@
 package com.mpri.aio.system.shiro;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 import com.auth0.jwt.JWT;
@@ -8,7 +7,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.mpri.aio.system.shiro.exception.UnauthorizedException;
 /**
  * JTW帮助类
  * @author Cary
@@ -16,7 +14,7 @@ import com.mpri.aio.system.shiro.exception.UnauthorizedException;
  */
 public class JWTUtil  {
 	
-	 // 过期时间15分钟
+	 // 过期时间5分钟
     private static final long EXPIRE_TIME = 15*60*1000;
     /**
      * 校验token是否正确
@@ -51,7 +49,7 @@ public class JWTUtil  {
     }
 
     /**
-     * 生成签名,15min后过期
+     * 生成签名,5min后过期
      * @param username 用户名
      * @param secret 用户的密码
      * @return 加密的token

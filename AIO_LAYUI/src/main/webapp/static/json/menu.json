@@ -16,7 +16,22 @@
 			"title": "校友卡审核",
 			"icon": "&#xe630;",
 			"href": "https://www.baidu.com/",
-			"spread": false
+			"spread": false,
+			"children": [
+				{
+					"title": "404页面",
+					"icon": "&#xe61c;",
+					"href": "page/404.html",
+					"spread": false
+				},
+				{
+					"title": "登录",
+					"icon": "&#xe609;",
+					"href": "page/login/login.html",
+					"spread": false,
+					"target": "_blank"
+				}
+			]
 		}
 	],
 	"info": [

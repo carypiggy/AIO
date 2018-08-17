@@ -33,7 +33,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], func
             ,{field:'isShow', title: '是否显示'}
             ,{fixed:'right', title:'操作',align:'center', toolbar:'#optBar'}
         ]]        
-		,page:false
 		,done: function(res, curr, count){    //res 接口返回的信息
 			$("[data-field = 'isShow']").children().each(function(){
 				if($(this).text() == 1){
@@ -55,7 +54,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], func
     
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-		treeTable.reload("menuTreeTable",{
+		treeGrid.reload("menuTreeTable",{
 			page: {
 				curr: 1 //重新从第 1 页开始
 			},
