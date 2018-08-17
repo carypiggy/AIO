@@ -2,7 +2,9 @@ package com.mpri.aio.base.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.WebDataBinder;
@@ -185,21 +188,11 @@ public class BaseController {
 			}
 		});
 		// Date 类型转换
-		binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String text) {
-				try {
-					setValue(DateUtils.parseDate(text));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-//			@Override
-//			public String getAsText() {
-//				Object value = getValue();
-//				return value != null ? DateUtils.formatDateTime((Date)value) : "";
-//			}
+		
+		//转换日期格式
+	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true) {
+
 		});
 	}
 	

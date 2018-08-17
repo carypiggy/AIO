@@ -1,11 +1,12 @@
 /*公共样式*/
 /*.layui-legend {font-size: 16px;border-top: none;padding-top: 5px;font: "microsoft yahei" !important}*/
-.layui-fluid{height:100%;margin:0 auto;padding:2px;}
+.layui-fluid{height:100%;margin:15px;}
 .fieldset-div{height:100%;border: none; }
 .rightztree{height:100% ;!important;}
-.layui-elem-quote-blockquote{border-left: none !important;}
+.layui-but-per{margin:auto}
+/* .layui-elem-quote-blockquote{border-left: none !important;} */
 /*上面为新增样式*/
-.childrenBody{height:100% !important; padding:5px;}
+.childrenBody{height:100% !important; }
 .layui-table-view{ margin:2px 0px 0px 0px !important;}
 .magb0{margin-bottom:0 !important;}
 .magt0{ margin-top:0 !important;}
