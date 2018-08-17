@@ -1,0 +1,43 @@
+
+ [
+        {
+            "id": "0",
+            "typeCode": "fsz",
+            "label": "身份证",
+            "value": "身份证", 
+			"sort": "0",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "1",
+           "typeCode": "gatxz",
+           "label": "港澳通行证",
+           "value": "港澳通行证", 
+           "sort": "1",
+           "reate_date": "2018-04-02 09:16",
+           "remark": "",
+           "flag": "1"
+        },
+        {
+            "id": "2",
+            "typeCode": "twtxz",
+            "label": "台湾通行证",
+            "value": "台湾通行证", 
+            "sort": "2",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "3",
+            "typeCode": "hz",
+            "label": "护照",
+            "value": "护照", 
+            "sort": "3",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        }
+    ]

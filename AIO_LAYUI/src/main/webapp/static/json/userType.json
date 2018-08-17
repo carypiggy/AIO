@@ -1,0 +1,42 @@
+	[
+        {
+            "id": "0",
+            "typeCode": "bys",
+            "label": "毕业生",
+            "value": "毕业生", 
+			"sort": "0",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "1",
+           "typeCode": "zxs",
+           "label": "在校生",
+           "value": "在校生", 
+           "sort": "1",
+           "reate_date": "2018-04-02 09:16",
+           "remark": "",
+           "flag": "1"
+        },
+        {
+            "id": "2",
+            "typeCode": "jzg",
+            "label": "教职工",
+            "value": "教职工", 
+            "sort": "2",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "3",
+            "typeCode": "ryxy",
+            "label": "荣誉校友",
+            "value": "荣誉校友", 
+            "sort": "3",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        }
+    ]
