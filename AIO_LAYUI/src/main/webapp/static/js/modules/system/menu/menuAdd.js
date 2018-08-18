@@ -16,9 +16,17 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 		publicUtil  = layui.publicUtil
         layer = layui.layer,
         $ = layui.jquery;
-		
-	publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENUTYPE'} ,"type");
-	
+
+	if(parent.formdatas != undefined){
+		publicUtil.setCheckBoxVal('isShow',parent.formdatas.isShow);	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENUTYPE'} ,"type",parent.formdatas.type);		
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",parent.formdatas.operate);
+	}else{
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENUTYPE'} ,"type");		
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate");
+	}
+
+
     form.on("submit(addMenu)",function(data){
         //弹出loading
         //弹出loading
@@ -33,11 +41,13 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 				code : $(".code").val(),
 				href : $(".href").val(),
 				icon : $(".icon").val(),
-				type : $(".type").val(),
+				type : $("#type").val(),
+				operate : $("#operate").val(),
 				permission : $(".permission").val(),
 				sort : $(".sort").val(),
+				operate : $("#operate").val(),
 				remark : $(".remark").val(),
-				isShow : $(".isShow").val(),
+				isShow : $('input[name="isShow"]').filter(':checked').val(),
 				target : $(".target").val()
 			},			
 			success: function (data) {
@@ -71,7 +81,7 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 				success : function(layero, index){
 					//
 					setTimeout(function(){
-							layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+							layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
 									tips: 3
 							});
 					},500)											
@@ -107,5 +117,9 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 		selectIcon();
 	})
 	
-	
+	$("#close").click(function(){
+		layer.closeAll("iframe");
+		//刷新父页面
+		parent.location.reload();	
+	})
 })

@@ -1,5 +1,8 @@
 package com.mpri.aio.system.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mpri.aio.base.model.DataEntity;
 /**
  * 
@@ -15,8 +18,18 @@ public class SysRole extends DataEntity<SysRole>{
     private String code;
    
     private String type;
+    
+    private List<SysMenu> menuList = new ArrayList<SysMenu>();
 
-    public String getName() {
+    public List<SysMenu> getMenuList() {
+		return menuList;
+	}
+
+	public void setMenuList(List<SysMenu> menuList) {
+		this.menuList = menuList;
+	}
+
+	public String getName() {
         return name;
     }
 

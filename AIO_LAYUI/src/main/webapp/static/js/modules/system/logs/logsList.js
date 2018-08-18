@@ -86,7 +86,6 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 	  //监听单元格事件
 	table.on('tool(logsList)', function(obj){
 		var data = obj.data;
-		console.log((".start").val());
 			openLogsInfo(data);
 	});
 	

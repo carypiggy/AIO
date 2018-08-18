@@ -21,5 +21,13 @@ public interface SysRoleMapper extends CrudMapper<SysRole>{
 	 * @return
 	 */
 	List<SysRole> loadRoleByUser(SysUser sysUser);
+	
+	/**
+	 *  
+	* <p>Title: insertRoleMenu</p>  
+	* <p>Description: </p>  
+	* @param sysRole
+	 */
+	void insertRoleMenu (SysRole sysRole);
     
 }

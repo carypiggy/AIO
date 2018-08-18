@@ -50,7 +50,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insertSelective" parameterType="com.mpri.aio.system.model.SysRole">
+  <insert id="insert" parameterType="com.mpri.aio.system.model.SysRole">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -163,4 +163,12 @@
 	 and srm.user_id = #{id,jdbcType=VARCHAR}
   </select>
 	
+	<!--保存菜单与角色关系  -->
+	<insert id="insertRoleMenu">
+		INSERT INTO sys_role_menu(role_id, menu_id)
+		<foreach collection="menuList" item="menu" separator=" union all ">
+			SELECT #{id}, #{menu.id}
+			FROM dual
+		</foreach>
+	</insert>	
 </mapper>
