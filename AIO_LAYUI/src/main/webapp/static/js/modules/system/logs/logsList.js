@@ -18,7 +18,7 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
         laytpl = layui.laytpl,
         table = layui.table;
     
-		
+		application.init();
 				var start;
 				var end ;
 				//执行一个laydate实例

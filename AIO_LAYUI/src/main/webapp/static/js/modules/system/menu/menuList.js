@@ -20,7 +20,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 	    laydate = layui.laydate,
 		form = layui.form,
 	    laytpl = layui.laytpl; //很重要
-		
+	
+	application.init();	
     var treeTable =treeGrid.render({
         elem: '#menuTree'
         ,url: application.SERVE_URL+'/sys/sysmenu/list'
