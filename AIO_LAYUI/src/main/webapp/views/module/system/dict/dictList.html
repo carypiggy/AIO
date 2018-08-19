@@ -32,30 +32,15 @@
 			
 		</form>
 	</blockquote>
-	
+	<!--操作-->
 	<div layui-inline class="layui-but-per">
-<!-- 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-normal addDict_btn"><i class="layui-icon"></i>添加</a>
-		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-warm" lay-event="edit"><i class="layui-icon"></i>编辑</a>
-		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger" lay-event="del"><i class="layui-icon"></i>删除</a>
-		</div> -->
-		<div class="layui-btn-group">
-		<button class="layui-btn"><i class="layui-icon"></i>增加</button>
-		<button class="layui-btn "><i class="layui-icon"></i>编辑</button>
-		<button class="layui-btn"><i class="layui-icon"></i>删除</button>
+		<div class="layui-btn-group" id="but_per">
+
 	  </div>
 	</div>
 
 	<table id="dictList" lay-filter="dictList"></table>
-	<!--操作-->
-	<script type="text/html" id="dictListBar">
-		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
-	</script>
+
 </div>
 	<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../../static/js/modules/system/dict/dictList.js"></script>

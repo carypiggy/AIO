@@ -12,13 +12,13 @@ import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.system.model.SysLogs;
 import com.mpri.aio.system.service.SysLogsService;
 
-	/**
-	 *        系统日志模块——controller
-	* <p>Title: SysLogsController</p>  
-	* <p>Description: </p>  
-	* @author syp  
-	* @date 2018年8月16日
-	 */
+/**
+ *        系统日志模块——controller
+* <p>Title: SysLogsController</p>  
+* <p>Description: </p>  
+* @author syp  
+* @date 2018年8月16日
+ */
 @RestController
 @RequestMapping("sys/syslogs")
 public class SysLogsController extends BaseController{

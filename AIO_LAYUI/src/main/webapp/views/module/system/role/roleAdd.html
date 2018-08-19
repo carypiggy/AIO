@@ -14,43 +14,37 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
+	<input type="text" class="layui-input id" style="display: none;">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">角色名称</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input roleName" lay-verify="required"  placeholder="请输入角色名称">
+			<input type="text" class="layui-input name" lay-verify="required"  placeholder="请输入角色名称">
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">角色类型</label>
 		<div class="layui-input-block">
-			<input type="text"  class="layui-input userType" lay-verify="Mobile"  id = "userType">
+			<select  id="type">
+			</select>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">角色编码</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input roleCode" lay-verify="required"  id = "roleCode">
-		</div>
-	</div>
-	<div class="layui-row">
-		<label class="layui-form-label">状态</label>
-		<div class="layui-input-block">
-			<select class ="status">
-				<option value="0">启用</option>
-				<option value="1">禁用</option>
-			</select>
+			<input type="text" class="layui-input code" lay-verify="required"  id = "code">
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label ">备注信息</label>
 		<div class="layui-input-block">
-			<textarea placeholder="请输入备注信息" class="layui-textarea remarks"></textarea>
+			<textarea placeholder="请输入备注信息" class="layui-textarea remark"></textarea>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
 			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addRole">确认</button>
-			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
+			<button class="layui-btn layui-btn-sm layui-btn-normal" id="close">关闭</button>
 		</div>
 	</div>
 </form>

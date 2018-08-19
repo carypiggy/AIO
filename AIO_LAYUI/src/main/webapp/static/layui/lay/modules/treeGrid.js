@@ -1056,12 +1056,11 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
          * 树形节点点击事件（隐藏展开下级节点）
          */
         that.elem.on('click', 'i.layui-tree-head', function(){
-            var othis = $(this)
+            var othis = $(this)			
                 ,index = othis.parents('tr').eq(0).data('index')
                 ,tr = that.layBody.find('tr[data-index="'+ index +'"]')
                 ,datas=table.cache[that.key];//数据
             var o=datas[index];
-
             var stime=new Date();
             var sonO=$("[upids*=_"+o[options.treeId]+"_]");
             if(o.isOpen){//打开状态的，关闭
@@ -1389,6 +1388,42 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
         delete data[table.config.indexName];
         return data;
     };
+
+	/* 自己扩展异步加载 ----------------------------------------------------------------------------------------------------------------------------------------*/
+        /**
+         * 树形节点点击事件（隐藏展开下级节点）
+         */
+//         that.elem.on('click', 'i.layui-tree-head', function(){
+//             var othis = $(this)
+//                 ,index = othis.parents('tr').eq(0).data('index')
+//                 ,tr = that.layBody.find('tr[data-index="'+ index +'"]')
+//                 ,datas=table.cache[that.key];//数据
+//             var o=datas[index];
+// 			var data = table.cache[that.key][index];  
+			// console.log(data.id); 
+//             var stime=new Date();
+//             var sonO=$("[upids*=_"+o[options.treeId]+"_]");
+//             if(o.isOpen){//打开状态的，关闭
+//                 sonO.hide();
+//             }else{
+//                 sonO.show();
+//             }
+// 
+//             var etime=new Date();
+// 
+//             o.isOpen=!o.isOpen;//设置打开状态
+// 
+//             //处理图标
+//             var dbClickI=tr.find('.layui-tree-head');
+//             if(o.isOpen){//打开状态
+//                 dbClickI.html('&#xe625;');
+//             }else{
+//                 dbClickI.html('&#xe623;');
+//             }
+//         });
+
+
+
 
     //自动完成渲染
     table.init();

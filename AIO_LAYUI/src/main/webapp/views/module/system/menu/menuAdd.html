@@ -41,7 +41,7 @@
 		<div class="magb15 layui-col-md6 layui-col-xs12">
 			<label class="layui-form-label">菜单链接</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input href" lay-verify="required">
+				<input type="text" class="layui-input href">
 			</div>
 		</div>	
 	</div>
@@ -55,7 +55,7 @@
 		<div class="magb15 layui-col-md6 layui-col-xs12">
 			<label class="layui-form-label">菜单类型</label>
 			<div class="layui-input-block">
-				<select  lay-verify="required"  id="type">
+				<select  id="type">
 				</select>				
 			</div>
 		</div>	
@@ -67,11 +67,18 @@
 				<input type="text" class="layui-input permission">
 			</div>
 		</div>
-		<div class="magb15 layui-col-md6 layui-col-xs12">
+		<div class="magb15 layui-col-md3 layui-col-xs12">
 			<label class="layui-form-label">是否显示</label>
 			<div class="layui-input-block isShow">
-				<input type="radio" name="sex" value="0" title="是" checked>
-				<input type="radio" name="sex" value="1" title="否">
+				<input type="radio" name="isShow" value="1" title="是" checked>
+				<input type="radio" name="isShow" value="0" title="否">
+			</div>
+		</div>
+		<div class="magb15 layui-col-md3 layui-col-xs12">
+			<label class="layui-form-label">权限类型</label>
+			<div class="layui-input-block operate">
+				<select  id="operate">
+				</select>
 			</div>
 		</div>	
 	</div>
@@ -98,7 +105,8 @@
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
 			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addMenu">确认</button>
-			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
+			<button class="layui-btn layui-btn-sm layui-btn-normal" id="close">关闭</button>
 		</div>
 	</div>
 </form>

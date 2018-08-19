@@ -13,7 +13,7 @@ layui.use(['form','layer','application','validparam'],function(){
     var form = layui.form,
     	application = layui.application,
     	validparam = layui.validparam,
-        layer = parent.layer === undefined ? layui.layer : top.layer,
+        layer = parent.layer,
         $ = layui.jquery;
     
     form.verify(validparam);
@@ -48,4 +48,10 @@ layui.use(['form','layer','application','validparam'],function(){
 		}); 
         return false;
     })
+	
+	$("#close").click(function(){
+		layer.closeAll("iframe");
+		//刷新父页面
+		parent.location.reload();	
+	})
 })
