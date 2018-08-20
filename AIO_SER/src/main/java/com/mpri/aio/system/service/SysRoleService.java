@@ -27,4 +27,13 @@ public class SysRoleService  extends CrudService<SysRoleMapper, SysRole>{
 		sysUser.setId(id);
 		return mapper.loadRoleByUser(sysUser);
 	}
+	/**
+	 * 
+	* <p>Title: insertRoleMenu</p>  
+	* <p>Description: </p>  
+	* @param sysRole
+	 */
+	public void insertRoleMenu(SysRole sysRole) {
+		mapper.insertRoleMenu(sysRole);
+	}
 }

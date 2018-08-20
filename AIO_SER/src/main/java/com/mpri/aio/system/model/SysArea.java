@@ -4,7 +4,7 @@ import com.mpri.aio.base.model.DataEntity;
 
 /**
  * .地区表
- * @author lzw
+ * @author syp
  * @date 2018年8月3日
  */
 public class SysArea  extends DataEntity<SysArea>{
@@ -22,8 +22,19 @@ public class SysArea  extends DataEntity<SysArea>{
     private String code;
 
     private String type;
+    
+    private SysArea parentSysArea;
 
-    public String getParentId() {
+
+	public SysArea getParentSysArea() {
+		return parentSysArea;
+	}
+
+	public void setParentSysArea(SysArea parentSysArea) {
+		this.parentSysArea = parentSysArea;
+	}
+
+	public String getParentId() {
         return parentId;
     }
 

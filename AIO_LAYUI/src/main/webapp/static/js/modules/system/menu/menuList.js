@@ -7,31 +7,37 @@
 layui.config({
 	base : "../../../../static/js/"
 }).extend({
-	"application" : "application"
+	"application" : "application",
+	"publicUtil"  : "publicUtil"
 })
-layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], function () {
+//表单回填
+var formdatas;
+layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publicUtil'], function () {
     var treeGrid = layui.treeGrid,
 	    $ = layui.jquery,
+		publicUtil = layui.publicUtil,
 		application = layui.application,
 	    laydate = layui.laydate,
 		form = layui.form,
 	    laytpl = layui.laytpl; //很重要
-		
+	
+	application.init();	
     var treeTable =treeGrid.render({
         elem: '#menuTree'
         ,url: application.SERVE_URL+'/sys/sysmenu/list'
-        ,id: "menuTreeTable"
+        ,id: "menuTree"
+		,headers : { 'Authorization' : sessionStorage.getItem('token')}
         ,treeId:'id'//树形id字段名称
         ,treeUpId:'parentId'//树形父id字段名称
         ,treeShowName:'name'//以树形式显示的字段
         ,cols: [[
+			{type:'checkbox'},
             {field:'name', title: '菜单名称'}
             ,{field:'code', title: '菜单编码'}
 			,{field:'href', title: '菜单链接'}
 			,{field:'type', title: '菜单类型'}
 			,{field:'permission', title: '权限标记'}
             ,{field:'isShow', title: '是否显示'}
-            ,{fixed:'right', title:'操作',align:'center', toolbar:'#optBar'}
         ]]        
 		,done: function(res, curr, count){    //res 接口返回的信息
 			$("[data-field = 'isShow']").children().each(function(){
@@ -52,9 +58,13 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], func
 
     });
     
+	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+	
+	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-		treeGrid.reload("menuTreeTable",{
+		treeGrid.reload("menuTree",{
 			page: {
 				curr: 1 //重新从第 1 页开始
 			},
@@ -81,27 +91,29 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], func
 							id :edit.id,
 						},						
 						success: function (data) {
+							formdatas = data;
 							if(data){
 								body.find(".id").val(data.id);
 								body.find(".remark").val(data.remark);
 								body.find(".code").val(data.code);
 								body.find(".parentId").val(data.parentId);
 								body.find(".name").val(data.name);
-								body.find(".type select").val(data.type);  
+								body.find(".type select").val(data.type); 
+								// body.find(".operate select").val(data.operate);
 								body.find(".permission").val(data.permission);  
 								body.find(".sort").val(data.sort);  
 								body.find(".icon").val(data.icon);  
 								body.find(".target").val(data.target);  
-								body.find(".href").val(data.href);  
-								body.find(".isShow select").val(data.href);  
+								body.find(".href").val(data.href); 
+								body.find(".isShow input[name='isShow'][value='"+edit.isShow+"']").prop("checked","checked"); 
 								body.find(".parentName").val(data.parentSysMenu.name);  
+								form.render();
 							}else{
 								//console.data();
 								top.layer.msg("编码获取失败！");
 							}
 						}
 					}); 
-                    form.render();
                 }else{
 					$.ajax({
 						url: application.SERVE_URL +'/sys/sysmenu/get', //ajax请求地址
@@ -112,18 +124,17 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], func
 						success: function (data) {
 							if(data){
 								body.find(".parentId").val(data.id);
-								body.find(".parentName").val(data.
-								name);  
+								body.find(".parentName").val(data.name);  
 							}else{
 								//console.data();
-								top.layer.msg("编码获取失败！");
+								top.layer.msg("菜单获取失败！");
 							}
 						}
 					}); 
 					form.render();
 				}
                 setTimeout(function(){
-                    layui.layer.tips('点击此处返回编码列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 },500)
@@ -136,25 +147,47 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application'], func
         })
     }
 	
-    //列表操作
-    treeGrid.on('tool(menuTree)', function(obj){
-        var layEvent = obj.event,
-            data = obj.data;
-        if(layEvent === 'edit'){ //编辑
-        	addMenu(data,'edit');
-        } else if(layEvent === 'add'){ //新增
-			addMenu(data,'add');
-		}else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){ 
-                 $.post(application.SERVE_URL+"/sys/sysmenu/delete",{
-                     id : data.id  
-                 },function(data){
-                	if(data = "success"){
-                        treeTable.reload();
-                        layer.close(index);	
-                	}
-                 })				
-            });
-        }
-    });	
+		//新增操作
+		$(document).on('click','#ADD',function(){
+	    	var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
+	    	if(flag){
+	    		addMenu(treeGrid.checkStatus('menuTree').data[0],'add');
+	    	}else{
+	    		return false;
+	    	}
+	    });
+		
+		//编辑操作
+		$(document).on('click','#EDIT',function(){		
+			var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
+			if(flag){
+				addMenu(treeGrid.checkStatus('menuTree').data[0],'edit');
+			}else{
+				return false;
+			}
+	
+	    })
+		
+		//删除
+		$(document).on('click','#DEL',function(){		
+			var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
+			if(flag){
+	            layer.confirm('确定删除此菜单吗？',{icon:3, title:'提示信息'},function(index){
+					 $.post(application.SERVE_URL+"/sys/sysmenu/delete",{
+						id : treeGrid.checkStatus('menuTree').data[0].id  
+
+					 },function(data){
+						if(data = "success"){
+							treeTable.reload();
+							layer.close(index);	
+						}
+					 })						 
+	            });			
+			}else{
+				return false;
+			}
+	    })
+	
+	
+	
 });

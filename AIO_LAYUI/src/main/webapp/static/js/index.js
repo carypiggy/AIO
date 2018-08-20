@@ -20,9 +20,10 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 
 	tab = layui.bodyTab({
 		openTabNum: "50", //最大可打开窗口数量
-		url: "static/json/menu.json" //获取菜单json地址,
+		// url: "static/json/menu.json" //获取菜单json地址,
 	});
 
+	
 	//初始化一级菜单
 	function initTopMenu(url) { //Ajax调用处理
 
@@ -33,6 +34,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 				'Authorization': sessionStorage.getItem('token')
 			},
 			success: function (res) {
+				$('.userName').html(res.user.name);
 				//初始化顶部菜
 				menuDatas = res.menu;
 				var data = menuDatas.children;

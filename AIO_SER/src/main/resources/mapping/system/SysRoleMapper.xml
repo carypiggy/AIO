@@ -9,6 +9,9 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
+	<collection property="menuList" ofType="com.mpri.aio.system.model.SysMenu">
+		<id property="id" column="menuList.id" />
+	</collection>    
   </resultMap>
   
   <!-- 基础字段定义 -->
@@ -50,7 +53,7 @@
   </select>
   
   <!-- 插入对象 -->
-  <insert id="insertSelective" parameterType="com.mpri.aio.system.model.SysRole">
+  <insert id="insert" parameterType="com.mpri.aio.system.model.SysRole">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -163,4 +166,12 @@
 	 and srm.user_id = #{id,jdbcType=VARCHAR}
   </select>
 	
+	<!--保存菜单与角色关系  -->
+	<insert id="insertRoleMenu">
+		INSERT INTO sys_role_menu(role_id, menu_id)
+		<foreach collection="menuList" item="sysmenu" separator=" union all ">
+			SELECT #{id}, #{sysmenu.id}
+			FROM dual
+		</foreach>
+	</insert>	
 </mapper>

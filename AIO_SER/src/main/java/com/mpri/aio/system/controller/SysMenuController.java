@@ -29,19 +29,6 @@ public class SysMenuController extends BaseController {
 	@Autowired
 	private SysMenuService sysMenuService;
 	
-	/**
-	 * 未完成。 等后续用户角色联调
-	* <p>Title: getTopMenu</p>  
-	* <p>Description: </p>  
-	* @param userId
-	* @return
-	 */
-	public List<SysMenu> getTopMenu(String userId) {
-		
-		List<SysMenu> sysMenus = sysMenuService.loadPerByUser(userId);
-		return sysMenus;
-	}
-	
 	
 	/**
 	 * 
