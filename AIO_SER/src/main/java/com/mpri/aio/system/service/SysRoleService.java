@@ -3,6 +3,7 @@ package com.mpri.aio.system.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mpri.aio.base.service.CrudService;
 import com.mpri.aio.system.mapper.SysRoleMapper;
@@ -33,7 +34,9 @@ public class SysRoleService  extends CrudService<SysRoleMapper, SysRole>{
 	* <p>Description: </p>  
 	* @param sysRole
 	 */
-	public void insertRoleMenu(SysRole sysRole) {
+	@Transactional(readOnly = false)
+	public void saveRoleMenu(SysRole sysRole) {
+		mapper.deleteRoleMenu(sysRole);
 		mapper.insertRoleMenu(sysRole);
 	}
 }

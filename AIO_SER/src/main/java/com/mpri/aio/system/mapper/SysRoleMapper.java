@@ -29,5 +29,14 @@ public interface SysRoleMapper extends CrudMapper<SysRole>{
 	* @param sysRole
 	 */
 	void insertRoleMenu (SysRole sysRole);
+	
+	
+	/**
+	 * 删除角色和菜单菜单关系
+	* <p>Title: deleteRoleMenu</p>  
+	* <p>Description: </p>  
+	* @param sysRole
+	 */
+	void deleteRoleMenu (SysRole sysRole);
     
 }

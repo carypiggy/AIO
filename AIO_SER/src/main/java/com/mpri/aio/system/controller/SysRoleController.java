@@ -100,23 +100,10 @@ public class SysRoleController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/insertRoleMenu")
 	public String insertRoleMenu(SysRole sysRole) {
-//		sysRole.setMenuList(getSysMenus(menuList));
-		System.out.println(sysRole);
-		sysRoleService.insertRoleMenu(sysRole);
+		sysRoleService.saveRoleMenu(sysRole);
 		return SUCCESS;
 	}
 	
-	private List<SysMenu> getSysMenus(String [] menuList){
-		List<SysMenu> sysMenus = new ArrayList<SysMenu>();
-		for(String menu : menuList) {
-			SysMenu sysMenu = new SysMenu();
-			sysMenu.setId(menu);
-			sysMenus.add(sysMenu);
-		}
-		return sysMenus;
-	}
-	
-	
-	
+		
 	
 }
