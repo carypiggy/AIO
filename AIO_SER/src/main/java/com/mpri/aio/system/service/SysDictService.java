@@ -2,7 +2,6 @@ package com.mpri.aio.system.service;
 
 import java.util.List;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mpri.aio.base.service.CrudService;

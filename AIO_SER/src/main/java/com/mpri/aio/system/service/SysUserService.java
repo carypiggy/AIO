@@ -1,5 +1,6 @@
 package com.mpri.aio.system.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mpri.aio.base.service.CrudService;
@@ -20,8 +21,8 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	 * @param username
 	 * @return
 	 */
+	@Cacheable(value = "userCache", key = "username")
 	public SysUser getSysUserByUsername(String username) {
-		
 		SysUser sysUser=new SysUser();
 		sysUser.setUsername(username);
 		return mapper.getSysUserByUsername(sysUser);
