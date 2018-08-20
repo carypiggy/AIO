@@ -1,13 +1,4 @@
- package ${entityUrl};
- /**   
- *  
- * @Description:  ${genTableInfo.entityComment}
- * @Author:       ${author}
- * @project       ${project}   
- * @CreateDate:   ${createTime}
- * @Version:      ${version}
- *    
- */
+package ${entityUrl};
 import com.mpri.aio.base.model.DataEntity; 
 <#list genTableInfo.columuInfos as ci>
 	<#if ci.javaType == "Date">
@@ -17,7 +8,15 @@ import java.sql.Blob;
 	</#if>
 </#list>
 
-
+ /**   
+ *  
+ * @Description:  ${genTableInfo.entityComment}
+ * @Author:       ${author}
+ * @project       ${project}   
+ * @CreateDate:   ${createTime}
+ * @Version:      ${version}
+ *    
+ */
 public class ${genTableInfo.entityName} extends DataEntity<${genTableInfo.entityName}> {
 
 	private static final long serialVersionUID = ${genTableInfo.agile}L;

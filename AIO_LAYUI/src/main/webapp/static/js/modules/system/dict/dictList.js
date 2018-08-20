@@ -20,6 +20,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         laytpl = layui.laytpl,
         table = layui.table;
 
+	application.init();
+	
     //编码列表
     var tableIns = table.render({
         elem: '#dictList',

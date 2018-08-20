@@ -63,15 +63,16 @@
 				var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 				console.log(parent.formdatas.id);
 				console.log(getSelectData(ztreeObj.getCheckedNodes()));
+				
 				$.ajax({
 					url: application.SERVE_URL+"/sys/sysrole/insertRoleMenu", //ajax请求地址
 					type: "POST",
+					headers : { 'Authorization' : sessionStorage.getItem('token')},
 					contentType: "application/json",
-					dataType : 'json',
-					data:{
+					data:JSON.stringify({
 						id : parent.formdatas.id,
 						menuList : getSelectData(ztreeObj.getCheckedNodes())
-					},			
+					}),			
 					success: function (data) {
 						if(data == "success"){
 							top.layer.close(index);
@@ -98,9 +99,9 @@
 		
 		
 		function getSelectData(treeCheckedDatas){
-			 var menuIds =[];
+			 var menuIds =new Array();
 			 for(var i =0;i<treeCheckedDatas.length;i++){
-				 menuIds.push({id: treeCheckedDatas[i].id}); 
+				 menuIds.push({"id" : treeCheckedDatas[i].id}); 
 			 }
 			 return menuIds;
 		}

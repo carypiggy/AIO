@@ -8,7 +8,15 @@
 			<#if ci.objProperty == "id" || ci.objProperty =="ID">
 			<id column="${ci.columnName}" jdbcType="${ci.columnType?upper_case}" property="${ci.objProperty}" />
 			<#else>
+				<#if ci.columnType == "datetime" || ci.columnType == "DATETIME">
+			<result column="${ci.columnName}" jdbcType="TIMESTAMP" property="${ci.objProperty}" />					
+				<#elseif ci.columnType == "int" || ci.columnType == "INT">
+			<result column="${ci.columnName}" jdbcType="INTEGER" property="${ci.objProperty}" />	
+				<#elseif ci.columnType == "text" || ci.columnType == "TEXT">
+			<result column="${ci.columnName}" jdbcType="VARCHAR" property="${ci.objProperty}" />	
+				<#else>				
 			<result column="${ci.columnName}" jdbcType="${ci.columnType?upper_case}" property="${ci.objProperty}" />
+				</#if>
 			</#if>				
 		</#list>
 	</resultMap>

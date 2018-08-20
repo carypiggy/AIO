@@ -22,6 +22,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
         laytpl = layui.laytpl,
         table = layui.table;
 
+		application.init();
     //编码列表
     var tableIns = table.render({
         elem: '#roleList',

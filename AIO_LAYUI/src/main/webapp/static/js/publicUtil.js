@@ -14,7 +14,7 @@ layui.define(['form','layer','jquery'],function(exports){
 		setAcrossNames : function(value , _idClass ,_nameClass) {
 			for(var i=0; i<value.length ;i++){
 				var _idValue= $(window.parent.document).find(_idClass).val();
-				var _nameValue= $(window.parent.document).find(_idClass).val();
+				var _nameValue= $(window.parent.document).find(_nameClass).val();
 				$(window.parent.document).find(_idClass).val(value[i].id+","+_idValue);
 				$(window.parent.document).find(_nameClass).val(value[i].name+","+_nameValue);	
 			}
@@ -144,6 +144,28 @@ layui.define(['form','layer','jquery'],function(exports){
 					top.layer.msg("失败！");
 				}
 			}); 
+		},
+		
+		//ztree 回显
+		/**
+		 * treeNode 回显数据
+		 * Tree    树id
+		 * 
+		 */
+		setTreeSel : function(treeNode,Tree){
+			if (treeNode != null) {
+				//获取ztree对象
+				var treeObj = $.fn.zTree
+						.getZTreeObj(Tree);
+				//遍历勾选角色关联的菜单数据
+				for (var i = 0; i < treeNode.length; i++) {
+					//根据角色菜单节点数据的属性搜索，获取与完整菜单树完全匹配的节点JSON对象集合
+					var nodes = treeObj.getNodesByParam("id",
+							treeNode[i].id, null);
+					//勾选当前选中的节点
+					treeObj.checkNode(nodes[0], true, true);
+				}
+			}
 		}
 	}
     exports('publicUtil', obj);
