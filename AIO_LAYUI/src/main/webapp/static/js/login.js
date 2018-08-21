@@ -22,8 +22,8 @@ layui.use(['form','layer','jquery','application'],function(){
 		$.ajax({
 			url: application.SERVE_URL+"/login", //ajax请求地址
 			// url: "http://192.168.140.37:8080"+"/login", 
-			type: "GET",
-			data: {
+			type: "POST",
+			data: { 
 				username : $("#userName").val(),
 				password : $("#password").val(),
 				authCode : $("#code").val()

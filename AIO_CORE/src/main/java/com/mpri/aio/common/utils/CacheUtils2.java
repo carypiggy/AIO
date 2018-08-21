@@ -18,9 +18,9 @@ import com.mpri.aio.base.utils.SpringUtil;
  * @author Cary
  * @date 2018年8月2日
  */
-public class CacheUtils {
+public class CacheUtils2 {
 	
-	private static Logger logger = LoggerFactory.getLogger(CacheUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(CacheUtils2.class);
 	private static CacheManager cacheManager = SpringUtil.getBean(CacheManager.class);
 	
 	private static final String SYS_CACHE = "sysCache";
