@@ -53,7 +53,7 @@ public class LoginController extends BaseController {
 	//菜单根节点的父值定义为root
 	private final String parentId="root";
 	
-	
+
 	
 	/**
 	 * 管理登录
@@ -64,7 +64,6 @@ public class LoginController extends BaseController {
             			@RequestParam("authCode")String authCode,HttpSession session) {
 		
 		SysUser sysUser=sysUserService.getSysUserByUsername(username);
-		
 		//加盐处理密码
 		String safeCode=sysUser.getSafecode();
 		ByteSource salt = ByteSource.Util.bytes(safeCode);
@@ -79,7 +78,7 @@ public class LoginController extends BaseController {
     		if (sysUser.getPassword().equals(result)) {
                 return new RestResponse<String>(0, "登陆成功！", JWTUtil.sign(username, result));
             } else {
-                throw new UnauthorizedException();
+                throw new UnauthorizedException("用户名密码错误");
             }
         	
         }else {
