@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -94,7 +95,7 @@ public class SysRoleController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/saveRoleMenu")
-	public String saveRoleMenu(SysRole sysRole) {
+	public String saveRoleMenu(@RequestBody SysRole sysRole) {
 		sysRoleService.saveRoleMenu(sysRole);
 		return SUCCESS;
 	}

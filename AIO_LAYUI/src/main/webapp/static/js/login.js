@@ -15,8 +15,9 @@ layui.use(['form','layer','jquery','application'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-
-
+		$(document).ready(function(){
+			document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片               
+        });
 
     //登录按钮
     form.on("submit(login)",function(data){

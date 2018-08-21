@@ -49,7 +49,8 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 				remark : $(".remark").val(),
 				isShow : $('input[name="isShow"]').filter(':checked').val(),
 				target : $(".target").val()
-			},			
+			},
+			headers : { 'Authorization' : application.HEADER},			
 			success: function (data) {
 				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 				if(data == "success"){
