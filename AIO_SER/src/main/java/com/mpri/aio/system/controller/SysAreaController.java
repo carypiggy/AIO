@@ -103,7 +103,4 @@ public class SysAreaController extends BaseController {
 		resSysArea.setParentSysArea(sysAreaService.get(parentSysArea));
 		return resSysArea;		
 	}
-	
-
-	
 }

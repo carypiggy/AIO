@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpri.aio.schoolmate.mapper.SmAddressMapper">
+
+  	<!-- 基础返回值定义 -->
+	<resultMap id="BaseResultMap" type="com.mpri.aio.schoolmate.model.SmAddress">
+			<id column="id" jdbcType="VARCHAR" property="id" />
+			<result column="sys_user_id" jdbcType="VARCHAR" property="sysUserId" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="ispost" jdbcType="CHAR" property="ispost" />
+			<result column="country" jdbcType="VARCHAR" property="country" />
+			<result column="province" jdbcType="VARCHAR" property="province" />
+			<result column="city" jdbcType="VARCHAR" property="city" />
+			<result column="district" jdbcType="VARCHAR" property="district" />
+			<result column="detail" jdbcType="VARCHAR" property="detail" />
+			<result column="phone" jdbcType="VARCHAR" property="phone" />
+			<result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
+			<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+			<result column="remark" jdbcType="VARCHAR" property="remark" />
+			<result column="flag" jdbcType="VARCHAR" property="flag" />
+	</resultMap>
+	
+    <!-- 基础字段定义 -->
+	<sql id="Base_Column_List">
+    	id, sys_user_id, username, ispost, country, province, city, district, detail, phone, zipcode, create_date, remark, flag
+	</sql>
+
+	<!-- 查询条件定义 -->
+	<sql id="query_where">
+		<if test="entity!=null">
+			<if test="entity.id != null and entity.id!='' ">
+        		and id=#{entity.id}
+      		</if>	      	
+			<if test="entity.sysUserId != null and entity.sysUserId!='' ">
+        		and sys_user_id=#{entity.sysUserId}
+      		</if>	      	
+			<if test="entity.username != null and entity.username!='' ">
+        		and username=#{entity.username}
+      		</if>	      	
+			<if test="entity.ispost != null and entity.ispost!='' ">
+        		and ispost=#{entity.ispost}
+      		</if>	      	
+			<if test="entity.country != null and entity.country!='' ">
+        		and country=#{entity.country}
+      		</if>	      	
+			<if test="entity.province != null and entity.province!='' ">
+        		and province=#{entity.province}
+      		</if>	      	
+			<if test="entity.city != null and entity.city!='' ">
+        		and city=#{entity.city}
+      		</if>	      	
+			<if test="entity.district != null and entity.district!='' ">
+        		and district=#{entity.district}
+      		</if>	      	
+			<if test="entity.detail != null and entity.detail!='' ">
+        		and detail=#{entity.detail}
+      		</if>	      	
+			<if test="entity.phone != null and entity.phone!='' ">
+        		and phone=#{entity.phone}
+      		</if>	      	
+			<if test="entity.zipcode != null and entity.zipcode!='' ">
+        		and zipcode=#{entity.zipcode}
+      		</if>	      	
+			<if test="entity.createDate != null and entity.createDate!='' ">
+        		and create_date=#{entity.createDate}
+      		</if>	      	
+			<if test="entity.remark != null and entity.remark!='' ">
+        		and remark=#{entity.remark}
+      		</if>	      	
+			<if test="entity.flag != null and entity.flag!='' ">
+        		and flag= #{entity.FLAG_NORMAL}
+      		</if>
+		</if>
+	</sql>
+	
+  	<!-- 根据id查询 -->
+  	<select id="get" parameterType="com.mpri.aio.schoolmate.model.SmAddress" resultMap="BaseResultMap">
+   	    select 
+    		<include refid="Base_Column_List" />
+    	from sm_address
+    	where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  	</select>
+ 
+ 	<!-- 分页查询 -->
+    <select id="loadByPage" parameterType="com.mpri.aio.schoolmate.model.SmAddress" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sm_address 
+    	<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+  	<!-- 依照条件查询所有对象 -->
+  	<select id="loadAllListBy"  parameterType="com.mpri.aio.schoolmate.model.SmAddress" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sm_address 
+		<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+	<!-- 删除对象 -->
+  	<update id="delete" parameterType="com.mpri.aio.schoolmate.model.SmAddress">
+    	update sm_address set flag = #{FLAG_HOLD} where id = #{id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<!-- 插入数据 -->
+  	<insert id="insert" parameterType="com.mpri.aio.schoolmate.model.SmAddress">
+		insert into sm_address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+	   		<if test="id != null">
+	    		id,
+	  		</if>   			
+	   		<if test="sysUserId != null">
+	    		sys_user_id,
+	  		</if>   			
+	   		<if test="username != null">
+	    		username,
+	  		</if>   			
+	   		<if test="ispost != null">
+	    		ispost,
+	  		</if>   			
+	   		<if test="country != null">
+	    		country,
+	  		</if>   			
+	   		<if test="province != null">
+	    		province,
+	  		</if>   			
+	   		<if test="city != null">
+	    		city,
+	  		</if>   			
+	   		<if test="district != null">
+	    		district,
+	  		</if>   			
+	   		<if test="detail != null">
+	    		detail,
+	  		</if>   			
+	   		<if test="phone != null">
+	    		phone,
+	  		</if>   			
+	   		<if test="zipcode != null">
+	    		zipcode,
+	  		</if>   			
+	   		<if test="createDate != null">
+	    		create_date,
+	  		</if>   			
+	   		<if test="remark != null">
+	    		remark,
+	  		</if>   			
+	   		<if test="flag != null">
+	    		flag,
+	  		</if>   			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+	   		<if test="id != null">
+	   			#{id,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="sysUserId != null">
+	   			#{sysUserId,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="username != null">
+	   			#{username,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="ispost != null">
+	   			#{ispost,jdbcType=CHAR},
+	  		</if>   			
+	   		<if test="country != null">
+	   			#{country,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="province != null">
+	   			#{province,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="city != null">
+	   			#{city,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="district != null">
+	   			#{district,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="detail != null">
+	   			#{detail,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="phone != null">
+	   			#{phone,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="zipcode != null">
+	   			#{zipcode,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="createDate != null">
+	   			#{createDate,jdbcType=TIMESTAMP},
+	  		</if>   			
+	   		<if test="remark != null">
+	   			#{remark,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="flag != null">
+	   			#{flag,jdbcType=VARCHAR},
+	  		</if>   			
+		</trim>
+  	</insert>
+
+  	<!-- 更新数据 -->
+  	<update id="update" parameterType="com.mpri.aio.schoolmate.model.SmAddress">
+    	update sm_address
+    	<set>
+			<if test="sysUserId != null">
+	   			sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="username != null">
+	   			username = #{username,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="ispost != null">
+	   			ispost = #{ispost,jdbcType=CHAR},
+	  		</if>  
+			<if test="country != null">
+	   			country = #{country,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="province != null">
+	   			province = #{province,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="city != null">
+	   			city = #{city,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="district != null">
+	   			district = #{district,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="detail != null">
+	   			detail = #{detail,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="phone != null">
+	   			phone = #{phone,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="zipcode != null">
+	   			zipcode = #{zipcode,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="createDate != null">
+	   			create_date = #{createDate,jdbcType=TIMESTAMP},
+	  		</if>  
+			<if test="remark != null">
+	   			remark = #{remark,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="flag != null">
+	   			flag = #{flag,jdbcType=VARCHAR},
+	  		</if>  
+    	</set>
+    	where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

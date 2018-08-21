@@ -2,3 +2,6 @@ AIO_CORE/src/main/java/META-INF/MANIFEST.MF
 AIO_LAYUI/.project
 AIO_LAYUI/.classpath
 AIO_SER/src/main/resources/application.yml
+AIO_LAYUI/src/main/webapp/static/js/modules/system/menu/menuList.js
+AIO_LAYUI/src/main/webapp/static/js/application.js
+AIO_LAYUI/src/main/webapp/static/js/modules/system/menu/menuList.js

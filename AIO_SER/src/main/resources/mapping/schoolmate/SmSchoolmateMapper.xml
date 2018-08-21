@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpri.aio.schoolmate.mapper.SmSchoolmateMapper">
+
+  	<!-- 基础返回值定义 -->
+	<resultMap id="BaseResultMap" type="com.mpri.aio.schoolmate.model.SmSchoolmate">
+			<id column="id" jdbcType="VARCHAR" property="id" />
+			<result column="sys_user_id" jdbcType="VARCHAR" property="sysUserId" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="card_id" jdbcType="VARCHAR" property="cardId" />
+			<result column="card_status" jdbcType="VARCHAR" property="cardStatus" />
+			<result column="openid" jdbcType="VARCHAR" property="openid" />
+			<result column="name" jdbcType="VARCHAR" property="name" />
+			<result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
+			<result column="sex" jdbcType="VARCHAR" property="sex" />
+			<result column="true_photo" jdbcType="VARCHAR" property="truePhoto" />
+			<result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+			<result column="card_num" jdbcType="VARCHAR" property="cardNum" />
+			<result column="card_type" jdbcType="VARCHAR" property="cardType" />
+			<result column="type" jdbcType="VARCHAR" property="type" />
+			<result column="level" jdbcType="INTEGER" property="level" />
+			<result column="point" jdbcType="INTEGER" property="point" />
+			<result column="nation" jdbcType="VARCHAR" property="nation" />
+			<result column="complete" jdbcType="INTEGER" property="complete" />
+			<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+			<result column="remark" jdbcType="VARCHAR" property="remark" />
+			<result column="flag" jdbcType="VARCHAR" property="flag" />
+	</resultMap>
+	
+    <!-- 基础字段定义 -->
+	<sql id="Base_Column_List">
+    	id, sys_user_id, username, card_id, card_status, openid, name, pinyin, sex, true_photo, birthday, card_num, card_type, type, level, point, nation, complete, create_date, remark, flag
+	</sql>
+
+	<!-- 查询条件定义 -->
+	<sql id="query_where">
+		<if test="entity!=null">
+			<if test="entity.id != null and entity.id!='' ">
+        		and id=#{entity.id}
+      		</if>	      	
+			<if test="entity.sysUserId != null and entity.sysUserId!='' ">
+        		and sys_user_id=#{entity.sysUserId}
+      		</if>	      	
+			<if test="entity.username != null and entity.username!='' ">
+        		and username=#{entity.username}
+      		</if>	      	
+			<if test="entity.cardId != null and entity.cardId!='' ">
+        		and card_id=#{entity.cardId}
+      		</if>	      	
+			<if test="entity.cardStatus != null and entity.cardStatus!='' ">
+        		and card_status=#{entity.cardStatus}
+      		</if>	      	
+			<if test="entity.openid != null and entity.openid!='' ">
+        		and openid=#{entity.openid}
+      		</if>	      	
+	       	<if test="entity.name!=null and entity.name!='' ">
+	           	and name LIKE %#{entity.name}%
+	       	</if>		
+			<if test="entity.pinyin != null and entity.pinyin!='' ">
+        		and pinyin=#{entity.pinyin}
+      		</if>	      	
+			<if test="entity.sex != null and entity.sex!='' ">
+        		and sex=#{entity.sex}
+      		</if>	      	
+			<if test="entity.truePhoto != null and entity.truePhoto!='' ">
+        		and true_photo=#{entity.truePhoto}
+      		</if>	      	
+			<if test="entity.birthday != null and entity.birthday!='' ">
+        		and birthday=#{entity.birthday}
+      		</if>	      	
+			<if test="entity.cardNum != null and entity.cardNum!='' ">
+        		and card_num=#{entity.cardNum}
+      		</if>	      	
+			<if test="entity.cardType != null and entity.cardType!='' ">
+        		and card_type=#{entity.cardType}
+      		</if>	      	
+			<if test="entity.type != null and entity.type!='' ">
+        		and type=#{entity.type}
+      		</if>	      	
+			<if test="entity.level != null and entity.level!='' ">
+        		and level=#{entity.level}
+      		</if>	      	
+			<if test="entity.point != null and entity.point!='' ">
+        		and point=#{entity.point}
+      		</if>	      	
+			<if test="entity.nation != null and entity.nation!='' ">
+        		and nation=#{entity.nation}
+      		</if>	      	
+			<if test="entity.complete != null and entity.complete!='' ">
+        		and complete=#{entity.complete}
+      		</if>	      	
+			<if test="entity.createDate != null and entity.createDate!='' ">
+        		and create_date=#{entity.createDate}
+      		</if>	      	
+			<if test="entity.remark != null and entity.remark!='' ">
+        		and remark=#{entity.remark}
+      		</if>	      	
+			<if test="entity.flag != null and entity.flag!='' ">
+        		and flag= #{entity.FLAG_NORMAL}
+      		</if>
+		</if>
+	</sql>
+	
+  	<!-- 根据id查询 -->
+  	<select id="get" parameterType="com.mpri.aio.schoolmate.model.SmSchoolmate" resultMap="BaseResultMap">
+   	    select 
+    		<include refid="Base_Column_List" />
+    	from sm_schoolmate
+    	where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  	</select>
+ 
+ 	<!-- 分页查询 -->
+    <select id="loadByPage" parameterType="com.mpri.aio.schoolmate.model.SmSchoolmate" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sm_schoolmate 
+    	<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+  	<!-- 依照条件查询所有对象 -->
+  	<select id="loadAllListBy"  parameterType="com.mpri.aio.schoolmate.model.SmSchoolmate" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sm_schoolmate 
+		<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+	<!-- 删除对象 -->
+  	<update id="delete" parameterType="com.mpri.aio.schoolmate.model.SmSchoolmate">
+    	update sm_schoolmate set flag = #{FLAG_HOLD} where id = #{id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<!-- 插入数据 -->
+  	<insert id="insert" parameterType="com.mpri.aio.schoolmate.model.SmSchoolmate">
+		insert into sm_schoolmate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+	   		<if test="id != null">
+	    		id,
+	  		</if>   			
+	   		<if test="sysUserId != null">
+	    		sys_user_id,
+	  		</if>   			
+	   		<if test="username != null">
+	    		username,
+	  		</if>   			
+	   		<if test="cardId != null">
+	    		card_id,
+	  		</if>   			
+	   		<if test="cardStatus != null">
+	    		card_status,
+	  		</if>   			
+	   		<if test="openid != null">
+	    		openid,
+	  		</if>   			
+	   		<if test="name != null">
+	    		name,
+	  		</if>   			
+	   		<if test="pinyin != null">
+	    		pinyin,
+	  		</if>   			
+	   		<if test="sex != null">
+	    		sex,
+	  		</if>   			
+	   		<if test="truePhoto != null">
+	    		true_photo,
+	  		</if>   			
+	   		<if test="birthday != null">
+	    		birthday,
+	  		</if>   			
+	   		<if test="cardNum != null">
+	    		card_num,
+	  		</if>   			
+	   		<if test="cardType != null">
+	    		card_type,
+	  		</if>   			
+	   		<if test="type != null">
+	    		type,
+	  		</if>   			
+	   		<if test="level != null">
+	    		level,
+	  		</if>   			
+	   		<if test="point != null">
+	    		point,
+	  		</if>   			
+	   		<if test="nation != null">
+	    		nation,
+	  		</if>   			
+	   		<if test="complete != null">
+	    		complete,
+	  		</if>   			
+	   		<if test="createDate != null">
+	    		create_date,
+	  		</if>   			
+	   		<if test="remark != null">
+	    		remark,
+	  		</if>   			
+	   		<if test="flag != null">
+	    		flag,
+	  		</if>   			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+	   		<if test="id != null">
+	   			#{id,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="sysUserId != null">
+	   			#{sysUserId,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="username != null">
+	   			#{username,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="cardId != null">
+	   			#{cardId,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="cardStatus != null">
+	   			#{cardStatus,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="openid != null">
+	   			#{openid,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="name != null">
+	   			#{name,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="pinyin != null">
+	   			#{pinyin,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="sex != null">
+	   			#{sex,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="truePhoto != null">
+	   			#{truePhoto,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="birthday != null">
+	   			#{birthday,jdbcType=TIMESTAMP},
+	  		</if>   			
+	   		<if test="cardNum != null">
+	   			#{cardNum,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="cardType != null">
+	   			#{cardType,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="type != null">
+	   			#{type,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="level != null">
+	   			#{level,jdbcType=INTEGER},
+	  		</if>   			
+	   		<if test="point != null">
+	   			#{point,jdbcType=INTEGER},
+	  		</if>   			
+	   		<if test="nation != null">
+	   			#{nation,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="complete != null">
+	   			#{complete,jdbcType=INTEGER},
+	  		</if>   			
+	   		<if test="createDate != null">
+	   			#{createDate,jdbcType=TIMESTAMP},
+	  		</if>   			
+	   		<if test="remark != null">
+	   			#{remark,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="flag != null">
+	   			#{flag,jdbcType=VARCHAR},
+	  		</if>   			
+		</trim>
+  	</insert>
+
+  	<!-- 更新数据 -->
+  	<update id="update" parameterType="com.mpri.aio.schoolmate.model.SmSchoolmate">
+    	update sm_schoolmate
+    	<set>
+			<if test="sysUserId != null">
+	   			sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="username != null">
+	   			username = #{username,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="cardId != null">
+	   			card_id = #{cardId,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="cardStatus != null">
+	   			card_status = #{cardStatus,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="openid != null">
+	   			openid = #{openid,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="name != null">
+	   			name = #{name,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="pinyin != null">
+	   			pinyin = #{pinyin,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="sex != null">
+	   			sex = #{sex,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="truePhoto != null">
+	   			true_photo = #{truePhoto,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="birthday != null">
+	   			birthday = #{birthday,jdbcType=TIMESTAMP},
+	  		</if>  
+			<if test="cardNum != null">
+	   			card_num = #{cardNum,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="cardType != null">
+	   			card_type = #{cardType,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="type != null">
+	   			type = #{type,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="level != null">
+	   			level = #{level,jdbcType=INTEGER},
+	  		</if>  
+			<if test="point != null">
+	   			point = #{point,jdbcType=INTEGER},
+	  		</if>  
+			<if test="nation != null">
+	   			nation = #{nation,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="complete != null">
+	   			complete = #{complete,jdbcType=INTEGER},
+	  		</if>  
+			<if test="createDate != null">
+	   			create_date = #{createDate,jdbcType=TIMESTAMP},
+	  		</if>  
+			<if test="remark != null">
+	   			remark = #{remark,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="flag != null">
+	   			flag = #{flag,jdbcType=VARCHAR},
+	  		</if>  
+    	</set>
+    	where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

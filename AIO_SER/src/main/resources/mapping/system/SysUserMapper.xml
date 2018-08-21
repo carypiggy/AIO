@@ -15,15 +15,14 @@
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="type" jdbcType="CHAR" property="type" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
   </resultMap>
   
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
-    id, org_id, username, password, safecode, name, idcard, photo, mobile, email, type,
-    create_date, remark, flag
+    id, org_id, username, password, safecode, name, idcard, photo, mobile, email, type, 
+    remark, flag
   </sql>
   
   <!-- 查询条件定义 -->
@@ -53,18 +52,13 @@
        <if test="entity.email!=null and entity.email!='' ">
            and email=#{entity.email}
        </if>
-       <if test="entity.beginDate!=null and entity.beginDate!=''">
-           and create_date &gt;= #{beginDate}  
-       </if>
-	   <if test="entity.endDate!=null and entity.endDate!='' ">
-           and create_date &lt;= #{endDate}  
-       </if>
        <if test="entity.type!=null and entity.type!='' ">
            and type=#{entity.type}
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
   </sql>
+ 
  
   <!-- 根据username查询对象 -->
   <select id="getSysUserByUsername" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
@@ -116,9 +110,6 @@
       <if test="email != null">
         email,
       </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
       <if test="type != null">
         type,
       </if>
@@ -163,9 +154,6 @@
       <if test="type != null">
         #{type,jdbcType=CHAR},
       </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
@@ -208,9 +196,6 @@
       </if>
       <if test="type != null">
         type = #{type,jdbcType=CHAR},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
