@@ -1,0 +1,42 @@
+ [
+        {
+            "id": "0",
+            "typeCode": "hz",
+            "label": "汉族",
+            "value": "汉族", 
+			"sort": "0",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "1",
+           "typeCode": "bz",
+           "label": "白族",
+           "value": "白族", 
+           "sort": "1",
+           "reate_date": "2018-04-02 09:16",
+           "remark": "",
+           "flag": "1"
+        },
+        {
+            "id": "2",
+            "typeCode": "zz",
+            "label": "藏族",
+            "value": "藏族", 
+            "sort": "2",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "3",
+            "typeCode": "mz",
+            "label": "满族",
+            "value": "满族", 
+            "sort": "3",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        }
+    ]

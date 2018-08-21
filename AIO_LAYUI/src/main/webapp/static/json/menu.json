@@ -3,7 +3,7 @@
 		{
 			"title": "校友管理",
 			"icon": "icon-text",
-			"href": "page/schoolmate/schoolmateManager.html",
+			"href": "views/module/system/schoolfellow/schoolfellowlist.html",
 			"spread": false
 		},
 		{
@@ -16,22 +16,7 @@
 			"title": "校友卡审核",
 			"icon": "&#xe630;",
 			"href": "https://www.baidu.com/",
-			"spread": false,
-			"children": [
-				{
-					"title": "404页面",
-					"icon": "&#xe61c;",
-					"href": "page/404.html",
-					"spread": false
-				},
-				{
-					"title": "登录",
-					"icon": "&#xe609;",
-					"href": "page/login/login.html",
-					"spread": false,
-					"target": "_blank"
-				}
-			]
+			"spread": false
 		}
 	],
 	"info": [
