@@ -77,11 +77,11 @@
 
 	<!-- 删除对象 -->
   	<update id="delete" parameterType="${entityUrl}.${genTableInfo.entityName}">
-    	update ${genTableInfo.table} set flag = ${r'#{FLAG_DELETE}'} where id = ${r'#{id,jdbcType=VARCHAR}'}
+    	update ${genTableInfo.table} set flag = ${r'#{FLAG_HOLD}'} where id = ${r'#{id,jdbcType=VARCHAR}'}
   	</update>
   	
   	<!-- 插入数据 -->
-  	<insert id="insert" parameterType="com.mpri.aio.system.model.SysDict">
+  	<insert id="insert" parameterType="${entityUrl}.${genTableInfo.entityName}">
 		insert into ${genTableInfo.table}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list genTableInfo.columuInfos as ci>
