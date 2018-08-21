@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
 	/**
 	 * 管理登录
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RestResponse<String>  login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("authCode")String authCode,HttpSession session) {

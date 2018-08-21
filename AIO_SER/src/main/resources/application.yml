@@ -6,7 +6,7 @@ spring:
         type: caffeine
         cache-names: dictCache
         caffeine:
-            spec: maximumSize=500, expireAfterWrite=15s
+            spec: maximumSize=500, expireAfterWrite=60s
               
     datasource:
         name: aio_db

@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mpri.aio.base.mapper.JsonMapper;
-import com.mpri.aio.common.utils.CacheUtils;
 import com.mpri.aio.system.model.SysDict;
 import com.mpri.aio.system.service.SysDictService;
 
@@ -22,19 +21,21 @@ import com.mpri.aio.system.service.SysDictService;
  */
 public class DictStaticMap{
 	
-	@Autowired
-	private SysDictService sysDictService;
-	
-	private static SysDictService sysDictServiceClone;
-	
-	@PostConstruct
-	public void init() {
-		sysDictServiceClone=sysDictService;
-	}
-	
+    @Resource
+    private  SysDictService realSysDictService;
+    
+    private static SysDictService sysDictService;
+   
+    @PostConstruct
+    public void init() {
+       this.sysDictService = realSysDictService;
+    }
+    
 	public static final String CACHE_DICT_MAP = "dictMap";
 	
+	
 	public static String getDictLabel(String value, String type, String defaultValue){ 
+		
 		if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(value)){
 			for (SysDict dict : getDictList(type)){
 				if (type.equals(dict.getTypeCode()) && value.equals(dict.getValue())){
@@ -69,12 +70,13 @@ public class DictStaticMap{
 	}
 	
 	
+	//获取静态的字典
 	public static List<SysDict> getDictList(String type){
 		@SuppressWarnings("unchecked")
 		Map<String, List<SysDict>> dictMap = (Map<String, List<SysDict>>)CacheUtils.get(CACHE_DICT_MAP);
 		if (dictMap==null){
 			dictMap = Maps.newHashMap();
-			for (SysDict dict : sysDictServiceClone.loadAllListBy(new SysDict())){
+			for (SysDict dict : sysDictService.loadAllListBy(new SysDict())){
 				List<SysDict> dictList = dictMap.get(dict.getTypeCode());
 				if (dictList != null){
 					dictList.add(dict);
