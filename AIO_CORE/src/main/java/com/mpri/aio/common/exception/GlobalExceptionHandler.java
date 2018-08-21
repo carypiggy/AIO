@@ -2,11 +2,11 @@ package com.mpri.aio.common.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.mpri.aio.common.response.RestResponse;
 
@@ -16,26 +16,28 @@ import com.mpri.aio.common.response.RestResponse;
  * @date 2018年8月6日
  */
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 	
-	@ResponseBody
-    @ExceptionHandler(Exception.class)
-    public RestResponse<Exception> handleException(Exception e) {
-        return RestResponse.getInstance(ExceptionResult.NOT_FOUND, e.getMessage(), e);
+	// 捕捉shiro的异常
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(ShiroException.class)
+    public RestResponse<ShiroException> handle401(ShiroException e) {
+        return new RestResponse<ShiroException>(401, e.getMessage(), null);
     }
-    
+ 
+
     
     // 捕捉UnauthorizedException 自定义401 异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
-    public RestResponse<Exception> handle401() {
-        return new RestResponse<Exception>(401, "Unauthorized", null);
+    public RestResponse<UnauthorizedException> handle401() {
+        return new RestResponse<UnauthorizedException>(401, "该账号密码无法登陆", null);
     }
 
     
     // 捕捉其他所有异常
-    //@ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public RestResponse<Exception> globalException(HttpServletRequest request, Throwable ex) {
         return new RestResponse<Exception>(getStatus(request).value(), ex.getMessage(), null);

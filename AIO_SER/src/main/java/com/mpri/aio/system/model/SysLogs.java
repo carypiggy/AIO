@@ -27,8 +27,7 @@ public class SysLogs extends DataEntity<SysLogs>{
     private String method;
     
     private String username;
-
-
+    
 	public String getUsername() {
 		return username;
 	}

@@ -48,6 +48,11 @@ iframe{ position:absolute; height:100%; width:100%; border:none;}
 #unlock{ float: left; }
 #lock-box p{ color:#e60000; }
 /*顶部*/
+
+.layui-tab {
+    margin: 0;
+    text-align: left!important;
+}
 .header{ z-index:2000;}
 .logo{ color: #fff; float: left; line-height:60px; font-size:20px; padding:0 25px; text-align: center; width:150px;}
 .hideMenu{ float:left; width:20px; height:20px; margin-top:15px; font-size:17px; line-height:20px; text-align:center; padding:5px 5px; color:#fff; background-color:#1AA094; }
@@ -92,12 +97,15 @@ iframe{ position:absolute; height:100%; width:100%; border:none;}
 .layui-body{overflow:hidden; }
 /* #top_tabs_box{ padding-right:138px; height:40px; border-bottom:1px solid #e2e2e2; }
 #top_tabs{ position: absolute; border-bottom:none;} */
+/* #top_tabs_box{ padding-right:138px; border-bottom:1px solid #e2e2e2; } */
+#top_tabs{ position: absolute;} 
 .layui-tab-title .layui-this{ background-color:#1AA094; color:#fff; }
 .layui-tab-title .layui-this:after{ border:none; }
 .layui-tab-title li cite{ font-style: normal; padding-left:5px; } 
 .clildFrame.layui-tab-content{ top:41px; position:absolute; bottom:0; width:100%; padding:0;}
 /*多窗口页面操作下拉*/
-.closeBox{ position:absolute; right:0; background-color:#fff !important; color:#000; border-left:1px solid #e2e2e2; border-bottom:1px solid #e2e2e2; }
+/* .closeBox{ position:absolute; right:0; background-color:#fff !important; color:#000; border-left:1px solid #e2e2e2; border-bottom:1px solid #e2e2e2; } */
+.closeBox{ position:absolute; right:0; background-color:#fff !important; color:#000; }
 .closeBox .layui-nav-item{ line-height:40px; }
 .closeBox .layui-nav-item>a,.closeBox .layui-nav-item>a:hover{ color:#000; }
 .closeBox .layui-nav-child{ top:42px; left:-12px; }
@@ -125,7 +133,7 @@ iframe{ position:absolute; height:100%; width:100%; border:none;}
 .orange .top_menu.layui-nav .layui-nav-more,.blue .top_menu.layui-nav .layui-nav-more{border-color:#fff transparent transparent !important;}
 .orange .top_menu.layui-nav-itemed .layui-nav-more,.orange .top_menu.layui-nav .layui-nav-mored,.blue .top_menu.layui-nav-itemed .layui-nav-more,.blue .top_menu.layui-nav .layui-nav-mored{border-color:transparent transparent #fff !important;}
 /*底部*/
-.footer{ text-align: center; line-height:44px; z-index:999;}
+.footer{ text-align: center; line-height:40px; z-index:999;}
 /* .footer{ text-align: center; line-height:44px;border-left: 2px solid #1AA094; z-index:999;} */
 /*响应式样式*/
 @media screen and (max-width:1080px){

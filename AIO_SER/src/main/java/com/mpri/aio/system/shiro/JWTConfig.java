@@ -12,9 +12,11 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 @Configuration
 public class JWTConfig {
@@ -35,11 +37,13 @@ public class JWTConfig {
         //3.自定义过滤器
         Map<String, Filter> filtersMap = shiroFilterFactoryBean.getFilters();
         filtersMap.put("jwt", new JWTFilter());
+       
         shiroFilterFactoryBean.setFilters(filtersMap);
         
         //4.LinkedHashMap是有序的，进行顺序拦截器配置
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        filterChainDefinitionMap.put("/**", "jwt");
+        
+        filterChainDefinitionMap.put("/**", "jwt");//通过自定义的jwt权限过滤器
         
         //5.设置默认通过的的url
         filterChainDefinitionMap.put("/captcha", "anon");
@@ -57,7 +61,7 @@ public class JWTConfig {
         return shiroFilterFactoryBean;
     }
 
-    @Bean
+    @Bean("securityManager")
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
@@ -82,9 +86,19 @@ public class JWTConfig {
     }
 
     
+    @Bean
+    public FilterRegistrationBean<DelegatingFilterProxy> delegatingFilterProxy(){
+        FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean = new FilterRegistrationBean<DelegatingFilterProxy>();
+        DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+        proxy.setTargetFilterLifecycle(true);
+        proxy.setTargetBeanName("shiroFilter");
+        filterRegistrationBean.setFilter(proxy);
+        return filterRegistrationBean;
+    }
+    
     /**
-     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
-     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     * .开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+     * .配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
      * @return
      */
     @Bean
@@ -94,19 +108,13 @@ public class JWTConfig {
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
     }
-    
-    /**
-     * 开启shiro aop注解支持. 使用代理方式; 所以需要开启代码支持;
-     *
-     * @param securityManager 安全管理器
-     * @return 授权Advisor
-     */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
         return authorizationAttributeSourceAdvisor;
     }
+    
     @Bean("lifecycleBeanPostProcessor")
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();

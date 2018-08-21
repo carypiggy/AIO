@@ -15,12 +15,9 @@ layui.use(['form','layer','jquery','application'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-
-
-
     //登录按钮
     form.on("submit(login)",function(data){
-        $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+        //$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
 		//请求登陆
 		$.ajax({
 			url: application.SERVE_URL+"/login", //ajax请求地址
@@ -31,14 +28,14 @@ layui.use(['form','layer','jquery','application'],function(){
 				password : $("#password").val(),
 				authCode : $("#code").val()
 			},
-			success: function (data) {                 
+			success: function (data) {
 				//将token保存在cookie中			
 				sessionStorage.setItem("token", data.data);
 				top.layer.msg("登陆成功");
-				window.location.href = "http://127.0.0.1:8848/AIO_LAYUI/src/main/webapp/index.html";
+				window.location.href = "../webapp/index.html";
 			},
 			error: function(data){
-				top.layer.msg("登陆失败！");
+				top.layer.msg("错误"+data.status+":"+data.responseJSON.msg);
 				$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
 			}
 		}); 

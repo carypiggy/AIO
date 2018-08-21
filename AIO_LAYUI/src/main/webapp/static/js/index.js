@@ -4,7 +4,7 @@
  * @returns
  * @Time 2018-08-03
  */
-var $, tab, dataStr, layer; var menuDatas;
+var $, tab, dataStr, layer; var menuDatas; var cur_menu_id;
 layui.config({
 	base: "static/js/"
 }).extend({
@@ -20,9 +20,10 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 
 	tab = layui.bodyTab({
 		openTabNum: "50", //最大可打开窗口数量
-		url: "static/json/menu.json" //获取菜单json地址,
+		// url: "static/json/menu.json" //获取菜单json地址,
 	});
 
+	
 	//初始化一级菜单
 	function initTopMenu(url) { //Ajax调用处理
 
@@ -33,6 +34,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 				'Authorization': sessionStorage.getItem('token')
 			},
 			success: function (res) {
+				$('.userName').html(res.user.name);
 				//初始化顶部菜
 				menuDatas = res.menu;
 				var data = menuDatas.children;
@@ -135,18 +137,22 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 		$(this).parent("li").siblings().removeClass("layui-nav-itemed");
 	})
 
+	$("#navBar_ul").on('click','li',function(){
+		cur_menu_id = $(this).children('a').attr('id');
+	})
+
 	/**
 	 * 初始化点击侧边栏导航
 	 */
-	var layid = location.hash.replace(/^#bodyTab=/, '');
-	// layui-this
-	if (layid) {
-		$('.layui-side-scroll').find('[data-id=' + layid + ']').eq(0)
-			.click(); // 根据传入的ID跳转
-	} else {
-		$('.layui-side-scroll').find('[data-url][data-id]').eq(0)
-			.click(); // 点击第一个
-	}
+// 	var layid = location.hash.replace(/^#bodyTab=/, '');
+// 	// layui-this
+// 	if (layid) {
+// 		$('.layui-side-scroll').find('[data-id=' + layid + ']').eq(0)
+// 			.click(); // 根据传入的ID跳转
+// 	} else {
+// 		$('.layui-side-scroll').find('[data-url][data-id]').eq(0)
+// 			.click(); // 点击第一个
+// 	}
 	//清除缓存
 	$(".clearCache").click(function () {
 		window.sessionStorage.clear();
@@ -211,7 +217,6 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 			},
 			type: "GET",
 			success: function (data) {
-				console.log(data)
 			}
 		});
 

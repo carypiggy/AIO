@@ -78,6 +78,7 @@ layui.use(['form','jquery',"layer"],function() {
     //退出
     $(".signOut").click(function(){
         window.sessionStorage.removeItem("menu");
+		window.sessionStorage.removeItem("token");
         menu = [];
         window.sessionStorage.removeItem("curmenu");
     })
@@ -104,13 +105,13 @@ layui.use(['form','jquery',"layer"],function() {
                                         '<div class="layui-word-aux">开启后切换窗口刷新当前页面</div>'+
                                     '</div>'+
                                 '</div>'+
-                                '<div class="layui-form-item">'+
-                                    '<label class="layui-form-label">单一登陆</label>'+
-                                    '<div class="layui-input-block">'+
-                                        '<input type="checkbox" name="oneLogin" lay-filter="multipleLogin" lay-skin="switch" lay-text="是|否">'+
-                                        '<div class="layui-word-aux">开启后不可同时多个地方登录</div>'+
-                                    '</div>'+
-                                '</div>'+
+//                                 '<div class="layui-form-item">'+
+//                                     '<label class="layui-form-label">单一登陆</label>'+
+//                                     '<div class="layui-input-block">'+
+//                                         '<input type="checkbox" name="oneLogin" lay-filter="multipleLogin" lay-skin="switch" lay-text="是|否">'+
+//                                         '<div class="layui-word-aux">开启后不可同时多个地方登录</div>'+
+//                                     '</div>'+
+//                                 '</div>'+
                                 '<div class="layui-form-item skinBtn">'+
                                     '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="settingSuccess">设定完成</a>'+
                                     '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noSetting">再想想</a>'+

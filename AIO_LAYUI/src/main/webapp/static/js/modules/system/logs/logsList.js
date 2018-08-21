@@ -13,11 +13,35 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-		application = layui.application,
+				application = layui.application,
         laydate = layui.laydate,
         laytpl = layui.laytpl,
         table = layui.table;
-    	
+    
+		application.init();
+				var start;
+				var end ;
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#start'
+					,type:'datetime'
+					 //指定元素
+					,done: function(value, date, endDate){
+						//得到日期生成的值，如：2017-08-18
+							start	 =value;
+					}
+				});
+
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#end' //指定元素,,
+					,type:'datetime'
+					,done: function(value, date, endDate){
+						//得到日期生成的值，如：2017-08-18
+							end	 =value;
+					}
+				});
+			
     //日志列表
     var tableIns = table.render({
         elem: '#logsList',
@@ -42,18 +66,20 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 	
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 	$(".search_btn").on("click",function(){
-		if($(".searchVal").val() != ''){
+		 if(end < start){
+			 top.layer.msg("开始时间不能大于结束时间");
+			 return;
+		 }		
 			table.reload("logsListTable",{
 				page: {
 					curr: 1 //重新从第 1 页开始
 				},
 				where: {
-					username: $(".searchVal").val()  //搜索的关键字
+					username: $(".searchVal").val(),  //搜索的关键字
+					beginDate : start,
+					endDate : end
 				}
 			})
-		}else{
-			layer.msg("请输入搜索的内容");
-		}
 	});
 	
 	//行点击事件

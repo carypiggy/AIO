@@ -7,42 +7,82 @@
 layui.config({
 	base : "../../../../static/js/"
 }).extend({
-	"application" : "application"
+	"application" : "application",
+	"publicUtil"  : "publicUtil",
 })
-layui.use(['form','layer','laydate','table','laytpl','application'],function(){
+layui.use(['form','layer','laydate','table','laytpl','application','publicUtil'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
+		publicUtil = layui.publicUtil,
         application = layui.application,
         laydate = layui.laydate,
         laytpl = layui.laytpl,
         table = layui.table;
-    	
+
+	application.init();
+	
     //编码列表
     var tableIns = table.render({
         elem: '#dictList',
         url : application.SERVE_URL+'/sys/sysdict/list',
         cellMinWidth : 95,
         page : true,
-        height : "full-125",
+        height : "full-160",
         limit : 10,
         headers : { 'Authorization' : sessionStorage.getItem('token')},
-        id : "dictListTable",
+        id : "dictList",
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/
+			{type:'checkbox'},
             {field: 'typeCode', title: '编码类型'},
             {field: 'label', title: '编码名称'},
             {field: 'value', title: '编码值'},
 			{field: 'sort',sort: true, title: '排序'},
-            {field: 'remark', title: '备注'},
-            {title: '操作', width:170, templet:'#dictListBar',fixed:"right",align:"center"}
+            {field: 'remark', title: '备注'}
         ]]
     });
 
+	//新增操作
+	$(document).on('click','#ADD',function(){
+    	addDict();
+    });
+	
+	//编辑操作
+	$(document).on('click','#EDIT',function(){		
+		var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
+		if(flag){
+			addDict(table.checkStatus('dictList').data[0]);
+		}else{
+			return false;
+		}
 
+    })
+	
+	//删除
+	$(document).on('click','#DEL',function(){		
+		var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
+		if(flag){
+            layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){
+                 $.post(application.SERVE_URL+"/sys/sysdict/delete",{
+                     id : table.checkStatus('dictList').data[0].id  
+                 },function(data){
+                	if(data = "success"){
+                        tableIns.reload();
+                        layer.close(index);	
+                	}
+                 })
+            });			
+		}else{
+			return false;
+		}
+    })	
+	
+	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-            table.reload("dictListTable",{
+            table.reload("dictList",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
@@ -98,30 +138,6 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
             layui.layer.full(index);
         })
     }
-    $(".addDict_btn").click(function(){
-    	addDict();
-    })
-
-
-    //列表操作
-    table.on('tool(dictList)', function(obj){
-        var layEvent = obj.event,
-            data = obj.data;
-
-        if(layEvent === 'edit'){ //编辑
-        	addDict(data);
-        } else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){
-                 $.post(application.SERVE_URL+"/sys/sysdict/delete",{
-                     id : data.id  
-                 },function(data){
-                	if(data = "success"){
-                        tableIns.reload();
-                        layer.close(index);	
-                	}
-                 })
-            });
-        }
-    });
+	
 
 })

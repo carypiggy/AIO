@@ -14,9 +14,18 @@
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.exedit.js"></script>
 	<script type="text/javascript">	
 		var layer;var ztreeObj;
-		layui.use(['form','layer'],function(){
+		layui.config({
+			base : "../../../../static/js/"
+		}).extend({
+			"application" : "application",
+			"publicUtil" : "publicUtil"
+		})
+		layui.use(['layer','application',"publicUtil",'application'],function(){
 			var form = layui.form;
-				layer = parent.layer === undefined ? layui.layer : top.layer;
+				layer = parent.layer,
+				application = layui.application;
+				publicUtil  = layui.publicUtil
+				layer =layui.layer;
 		
 
 			//ztree设置
@@ -41,9 +50,9 @@
 				
 				
 				$.ajax({
-						url: "../../../../static/json/menuList.json",                  //ajax请求地址
+						url:  application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
 						success: function (data) {	
-							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
+							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting,covert(data.data));  //加载数据
 						}
 				 });			
 			});
@@ -52,69 +61,58 @@
 			form.on("submit(getSelectData)",function(data){
 				//弹出loading
 				var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-				// 实际使用时的提交信息
-				// $.post("上传路径",{
-				//     userName : $(".userName").val(),  //登录名
-				//     userEmail : $(".userEmail").val(),  //邮箱
-				//     userSex : data.field.sex,  //性别
-				//     userGrade : data.field.userGrade,  //会员等级
-				//     userStatus : data.field.userStatus,    //用户状态
-				//     newsTime : submitTime,    //添加时间
-				//     userDesc : $(".userDesc").text(),    //用户简介
-				// },function(res){
-				//
-				// })
-				// // 				console.log("选中的节点为：")
-				// // 				console.log(ztreeObj.getCheckedNodes());			
-				setTimeout(function(){
-					top.layer.close(index);
-					top.layer.msg("权限修改成功！");
-					layer.closeAll();
-					// layer.closeAll("iframe");
-					//刷新父页面
-					parent.location.reload();
-				},2000);
+				console.log(parent.formdatas.id);
+				console.log(getSelectData(ztreeObj.getCheckedNodes()));
+				
+				$.ajax({
+					url: application.SERVE_URL+"/sys/sysrole/insertRoleMenu", //ajax请求地址
+					type: "POST",
+					headers : { 'Authorization' : sessionStorage.getItem('token')},
+					contentType: "application/json",
+					data:JSON.stringify({
+						id : parent.formdatas.id,
+						menuList : getSelectData(ztreeObj.getCheckedNodes())
+					}),			
+					success: function (data) {
+						if(data == "success"){
+							top.layer.close(index);
+							top.layer.msg("权限修改成功");
+							layer.closeAll("iframe");
+							//刷新父页面
+							parent.location.reload();	
+						}else{
+							top.layer.msg("权限修改失败！");
+						}
+					},
+					error: function(data){
+						top.layer.msg("权限修改失败！");
+					}
+				});	
 				return false;
 			})
 			
-			//格式化时间
-			function filterTime(val){
-				if(val < 10){
-					return "0" + val;
-				}else{
-					return val;
-				}
-			}
-
-			//定时发布
-			var time = new Date();
-    var submitTime = time.getFullYear()+'-'+filterTime(time.getMonth()+1)+'-'+filterTime(time.getDate())+' '+filterTime(time.getHours())+':'+filterTime(time.getMinutes())+':'+filterTime(time.getSeconds());
 		    		
 		});	
-		//重置按钮
-		//生产环境具体考虑
 
 
 		
 		
 		
-// 		function getSelectData(){
-// // 				console.log("选中的节点为：")
-// // 				console.log(ztreeObj.getCheckedNodes());
-// 			//生产情况下需对时父标签的过滤  isParent     
-// 			//提交后台
-// 
-// 			parent.layer.close();
-// 		}
+		function getSelectData(treeCheckedDatas){
+			 var menuIds =new Array();
+			 for(var i =0;i<treeCheckedDatas.length;i++){
+				 menuIds.push({"id" : treeCheckedDatas[i].id}); 
+			 }
+			 return menuIds;
+		}
 			//转换数据
-// 		 function covert(data){
-// 			 var nodes =[];
-// 			 for(var i =0;i<data.length;i++){
-// 				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 
-// 			 }
-// 			 console.log(nodes);
-// 			 return nodes;
-// 		 }
+		 function covert(data){
+			 var nodes =new Array();
+			 for(var i =0;i<data.length;i++){
+				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 
+			 }
+			 return nodes;
+		 }
 	</script>
 </HEAD>
 
@@ -123,7 +121,7 @@
 		<div>
 			<ul id="treeDemo" class="ztree"></ul>
 		</div>
-		<div class="layui-form-item layui-row layui-col-xs12" style="float: right;">
+		<div class="layui-form-item layui-row layui-col-xs12" style="float: right; bottom: 10px; position:fixed;">
 			<div class="layui-input-block">
 				<a class="layui-btn layui-btn-sm" lay-submit="" lay-filter="getSelectData">确认</a>
 				<a  class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</a>
