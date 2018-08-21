@@ -8,7 +8,7 @@ layui.config({
 	base : "../../../../static/js/"
 }).extend({
 	"application" : "application",
-	"publicUtil"  : "publicUtil",
+	"publicUtil"  : "publicUtil"
 })
 layui.use(['form','layer','laydate','table','laytpl','application','publicUtil'],function(){
     var form = layui.form,

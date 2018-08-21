@@ -39,12 +39,4 @@ public interface SysMenuMapper extends CrudMapper<SysMenu>{
 	 * @return
 	 */
 	public List<SysMenu> loadPagePer(SysUser sysUser);
-	
-	/**
-	 * 根据用户id和菜单id获取
-	 * @param id
-	 * @param code
-	 * @return
-	 */
-	public List<SysMenu> loadAllPer(SysUser sysUser);
 }
