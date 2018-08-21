@@ -90,10 +90,11 @@ public class AreaTest extends ApplicationTests {
 	/**
 	 *. 根据条件查询所有列表数据    -- 通过
 	 */
-    //@Test
+    @Test
     public void  testloadAllListBy() {
     	SysArea area=  new SysArea();
-    	area.setFlag("0");
+//    	area.setFlag("0");
+    	area.setParentId("Root");
 		List<SysArea> sysAreaList=sysAreaService.loadAllListBy(area);
 		super.outprint("java.util.List", sysAreaList);
 		   

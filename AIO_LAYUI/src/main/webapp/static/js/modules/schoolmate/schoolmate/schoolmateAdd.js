@@ -25,7 +25,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	// 卡片页签点击触发事件
 	element.on('tab(info)', function(elem){
 		location.hash = 'info='+ $(this).attr('lay-id');
-		//获取卡片对应的数据,放对应的值
+		//获取卡片对应的数据,回显数据
 		//console.log(elem);
 	  if(elem.index == 0) //基本信息
 		{
@@ -72,9 +72,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 		//证件类型
 		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'CARDTYPE'} ,"cardType");	
 	//国籍
-	//	publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'COUNTRY'} ,"country");
-	
-   publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysarea/list", {'parent_id' : 'Root'} ,"country");
+	  selectBase(application.SERVE_URL+"/sys/sysarea/loadChildrenByParent", {'parentId' : 'Root'} ,"country");
+  //publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysarea/loadByPage", {'parent_id' : 'Root'} ,"country");
 		//生日日期绑定
 		laydate.render({
 			elem: '#birthday',
@@ -126,12 +125,13 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	{
 		//加入时间绑定
 		laydate.render({
-			elem: '#exp_jiondate'
+			elem: '#exp_jiondate',
+			lang: 'en'
 		});
 		//退出时间绑定
 		laydate.render({
-			elem: '#exp_enddate'
-
+			elem: '#exp_enddate',
+			lang: 'en'
 		});
 		
 		//
@@ -142,7 +142,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	intiExperience();
 		
 		//联系方式填充数据
-		function intiExperience()
+		function intiContact()
 		{
 			publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'CONTACT_TYPE'} ,"cont_type");	
 			//
@@ -150,7 +150,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 				addElement('contactForm','firstContact');
 			});
 		}	
-		intiExperience();
+		intiContact();
 		
 		//通讯地址填充数据
 		function intiAddress()
@@ -162,48 +162,103 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 				addElement('addFrom','firstAdd');
 			});
 		}	
-		//地址选择
-		function selectItem(type,elementid)
-		{
-			
-		}
+	
 		intiAddress();
 	
 	//家庭信息填充数据
 	function intiFamily()
 	{
 		//性别
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"sex");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"fam_sex");	
+		//关系
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"fam_relation");	
+		
 		//
-		$("#addFamily").click(function(){
-			addElement('addFamilyinfo','firstFamily');
+		laydate.render({
+			elem: '#fam_birthday',
+			lang: 'en'
+		});
+		
+		$("#addFamilyinfo").click(function(){
+			addElement('familyFrom','firstFamily');
 		});
 	}	
 	intiFamily();
 	
-	//荣誉成功
-	laydate.render({
-		elem: '#honor_date'
-		,lang: 'en'
-	});
-	$("#addHonorinfo").click(function(){
-		addElement('honorForm','firstHonor');
+	function initSocia()
+	{
+		//名称
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"soc_name");	
 		
-	});
-		//职业经历默认模块入职和离职时间监听绑定
 		laydate.render({
-			elem: '#pro_startdate'
-			,lang: 'en'
+			elem: '#soc_startdate',
+			lang: 'en'
 		});
-		laydate.render({
-			elem: '#pro_enddate'
-			,lang: 'en'
+		$("#addSociainfo").click(function(){
+			addElement('sociaForm','firstSocia');
 		});
+	}
+	initSocia();
 	
-	$("#addProfessioninfo").click(function(){
-		addElement('professionFrom','firstProfession');
+	function initSocia_s()
+	{
+		laydate.render({
+			elem: '#soc_s_startdate',
+			lang: 'en'
+		});
+		laydate.render({
+			elem: '#soc_s_enddate',
+			lang: 'en'
+		});
+		$("#addSocia_sinfo").click(function(){
+			addElement('socia_sForm','firstSocia_s');
+		});
+	}
+	initSocia_s();
+	
+	function initHonor()
+	{
+		//荣誉类型
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"honor_type");	
+		//领域
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"honor_domain");	
 		
-	});
+		//荣誉成功
+		laydate.render({
+			elem: '#honor_date'
+			,lang: 'en'
+		});
+		$("#addHonorinfo").click(function(){
+			addElement('honorForm','firstHonor');
+			
+		});
+	}
+	initHonor();
+	
+	function initProfession()
+	{
+		
+		//单位性质
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"pro_nature");	
+		//单位行业
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"pro_industry");	
+		
+			//职业经历默认模块入职和离职时间监听绑定
+			laydate.render({
+				elem: '#pro_startdate'
+				,lang: 'en'
+			});
+			laydate.render({
+				elem: '#pro_enddate'
+				,lang: 'en'
+			});
+		
+		$("#addProfessioninfo").click(function(){
+			addElement('professionFrom','firstProfession');
+			
+		});
+		
+	}
 	
 	//复制当前页面的第一个块，用于信息新增
 	function addElement(fatherid,cloneis)
@@ -252,41 +307,45 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 		
 		//submit(addUser)  绑定提交按钮（校园经历）
 		form.on("submit(addExperience)",function(data){
-			//ajaxinfo(application.SERVE_URL+'/sys/smExperience/save', data,"校园经历");
-			var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-				$.ajax({
-						url: application.SERVE_URL+'/sys/smExperience/save', 
-						type: "POST",
-						headers : { 'Authorization' : sessionStorage.getItem('token')},
-						contentType: "application/json",
-						data:JSON.stringify({
-							 sysUserId:data.field.sysUserId,
-							 id : "",
-							 username:data.field.username,
-							 organization:data.field.organization,
-							 position:data.field.position,
-							 startdate:data.field.startdate,
-							 enddate:data.field.enddate,
-							
-						}),			
-						success: function (data) {
-							if(data == "success"){
-								top.layer.close(index);
-											top.layer.msg("添加成功");
-										//	layer.closeAll("iframe");
-											//刷新父页面
-										//	parent.location.reload();	
-							}else{
-								top.layer.msg("添加失败！");
-							}
-						},
-						error: function(data){
-							top.layer.msg("添加失败！");
-						}
-					}); 
-				return false;
+			ajaxinfo(application.SERVE_URL+'/sys/smExperience/save', data,"校园经历");
+// 			var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+// 				$.ajax({
+// 						url: application.SERVE_URL+'/sys/smExperience/save', 
+// 						type: "POST",
+// 						headers : { 'Authorization' : sessionStorage.getItem('token')},
+// 						contentType: "application/json",
+// 						data:JSON.stringify({
+// 							 sysUserId:data.field.sysUserId,
+// 							 id : "",
+// 							 username:data.field.username,
+// 							 organization:data.field.organization,
+// 							 position:data.field.position,
+// 							 startdate:data.field.startdate,
+// 							 enddate:data.field.enddate,
+// 							
+// 						}),			
+// 						success: function (data) {
+// 							if(data == "success"){
+// 								top.layer.close(index);
+// 											top.layer.msg("添加成功");
+// 										//	layer.closeAll("iframe");
+// 											//刷新父页面
+// 										//	parent.location.reload();	
+// 							}else{
+// 								top.layer.msg("添加失败！");
+// 							}
+// 						},
+// 						error: function(data){
+// 							top.layer.msg("添加失败！");
+// 						}
+// 					}); 
+// 				return false;
 		})
 		
+		//submit(addUser)  绑定提交按钮（教育经历）
+		form.on("submit(addEdu)",function(data){
+			ajaxinfo(application.SERVE_URL+'/sys/smEducation/save', data,"教育经历");
+		})
 		//submit(addUser)  绑定提交按钮（联系方式）
 		form.on("submit(addContact)",function(data){
 			ajaxinfo(application.SERVE_URL+'/sys/smContact/save', data,"联系方式");
@@ -300,6 +359,26 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 		//submit(addUser)  绑定提交按钮（家庭信息）
 		form.on("submit(addFamily)",function(data){
 	    ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', data,"家庭信息");
+		})
+		
+		//submit(addUser)  绑定提交按钮（政治面貌）
+		form.on("submit(addSocia)",function(data){
+			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', data,"政治面貌");
+		})
+		
+		//submit(addUser)  绑定提交按钮（社会兼职）
+		form.on("submit(addSocia_s)",function(data){
+			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', data,"社会兼职");
+		})
+		
+		//submit(addUser)  绑定提交按钮（荣誉成就）
+		form.on("submit(addHonor)",function(data){
+			ajaxinfo(application.SERVE_URL+'/sys/smHonor/save', data,"荣誉成就");
+		})
+		
+		//submit(addUser)  绑定提交按钮（职业经历）
+		form.on("submit(addProfession)",function(data){
+			ajaxinfo(application.SERVE_URL+'/sys/smProfession/save', data,"职业经历");
 		})
 		
 		function ajaxinfo(url, data,res)
@@ -381,4 +460,71 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	}) */
 	})
 
+
+
+
+function selectBase(url,data,selectid){
+			$.ajax({
+				url:url,
+				type: "POST",
+				data: data ,
+				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				success:function(res){
+					$("#"+selectid).empty();
+					$("#"+selectid).append('<option value="">请选择</option>')
+					for(var i =0;i<res.length;i++){
+						$("#"+selectid).append('<option  value="'+res[i].code+'"  tag="'+res[i].id +'">'+res[i].name+' </option>');//往下拉菜单里添加元素
+					}
+					
+					$("#"+selectid).change(function(){
+				//判断是否选取prompt属性，无返回值；
+						if($(this).val()){
+							var element = '';
+							if(selectid=='country')
+							{
+								element='province';
+							}else if(selectid=='province')
+							{
+								element='city';
+							}else if(selectid=='city')
+							{
+								element='district';
+							}
+							//var parent_id = $(this).find('option:selected').attr("tag");
+							var parent_name = $(this).find('option:selected').text();
+						  selectBase(application.SERVE_URL+"/sys/sysarea/loadChildrenByParent",{'parentName' : parent_name} ,element);
+								
+						}else{
+								
+						}});
+					form.render();//菜单渲染 把内容加载进去
+				},
+				error: function(){
+					console.log("shibai")
+				}
+			})
+		}
+		
+		//地址选择
+		function selectItem(type,data,elementid)
+		{
+			$.ajax({
+				url:url,
+				type: "POST",
+				data: data ,
+				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				success:function(res){
+					$("#"+selectid).empty();
+					$("#"+selectid).append('<option value="">请选择</option>')
+					for(var i =0;i<res.length;i++){
+						$("#"+selectid).append('<option  value="'+res[i].code+'" >'+res[i].name+' </option>');//往下拉菜单里添加元素
+					}
+					form.render();//菜单渲染 把内容加载进去
+				},
+				error: function(){
+					console.log("shibai")
+				}
+			})
+		}
+		
 })

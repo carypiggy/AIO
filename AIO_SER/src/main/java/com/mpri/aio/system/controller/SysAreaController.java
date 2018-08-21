@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
@@ -102,5 +103,33 @@ public class SysAreaController extends BaseController {
 		parentSysArea.setId(resSysArea.getParentId());
 		resSysArea.setParentSysArea(sysAreaService.get(parentSysArea));
 		return resSysArea;		
+	}
+	
+	/**
+	 * 
+	* <p>Title: POST</p>  
+	* <p>Description: </p>  
+	* @param sysDict
+	* @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/loadChildrenByParent")
+	//@Cacheable(value = "dictCache", key = "#sysDict.id")
+	public List<SysArea> loadChildrenByParent(@RequestParam String  parentId) {
+		return sysAreaService.loadChildrenByParent(parentId);
+	}
+	
+	/**
+	 * 
+	* <p>Title: POST</p>  
+	* <p>Description: </p>  
+	* @param sysDict
+	* @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/loadAllListBy")
+	//@Cacheable(value = "dictCache", key = "#sysDict.id")
+	public List<SysArea> loadAllListBy(SysArea sysArea) {
+		return sysAreaService.loadAllListBy(sysArea);
 	}
 }
