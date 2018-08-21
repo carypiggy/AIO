@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,6 @@ import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.system.model.SysDict;
 import com.mpri.aio.system.service.SysDictService;
-import com.mpri.aio.system.utils.init.DictStaticMap;
 
 /**
  * 
@@ -101,10 +101,9 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/getByTypeCode")
+	@Cacheable(value = "dictCache", key = "#typeCode")
 	public List<SysDict> getSysDictByTypecode(String typeCode) {
-		
-		//使用系统缓存中的编码
-		return DictStaticMap.getDictList(typeCode);
+		return sysDictService.getSysDictByTypecode(typeCode);
 	}
 		
 }

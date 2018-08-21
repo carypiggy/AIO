@@ -152,7 +152,7 @@ layui.define(['form','layer','jquery'],function(exports){
 		 * Tree    树id
 		 * 
 		 */
-		setTreeSel : function(treeNode,Tree,){
+		setTreeSel : function(treeNode,Tree){
 			if (treeNode != null) {
 				//获取ztree对象
 				var treeObj = $.fn.zTree
