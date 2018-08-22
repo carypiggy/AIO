@@ -1,0 +1,42 @@
+[
+        {
+            "id": "0",
+            "typeCode": "c",
+            "label": "中国",
+            "value": "中国", 
+			       "sort": "0",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "1",
+           "typeCode": "f",
+           "label": "法国",
+           "value": "法国", 
+           "sort": "1",
+           "reate_date": "2018-04-02 09:16",
+           "remark": "",
+           "flag": "1"
+        },
+        {
+            "id": "2",
+            "typeCode": "j",
+            "label": "日本",
+            "value": "日本", 
+            "sort": "2",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        },
+        {
+            "id": "3",
+            "typeCode": "a",
+            "label": "美国",
+            "value": "美国", 
+            "sort": "3",
+            "reate_date": "2018-04-02 09:16",
+            "remark": "",
+            "flag": "1"
+        }
+    ]

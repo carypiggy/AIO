@@ -2,7 +2,10 @@ package com.mpri.aio.system.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,6 +87,8 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
+	@RequiresAuthentication
+	@RequiresPermissions("sysdict:edit")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public SysDict get(SysDict sysDict) {
 		return sysDictService.get(sysDict);		
@@ -96,6 +101,7 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/getByTypeCode")
+	@Cacheable(value = "dictCache", key = "#typeCode")
 	public List<SysDict> getSysDictByTypecode(String typeCode) {
 		return sysDictService.getSysDictByTypecode(typeCode);
 	}
