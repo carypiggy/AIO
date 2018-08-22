@@ -15,6 +15,14 @@ layui.define(function(exports){
 				parent.location.href = "../../../../login.html";
 			}
 		},
+		//初始化
+		initindex : function (){
+			if(sessionStorage.getItem("token") == null ||
+				sessionStorage.getItem("token") == '' ||
+				sessionStorage.getItem("token") == undefined){			
+				window.location.href = "login.html";
+			}
+		},
 		//服务的IP及端口
 		SERVE_PORT: "8080",
 		SERVE_IP: "127.0.0.1",

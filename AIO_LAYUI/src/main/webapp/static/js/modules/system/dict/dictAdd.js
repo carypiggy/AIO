@@ -30,7 +30,8 @@ layui.use(['form','layer','application','validparam'],function(){
 				label : $(".label").val(),
 				sort : $(".sort").val(),
 				remark : $(".remark").val(),
-			},			
+			},
+			headers : { 'Authorization' : application.HEADER},			
 			success: function (data) {
 				if(data == "success"){
 				 	top.layer.close(index);

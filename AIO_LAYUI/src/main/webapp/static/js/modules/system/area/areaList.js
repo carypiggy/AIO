@@ -19,12 +19,12 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 	    laydate = layui.laydate,
 		form = layui.form,
 	    laytpl = layui.laytpl; 
-    var treeTable =treeGrid.render({
+    var treeTable = treeGrid.render({
         elem: '#areaTree'
         ,url:application.SERVE_URL+'/sys/sysarea/list'
         ,cellMinWidth: 100    
         ,id: "areaTree"
-		,headers : { 'Authorization' : sessionStorage.getItem('token')}
+		,headers : { 'Authorization' : application.HEADER}
         ,treeId:'id'//树形id字段名称
         ,treeUpId:'parentId'//树形父id字段名称
         ,treeShowName:'name'//以树形式显示的字段
@@ -47,7 +47,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
         if($(".searchVal").val() != ''){
-        	treeTable.reload("areaTree",{
+        	treeGrid.reload("areaTree",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
@@ -76,7 +76,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 						type: "POST",
 						data:{
 							id :edit.id,
-						},						
+						},
+						headers : { 'Authorization' : application.HEADER},												
 						success: function (data) {
 							console.log(data);
 							formdatas = data;
@@ -101,7 +102,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 						type: "POST",
 						data:{
 							id :edit.id,
-						},						
+						},
+						headers : { 'Authorization' : application.HEADER},						
 						success: function (data) {
 							if(data){
 								body.find(".parentId").val(data.id);
@@ -153,38 +155,24 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
 		if(flag){
 			layer.confirm('确定删除此区域吗？',{icon:3, title:'提示信息'},function(index){
-				 $.post(application.SERVE_URL+"/sys/sysarea/delete",{
-					id : treeGrid.checkStatus('areaTree').data[0].id  
-
-				 },function(data){
-					if(data = "success"){
-						treeTable.reload();
-						layer.close(index);	
+				$.ajax({
+					url: application.SERVE_URL+"/sys/sysarea/delete", //ajax请求地址
+					type: "POST",
+					data:{
+						id : treeGrid.checkStatus('areaTree').data[0].id 
+					},
+					headers : { 'Authorization' : application.HEADER},												
+					success: function (data) {
+						if(data = "success"){
+							treeTable.reload();
+							layer.close(index);	
+						}
 					}
-				 })						 
+				});					 
 			});			
 		}else{
 			return false;
 		}
 	})
-	
-//     //列表操作
-//     treeGrid.on('tool(areaTree)', function(obj){
-//         var layEvent = obj.event,
-//             data = obj.data;
-//         if(layEvent === 'edit'){ //编辑
-//         	addArea(data,'edit');
-//         } else if(layEvent === 'add'){ //新增
-// 			addArea(data,'add');
-// 		}else if(layEvent === 'del'){ //删除
-//             layer.confirm('确定删除此此区域？',{icon:3, title:'提示信息'},function(index){
-//                 // $.get("删除菜单接口",{
-//                 //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-//                 // },function(data){
-//                     treeTable.reload();
-//                     layer.close(index);
-//                 // })
-//             });
-//         }
-//     });	
+		
 });

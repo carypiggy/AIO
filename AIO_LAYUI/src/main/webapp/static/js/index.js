@@ -17,7 +17,9 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 	$ = layui.$;
 	layer = parent.layer === undefined ? layui.layer : top.layer;
 
-
+	application.initindex();
+	
+	
 	tab = layui.bodyTab({
 		openTabNum: "50", //最大可打开窗口数量
 		// url: "static/json/menu.json" //获取菜单json地址,
@@ -31,7 +33,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 			// url: "static/json/topMenu.json",
 			url: application.SERVE_URL + "/index",
 			headers: {
-				'Authorization': sessionStorage.getItem('token')
+				'Authorization': application.HEADER
 			},
 			success: function (res) {
 				$('.userName').html(res.user.name);
@@ -209,18 +211,6 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 		window.sessionStorage.removeItem("curmenu");
 	}
 
-	$("#indexJump").click(function () {
-		$.ajax({
-			url: application.SERVE_URL + "/index", //ajax请求地址
-			headers: {
-				'Authorization': sessionStorage.getItem('token')
-			},
-			type: "GET",
-			success: function (data) {
-			}
-		});
-
-	})
 
 })
 
