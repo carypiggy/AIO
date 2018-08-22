@@ -15,52 +15,80 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
+	<input  type="hidden"  name="type" placeholder="1">
+	<input  type="hidden"  name="safecode" placeholder="123sdfsedcxfdwesdfdsfweqf1">
 	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">账号</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input username" name='username' lay-verify="required" placeholder="请输入账号">
+			<input type="text" class="layui-input showname" name='showname' style="display: none;">
+	</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">密码</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input password" name='password' lay-verify="required" placeholder="请输入密码">
+		</div>
+	</div>
+	
+<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">姓名</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input name" lay-verify="required" placeholder="请输入姓名">
+			<div class="layui-input-block">
+					<input type="text" class="layui-input name" name='name' lay-verify="required" placeholder="请输入姓名">
 		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">邮箱</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input userEmail" lay-verify="email" placeholder="请输入邮箱">
-		</div>
-	</div>
+</div>
+
 	<div class="layui-row">
-<!-- 		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">性别</label>
-			<div class="layui-input-block userSex">
-				<input type="radio" name="sex" value="0" title="男" checked>
-				<input type="radio" name="sex" value="1" title="女">
-			</div>
-		</div> -->
-	  <div class="magb15 layui-col-md6 layui-col-xs12">
-		<label class="layui-form-label">性别</label>
-		<div class="layui-input-block">
-		  <input type="radio" name="sex" value="0" title="男">
-		  <input type="radio" name="sex" value="1" title="女" checked>
-		</div>
-	  </div>		
-		<div class="magb15 layui-col-md6 layui-col-xs12">
+	 <div class="magb15 layui-col-md6 layui-col-xs12">
+	<label class="layui-form-label">性别</label>
+	<div class="layui-input-block">
+		<input type="radio" name="sex" value="0" title="男">
+		<input type="radio" name="sex" value="1" title="女" checked>
+	</div>
+</div>
+	
+	 <div class="magb15 layui-col-md6 layui-col-xs12">
 			<label class="layui-form-label">所属角色</label>
 			<div class="layui-input-block">
-				<select xm-select="userRole" lay-verify="required">
+				<select xm-select="userRole"  name='userType'  lay-verify="required">
 					<option value=""></option>
 				</select>				
 			</div>
 		</div>
 	</div>
+	
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">邮箱</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input userEmail" name='email' lay-verify="email" placeholder="请输入邮箱">
+		</div>
+	</div>
+	
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">联系电话</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input userPhoto" name='phone' lay-verify="phone" placeholder="请输入联系电话">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">身份证号码</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input idcard" name='idcard' lay-verify="idcard" placeholder="请输入身份证号码">
+		</div>
+	</div>
+	
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">所属机构</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input userOrg" name="userOrg">
+			<input type="text" class="layui-input userOrg" name="userOrg" lay-verify="required" >
+			<input type="text" class="layui-input orgname"  name="orgname"    style="display: none;">
+			
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">用户简介</label>
 		<div class="layui-input-block">
-			<textarea placeholder="请输入用户简介" class="layui-textarea userDesc"></textarea>
+	<textarea placeholder="请输入用户简介" name='userDesc' class="layui-textarea userDesc"></textarea>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">

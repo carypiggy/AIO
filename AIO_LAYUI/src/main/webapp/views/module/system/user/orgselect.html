@@ -7,17 +7,23 @@
 	<link href="../../../../static/css/zTree/metroStyle/metroStyle.css" type="text/css" media="screen" rel="stylesheet"/>
 	<link href="../../../../static/css/zTree/demo.css" type="text/css" media="screen" rel="stylesheet"/>
 	<link rel="stylesheet" href="../../../../static/css/public.css" media="all" />
-	<script type="text/javascript" src="../../../../static/layui/layui.all.js"></script>
+		<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.core.min.js"></script>
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.excheck.js"></script>
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.exedit.js"></script>
 	<script type="text/javascript">	
+	
+	layui.config({
+			base : "../../../../static/js/"
+		}).extend({
+			"publicUtil" : "publicUtil"
+		})
 		var layer;var ztreeObj;
-		layui.use(['form','layer'],function(){
+		layui.use(['form','layer','publicUtil'],function(){
 			var form = layui.form;
-				layer = parent.layer === undefined ? layui.layer : top.layer;
-		
+				layer = parent.layer ,
+				publicUtil = layui.publicUtil;
 
 			//ztree设置
 			var setting = {
@@ -25,7 +31,9 @@
 							selectedMulti: false
 					},
 					check: {
-							enable: true
+							enable: true,
+							chkStyle: "radio",  //单选框
+							radioType: "all"   //对所有节点设置单选
 					},
 					data: {
 							simpleData: {
@@ -46,7 +54,18 @@
 						}
 				 });			
 			});
-			
+
+			 $("#getSelectData").click(function(){
+					 console.log(publicUtil)
+					 publicUtil.setAcrossNames(ztreeObj.getCheckedNodes(),".orgname",".userOrg")
+// 						$(window.parent.document).find(".parentId").val(ztreeObj.getCheckedNodes()[0].id);
+// 						$(window.parent.document).find(".parentName").val(ztreeObj.getCheckedNodes()[0].name);
+// 						var index=parent.layer.getFrameIndex(window.name);
+// 						parent.layer.close(index);
+// 					var index=parent.layer.getFrameIndex(window.name);
+// 					console.log(index)
+// 					parent.layer.close(index);
+				 })						
 			
 			form.on("submit(getSelectData)",function(data){
 				//弹出loading
@@ -93,13 +112,19 @@
 // 		}
 			//转换数据
 		 function covert(data){
-			 var nodes =[];
+			  /* 单选 */
+			 /* var nodes =[];
 			 for(var i =0;i<data.length;i++){
 				 if(data[i].open == true){
 					 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name,open: data[i].open});
 				 }else{
 				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 					 
 				 }	 
+			 } */
+			  /* 单选 */
+			  var nodes =[];
+			 for(var i =0;i<data.length;i++){
+				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 
 			 }
 			 return nodes;
 		 }

@@ -7,14 +7,17 @@
 layui.config({
 	base: '../../../../static/js/' //此处路径请自行处理, 可以使用绝对路径
 }).extend({
-	formSelects: 'formSelects-v4'
+	formSelects: 'formSelects-v4',
+	"application" : "application"
 });
-layui.use(['jquery','form','layer','formSelects'],function(){
+
+layui.use(['jquery','form','layer','formSelects','publicUtil','application'],function(){
     var form = layui.form,
 		$ = layui.jquery,
 		formSelects = layui.formSelects,
-        layer = parent.layer === undefined ? layui.layer : top.layer;
-
+        publicUtil  = layui.publicUtil,
+		application = layui.application,
+		layer =layui.layer;
 	
 	//多选下拉框配置
 	formSelects.config('userRole', {
@@ -42,15 +45,29 @@ layui.use(['jquery','form','layer','formSelects'],function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 
-        setTimeout(function(){
-            top.layer.close(index);
-            top.layer.msg("编码添加成功！");
-            layer.closeAll("iframe");
-            //刷新父页面
-            parent.location.reload();
-        },2000);
+       layui.use('layer', function(){
+				$.post(application.SERVE_URL+'/sys/sysuser/save',{
+				//保存用户参数
+				 username: data.field.username,
+				 password: data.field.password,
+				 name: data.field.name,
+				 idcard: data.field.idcard,
+				 photo: data.field.photo,
+				 mobile: data.field.mobile,
+				 email: data.field.email,
+				 type: 1,
+				 orgId: data.field.userOrg,
+				 safecode:data.field.safecode,
+				 remark:data.field.userDesc
+				},function(data){
+				top.layer.close(index);
+				top.layer.msg(data.message);
+				layer.closeAll("iframe");
+				})
+		})
         return false;
     })
+	
 	//(此处应该时经后台过滤处理 选中与为选中)
 	// checked : boolean 
 	function selectOrg(){
@@ -77,4 +94,28 @@ layui.use(['jquery','form','layer','formSelects'],function(){
 		selectOrg();
 	})
 
+	//用户名判断提醒
+	$(".username").change(function(){
+		var  that = this;
+		var username =  $(this).val();
+		layui.use('layer', function(){
+				$.post(application.SERVE_URL+'/sys/sysuser/getusername',{
+				//保存用户参数
+				username: username
+				},function(data){
+					
+	      console.log("返回结果");
+				console.log(data);
+
+				if(data!="" && data.id !="undefined")
+				{
+					$(".showname").val("该账号已经被使用！");
+					$(".showname").css("display","block");
+				}else{
+					$(".showname").css("display","none");
+				}
+			
+				})
+	})
+	})
 })
