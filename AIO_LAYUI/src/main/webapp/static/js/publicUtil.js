@@ -4,7 +4,7 @@
 	@Tittle: application
 	@Description: 封装一些公用
  */
-layui.define(['form','layer','jquery',''],function(exports){
+layui.define(['form','layer','jquery'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;

@@ -91,7 +91,7 @@ public class JWTRealm extends AuthorizingRealm {
         }
 		
 		//保存权限
-        List<SysMenu> sysMenus = sysMenuService.loadPerByUser(sysUser.getId());
+        List<SysMenu> sysMenus = sysMenuService.loadAllPer(sysUser.getId());
         for (SysMenu sysMenu : sysMenus) {
             authorizationInfo.addStringPermission(sysMenu.getPermission());
         }

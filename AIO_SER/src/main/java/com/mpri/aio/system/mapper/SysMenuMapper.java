@@ -25,11 +25,11 @@ public interface SysMenuMapper extends CrudMapper<SysMenu>{
     List<SysMenu> loadPerByRole(SysRole sysRole);
 
     /**
-     * 根据用户id 获取所有权限和菜单
+     * 根据用户id 获取所有菜单
      * @param sysUser
      * @return
      */
-	List<SysMenu> loadPerByUser(SysUser sysUser);
+	List<SysMenu> loadMenuByUser(SysUser sysUser);
 	
 	
 	/**
@@ -41,7 +41,7 @@ public interface SysMenuMapper extends CrudMapper<SysMenu>{
 	public List<SysMenu> loadPagePer(SysUser sysUser);
 	
 	/**
-	 * 根据用户id和菜单id获取
+	 * 根据用户id和获取权限
 	 * @param id
 	 * @param code
 	 * @return
