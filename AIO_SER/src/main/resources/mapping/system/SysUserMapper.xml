@@ -52,6 +52,12 @@
        <if test="entity.email!=null and entity.email!='' ">
            and email=#{entity.email}
        </if>
+       <if test="entity.queryBeginDate!=null and entity.queryBeginDate!=''">
+           and create_date &gt;= #{queryBeginDate}  
+       </if>
+	     <if test="entity.queryEndDate!=null and entity.queryEndDate!='' ">
+           and create_date &lt;= #{queryEndDate}  
+       </if>
        <if test="entity.type!=null and entity.type!='' ">
            and type=#{entity.type}
        </if>

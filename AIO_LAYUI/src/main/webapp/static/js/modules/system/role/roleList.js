@@ -22,14 +22,14 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
         laytpl = layui.laytpl,
         table = layui.table;
 
-		application.init();
+		application.initindex();
     //编码列表
     var tableIns = table.render({
         elem: '#roleList',
         url : application.SERVE_URL+'/sys/sysrole/list',
         cellMinWidth : 95,
         page : true,
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
         height : "full-160",
         limit : 20,
         limits : [10,15,20,25],
@@ -78,7 +78,8 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 											type: "POST",
 											data:{
 												id :edit.id,
-											},						
+											},
+											headers : { 'Authorization' : application.HEADER},						
 											success: function (data) {
 												if(data){
 													 formdatas = data;
@@ -129,15 +130,21 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 				var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 				if(flag){
 								layer.confirm('确定删除此此角色？',{icon:3, title:'提示信息'},function(index){
-										 $.post(application.SERVE_URL+"/sys/sysrole/delete",{
-												 id : table.checkStatus('roleList').data[0].id  
-										 },function(data){
-											if(data = "success"){
-														tableIns.reload();
+											$.ajax({
+												url: application.SERVE_URL+"/sys/sysrole/delete", //ajax请求地址
+												type: "POST",
+												data:{
+													id : table.checkStatus('roleList').data[0].id  
+												},
+												headers : { 'Authorization' : application.HEADER},												
+												success: function (data) {
+													if(data = "success"){
+														treeTable.reload();
 														layer.close(index);	
-											}
-										 })
-								});			
+													}
+												}
+											})
+								});		
 				}else{
 					return false;
 				}
@@ -172,41 +179,5 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 		})
 
 
-//     //列表操作
-//     table.on('tool(roleList)', function(obj){
-//         var layEvent = obj.event,
-//             data = obj.data;
-// 
-//         if(layEvent === 'edit'){ //编辑
-//         	addRole(data);
-//         } else if(layEvent === 'del'){ //删除
-//             layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){
-//                 // $.get("删除文章接口",{
-//                 //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-//                 // },function(data){
-//                     tableIns.reload();
-//                     layer.close(index);
-//                 // })
-//             });
-//         } else if(layEvent === 'permission'){ //配置权限			
-// 				var index = layui.layer.open({
-// 					type: 2,
-// 					title: '菜单选择',
-// 					shadeClose: true,
-// 					shade: 0.8,
-// 					area: ['280px', '65%'],
-// 					// content: '../views/module/system/role/menuselect.html',
-// 					content: 'menuselect.html',
-// 					success : function(layero, index){
-// 						//
-// 						setTimeout(function(){
-// 								layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
-// 										tips: 3
-// 								});
-// 						},500)											
-// 					}
-// 			});		
-//         }
-//     });
 
 })

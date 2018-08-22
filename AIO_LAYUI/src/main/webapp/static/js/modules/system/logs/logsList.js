@@ -48,17 +48,18 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
         url : application.SERVE_URL+'/sys/syslogs/list',
         cellMinWidth : 95,
         page : true,
-        height : "full-125",
+				headers : { 'Authorization' : application.HEADER},
+        height : "full-160",
         limit : 10,
         id : "logsListTable",
         cols : [[
             {field: 'type', title: '日志类型',event: 'setSign'},
             {field: 'username', title: '创建者',event: 'setSign'},
-			{field: 'createDate', title: '创建日期',event: 'setSign'},
+						{field: 'createDate', title: '创建日期',event: 'setSign'},
             {field: 'remoteAddr', title: '操作IP地址',event: 'setSign'},
-		    {field: 'userAgent', title: '用户代理',event: 'setSign'},
-		    {field: 'requestUri', title: '请求URI',event: 'setSign'},
-		    {field: 'method', title: '操作方式',event: 'setSign'},
+						{field: 'userAgent', title: '用户代理',event: 'setSign'},
+						{field: 'requestUri', title: '请求URI',event: 'setSign'},
+						{field: 'method', title: '操作方式',event: 'setSign'},
             {field: 'params', title: '操作提交的数据',event: 'setSign'},
             {field: 'excContent', title: '异常信息',event: 'setSign'}
         ]]
@@ -76,8 +77,8 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 				},
 				where: {
 					username: $(".searchVal").val(),  //搜索的关键字
-					beginDate : start,
-					endDate : end
+					queryBeginDate : start,
+					queryEndDate : end
 				}
 			})
 	});
@@ -106,7 +107,8 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 						type: "POST",
 						data:{
 							id :edit.id,
-						},						
+						},
+						headers : { 'Authorization' : application.HEADER},						
 						success: function (data) {
 							if(data){
 								body.find(".id").val(data.id);

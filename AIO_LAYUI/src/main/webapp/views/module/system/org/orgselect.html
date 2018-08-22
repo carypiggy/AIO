@@ -49,14 +49,13 @@
 				//重置按钮
 				//生产环境具体考虑
 				$("#reset").click(function(){
-					alert("66")
 					ztreeObj.checkAllNodes(true);
 				});
 				
 				
 				$.ajax({
-						url: application.SERVE_URL+'/sys/sysmenu/list',
-						headers : { 'Authorization' : application.HEADER},				  //ajax请求地址
+						url: application.SERVE_URL+'/sys/sysorg/tree',                  //ajax请求地址
+						headers : { 'Authorization' : application.HEADER},
 						success: function (data) {	
 							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
 						}
@@ -64,28 +63,10 @@
 				 
 				 $("#getSelectData").click(function(){
 					 publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
-// 						$(window.parent.document).find(".parentId").val(ztreeObj.getCheckedNodes()[0].id);
-// 						$(window.parent.document).find(".parentName").val(ztreeObj.getCheckedNodes()[0].name);
-// 						var index=parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
 				 })
 			});
 
  		});	
-
-
-		
-		
-		
-// 		function getSelectData(){
-// // 				console.log("选中的节点为：")
-// // 				console.log(ztreeObj.getCheckedNodes());
-// 			//生产情况下需对时父标签的过滤  isParent     
-// 			//提交后台
-// 
-// 			parent.layer.close();
-// 		}
-			//转换数据
 	</script>
 </HEAD>
 

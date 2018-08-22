@@ -30,7 +30,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         page : true,
         height : "full-160",
         limit : 10,
-        headers : { 'Authorization' : sessionStorage.getItem('token')},
+		headers : { 'Authorization' : application.HEADER},	
         id : "dictList",
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/
@@ -63,15 +63,21 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	$(document).on('click','#DEL',function(){		
 		var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
 		if(flag){
-            layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){
-                 $.post(application.SERVE_URL+"/sys/sysdict/delete",{
-                     id : table.checkStatus('dictList').data[0].id  
-                 },function(data){
-                	if(data = "success"){
-                        tableIns.reload();
-                        layer.close(index);	
-                	}
-                 })
+            layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){				
+				$.ajax({
+					url: application.SERVE_URL+"/sys/sysdict/delete", //ajax请求地址
+					type: "POST",
+					data:{
+						id : table.checkStatus('dictList').data[0].id  
+					},
+					headers : { 'Authorization' : application.HEADER},												
+					success: function (data) {
+						if(data = "success"){
+							treeTable.reload();
+							layer.close(index);	
+						}
+					}
+				});	
             });			
 		}else{
 			return false;
@@ -107,7 +113,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 						type: "POST",
 						data:{
 							id :edit.id,
-						},						
+						},
+						headers : { 'Authorization' : application.HEADER},						
 						success: function (data) {
 							if(data){
 								body.find(".id").val(data.id);
