@@ -34,11 +34,11 @@
        <if test="entity.type!=null and entity.type!='' ">
            and type=#{entity.type}
        </if>
-	   <if test="entity.beginDate!=null and entity.beginDate!=''">
-           and create_date &gt;= #{beginDate}  
+	   <if test="entity.queryBeginDate!=null and entity.queryBeginDate!=''">
+           and create_date &gt;= #{queryBeginDate}  
        </if>
-	   <if test="entity.endDate!=null and entity.endDate!='' ">
-           and create_date &lt;= #{endDate}  
+	   <if test="entity.queryEndDate!=null and entity.queryEndDate!='' ">
+           and create_date &lt;= #{queryEndDate}  
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
@@ -48,10 +48,10 @@
   <select id="get" parameterType="com.mpri.aio.system.model.SysRole" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,rm.menu_id AS "menuList.id",
-    from sys_role r 
+    ,rm.menu_id AS "menuList.id"
+    from sys_role a 
     LEFT JOIN sys_role_menu rm ON rm.role_id = a.id
-    where r.id = #{id,jdbcType=VARCHAR} and flag= #{FLAG_NORMAL}
+    where a.id = #{id,jdbcType=VARCHAR} and flag= #{FLAG_NORMAL}
   </select>
   
   <!-- 插入对象 -->

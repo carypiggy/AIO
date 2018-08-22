@@ -1,5 +1,10 @@
  package com.mpri.aio.system.model;
- /**   
+ import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**   
  *  
  * @Description:  机构
  * @Author:       SYP
@@ -27,8 +32,33 @@ public class SysOrg extends DataEntity<SysOrg> {
 	private String master;
 	private String mobile;
 	private String useable;
-
+	private Date openDate;
+	private Date closeDate;
 	
+	private SysOrg parentSysOrg;
+		
+	public SysOrg getParentSysOrg() {
+		return parentSysOrg;
+	}
+	public void setParentSysOrg(SysOrg parentSysOrg) {
+		this.parentSysOrg = parentSysOrg;
+	}
+	@JsonFormat(pattern ="yyyy-MM-dd", timezone = "GMT+8")
+	public Date getOpenDate() {
+		return openDate;
+	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
+	}
+	@JsonFormat(pattern ="yyyy-MM-dd", timezone = "GMT+8")
+	public Date getCloseDate() {
+		return closeDate;
+	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public void setCloseDate(Date closeDate) {
+		this.closeDate = closeDate;
+	}
 	public String getParentId() {
 		return this.parentId;
 	}

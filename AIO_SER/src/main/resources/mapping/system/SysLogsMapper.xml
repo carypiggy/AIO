@@ -193,11 +193,11 @@
       <if test="entity.username != null">
         and su.username like '%${entity.username}%'
       </if>
-       <if test="entity.beginDate!=null">
-           and sl.create_date &gt;= #{entity.beginDate}  
+       <if test="entity.queryBeginDate!=null">
+           and sl.create_date &gt;= #{entity.queryBeginDate}  
        </if>
-	   <if test="entity.endDate!=null">
-           and sl.create_date &lt;= #{entity.endDate}  
+	   <if test="entity.queryEndDate!=null">
+           and sl.create_date &lt;= #{entity.queryEndDate}  
        </if>
    	ORDER BY sl.create_date DESC
  	</select>

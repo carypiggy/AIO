@@ -39,11 +39,11 @@
        <if test="entity.type!=null and entity.type!='' ">
            and type=#{entity.type}
        </if>
-       <if test="entity.beginDate!=null and entity.beginDate!=''">
-           and create_date &gt;= #{beginDate}  
+       <if test="entity.queryBeginDate!=null and entity.queryBeginDate!=''">
+           and create_date &gt;= #{queryBeginDate}  
        </if>
-	   <if test="entity.endDate!=null and entity.endDate!='' ">
-           and create_date &lt;= #{endDate}  
+	   <if test="entity.queryEndDate!=null and entity.queryEndDate!='' ">
+           and create_date &lt;= #{queryEndDate}  
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
