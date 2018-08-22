@@ -27,7 +27,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 		 */
 		tableIns = table.render({
 			elem: '#userList',
-			url : application.SERVE_URL+'/sys/sysuser/list',
+			url : application.SERVE_URL+'/sys/smSchoolmate/list',
 			//生产坏境下请求后台
 			cellMinWidth : 95,
 			page : true,
@@ -83,7 +83,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	        } else if(layEvent === 'del'){ //删除
 	            layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
 										 layui.use('layer', function(){
-												 $.post(application.SERVE_URL+'/sys/sysuser/delete',{
+												 $.post(application.SERVE_URL+'/sys/smSchoolmate/delete',{
 													id : data.id  //将需要删除的newsId作为参数传入
 												 },function(data){
 													tableIns.reload();
@@ -118,6 +118,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 				layer.msg("请输入搜索的内容");
 			}
 		});
+		
 	    //添加用户
 	    function addUser(edit){
 				var title ="编辑校友"
@@ -128,7 +129,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	        var index = layui.layer.open({
 	            title : title,
 	            type : 2,
-	            content : "schoolfellowAdd.html",
+	            content : "schoolmateAdd.html",
 	            success : function(layero, index){
 	                var body = layui.layer.getChildFrame('body', index);
 	                if(edit){

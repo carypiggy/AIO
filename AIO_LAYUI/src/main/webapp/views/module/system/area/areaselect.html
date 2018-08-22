@@ -22,8 +22,8 @@
 		})
 		layui.use(['layer','application',"publicUtil"],function(){
 			layer = parent.layer,
-			application = layui.application;
-			publicUtil  = layui.publicUtil
+			application = layui.application,
+			publicUtil  = layui.publicUtil;
 			//ztree设置
 			var setting = {
 					view: {
@@ -32,7 +32,9 @@
 
 					data: {
 							simpleData: {
-									enable: true
+									enable: true,
+									idKey: "id",
+									pIdKey: "parentId"
 							}
 					},
 					check: {
@@ -52,8 +54,9 @@
 				
 				$.ajax({
 					url: application.SERVE_URL+'/sys/sysarea/list',                  //ajax请求地址
+					headers : { 'Authorization' : application.HEADER},
 					success: function (data) {	
-						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, covert(data.data));  //加载数据
+						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
 					}
 				 });	
 				 
@@ -81,13 +84,6 @@
 // 			parent.layer.close();
 // 		}
 			//转换数据
-		 function covert(data){
-			 var nodes =[];
-			 for(var i =0;i<data.length;i++){
-				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 
-			 }
-			 return nodes;
-		 }
 	</script>
 </HEAD>
 

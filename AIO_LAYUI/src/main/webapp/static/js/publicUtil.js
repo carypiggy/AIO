@@ -4,7 +4,7 @@
 	@Tittle: application
 	@Description: 封装一些公用
  */
-layui.define(['form','layer','jquery'],function(exports){
+layui.define(['form','layer','jquery',''],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
@@ -62,7 +62,6 @@ layui.define(['form','layer','jquery'],function(exports){
 				headers : { 'Authorization' : sessionStorage.getItem('token')},
 				success:function(res){
 					$("#"+selectid).empty();
-					$("#"+selectid).append('<option value="">请选择</option>')
 					for(var i =0;i<res.length;i++){
 						$("#"+selectid).append('<option  value="'+res[i].value+'" >'+res[i].label+' </option>');//往下拉菜单里添加元素
 					}
@@ -102,6 +101,7 @@ layui.define(['form','layer','jquery'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
+				headers : { 'Authorization' : sessionStorage.getItem('token')},
 				success:function(res){
 					$("#"+selectid).empty();
 					for(var i =0;i<res.length;i++){
@@ -127,7 +127,7 @@ layui.define(['form','layer','jquery'],function(exports){
 			$.ajax({
 				url: url, //ajax请求地址
 				type: methodType,			
-				headers : { 'Authorization' : header},
+				headers : { 'Authorization' : sessionStorage.getItem('token')},
 				data:{
 					menuId : menuId
 				},						
@@ -152,16 +152,14 @@ layui.define(['form','layer','jquery'],function(exports){
 		 * Tree    树id
 		 * 
 		 */
-		setTreeSel : function(treeNode,Tree){
+		setTreeSel : function(treeNode,treeObj,treeid){
+			console.log("知");
 			if (treeNode != null) {
-				//获取ztree对象
-				var treeObj = $.fn.zTree
-						.getZTreeObj(Tree);
 				//遍历勾选角色关联的菜单数据
 				for (var i = 0; i < treeNode.length; i++) {
 					//根据角色菜单节点数据的属性搜索，获取与完整菜单树完全匹配的节点JSON对象集合
 					var nodes = treeObj.getNodesByParam("id",
-							treeNode[i].id, null);
+							treeid+'_'+treeNode[i].id, null);
 					//勾选当前选中的节点
 					treeObj.checkNode(nodes[0], true, true);
 				}

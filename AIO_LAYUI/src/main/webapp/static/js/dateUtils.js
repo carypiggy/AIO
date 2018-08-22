@@ -200,7 +200,21 @@ layui.define(["element"],function(exports){
 			}else{
 				return new Date(date);
 			}
+		},
+		
+		
+		/**
+		 * 处理  2018-05-19T08:04:52.000+0000 格式的日期
+		 * 返回年 日  yyyy-mm
+		 */
+		getYearAndDay : function (date){
+			var time="2018-05-19T08:04:52.000+0000";
+
+			var d = new Date(time);
+
+			// var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(); 				
+			return d.getFullYear() + '-' + (d.getMonth() + 1);
 		}
 	};
-	exports("dataUtils",DateUtils);
+	exports("dateUtils",DateUtils);
 })

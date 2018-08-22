@@ -26,7 +26,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
         elem: '#menuTree'
         ,url: application.SERVE_URL+'/sys/sysmenu/list'
         ,id: "menuTree"
-		,headers : { 'Authorization' : sessionStorage.getItem('token')}
+		,headers : { 'Authorization' : application.HEADER}
         ,treeId:'id'//树形id字段名称
         ,treeUpId:'parentId'//树形父id字段名称
         ,treeShowName:'name'//以树形式显示的字段
@@ -89,7 +89,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 						type: "POST",
 						data:{
 							id :edit.id,
-						},						
+						},
+						headers : { 'Authorization' : application.HEADER},						
 						success: function (data) {
 							formdatas = data;
 							if(data){
@@ -120,7 +121,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 						type: "POST",
 						data:{
 							id :edit.id,
-						},						
+						},
+						headers : { 'Authorization' : application.HEADER},						
 						success: function (data) {
 							if(data){
 								body.find(".parentId").val(data.id);
@@ -173,15 +175,20 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 			var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
 			if(flag){
 	            layer.confirm('确定删除此菜单吗？',{icon:3, title:'提示信息'},function(index){
-					 $.post(application.SERVE_URL+"/sys/sysmenu/delete",{
-						id : treeGrid.checkStatus('menuTree').data[0].id  
-
-					 },function(data){
-						if(data = "success"){
-							treeTable.reload();
-							layer.close(index);	
+					$.ajax({
+						url: application.SERVE_URL+"/sys/sysmenu/delete", //ajax请求地址
+						type: "POST",
+						data:{
+							id : treeGrid.checkStatus('menuTree').data[0].id 
+						},
+						headers : { 'Authorization' : application.HEADER},												
+						success: function (data) {
+							if(data = "success"){
+								treeTable.reload();
+								layer.close(index);	
+							}
 						}
-					 })						 
+					});											 
 	            });			
 			}else{
 				return false;

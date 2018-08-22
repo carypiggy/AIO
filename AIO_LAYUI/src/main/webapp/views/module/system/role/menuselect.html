@@ -13,7 +13,7 @@
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.excheck.js"></script>
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.exedit.js"></script>
 	<script type="text/javascript">	
-		var layer;var ztreeObj;
+		var layer;var ztreeObj;var treeNode =[];
 		layui.config({
 			base : "../../../../static/js/"
 		}).extend({
@@ -43,31 +43,46 @@
 					}
 			};
 
+			//获取该角色已经配置的权限
+			function getTreeCheckDatas(){
+				$.ajax({
+					url : application.SERVE_URL+'/sys/sysrole/get',
+					type : 'POST',
+					headers : { 'Authorization' : sessionStorage.getItem('token')},	
+					data : {"id" : parent.formdatas.id}, //ajax请求地址
+					succss: function (data) {
+						console.log(data)
+						publicUtil.setTreeSel(data.menuList,ztreeObj);
+					}
+				});	
+			}
+
+
+
+
 			$(document).ready(function(){
 				$("#reset").click(function(){
 					ztreeObj.checkAllNodes(false);
 				});
-				
-				
+			
 				$.ajax({
-						url:  application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
-						success: function (data) {	
-							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting,covert(data.data));  //加载数据
-						}
-				 });			
+					url:  application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
+					headers : { 'Authorization' : application.HEADER},
+					success: function (res) {	
+						ztreeObj = $.fn.zTree.init($("#tree"), setting,covert(res.data));  //加载数据
+					}
+				});	
+				getTreeCheckDatas()	;
 			});
 			
 			
 			form.on("submit(getSelectData)",function(data){
 				//弹出loading
-				var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-				console.log(parent.formdatas.id);
-				console.log(getSelectData(ztreeObj.getCheckedNodes()));
-				
+				var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});		
 				$.ajax({
-					url: application.SERVE_URL+"/sys/sysrole/insertRoleMenu", //ajax请求地址
+					url: application.SERVE_URL+"/sys/sysrole/saveRoleMenu", //ajax请求地址
 					type: "POST",
-					headers : { 'Authorization' : sessionStorage.getItem('token')},
+					headers : { 'Authorization' : application.HEADER},
 					contentType: "application/json",
 					data:JSON.stringify({
 						id : parent.formdatas.id,
@@ -119,7 +134,7 @@
 <BODY class="childrenBody">
 	<form class="layui-form border">
 		<div>
-			<ul id="treeDemo" class="ztree"></ul>
+			<ul id="tree" class="ztree"></ul>
 		</div>
 		<div class="layui-form-item layui-row layui-col-xs12" style="float: right; bottom: 10px; position:fixed;">
 			<div class="layui-input-block">

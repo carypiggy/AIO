@@ -22,10 +22,8 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	protected String flag; 	// 删除标记（0：正常；1：删除；2：审核）
 	
 	//补充查询属性，不进行持久化，时间区间
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date beginDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Date endDate;
+	protected Date queryBeginDate;
+	protected Date queryEndDate;
 	
 	//扩展查询参数
 	protected String paramA;
@@ -87,20 +85,22 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		this.createDate = createDate;
 	}
 
-	public Date getBeginDate() {
-		return beginDate;
+
+
+	public Date getQueryBeginDate() {
+		return queryBeginDate;
 	}
 
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
+	public void setQueryBeginDate(Date queryBeginDate) {
+		this.queryBeginDate = queryBeginDate;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public Date getQueryEndDate() {
+		return queryEndDate;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setQueryEndDate(Date queryEndDate) {
+		this.queryEndDate = queryEndDate;
 	}
 
 	public String getParamA() {

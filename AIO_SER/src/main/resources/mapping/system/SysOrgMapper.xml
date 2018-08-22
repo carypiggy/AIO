@@ -17,14 +17,16 @@
 			<result column="master" jdbcType="VARCHAR" property="master" />
 			<result column="mobile" jdbcType="VARCHAR" property="mobile" />
 			<result column="useable" jdbcType="CHAR" property="useable" />
+			<result column="open_date" jdbcType="TIMESTAMP" property="openDate" />
+			<result column="close_date" jdbcType="TIMESTAMP" property="closeDate" />
 			<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
 			<result column="remark" jdbcType="VARCHAR" property="remark" />
-			<result column="flag" jdbcType="CHAR" property="flag" />
+			<result column="flag" jdbcType="VARCHAR" property="flag" />
 	</resultMap>
 	
     <!-- 基础字段定义 -->
 	<sql id="Base_Column_List">
-    	id, parent_id, parent_ids, name, code, type, url, icon, grade, sort, master, mobile, useable, create_date, remark, flag
+    	id, parent_id, parent_ids, name, code, type, url, icon, grade, sort, master, mobile, useable, open_date, close_date, create_date, remark, flag
 	</sql>
 
 	<!-- 查询条件定义 -->
@@ -40,7 +42,7 @@
         		and parent_ids=#{entity.parentIds}
       		</if>	      	
 	       	<if test="entity.name!=null and entity.name!='' ">
-	           	and name LIKE %#{entity.name}%
+	           	and name like concat(concat('%',#{entity.name}),'%')
 	       	</if>		
 			<if test="entity.code != null and entity.code!='' ">
         		and code=#{entity.code}
@@ -69,18 +71,16 @@
 			<if test="entity.useable != null and entity.useable!='' ">
         		and useable=#{entity.useable}
       		</if>
-      		<if test="entity.beginDate!=null and entity.beginDate!=''">
-           		and create_date &gt;= #{beginDate}  
+      		<if test="entity.queryBeginDate!=null and entity.queryBeginDate!=''">
+           		and create_date &gt;= #{queryBeginDate}  
        		</if>
-		   	<if test="entity.endDate!=null and entity.endDate!='' ">
-	           	and create_date &lt;= #{endDate}  
+		   	<if test="entity.queryEndDate!=null and entity.queryEndDate!='' ">
+	           	and create_date &lt;= #{queryEndDate}  
 	       	</if>    	
 			<if test="entity.remark != null and entity.remark!='' ">
         		and remark=#{entity.remark}
-      		</if>	      	
-			<if test="entity.flag != null and entity.flag!='' ">
-        		and flag= #{entity.FLAG_NORMAL}
       		</if>
+      		and flag= #{entity.FLAG_NORMAL}	      	
 		</if>
 	</sql>
 	
@@ -159,7 +159,13 @@
 	  		</if>   			
 	   		<if test="useable != null">
 	    		useable,
-	  		</if> 
+	  		</if>
+	  		<if test="openDate != null">
+        		open_date,
+      		</if>
+ 	  		<if test="closeDate != null">
+        		close_date,
+      		</if>     			  		 
 	  		<if test="createDate != null">
         		create_date,
       		</if>	
@@ -210,6 +216,13 @@
 	   		<if test="useable != null">
 	   			#{useable,jdbcType=CHAR},
 	  		</if> 
+	   		<if test="openDate != null">
+	   			#{openDate,jdbcType=TIMESTAMP},
+	  		</if> 
+	   		<if test="closeDate != null">
+	   			#{openDate,jdbcType=TIMESTAMP},
+	  		</if> 	  			  		
+	  		
 	  		<if test="createDate != null">
         		#{createDate,jdbcType=TIMESTAMP},
       		</if>			
@@ -261,7 +274,13 @@
 	  		</if>  
 			<if test="useable != null">
 	   			useable = #{useable,jdbcType=CHAR},
+	  		</if>
+	   		<if test="openDate != null">
+	   			open_date = #{openDate,jdbcType=TIMESTAMP},
 	  		</if> 
+	   		<if test="closeDate != null">
+	   			close_date = #{closeDate,jdbcType=TIMESTAMP},
+	  		</if> 	  		 
 	  		<if test="createDate != null">
         		create_date = #{createDate,jdbcType=TIMESTAMP},
       		</if>
