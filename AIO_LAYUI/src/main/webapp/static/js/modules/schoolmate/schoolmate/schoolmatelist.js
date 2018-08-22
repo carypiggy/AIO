@@ -19,7 +19,6 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 		table = layui.table;
 		application = layui.application;
 		
-             
 
 		//根据Id 加载右侧用户数据
 		/**
@@ -133,33 +132,35 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	            success : function(layero, index){
 	                var body = layui.layer.getChildFrame('body', index);
 	                if(edit){
-									/* 	$.ajax({
-												url: application.SERVE_URL +'/sys/sysuser/get', //ajax请求地址
-												type: "POST",
-												data:{
-													id :edit.id,
-												},						
-												success: function (data) {
-													if(data){
-														body.find(".id").val(data.id);
-														body.find(".username").val(data.username);
-														body.find(".password").val(data.password);
-														body.find(".parentId").val(data.parentId);
-														body.find(".name").val(data.name);
-														body.find(".idcard").val(data.idcard);  
-														body.find(".permission").val(data.permission);  
-														body.find(".userPhoto").val(data.mobile);  
-														body.find(".userEmail").val(data.email);  
-														body.find(".userType").val(data.type);  
-														body.find(".orgId").val(data.orgId);  
-														body.find(".userOrg").val(edit.orgId);
-														body.find(".userDesc").val(edit.desc);
-													}else{
-														//console.data();
-														top.layer.msg("用户信息获取失败！");
-													}
-												}
-											}); */
+						$.ajax({
+							url: application.SERVE_URL +'/sys/smSchoolmate/get', //ajax请求地址
+							type: "POST",
+							data:{
+								id :edit.id,
+								},						
+							success: function (data) {
+								if(data){
+								body.find("#schoolmateid").val(data.id);
+								body.find(".sysUserId").val(data.id);
+								body.find(".username").val(data.username);
+								body.find(".name").val(data.name);
+								body.find(".userType").val(data.userType);  
+								body.find(".nation").val(data.nation);  
+								body.find(".cardType").val(data.cardType);  
+								body.find(".cardId").val(data.cardId);  
+								body.find(".birthday").val(data.birthday);  
+								//body.find(".userOrg").val(edit.orgId);
+								//籍贯
+								body.find(".country").val(edit.country);
+								body.find(".province").val(data.province);
+								body.find(".city").val(data.city);  
+								body.find(".district").val(data.district);  
+								}else{
+								//console.data();
+								top.layer.msg("用户信息获取失败！");
+								}
+								}
+							}); 
 	                    form.render();
 	                }else{
 										/* $.ajax({
