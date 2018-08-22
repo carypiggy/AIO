@@ -15,13 +15,13 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','application'],fun
     var form = layui.form,
 		$ = layui.jquery,
 		formSelects = layui.formSelects,
-    publicUtil  = layui.publicUtil,
+        publicUtil  = layui.publicUtil,
 		application = layui.application,
 		layer =layui.layer;
 	
 	//多选下拉框配置
 	formSelects.config('userRole', {
-	  keyName: 'roleName',            //自定义返回数据中name的key, 默认 name
+	    keyName: 'roleName',            //自定义返回数据中name的key, 默认 name
 		keyVal: 'id', 
 	}, true);
 	//初始化角色下拉框(此处应该时经后台过滤处理 选中与为选中)
@@ -44,8 +44,8 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','application'],fun
     form.on("submit(addUser)",function(data){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-		// console.log(data);
-		layui.use('layer', function(){
+
+       layui.use('layer', function(){
 				$.post(application.SERVE_URL+'/sys/sysuser/save',{
 				//保存用户参数
 				 username: data.field.username,
@@ -67,7 +67,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','application'],fun
 		})
         return false;
     })
-		
+	
 	//(此处应该时经后台过滤处理 选中与为选中)
 	// checked : boolean 
 	function selectOrg(){
@@ -93,7 +93,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','application'],fun
 	$(".userOrg").click(function(){
 		selectOrg();
 	})
-	
+
 	//用户名判断提醒
 	$(".username").change(function(){
 		var  that = this;
@@ -118,5 +118,4 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','application'],fun
 				})
 	})
 	})
-
 })

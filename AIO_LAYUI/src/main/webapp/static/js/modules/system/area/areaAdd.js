@@ -24,7 +24,6 @@ layui.use(['form','layer','publicUtil','application'],function(){
 				shadeClose: true,
 				shade: 0.8,
 				area: ['280px', '65%'],
-				// content: '../views/module/system/menu/menuselect.html',
 				content: 'areaselect.html',
 				success : function(layero, index){
 					//
@@ -43,7 +42,7 @@ layui.use(['form','layer','publicUtil','application'],function(){
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysarea/save", //ajax请求地址
 			type: "POST",
-			headers : { 'Authorization' : sessionStorage.getItem('token')},
+			headers : { 'Authorization' : application.HEADER},	
 			data:{
 				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
 				parentId : $(".parentId").val(),

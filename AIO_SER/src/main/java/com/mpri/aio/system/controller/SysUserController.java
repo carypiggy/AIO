@@ -106,6 +106,6 @@ public class SysUserController extends BaseController {
 	public SysUser getSysUserByUsername(@RequestParam("username") String username) {
 		return sysUserService.getSysUserByUsername(username);	
 	}
-
+	
 	
 }

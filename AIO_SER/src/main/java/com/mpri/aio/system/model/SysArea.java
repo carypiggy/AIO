@@ -4,7 +4,7 @@ import com.mpri.aio.base.model.DataEntity;
 
 /**
  * .地区表
- * @author syp
+ * @author lzw
  * @date 2018年8月3日
  */
 public class SysArea  extends DataEntity<SysArea>{

@@ -31,9 +31,12 @@ public class SysAreaService extends CrudService<SysAreaMapper, SysArea>  {
 	 * @param sysArea
 	 * @return
 	 */
-	List<SysArea> loadChildrenByParent(String id){
+	public List<SysArea> loadChildrenByParent(String id){
 		SysArea area = new SysArea();
-		area.setCode(id);
-		return mapper.loadChildrenByParent(area);
+//		area.setCode(id);
+		area.setParentId(id);
+		 List<SysArea> list =mapper.loadChildrenByParent(area);
+		 return list;
+		
 	}
 }

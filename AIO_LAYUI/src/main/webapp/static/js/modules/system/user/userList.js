@@ -10,7 +10,7 @@ layui.config({
 }).extend({
 	"application" : "application"
 })
-
+$(function(){ 
 layui.use(['table','form','element','layer','jquery','application'],function(){
 	var layer = layui.layer,
 		form = layui.form,
@@ -63,10 +63,10 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 		function onClick(event, treeId, treeNode, clickFlag) {
 			// console.log(treeNode.id);
 			//生产坏境下请求后台
-					tableIns = table.render({
+			tableIns = table.render({
 						elem: '#userList',
-						url : application.SERVE_URL+'/sys/sysuser/list',
 						//生产坏境下请求后台
+						url : application.SERVE_URL+'/sys/sysuser/list',
 						cellMinWidth : 95,
 						page : true,
 						where:{orgId : treeNode.id},
@@ -83,7 +83,9 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 							{title: '操作', width:170, templet:'#userListBar',fixed:"right",align:"center"}
 						]]
 					});	
-			}
+				}
+		/* 	});
+		} */		
 		
 		function covert(data) {
 			var nodes = [];
@@ -114,8 +116,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	        if(layEvent === 'edit'){ //编辑
 	        	addUser(data);
 	        } else if(layEvent === 'del'){ //删除
-	            layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-										 layui.use('layer', function(){
+	            layui.use('layer', function(){
 												 $.post(application.SERVE_URL+'/sys/sysuser/delete',{
 													id : data.id  //将需要删除的newsId作为参数传入
 												 },function(data){
@@ -123,8 +124,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 													layer.close(index);
 												 })
 										 })
-									 });	
-							
+									
 	        } else if(layEvent === 'look'){ //预览
 	            layer.alert("此功能需要前台展示，实际开发中传入对应的必要参数进行编码内容页面访问")
 	        }
@@ -137,16 +137,22 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 		
 		//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 		$(".search_btn").click(function(){
-				table.reload("userListTable",{
+			if($(".searchVal").val() != ''){
+				table.reload("dictListTable",{
 					page: {
 						curr: 1 //重新从第 1 页开始
 					},
 					where: {//搜索的关键字
 						username: $(".username").val(),
-						name:$(".name").val()
-					}
+						name:$(".name").val(),
+						}
 				})
+			}else{
+				layer.msg("请输入搜索的内容");
+			}
 		});
+		
+		
 	    //添加用户
 	    function addUser(edit){
 	        var index = layui.layer.open({
@@ -156,6 +162,8 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	            success : function(layero, index){
 	                var body = layui.layer.getChildFrame('body', index);
 	                if(edit){
+	                   body.find(".userOrg").val(edit.orgId);
+	                	//数据回填可参考如下
 										$.ajax({
 												url: application.SERVE_URL +'/sys/sysuser/get', //ajax请求地址
 												type: "POST",
@@ -185,7 +193,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 											}); 
 	                    form.render();
 	                }else{
-										$.ajax({
+	$.ajax({
 													url: application.SERVE_URL +'/sys/sysuser/get', //ajax请求地址
 													type: "POST",
 													data:{
@@ -217,4 +225,5 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	            layui.layer.full(index);
 	        })
 	    }		
+})
 })

@@ -2,3 +2,9 @@ AIO_CORE/src/main/java/META-INF/MANIFEST.MF
 AIO_LAYUI/.project
 AIO_LAYUI/.classpath
 AIO_SER/src/main/resources/application.yml
+AIO_LAYUI/src/main/webapp/static/js/modules/system/menu/menuList.js
+AIO_LAYUI/src/main/webapp/static/js/application.js
+AIO_LAYUI/src/main/webapp/static/js/modules/system/menu/menuList.js
+AIO_LAYUI/.externalToolBuilders/org.eclipse.jdt.core.javabuilder.launch
+AIO_LAYUI/.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder (1).launch
+AIO_LAYUI/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder (1).launch

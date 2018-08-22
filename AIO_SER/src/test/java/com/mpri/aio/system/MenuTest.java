@@ -35,7 +35,7 @@ public class MenuTest extends ApplicationTests {
 	 */
     //@Test
     public void  testLoadPerByUser() {
-		List<SysMenu> list=sysMenuService.loadPerByUser("0e207e95eb9d4f3985120ec7d5528013");
+		List<SysMenu> list=sysMenuService.loadMenuByUser("0e207e95eb9d4f3985120ec7d5528013");
 		super.outprint("java.util.List", list);
 		   
     }

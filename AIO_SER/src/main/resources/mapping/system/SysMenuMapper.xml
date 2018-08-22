@@ -49,13 +49,13 @@
            and is_show=#{entity.isShow}
        </if>
        <if test="entity.operate!=null and entity.operate!='' ">
-           and is_show=#{entity.operate}
+           and operate=#{entity.operate}
        </if>
-       <if test="entity.beginDate!=null and entity.beginDate!=''">
-           and create_date &gt;= #{beginDate}  
+       <if test="entity.queryBeginDate!=null and entity.queryBeginDate!=''">
+           and create_date &gt;= #{queryBeginDate}  
        </if>
-	   <if test="entity.endDate!=null and entity.endDate!='' ">
-           and create_date &lt;= #{endDate}  
+	   <if test="entity.queryEndDate!=null and entity.queryEndDate!='' ">
+           and create_date &lt;= #{queryEndDate}  
        </if>
            and flag= #{entity.FLAG_NORMAL}
 	</if>
@@ -267,7 +267,7 @@
   </select>
   
   <!-- 依照用户id查询所有菜单 -->
-  <select id="loadPerByUser"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
+  <select id="loadMenuByUser"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_menu sm
@@ -307,7 +307,7 @@
   </select>
   
   
-  <!-- 依照用户id和菜单id 查询菜单下的所有权限 -->
+  <!-- 依照用户id查询所有权限 -->
   <select id="loadAllPer"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />

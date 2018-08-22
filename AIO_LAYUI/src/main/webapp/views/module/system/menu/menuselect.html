@@ -32,7 +32,10 @@
 
 					data: {
 							simpleData: {
-									enable: true
+									enable: true,
+									idKey: "id",
+									pIdKey: "parentId"
+									// rootPId: 0									
 							}
 					},
 					check: {
@@ -52,9 +55,10 @@
 				
 				
 				$.ajax({
-						url: application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
+						url: application.SERVE_URL+'/sys/sysmenu/list',
+						headers : { 'Authorization' : application.HEADER},				  //ajax请求地址
 						success: function (data) {	
-							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, covert(data.data));  //加载数据
+							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
 						}
 				 });	
 				 
@@ -82,13 +86,6 @@
 // 			parent.layer.close();
 // 		}
 			//转换数据
-		 function covert(data){
-			 var nodes =[];
-			 for(var i =0;i<data.length;i++){
-				 nodes.push({id: data[i].id, pId: data[i].parentId,name :data[i].name}); 
-			 }
-			 return nodes;
-		 }
 	</script>
 </HEAD>
 
@@ -100,9 +97,7 @@
 			<div class="layui-input-block" style="margin-bottom: 10px;">
 				<a class="layui-btn layui-btn-sm" lay-submit="" lay-filter="getSelectData" id="getSelectData">确认</a>
 				<a  class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</a>
-			</div>
-<!-- 			<a class="layui-btn layui-btn-xs" lay-submit="getSelectData">确认</a>
-			<a type="reset" class="layui-btn layui-btn-xs layui-btn-danger" onclick="reset(	)">重置</a>	 -->		
+			</div>	
 		</div>
 </BODY>
 </HTML>

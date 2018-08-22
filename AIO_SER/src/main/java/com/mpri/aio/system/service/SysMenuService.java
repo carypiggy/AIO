@@ -34,10 +34,10 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 	 * @param id
 	 * @return
 	 */
-	public List<SysMenu> loadPerByUser(String id) {
+	public List<SysMenu> loadMenuByUser(String id) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);
-		return mapper.loadPerByUser(sysUser);
+		return mapper.loadMenuByUser(sysUser);
 	}
 	
 	/**

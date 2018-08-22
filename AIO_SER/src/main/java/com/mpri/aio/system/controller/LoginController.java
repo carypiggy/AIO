@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
 	/**
 	 * 管理登录
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RestResponse<String>  login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("authCode")String authCode,HttpSession session) {
@@ -103,8 +103,8 @@ public class LoginController extends BaseController {
 		SysUser sysUser = sysUserService.getSysUserByUsername(username);
 		//获取角色
         List<SysRole> sysRoles = sysRoleService.loadRoleByUser(sysUser.getId());
-		//获取权限
-        List<SysMenu> sysMenus = sysMenuService.loadPerByUser(sysUser.getId());
+		//获取菜单权限
+        List<SysMenu> sysMenus = sysMenuService.loadMenuByUser(sysUser.getId());
         
         userInfo.put("user", sysUser);
         
