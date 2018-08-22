@@ -4,7 +4,7 @@
  * @returns
  * @Time 2018-08-03
  */
-var $, tab, dataStr, layer; var menuDatas; var cur_menu_id;
+var $, tab, dataStr, layer; var menuDatas; var cur_menu_id;var username;
 layui.config({
 	base: "static/js/"
 }).extend({
@@ -37,6 +37,8 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 			},
 			success: function (res) {
 				$('.userName').html(res.user.name);
+				username = res.user.username;
+				id = res.user.id;
 				//初始化顶部菜
 				menuDatas = res.menu;
 				var data = menuDatas.children;
