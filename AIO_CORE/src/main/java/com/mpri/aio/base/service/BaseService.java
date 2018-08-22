@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Cary
  * @Date 2018-07-26
  */
-@Transactional(readOnly = true)
+@Transactional
 public abstract class BaseService {
 
 	/**

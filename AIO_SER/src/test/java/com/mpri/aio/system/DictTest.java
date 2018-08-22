@@ -58,7 +58,7 @@ public class DictTest extends ApplicationTests{
     /**
 	 * 根据id获取单条数据 - 通过
 	 */
-	@Test
+	//@Test
     public void testGet(){
 		SysDict sd = new SysDict();
 		sd.setId("1e790d1e9ceb4425bbbca422fbd5836a");
@@ -71,11 +71,14 @@ public class DictTest extends ApplicationTests{
 	 /**
 	  * 根据typecode获取对象  --通过
      */
-//    @Test
+    @Test
     public void testGetDictByTypecode(){
     	
-    	List<SysDict> sysDict = sysDictService.getSysDictByTypecode("A10");
-		super.outprint("com.mpri.aio.system.model.SysDict", sysDict);
+    	List<SysDict> sysDict = sysDictService.getSysDictByTypecode("SEX");
+    	System.out.println("缓存测试：此处应取库");
+    	List<SysDict> sysDict2 = sysDictService.getSysDictByTypecode("SEX");
+    	System.out.println("缓存测试：此处应有掌声");
+		//super.outprint("com.mpri.aio.system.model.SysDict", sysDict);
     }
 	
     

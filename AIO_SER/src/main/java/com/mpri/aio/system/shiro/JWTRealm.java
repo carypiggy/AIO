@@ -11,6 +11,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.model.SysRole;
@@ -24,15 +26,19 @@ import com.mpri.aio.system.service.SysUserService;
  * @author Cary
  * @date 2018年8月15日
  */
+@Service
 public class JWTRealm extends AuthorizingRealm {
 
 	@Autowired
+	@Lazy
 	private SysUserService sysUserService;
 
 	@Autowired
+	@Lazy
 	private SysRoleService sysRoleService;
 
 	@Autowired
+	@Lazy
 	private SysMenuService sysMenuService;
 
 	@Override

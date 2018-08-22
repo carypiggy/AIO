@@ -19,8 +19,8 @@ import com.github.benmanes.caffeine.cache.Caffeine;
  * @author Cary
  * @date 2018年8月14日
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class CacheConfig {
 	public static final int DEFAULT_MAXSIZE = 50000;
 	public static final int DEFAULT_TTL = 10;
@@ -29,7 +29,11 @@ public class CacheConfig {
 	 * 定义Cache 名称，超时长度，最大容量
 	 */
 	public enum Caches{
-			dictCache(600, 3000)//10分钟，最大容量3000
+			dictCache(600, 3000),//10分钟，最大容量3000
+			menuCache(120,1000),
+			pagePerCache(120,1000),
+			perCache(120,3000),
+			userCache(180,5000),
 		;
 		
 		Caches() {

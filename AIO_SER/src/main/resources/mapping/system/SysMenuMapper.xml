@@ -141,7 +141,7 @@
       <if test="href != null">
         #{href,jdbcType=VARCHAR},
       </if>
-      <if test="icon != null">
+      <if test="icon != null"> 
         #{icon,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
