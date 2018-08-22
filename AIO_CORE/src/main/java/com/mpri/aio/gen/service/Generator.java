@@ -19,7 +19,7 @@ import com.mpri.aio.gen.util.FreemarkerUtil;
 * <p>Description: </p>  
 * @author syp  
 * @date 2018年8月7日
- */
+*/
 @Service
 public class Generator {
 
