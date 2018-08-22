@@ -101,7 +101,7 @@ public class ShiroRealm extends AuthorizingRealm {
              authorizationInfo.addRole(role.getName());
          }
          //保存权限
-         List<SysMenu> sysMenus = sysMenuService.loadPerByUser(sysUser.getId());
+         List<SysMenu> sysMenus = sysMenuService.loadMenuByUser(sysUser.getId());
          for (SysMenu sysMenu : sysMenus) {
              authorizationInfo.addStringPermission(sysMenu.getPermission());
          }

@@ -267,7 +267,7 @@
   </select>
   
   <!-- 依照用户id查询所有菜单 -->
-  <select id="loadPerByUser"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
+  <select id="loadMenuByUser"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from sys_menu sm
@@ -307,7 +307,7 @@
   </select>
   
   
-  <!-- 依照用户id和菜单id 查询菜单下的所有权限 -->
+  <!-- 依照用户id查询所有权限 -->
   <select id="loadAllPer"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />

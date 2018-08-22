@@ -103,8 +103,8 @@ public class LoginController extends BaseController {
 		SysUser sysUser = sysUserService.getSysUserByUsername(username);
 		//获取角色
         List<SysRole> sysRoles = sysRoleService.loadRoleByUser(sysUser.getId());
-		//获取权限
-        List<SysMenu> sysMenus = sysMenuService.loadPerByUser(sysUser.getId());
+		//获取菜单权限
+        List<SysMenu> sysMenus = sysMenuService.loadMenuByUser(sysUser.getId());
         
         userInfo.put("user", sysUser);
         
