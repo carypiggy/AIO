@@ -30,20 +30,11 @@ public class Generator {
 	public static final String SERVICE="service";
 	public static final String CONTROLLER="controller";
 	
+	private static final String TYPEINE ="int";
+	private static final String TYPEDATETIME ="datetime";
+	
 	@Autowired
 	private GenColumuInfoMapper genColumuInfoMapper;
-	
-	/**
-	 * 便于测试
-	* <p>Title: getGenColumuInfoByTable</p>  
-	* <p>Description: </p>  
-	* @return
-	 */
-	public List<GenColumuInfo> getGenColumuInfoByTable(){
-		GenTableInfo genTableInfo = new GenTableInfo();
-		genTableInfo.setTable("sys_dict");
-		return genColumuInfoMapper.findTableColumnList(genTableInfo);
-	}
 	
 	/**
 	 * 组装GenConfigInfo
@@ -53,7 +44,17 @@ public class Generator {
 	* @return
 	 */
 	public GenTableInfo getGenConfigInfo(GenTableInfo genTableInfo) {
-		genTableInfo.setColumuInfos(genColumuInfoMapper.findTableColumnList(genTableInfo));
+		List<GenColumuInfo> genColumuInfos = genColumuInfoMapper.findTableColumnList(genTableInfo);
+		for(GenColumuInfo genColumuInfo :genColumuInfos) {
+			if(genColumuInfo.getColumnType().equalsIgnoreCase(TYPEINE)) {
+				genColumuInfo.setColumnType("integer");
+			}else if(genColumuInfo.getColumnType().equalsIgnoreCase(TYPEDATETIME)) {
+				genColumuInfo.setColumnType("timestamp");
+			}else {
+				continue;
+			}
+		}		
+		genTableInfo.setColumuInfos(genColumuInfos);
 		return genTableInfo;
 	}
 
