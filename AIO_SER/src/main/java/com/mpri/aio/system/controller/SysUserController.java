@@ -1,7 +1,8 @@
 package com.mpri.aio.system.controller;
 
 import java.util.Date;
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
@@ -10,13 +11,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.page.PageIo;
+import com.mpri.aio.common.response.RestResponse;
+import com.mpri.aio.common.utils.DateUtils;
+import com.mpri.aio.common.utils.FileUtils;
 import com.mpri.aio.common.utils.IdGen;
 import com.mpri.aio.system.model.SysUser;
 import com.mpri.aio.system.service.SysUserService;
@@ -56,14 +61,17 @@ public class SysUserController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SysUser sysUser){
+	public String save(@RequestBody @Validated SysUser sysUser){
 		sysUser.setSafecode(IdGen.uuid());
+		sysUser.setPassword("123456");
 		ByteSource salt = ByteSource.Util.bytes(sysUser.getSafecode());
 		//加盐炒三次safecode=salt
 		String result = new Md5Hash(sysUser.getPassword(),salt,3).toString();
 		sysUser.setPassword(result);
 		sysUser.setCreateDate(new Date());
-		sysUserService.save(sysUser);	
+		
+		sysUserService.save(sysUser);
+		sysUserService.insertUserRole(sysUser);
 		return SUCCESS;
 	}	
 	
@@ -107,5 +115,33 @@ public class SysUserController extends BaseController {
 		return sysUserService.getSysUserByUsername(username);	
 	}
 	
+	
+	/**
+	 * 文件图上传     
+	* <p>Title: uploadImg</p>  
+	* <p>Description: </p>  
+	* @param file
+	* @param request
+	* @return
+	 */
+    @CrossOrigin
+    @PostMapping(value = "/uploadimg")
+    public RestResponse<String> uploadImg(@RequestParam("file") MultipartFile file,
+            HttpServletRequest request) {
+        String contentType = file.getContentType();
+        String fileName = file.getOriginalFilename();
+        System.out.println(ClassLoader.getSystemResource(""));
+//        System.out.println("fileName-->" + fileName);
+//        System.out.println("getContentType-->" + contentType);
+        String resfillPath  = DateUtils.getDate();
+        String filePath = request.getSession().getServletContext().getRealPath(resfillPath+ "/");
+        try {
+            FileUtils.uploadFile(file.getBytes(), filePath, fileName);
+            return RestResponse.getInstance(200, "上传成功", resfillPath +"/"+fileName);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }      
+        return RestResponse.getInstance(-1, "上传失败", resfillPath+fileName);
+    }
 	
 }
