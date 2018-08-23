@@ -16,7 +16,6 @@ import com.mpri.aio.common.page.PageIo;
   * @author Cary
   * @date 2018年8月1日
   */
-@Transactional(readOnly = true)
 public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<T>> extends BaseService {
 	
 	/**

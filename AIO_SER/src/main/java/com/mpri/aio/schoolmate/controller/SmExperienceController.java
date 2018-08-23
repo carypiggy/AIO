@@ -57,8 +57,12 @@ public class SmExperienceController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@RequestBody SmExperience smExperience){
-		smExperienceService.save(smExperience);							
+	public String save(@RequestBody SmExperience [] smExperience){
+		
+		for( int i=0; i<smExperience.length ; i++)
+		{
+			smExperienceService.save(smExperience[i]);
+		}
 		return SUCCESS;
 	}	
 	
