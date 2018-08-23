@@ -40,7 +40,6 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 			var edu = document.getElementById("eduFrom").getElementsByTagName("fieldset").length;
 			if(dataInfo.size >0)
 			{
-<<<<<<< HEAD
 				var eduList = dataInfo.list;
 				for(var i=0; i<edu; i++)
 				{
@@ -68,13 +67,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 						initSchoolInfo(i);
 					}
 				}
-	
-=======
-				initSchoolInfo(i);
-			} */
 
 		
->>>>>>> 6f08fd051d253a32dfffe7b90a02e79448bda6e7
 		}else if(elem.index == 2) //校园经历
 		{
 			var dataInfo =clicktable(application.SERVE_URL+"/sys/smExperience/list",{"username":username,"pageNo":10, "pageSize":0})
@@ -597,11 +591,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	{
 		eduList.push({"id":$("#edu_id_"+i).val(),"academy":$("#edu_academy_"+i).val(),"className":$("#edu_className_"+i).val(),"college":$("#edu_collage_"+i).val(),"degree":$("#edu_degree_"+i).val(),"degreetype":$("#edu_degreetype_"+i).val(),"enddate":$("#edu_enddate_"+i).val(),"school":$("#edu_school_"+i).val(),"schoollen":$("#edu_schoollen_"+i).val(),"eries":$("#edu_series_"+i).val(),"specialty":$("#edu_specialty_"+i).val(),"startdate":$("#edu_startdate_"+i).val(),"studentid":$("#edu_studentid_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
 		}
-<<<<<<< HEAD
 			jsondata = JSON.stringify(eduList);
-=======
- jsondata = JSON.stringify(eduList);
->>>>>>> 6f08fd051d253a32dfffe7b90a02e79448bda6e7
+
 			ajaxinfo(application.SERVE_URL+'/sys/smEducation/save', jsondata,"教育经历");
 		})
 		
@@ -640,11 +631,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					var expList = [];
 					for(var i=0; i<edu; i++)
 					{
-<<<<<<< HEAD
 						expList.push({"id":$("#family_id_"+i).val(),"name":$("#family_name_"+i).val(),"sex":$("#fam_sex_"+i).val(),"relation":$("#fam_relation_"+i).val(),"birthday":$("#fam_birthday_"+i).val(),"profession":$("#fam_profession_"+i).val(),"phone":$("#fam_phone_"+i).val(),"workplace":$("#fam_workplace_"+i).val(),"isschool":$("input[name='isschool"+i+"']").val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-=======
-						expList.push({"id":$("family_id_"+i).val(),"name":$("#family_name_"+i).val(),"sex":$("#fam_sex_"+i).val(),"relation":$("#fam_relation_"+i).val(),"birthday":$("#fam_birthday_"+i).val(),"profession":$("#fam_profession_"+i).val(),"phone":$("#fam_phone_"+i).val(),"workplace":$("#fam_workplace_"+i).val(),"isschool":$("input[name='isschool"+i+"']").val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
->>>>>>> 6f08fd051d253a32dfffe7b90a02e79448bda6e7
+
 					}
 			jsondata = JSON.stringify(expList);
 	    ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', jsondata,"家庭信息");
@@ -658,14 +646,10 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#soc_id_"+i).val(),"type":$("#soc_type_"+i).val(),"name":$("#soc_name_"+i).val(),"startdate":$("#soc_startdate_"+i).val(),"remark":$("#soc_remark_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-<<<<<<< HEAD
 									
 									}
 									jsondata = JSON.stringify(expList);
-=======
-						}
-			jsondata = JSON.stringify(expList);
->>>>>>> 6f08fd051d253a32dfffe7b90a02e79448bda6e7
+
 			
 			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', jsondata,"政治面貌");
 		});
@@ -706,11 +690,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#pro_id_"+i).val(),"workplace":$("#pro_workplace_"+i).val(),"nature":$("#pro_nature_"+i).val(),"industry":$("#pro_industry_"+i).val(),"department":$("#pro_department_"+i).val(),"position":$("#pro_position_"+i).val(),"telephone":$("#pro_telephone_"+i).val(),"fax":$("#pro_fax_"+i).val(),"remark":$("#pro_remark_"+i).val(),"startdate":$("#pro_startdate_"+i).val(),"enddate":$("#pro_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-<<<<<<< HEAD
 						}
-=======
-					}
->>>>>>> 6f08fd051d253a32dfffe7b90a02e79448bda6e7
+
 			jsondata = JSON.stringify(expList);
 			ajaxinfo(application.SERVE_URL+'/sys/smProfession/save', jsondata,"职业经历");
 		});
@@ -814,11 +795,5 @@ function selectBase(url,data,selectid){
 				});
 				return data;
 		}
-		
-<<<<<<< HEAD
 })
-=======
-		
-		
-})
->>>>>>> 6f08fd051d253a32dfffe7b90a02e79448bda6e7
+
