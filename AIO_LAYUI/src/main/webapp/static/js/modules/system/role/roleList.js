@@ -139,7 +139,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 												headers : { 'Authorization' : application.HEADER},												
 												success: function (data) {
 													if(data = "success"){
-														treeTable.reload();
+														table.reload();
 														layer.close(index);	
 													}
 												}

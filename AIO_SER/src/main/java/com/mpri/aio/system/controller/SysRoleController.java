@@ -68,6 +68,7 @@ public class SysRoleController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public String delete(SysRole sysRole) {
+		sysRoleService.deleteRoleMenu(sysRole);
 		sysRoleService.delete(sysRole);
 		return SUCCESS;
 	}

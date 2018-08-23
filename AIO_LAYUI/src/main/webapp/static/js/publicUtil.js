@@ -56,7 +56,7 @@ layui.define(['form','layer','jquery'],function(exports){
 		},
 		
 		//取字典下拉框
-		selectBase: function(url,data,selectid){
+		selectBase: function(url,data,selectid,flag){
 			$.ajax({
 				url:url,
 				type: "POST",
@@ -64,6 +64,9 @@ layui.define(['form','layer','jquery'],function(exports){
 				headers : { 'Authorization' : sessionStorage.getItem('token')},
 				success:function(res){
 					$("#"+selectid).empty();
+					if(flag){
+						$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
+					}
 					for(var i =0;i<res.length;i++){
 						$("#"+selectid).append('<option  value="'+res[i].value+'" >'+res[i].label+' </option>');//往下拉菜单里添加元素
 					}

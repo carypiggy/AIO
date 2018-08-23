@@ -39,4 +39,15 @@ public class SysRoleService  extends CrudService<SysRoleMapper, SysRole>{
 		mapper.deleteRoleMenu(sysRole);
 		mapper.insertRoleMenu(sysRole);
 	}
+	
+	/**
+	 * 
+	* <p>Title: deleteRoleMenu</p>  
+	* <p>Description: </p>  
+	* @param sysRole
+	 */
+	@Transactional(readOnly = false)
+	public void deleteRoleMenu(SysRole sysRole) {
+		mapper.deleteRoleMenu(sysRole);
+	}
 }
