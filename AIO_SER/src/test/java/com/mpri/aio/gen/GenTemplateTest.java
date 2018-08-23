@@ -36,6 +36,7 @@ public class GenTemplateTest extends ApplicationTests {
 	public static final String CONTROLLER_URL="com.mpri.aio.schoolmate.controller";
 	
 	//需要修改的
+
 	public static final String TABLE = "sm_card";    //表名
 	public static final String CLASSCOMMENT ="校友卡管理"; //模块名称
 	public static final String JAVA_URL = "D:\\xiaoyou2.0\\AIO\\AIO_SER\\src\\main\\java\\";  // 物理路径       E:\git_res\AIO\AIO_SER\src\main\java
