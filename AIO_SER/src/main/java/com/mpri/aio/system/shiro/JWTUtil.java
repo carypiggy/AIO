@@ -2,6 +2,8 @@ package com.mpri.aio.system.shiro;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -15,7 +17,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWTUtil  {
 	
 	 // 过期时间5分钟
-    private static final long EXPIRE_TIME = 15*60*1000;
+    private static final long EXPIRE_TIME = 5*60*1000;
+    
+    // 逾期时间3分钟
+    private static final long REFESH_TIME = 4*60*1000;
+    
     /**
      * 校验token是否正确
      * @param token 密钥
@@ -28,6 +34,7 @@ public class JWTUtil  {
             JWTVerifier verifier = JWT.require(algorithm)
                     .withClaim("username", username)
                     .build();
+          
             DecodedJWT jwt = verifier.verify(token);
             return true;
         } catch (Exception exception) {
@@ -43,6 +50,20 @@ public class JWTUtil  {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+    
+    
+    /**
+     * 获得token中的信息无需secret解密也能获得
+     * @return token中包含的用户名
+     */
+    public static String getPassword(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("password").asString();
         } catch (JWTDecodeException e) {
             return null;
         }
@@ -66,5 +87,23 @@ public class JWTUtil  {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    /**
+     * 刷新并返回新Token
+     * @param token
+     * @return
+     */
+    public static String refresh(String token) {
+    	DecodedJWT jwt = JWT.decode(token);
+    	Date now=new Date();
+    	long nowTime=now.getTime();
+    	long tokenTime=jwt.getIssuedAt().getTime();
+    	if((nowTime-tokenTime)<REFESH_TIME) {
+    		return sign(getUsername(token),getPassword(token));
+    	}else {
+    		
+    		return token;
+    	}
     }
 }

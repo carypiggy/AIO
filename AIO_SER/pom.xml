@@ -17,15 +17,15 @@
 
   <dependencies>
   
-  
+
 	<dependency>
 		<groupId>com.mpri.aio</groupId>
-		<artifactId>aio_core</artifactId>
+		<artifactId>AIO_CORE</artifactId>
 		<version>1.0</version>
 		<scope>system</scope>
-		<systemPath>${project.basedir}/src/main/resources/lib/aio_core-1.0.jar</systemPath>
+		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
 	</dependency>
-  
+ 
   
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
@@ -59,17 +59,17 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-cache</artifactId>
 	</dependency>
-	<!-- 
 	<dependency>
 		<groupId>com.github.ben-manes.caffeine</groupId>
 		<artifactId>caffeine</artifactId>
-	</dependency> -->
-	<!-- ehcache缓存 -->
+	</dependency>
+	
+	<!-- ehcache缓存 
 	<dependency>
 	    <groupId>net.sf.ehcache</groupId>
 	    <artifactId>ehcache</artifactId>
-	    <version>2.9.1</version><!--$NO-MVN-MAN-VER$ -->
-	</dependency>
+	    <version>2.9.1</version>
+	</dependency> -->
 	<!-- 二级缓存相关 
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -335,6 +335,7 @@
 			<configuration>
 				<!-- 没有该配置，devtools 不生效 -->
 				<fork>true</fork>
+				<includeSystemScope>true</includeSystemScope>
 			</configuration>
 		</plugin>
 	    <plugin>
@@ -345,7 +346,13 @@
                <target>1.8</target>
            </configuration>
 	    </plugin>
-
+		<plugin>    
+		    <groupId>org.apache.maven.plugins</groupId>    
+		    <artifactId>maven-war-plugin</artifactId>    
+		    <configuration>    
+		     	<warSourceExcludes>src/test/java/**</warSourceExcludes>    
+		    </configuration>    
+	   </plugin>  
 	</plugins>
     </build>
 </project>

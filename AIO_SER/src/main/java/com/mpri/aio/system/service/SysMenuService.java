@@ -49,7 +49,7 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 	 * @param id
 	 * @return
 	 */
-	@Cacheable(value = "pagePerCache", key = "#id"+"_#menuId")
+	@Cacheable(value = "pagePerCache", key = "#id+#menuId")
 	public List<SysMenu> loadPagePer(String id,String menuId) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);
@@ -62,7 +62,7 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 	 * @param id
 	 * @return
 	 */
-	@Cacheable(value = "perCache", key = "#id")
+	@Cacheable(value = "perCache", key ="#id")
 	public List<SysMenu> loadAllPer(String id) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);

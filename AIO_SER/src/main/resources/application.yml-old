@@ -3,7 +3,7 @@ server:
 
 spring:
     cache:
-        type: caffeine
+        type: simple
         cache-names: dictCache,menuCache,pagePerCache,perCache,userCache
         caffeine:
             spec: maximumSize=3000, expireAfterWrite=180s

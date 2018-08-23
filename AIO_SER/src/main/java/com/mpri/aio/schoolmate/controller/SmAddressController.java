@@ -1,7 +1,6 @@
 package com.mpri.aio.schoolmate.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +12,6 @@ import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.schoolmate.model.SmAddress;
-import com.mpri.aio.schoolmate.model.SmEducation;
 import com.mpri.aio.schoolmate.service.SmAddressService;
 
  /**   
