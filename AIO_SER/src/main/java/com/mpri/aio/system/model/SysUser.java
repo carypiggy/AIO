@@ -1,5 +1,7 @@
 package com.mpri.aio.system.model;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,10 +22,8 @@ public class SysUser extends DataEntity<SysUser> {
     @Size(min = 2, max = 64, message = "用户名长度必须大于 2 且小于 64 字")
     private String username;
 
-    @NotNull(message="密码不能为空")
     private String password;
 
-    @NotNull(message="安全码不能为空")
     private String safecode;
     
     @NotNull(message="姓名不能为空")
@@ -42,8 +42,28 @@ public class SysUser extends DataEntity<SysUser> {
     @NotNull(message="类型不能为空")
     private String type;
     
+    private String orgName;
+    
+    
+    public String getOrgName() {
+		return orgName;
+	}
 
-    public String getOrgId() {
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	private List<SysRole> roleList;/*角色列表*/
+    
+    public List<SysRole> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<SysRole> roleList) {
+		this.roleList = roleList;
+	}
+
+	public String getOrgId() {
         return orgId;
     }
     
