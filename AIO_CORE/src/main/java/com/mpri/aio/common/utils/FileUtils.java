@@ -965,4 +965,24 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		}
 		return fileName.substring(0, fileName.lastIndexOf("."));
 	}
+	
+	/**
+	 * 文件上传
+	* <p>Title: uploadFile</p>  
+	* <p>Description: </p>  
+	* @param file
+	* @param filePath
+	* @param fileName
+	* @throws Exception
+	 */
+    public static void uploadFile(byte[] file, String filePath, String fileName) throws Exception {
+        File targetFile = new File(filePath);
+        if(!targetFile.exists()){
+            targetFile.mkdirs();
+        }
+        FileOutputStream out = new FileOutputStream(filePath+fileName);
+        out.write(file);
+        out.flush();
+        out.close();
+    }
 }
