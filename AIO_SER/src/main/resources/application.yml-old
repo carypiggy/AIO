@@ -1,0 +1,69 @@
+server:
+  port: 8080
+
+spring:
+    cache:
+        type: simple
+        cache-names: dictCache,menuCache,pagePerCache,perCache,userCache
+        caffeine:
+            spec: maximumSize=3000, expireAfterWrite=180s
+              
+    datasource:
+        name: aio_db
+        type: com.alibaba.druid.pool.DruidDataSource
+        #druid相关配置
+        druid:
+                         #监控统计拦截的filters
+          filters: stat
+                        # 使用druid数据源
+          driver-class-name: com.mysql.jdbc.Driver
+          #基本属性
+          url: jdbc:mysql://192.168.120.187:3306/smmp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT&useSSL=false
+          username: root
+          password: root123.
+          #url: jdbc:mysql://66.42.40.232:3306/aio_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT
+          #username: aio
+          #password: Aio54321.
+          #配置初始化大小/最小/最大
+          initial-size: 1
+          min-idle: 1
+          max-active: 20
+          #获取连接等待超时时间
+          max-wait: 60000
+          #间隔多久进行一次检测，检测需要关闭的空闲连接
+          time-between-eviction-runs-millis: 60000
+          #一个连接在池中最小生存的时间
+          min-evictable-idle-time-millis: 300000
+          validation-query: SELECT 'x'
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+          pool-prepared-statements: false
+          max-pool-prepared-statement-per-connection-size: 20	           
+    
+    
+mybatis:
+  #对应mapper映射xml文件的所在路径
+  mapper-locations: classpath:mapping/*/*.xml
+  #对应实体类的路径
+  type-aliases-package: com.mpri.aio.base.model
+  #日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+
+#pagehelper分页配置 
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql    
+    
+# 打印日志
+logging:
+  pattern:
+      console: "%-5level - %msg%n"
+  level: 
+      - com.memorynotfound=trace
+      - com.onepro.custom.mapper: DEBUG
+    

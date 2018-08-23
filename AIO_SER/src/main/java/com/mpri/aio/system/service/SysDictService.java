@@ -2,6 +2,7 @@ package com.mpri.aio.system.service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mpri.aio.base.service.CrudService;
@@ -20,8 +21,8 @@ public class SysDictService extends CrudService<SysDictMapper, SysDict>  {
 	 * @param typeCode
 	 * @return
 	 */
+	@Cacheable(value = "dictCache", key ="#typeCode")
 	public List<SysDict> getSysDictByTypecode(String typeCode) {
-		
 		SysDict sysDict = new SysDict();
 		sysDict.setTypeCode(typeCode);
 		return mapper.getSysDictByTypecode(sysDict);

@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,7 +57,7 @@ public class SmSchoolmateController extends BaseController {
 	 */
 	@CrossOrigin
 	@GetMapping(value = "/save")
-	public String save(@Validated SmSchoolmate smSchoolmate){
+	public String save(@RequestBody SmSchoolmate smSchoolmate){
 
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
 //		smSchoolmate.setCreateDate(DateUtils.parseDate(sdf.format(new Date())));

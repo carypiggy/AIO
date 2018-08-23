@@ -5,7 +5,7 @@
   <artifactId>AIO_CORE</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>AIO_CORE</name>
+  <name>aio_core</name>
   <url>http://maven.apache.org</url>
 
   <!-- Inherit defaults from Spring Boot -->

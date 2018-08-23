@@ -11,7 +11,7 @@ layui.config({
 	"application" : "application"
 });
 
-layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','application','element'],function(){
+layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','application','element','laytpl'],function(){
     var form = layui.form,
 		$ = layui.jquery,
 /* 		formSelects = layui.formSelects, */
@@ -19,44 +19,113 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 		application = layui.application,
 		layer =layui.layer,
 		element = layui.element,
-	  laydate = layui.laydate;
-		username = parent.parent.username;
+	  laydate = layui.laydate,
+		laytpl = layui.laytpl;
+	var config = {
+  open: '{{',
+  close: '}}'
+};
+		//username = parent.parent.username;
 		
+		var dataInfo ;
 	// 卡片页签点击触发事件
 	element.on('tab(info)', function(elem){
 		location.hash = 'info='+ $(this).attr('lay-id');
 		//获取卡片对应的数据,回显数据
 		//console.log(elem);
+		var username = $("#username").val();
 	  if(elem.index == 0) //基本信息
 		{
-			
+		//	clicktable(application.SERVE_URL+"/sys/smEducation/list",{"username":username});
 		}else if(elem.index == 1) //教育经历
 		{
-			
-		}else if(elem.index == 2) //校友经历
+			clicktable(application.SERVE_URL+"/sys/smEducation/list",{"username":username,"pageNo":0, "pageSize":10});
+		/* 	var getTpl = EduTemp.innerHTML,
+			view =document.getElementById("eduView");
+			laytpl(getTpl).render(dataInfo, function(html){
+				console.log(html)
+				//view.innerHTML = html;	
+				view.append(html);
+				form.render();
+			});
+			form.render(); */
+			/* for(var i =0; i<dataInfo.list.length; i++ )
+			{
+				initSchoolInfo(i);
+			} */
+		}else if(elem.index == 2) //校园经历
 		{
+			clicktable(application.SERVE_URL+"/sys/smExperience/list",{"username":username,"pageNo":10, "pageSize":0})
+		/* 	console.log(dataInfo);
+			var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo, function(html){
+				$('#eduFrom').before(html);
+			}); */
 			
+
 		}else if(elem.index == 3)//联系方式
 		{
-			
+			clicktable(application.SERVE_URL+"/sys/smContact/list",{"username":username,"pageNo":10, "pageSize":0});
+		/* 	console.log(dataInfo);
+			var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}else if(elem.index == 4)//通讯地址
 		{
-			
+			 clicktable(application.SERVE_URL+"/sys/smAddress/list",{"username":username,"flag":"NORMAL","pageNo":10, "pageSize":0});
+			console.log(dataInfo);
+		/* 	var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}else if(elem.index == 5)//家庭成员
 		{
-			
+			 clicktable(application.SERVE_URL+"/sys/smFamily/list",{"username":username,"pageNo":10, "pageSize":0});
+			console.log(dataInfo);
+		/* 	var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}else if(elem.index == 6)//政治面貌
 		{
-			
+			 clicktable(application.SERVE_URL+"/sys/smSocial/list",{"username":username,"type":"政治面貌","pageNo":10, "pageSize":0});
+			console.log(dataInfo);
+		/* 	var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}else if(elem.index == 7)//社会兼职
 		{
-			
+			clicktable(application.SERVE_URL+"/sys/smSocial/list",{"username":username,"type":"社会兼职","pageNo":10, "pageSize":0});
+		/* 	console.log(dataInfo);
+			var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo.list, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}else if(elem.index == 8)//荣誉成就
 		{
-			
+			 clicktable(application.SERVE_URL+"/sys/smHonor/list",{"username":username,"pageNo":10, "pageSize":0});
+		/* 	console.log(dataInfo);
+			var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo.list, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}else if(elem.index == 9)//职业经历
 		{
-			
+			 clicktable(application.SERVE_URL+"/sys/smProfession/list",{"username":username,"pageNo":10, "pageSize":0});
+			/* console.log(dataInfo);
+			var getTpl = EduTemp.innerHTML;
+			laytpl(getTpl).render(dataInfo.list, function(html){
+				$('#eduFrom').before(html);
+			}); */
+
 		}
 	});
 	
@@ -79,11 +148,6 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 			elem: '#birthday',
 			lang: 'en'
 		});
-		//
-		$("#addEduinfo").click(function(){
-			addElement('eduFrom','firstEdu');
-		});
-		
 	}
 	initSchoolmateData();	
 	
@@ -92,33 +156,63 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	function initSchoolInfo()
 	{
 		//学校
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_school");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_school_0");	
 		//学院
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_collage");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_collage_0");	
 		//书院
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_academy");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_academy_0");	
 		//系
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_series");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_series_0");	
 		//专业
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_specialty");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_specialty_0");	
 		//学历
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_degree");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_degree_0");	
 		//学位类型
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_degreetype");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_degreetype_0");	
 		//学制
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_schoollen");	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_schoollen_0");	
 		//生日日期绑定
 		laydate.render({
-			elem: '#edu_startdate',
+			elem: '#edu_startdate_0',
 			lang: 'en'
 		});
 		//生日日期绑定
 		laydate.render({
-			elem: '#edu_enddate',
+			elem: '#edu_enddate_0',
+			lang: 'en'
+		});
+		//学校
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_school_1");	
+		//学院
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_collage_1");	
+		//书院
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_academy_1");	
+		//系
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_series_1");	
+		//专业
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_specialty_1");	
+		//学历
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_degree_1");	
+		//学位类型
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_degreetype_1");	
+		//学制
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'SEX'} ,"edu_schoollen_1");	
+		//生日日期绑定
+		laydate.render({
+			elem: '#edu_startdate_1',
+			lang: 'en'
+		});
+		//生日日期绑定
+		laydate.render({
+			elem: '#edu_enddate_1',
 			lang: 'en'
 		});
 	}
 	initSchoolInfo()
+	 $("#addEduinfo").click(function(){
+		 addElement('eduFrom','firstEdu');
+	}); 
+	
 	
 	//校园经历填充数据
 	function intiExperience()
@@ -133,12 +227,12 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 			elem: '#exp_enddate',
 			lang: 'en'
 		});
-		
-		//
-		$("#addExperienceinfo").click(function(){
-			addElement('expForm','firstExp');
-		});
 	}	
+	
+	$("#addExperienceinfo").click(function(){
+		addElement('expForm','firstExp');
+	});
+	
 	intiExperience();
 		
 		//联系方式填充数据
@@ -265,7 +359,6 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	{
 		var element = $('#'+cloneis).clone();
 		//修改当前块的id，并且绑定响应的值
-		
 		$('#'+fatherid).before(element);
 	}
 
@@ -289,7 +382,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 						success: function (data) {
 							var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 							if(data == "success"){
-								top.layer.close(index);
+								//top.layer.close(index);
 											top.layer.msg("校友信息" + res + "成功");
 											//layer.closeAll("iframe");
 											//刷新父页面
@@ -307,80 +400,131 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 		
 		//submit(addUser)  绑定提交按钮（校园经历）
 		form.on("submit(addExperience)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smExperience/save', data,"校园经历");
-// 			var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-// 				$.ajax({
-// 						url: application.SERVE_URL+'/sys/smExperience/save', 
-// 						type: "POST",
-// 						headers : { 'Authorization' : sessionStorage.getItem('token')},
-// 						contentType: "application/json",
-// 						data:JSON.stringify({
-// 							 sysUserId:data.field.sysUserId,
-// 							 id : "",
-// 							 username:data.field.username,
-// 							 organization:data.field.organization,
-// 							 position:data.field.position,
-// 							 startdate:data.field.startdate,
-// 							 enddate:data.field.enddate,
-// 							
-// 						}),			
-// 						success: function (data) {
-// 							if(data == "success"){
-// 								top.layer.close(index);
-// 											top.layer.msg("添加成功");
-// 										//	layer.closeAll("iframe");
-// 											//刷新父页面
-// 										//	parent.location.reload();	
-// 							}else{
-// 								top.layer.msg("添加失败！");
-// 							}
-// 						},
-// 						error: function(data){
-// 							top.layer.msg("添加失败！");
-// 						}
-// 					}); 
-// 				return false;
+			
+					var edu = document.getElementById("expForm").getElementsByTagName("fieldset").length;
+					var jsondata;
+					var expList = [];
+					for(var i=0; i<edu; i++)
+					{
+						expList.push({"id":$("#exp_id_"+i).val(),"organization":$("#exp_organization_"+i).val(),"position":$("#exp_position_"+i).val(),"startdate":$("#exp_jiondate_"+i).val(),"studentid":$("#exp_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+					
+			jsondata = JSON.stringify(expList);
+			
+			
+			ajaxinfo(application.SERVE_URL+'/sys/smExperience/save', jsondata,"校园经历");
+			
 		})
 		
 		//submit(addUser)  绑定提交按钮（教育经历）
 		form.on("submit(addEdu)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smEducation/save', data,"教育经历");
+			var edu = document.getElementById("eduFrom").getElementsByTagName("fieldset").length;
+			var jsondata;
+			
+	var eduList = [];
+	for(var i=0; i<edu; i++)
+	{
+		eduList.push({"id":$("#edu_id_"+i).val(),"academy":$("#edu_academy_"+i).val(),"className":$("#edu_className_"+i).val(),"college":$("#edu_collage_"+i).val(),"degree":$("#edu_degree_"+i).val(),"degreetype":$("#edu_degreetype_"+i).val(),"enddate":$("#edu_enddate_"+i).val(),"school":$("#edu_school_"+i).val(),"schoollen":$("#edu_schoollen_"+i).val(),"eries":$("#edu_series_"+i).val(),"specialty":$("#edu_specialty_"+i).val(),"startdate":$("#edu_startdate_"+i).val(),"studentid":$("#edu_studentid_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+ jsondata = JSON.stringify(eduList);
+			ajaxinfo(application.SERVE_URL+'/sys/smEducation/save', jsondata,"教育经历");
 		})
+		
 		//submit(addUser)  绑定提交按钮（联系方式）
 		form.on("submit(addContact)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smContact/save', data,"联系方式");
+				var edu = document.getElementById("contactForm").getElementsByTagName("fieldset").length;
+				var jsondata;
+				var expList = [];
+				for(var i=0; i<edu; i++)
+				{
+					expList.push({"id":$("#cont_id_"+i).val(),"type":$("#cont_type_"+i).val(),"contacte":$("#cont_contacte_+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+				
+		jsondata = JSON.stringify(expList);
+	ajaxinfo(application.SERVE_URL+'/sys/smContact/save', jsondata,"联系方式");
+
 		})
 		
 		//submit(addUser)  绑定提交按钮（通讯地址）
 		form.on("submit(addAdd)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', data,"通讯地址");
+				var edu = document.getElementById("addFrom").getElementsByTagName("fieldset").length;
+				var jsondata;
+				var expList = [];
+				for(var i=0; i<edu; i++)
+				{
+					expList.push({"id":$("#add_id_"+i).val(),"country":$("#add_country_"+i).val(),"province":$("#add_province_"+i).val(),"city":$("#add_city_"+i).val(),"district":$("#add_district_"+i).val(),"detail":$("#add_detail_"+i).val(),"ispost":$("input[name='ispost"+i+"']").val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+				
+		jsondata = JSON.stringify(expList);
+			ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', jsondata,"通讯地址");
 		})
 		
 		//submit(addUser)  绑定提交按钮（家庭信息）
-		form.on("submit(addFamily)",function(data){
-	    ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', data,"家庭信息");
+		form.on("submit(familyFrom)",function(data){
+			
+					var edu = document.getElementById("familyFrom").getElementsByTagName("fieldset").length;
+					var jsondata;
+					var expList = [];
+					for(var i=0; i<edu; i++)
+					{
+						expList.push({"id":$("family_id_"+i).val(),"name":$("#family_name_"+i).val(),"sex":$("#fam_sex_"+i).val(),"relation":$("#fam_relation_"+i).val(),"birthday":$("#fam_birthday_"+i).val(),"profession":$("#fam_profession_"+i).val(),"phone":$("#fam_phone_"+i).val(),"workplace":$("#fam_workplace_"+i).val(),"isschool":$("input[name='isschool"+i+"']").val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+					
+			jsondata = JSON.stringify(expList);
+	    ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', jsondata,"家庭信息");
 		})
 		
 		//submit(addUser)  绑定提交按钮（政治面貌）
 		form.on("submit(addSocia)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', data,"政治面貌");
+					var edu = document.getElementById("sociaForm").getElementsByTagName("fieldset").length;
+					var jsondata;
+					var expList = [];
+					for(var i=0; i<edu; i++)
+					{
+						expList.push({"id":$("#soc_id_"+i).val(),"type":$("#soc_type_"+i).val(),"name":$("#soc_name_"+i).val(),"startdate":$("#soc_startdate_"+i).val(),"remark":$("#soc_remark_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+			jsondata = JSON.stringify(expList);
+			
+			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', jsondata,"政治面貌");
 		})
 		
 		//submit(addUser)  绑定提交按钮（社会兼职）
 		form.on("submit(addSocia_s)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', data,"社会兼职");
+			
+					var edu = document.getElementById("socia_sForm").getElementsByTagName("fieldset").length;
+					var jsondata;
+					var expList = [];
+					for(var i=0; i<edu; i++)
+					{
+						expList.push({"id":$("#edu_id_"+i).val(),"type":$("#socia_type_"+i).val(),"name":$("#socia_name_"+i).val(),"position":$("#socia_position_"+i).val(),"infoval":$("#socia_infoval_"+i).val(),"startdate":$("#soc_s_startdate_"+i).val(),"enddate":$("#soc_s_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+					
+			jsondata = JSON.stringify(expList);
+			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', jsondata,"社会兼职");
 		})
 		
 		//submit(addUser)  绑定提交按钮（荣誉成就）
 		form.on("submit(addHonor)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smHonor/save', data,"荣誉成就");
+			
+					var edu = document.getElementById("honorForm").getElementsByTagName("fieldset").length;
+					var jsondata;
+					var expList = [];
+					for(var i=0; i<edu; i++)
+					{
+						expList.push({"id":$("#honor_id_"+i).val(),"name":$("#honor_name_"+i).val(),"domain":$("#honor_domain_"+i).val(),"type":$("#honor_type_"+i).val(),"date":$("#honor_date_"+i).val(),"infoval":$("#honor_infoval_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+					
+			jsondata = JSON.stringify(expList);
+			ajaxinfo(application.SERVE_URL+'/sys/smHonor/save', jsondata,"荣誉成就");
 		})
 		
 		//submit(addUser)  绑定提交按钮（职业经历）
 		form.on("submit(addProfession)",function(data){
-			ajaxinfo(application.SERVE_URL+'/sys/smProfession/save', data,"职业经历");
+			
+					var edu = document.getElementById("expForm").getElementsByTagName("fieldset").length;
+					var jsondata;
+					var expList = [];
+					for(var i=0; i<edu; i++)
+					{
+						expList.push({"id":$("#pro_id_"+i).val(),"workplace":$("#pro_workplace_"+i).val(),"nature":$("#pro_nature_"+i).val(),"industry":$("#pro_industry_"+i).val(),"department":$("#pro_department_"+i).val(),"position":$("#pro_position_"+i).val(),"telephone":$("#pro_telephone_"+i).val(),"fax":$("#pro_fax_"+i).val(),"remark":$("#pro_remark_"+i).val(),"startdate":$("#pro_startdate_"+i).val(),"enddate":$("#pro_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+					
+			jsondata = JSON.stringify(expList);
+			ajaxinfo(application.SERVE_URL+'/sys/smProfession/save', jsondata,"职业经历");
 		})
 		
+		//提交数据
 		function ajaxinfo(url, data,res)
 		{
 				//弹出loading
@@ -390,7 +534,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 						type: "POST",
 						headers : { 'Authorization' : sessionStorage.getItem('token')},
 						contentType: "application/json",
-						data:JSON.stringify(data.field),			
+						data:data,			
 						success: function (data) {
 							if(data == "success"){
 								top.layer.close(index);
@@ -435,34 +579,6 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 		selectOrg();
 	})
 	
-	//用户名判断提醒
-	$(".username").change(function(){
-		var  that = this;
-		var username =  $(this).val();
-		/*layui.use('layer', function(){
-			 	$.post(application.SERVE_URL+'/sys/sysuser/getusername',{
-				//保存用户参数
-				username: username
-				},function(data){
-					
-	      console.log("返回结果");
-				console.log(data);
-
-				if(data!="" && data.id !="undefined")
-				{
-					$(".showname").val("该账号已经被使用！");
-					$(".showname").css("display","block");
-				}else{
-					$(".showname").css("display","none");
-				}
-			
-				})
-	}) */
-	})
-
-
-
-
 function selectBase(url,data,selectid){
 			$.ajax({
 				url:url,
@@ -505,7 +621,7 @@ function selectBase(url,data,selectid){
 			})
 		}
 		
-		//地址选择
+		/* //地址选择
 		function selectItem(type,data,elementid)
 		{
 			$.ajax({
@@ -525,6 +641,25 @@ function selectBase(url,data,selectid){
 					console.log("shibai")
 				}
 			})
+		} */
+		
+		//点击卡片切换时，填充值
+		function clicktable(url,data)
+		{
+			$.ajax({
+				url:url,
+				type: "GET",
+				data: data ,
+				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				success:function(res){
+					if(res.list.length >0)
+					{
+						dataInfo =res;
+					}
+				}
+				});
 		}
+		
+		
 		
 })

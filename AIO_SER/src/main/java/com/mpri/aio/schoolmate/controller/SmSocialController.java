@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,7 +43,8 @@ public class SmSocialController extends BaseController {
 	@CrossOrigin
 	@GetMapping(value = "/list")
 	public PageInfo<SmSocial> list(int pageNo,int pageSize,SmSocial smSocial) {
-		PageIo<SmSocial> pageInfo =  smSocialService.loadByPage(pageNo,pageSize,smSocial);							
+		PageIo<SmSocial> pageInfo =  smSocialService.loadByPage(pageNo,pageSize,smSocial);
+		
 		return pageInfo;
 	}
 	
@@ -56,8 +58,12 @@ public class SmSocialController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SmSocial smSocial){
-		smSocialService.save(smSocial);							
+	public String save(@RequestBody SmSocial [] smSocial){
+		
+		for( int i=0; i<smSocial.length ; i++)
+		{
+		smSocialService.save(smSocial[i]);			
+		}
 		return SUCCESS;
 	}	
 	

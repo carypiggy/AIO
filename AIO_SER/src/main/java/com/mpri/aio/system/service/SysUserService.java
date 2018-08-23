@@ -21,13 +21,13 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	 * @param username
 	 * @return
 	 */
-	@Cacheable(value = "userCache", key = "username")
+	@Cacheable(value = "userCache", key ="#username")
 	public SysUser getSysUserByUsername(String username) {
 		SysUser sysUser=new SysUser();
 		sysUser.setUsername(username);
 		return mapper.getSysUserByUsername(sysUser);
 	}
-	
+
     /**
      * 插入用户和角色信息
     * <p>Title: insertUserRole</p>  
@@ -38,4 +38,15 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 		mapper.deleteUserRole(sysUser);
 		mapper.insertUserRole(sysUser);
 	};
+
+//	@Transactional(rollbackFor=Exception.class)
+//	public void saveUsers(List<SysUser> userList) {
+//		for(SysUser su:userList) {
+//			mapper.insert(su);	
+//		}
+//		if (true) {
+//	        throw new RuntimeException("save 抛异常了");
+//	    }
+//	}
+
 }

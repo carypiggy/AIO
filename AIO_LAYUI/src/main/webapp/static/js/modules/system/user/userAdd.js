@@ -43,6 +43,36 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 					form.render();		
 				}
 	
+
+	initSelect();
+    form.on("submit(addUser)",function(data){
+        //弹出loading
+        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+
+       layui.use('layer', function(){
+				$.post(application.SERVE_URL+'/sys/sysuser/save',{
+				//保存用户参数
+				 username: data.field.username,
+				 password: data.field.password,
+				 name: data.field.name,
+				 idcard: data.field.idcard,
+				 photo: data.field.photo,
+				 mobile: data.field.mobile,
+				 email: data.field.email,
+				 type: 1,
+				 orgId: data.field.userOrg,
+				 safecode:data.field.safecode,
+				 remark:data.field.userDesc,
+				 
+				},function(data){
+				top.layer.close(index);
+				top.layer.msg(data.message);
+				layer.closeAll("iframe");
+				})
+		})
+        return false;
+    })
+
 	
 				var uploadInst = upload.render({
 					elem: '#selectphoto'
