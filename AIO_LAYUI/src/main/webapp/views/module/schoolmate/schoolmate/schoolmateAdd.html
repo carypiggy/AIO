@@ -41,8 +41,10 @@
 		<div class="layui-tab-content" style="">
 			<div class="layui-tab-item layui-show">
 				<form class="layui-form" style="width:100%;">
+					<input id='username' name='username'  />
+					<input id='sysUserId' name='sysUserId'  />
 					<fieldset class="layui-elem-field site-demo-button" style="padding:15px;">
-						<input type="hidden" class="layui-input truePhoto" name='id' id='schoolmateid'  placeholder="上传照片">
+						<input type="hidden" class="layui-input truePhoto" name='id' id='schoolmateid' >
 						<input type="hidden" class="layui-input truePhoto" name='truePhoto'  placeholder="上传照片">
 						<div class="layui-row">
 							<div class="magb15 layui-col-md6 layui-col-xs12">
@@ -139,17 +141,16 @@
 
 			<div class="layui-tab-item" id='eduInfo'>
 				<form class="layui-form" id='eduFrom' style="width:100%;">
-				
-					<fieldset id='firstEdu' class="layui-elem-field site-demo-button" style="padding:15px;">
-						<!-- 需要替换掉里面的值 -->
-						<input type="hidden"  name="username" value="123123" />
+					 <fieldset id='firstEdu' class="layui-elem-field site-demo-button" style="padding:15px;">
+						<input type="hidden" class="layui-input exp_name" id="edu_id_0"   >
+						<input type="hidden"  name="sysUserUsername" value="123123" />
 						<input type="hidden"  name="sysUserId" value="123123" />
 						
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">学校</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_school" id='edu_school' name='school' lay-verify="required">
+									<select xm-select="edu_school" id='edu_school_0' name='school' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -157,7 +158,7 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">学院</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_collage" id='edu_collage' name='college' lay-verify="required">
+									<select xm-select="edu_collage" id='edu_collage_0' name='college' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -166,7 +167,7 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">书院</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_academy" id='edu_academy' name='academy' lay-verify="required">
+									<select xm-select="edu_academy" id='edu_academy_0' name='academy' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -174,7 +175,7 @@
 							<div class="magb15 layui-col-xs3">
 								<label class="layui-form-label">系</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_series" id='edu_series' name='series' lay-verify="required">
+									<select xm-select="edu_series" id='edu_series_0' name='series' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -184,7 +185,7 @@
 							<div class="magb15 layui-col-xs3">
 								<label class="layui-form-label">专业</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_specialty" id='edu_specialty' name='specialty' lay-verify="required">
+									<select xm-select="edu_specialty" id='edu_specialty_0' name='specialty' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -192,14 +193,14 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">班级</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input edu_class" name='className' lay-verify="required" placeholder="请输入姓名">
+									<input type="text" class="layui-input edu_class" id='edu_className_0' name='className' lay-verify="required" placeholder="请输入姓名">
 								</div>
 							</div>
 
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">学历</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_degree" id='edu_degree' name='degree' lay-verify="required">
+									<select xm-select="edu_degree" id='edu_degree_0' name='degree' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -207,7 +208,7 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">学位类型</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_degreetype" id='edu_degreetype' name='degreetype' lay-verify="required">
+									<select xm-select="edu_degreetype" id='edu_degreetype_0' name='degreetype' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -217,14 +218,14 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">学号</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input studentid"
+									<input type="text" class="layui-input studentid" id='edu_studentid_0' 
 										name='studentid' lay-verify="required" placeholder="请输入学号">
 								</div>
 							</div>
 							<div class="magb15 layui-col-xs3">
 								<label class="layui-form-label">学制</label>
 								<div class="layui-input-block">
-									<select xm-select="edu_schoollen" id='edu_schoollen' name='schoollen' lay-verify="required">
+									<select xm-select="edu_schoollen" id='edu_schoollen_0' name='schoollen' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -233,20 +234,122 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">入学日期</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input edu_startdate" id="edu_startdate" name='startdate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input edu_startdate" id="edu_startdate_0" name='startdate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">毕业日期</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input edu_enddate" id="edu_enddate" name='enddate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input edu_enddate" id="edu_enddate_0" name='enddate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 						</div>
-					</fieldset>
-			
-			<div class="layui-layer-btn ">
+					</fieldset> 
+					 <fieldset id='firstEdu_1' class="layui-elem-field site-demo-button" style="padding:15px;">											
+						
+						<input type="hidden" class="layui-input exp_name" id="edu_id_1"   >
 
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">学校</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_school" id='edu_school_1' name='school' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">学院</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_collage" id='edu_collage_1' name='college' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">书院</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_academy" id='edu_academy_1' name='academy' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15 layui-col-xs3">
+								<label class="layui-form-label">系</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_series" id='edu_series_1' name='series' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="layui-row">
+							<div class="magb15 layui-col-xs3">
+								<label class="layui-form-label">专业</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_specialty" id='edu_specialty_1' name='specialty' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">班级</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input edu_class_1" name='className' lay-verify="required" placeholder="请输入姓名">
+								</div>
+							</div>
+
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">学历</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_degree" id='edu_degree_1' name='degree' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">学位类型</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_degreetype" id='edu_degreetype_1' name='degreetype' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">学号</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input studentid" id='edu_studentid_1' 
+										name='studentid' lay-verify="required" placeholder="请输入学号">
+								</div>
+							</div>
+							<div class="magb15 layui-col-xs3">
+								<label class="layui-form-label">学制</label>
+								<div class="layui-input-block">
+									<select xm-select="edu_schoollen" id='edu_schoollen_1' name='schoollen' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">入学日期</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input edu_startdate" id="edu_startdate_1" name='startdate' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">毕业日期</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input edu_enddate" id="edu_enddate_1" name='enddate' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+						</div>
+					</fieldset> 
+			
+					 <div id="edu_view" class="layui-layer-btn">
 						<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addEdu">确认</button>
 					</div>
 				</form>
@@ -262,14 +365,12 @@
 					
 					<!-- <input type="hidden" id="exp_id" name="id" value="" /> -->
 					<fieldset id='firstExp' class="layui-elem-field site-demo-button" style="padding:15px;">
-						<!-- 需要替换掉里面的值 -->
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
+						<input type="hidden" class="layui-input exp_name" id="exp_id_0"   >
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">组织名称</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input exp_name" name='organization' lay-verify="required" placeholder="请输入组织名称">
+									<input type="text" class="layui-input exp_name" id="exp_organization_0" name='organization' lay-verify="required" placeholder="请输入组织名称">
 									
 								</div>
 							</div>
@@ -277,24 +378,57 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">职务</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input exp_pos" name='position' lay-verify="required" placeholder="请输入职务">
+									<input type="text" class="layui-input exp_pos" id="exp_position_0" name='position' lay-verify="required" placeholder="请输入职务">
 
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">加入时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input exp_jiondate" id="exp_jiondate" name='startdate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input exp_jiondate" id="exp_jiondate_0" name='startdate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">退出时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input exp_enddate" id="exp_enddate" name='enddate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input exp_enddate" id="exp_enddate_0" name='enddate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 					</fieldset>
+					
+					<fieldset id='firstExp' class="layui-elem-field site-demo-button" style="padding:15px;">
+											<div class="layui-row">
+												<input type="hidden" class="layui-input exp_name" id="exp_id_1"   >
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">组织名称</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input exp_name" id="exp_organization_1"  name='organization' lay-verify="required" placeholder="请输入组织名称">
+														
+													</div>
+												</div>
+					
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">职务</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input exp_pos"  id="exp_position_1" name='position' lay-verify="required" placeholder="请输入职务">
+					
+													</div>
+												</div>
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">加入时间</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input exp_jiondate" id="exp_jiondate_1" name='startdate' placeholder="yyyy-MM-dd">
+													</div>
+												</div>
+					
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">退出时间</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input exp_enddate" id="exp_enddate_1" name='enddate' placeholder="yyyy-MM-dd">
+													</div>
+												</div>
+										</fieldset>
 <div class="layui-layer-btn ">
 					<button class="layui-btn layui-btn-sm"  lay-submit="" lay-filter="addExperience">确认</button>
 					</div>
@@ -309,13 +443,12 @@
 	
 					<fieldset id='firstContact' class="layui-elem-field site-demo-button" style="padding:15px;">
 						<!-- 需要替换掉里面的值 -->
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
+						<input type="hidden" class="layui-input exp_name" id="cont_id_0"   >
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">联系类型</label>
 								<div class="layui-input-block">
-									<select xm-select="cont_type" id='cont_type' name='type' lay-verify="required">
+									<select xm-select="cont_type" id='cont_type_0' name='type' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -324,12 +457,33 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">联系内容</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input contact" name='contact' lay-verify="required" placeholder="请输入职务">
+									<input type="text" class="layui-input contact"  id='cont_contacte_0' name='contact' lay-verify="required" placeholder="请输入职务">
 
 								</div>
 							</div>
 						</div>
 					</fieldset>
+					<fieldset id='firstContact' class="layui-elem-field site-demo-button" style="padding:15px;">
+											<input type="hidden" class="layui-input exp_name" id="cont_id_1"   >
+											<div class="layui-row">
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">联系类型</label>
+													<div class="layui-input-block">
+														<select xm-select="cont_type" id='cont_type_1' name='type' lay-verify="required">
+															<option value=""></option>
+														</select>
+													</div>
+												</div>
+					
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">联系内容</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input contact"  id='cont_contacte_1' name='contact' lay-verify="required" placeholder="请输入职务">
+					
+													</div>
+												</div>
+											</div>
+										</fieldset>
 <div class="layui-layer-btn ">
 					<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addContact">确认</button>
 					</div>
@@ -341,35 +495,34 @@
 			<div class="layui-tab-item">
 				<form  id="addFrom" class="layui-form" style="width:100%;">
 					
-					<fieldset id='firstAdd' class="layui-elem-field site-demo-button" style="padding:15px;">
-<!-- 需要替换掉里面的值 -->
-					<input type="hidden"  name="username" value="123123" />
-					<input type="hidden"  name="sysUserId" value="123123" />
+					<fieldset  class="layui-elem-field site-demo-button" style="padding:15px;">
+<
+						<input type="hidden" class="layui-input exp_name" id="add_id_0"   >
 						<div class="magb15 layui-row">
 							<div class="magb15">
 							<label class="layui-form-label">地址</label>
 							<div class="layui-col-xs2">
-								<select xm-select="country" id='add_country' name='country' lay-verify="required">
+								<select xm-select="country" id='add_country_0' name='country' lay-verify="required">
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<select xm-select="add_province" id='add_province' name='province' lay-verify="required"  onchange="selectItem()">
+								<select xm-select="add_province" id='add_province_0' name='province' lay-verify="required"  onchange="selectItem()">
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<select xm-select="add_city" id='add_city' name='city' lay-verify="required">
+								<select xm-select="add_city" id='add_city_0' name='city' lay-verify="required">
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<select xm-select="add_district" id='add_district' name='district' lay-verify="required">
+								<select xm-select="add_district" id='add_district_0' name='district' lay-verify="required">
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<input type="text" class="layui-input add_detail" name='detail' lay-verify="required" placeholder="请输入详细地址">
+								<input type="text" class="layui-input add_detail"  id='add_detail_0' name='detail' lay-verify="required" placeholder="请输入详细地址">
 							</div>
 							</div>
 						</div>
@@ -377,24 +530,79 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">邮编</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input add_zipcode" name='zipcode' lay-verify="required" placeholder="请输入邮编">
+									<input type="text" class="layui-input add_zipcode" id='add_zipcode_0' name='zipcode' lay-verify="required" placeholder="请输入邮编">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">备注</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input add_remark" name='remark' lay-verify="required" placeholder="请输入备注">
+									<input type="text" class="layui-input add_remark"  id='add_remark_0' name='remark' lay-verify="required" placeholder="请输入备注">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs6">
 								<label class="layui-form-label" style='width:200px'>是否邮寄地址</label>
 								<div class="layui-input-block">
-									<input type="radio" name="ispost" value="0" title="是"> 
-									<input type="radio" name="ispost" value="1" title="否" checked>
+									<input type="radio" name="ispost_0" value="0" title="是"> 
+									<input type="radio" name="ispost_0" value="1" title="否" checked>
 								</div>
 							</div>
 						</div>
 					</fieldset>
+					
+					
+						<fieldset  class="layui-elem-field site-demo-button" style="padding:15px;">
+					<
+											<input type="hidden" class="layui-input exp_name" id="cont_id_1"   >
+											<div class="magb15 layui-row">
+												<div class="magb15">
+												<label class="layui-form-label">地址</label>
+												<div class="layui-col-xs2">
+													<select xm-select="country" id='add_country_1' name='country' lay-verify="required">
+														<option value=""></option>
+													</select>
+												</div>
+												<div class="layui-col-xs2">
+													<select xm-select="add_province" id='add_province_1' name='province' lay-verify="required"  onchange="selectItem()">
+														<option value=""></option>
+													</select>
+												</div>
+												<div class="layui-col-xs2">
+													<select xm-select="add_city" id='add_city_1' name='city' lay-verify="required">
+														<option value=""></option>
+													</select>
+												</div>
+												<div class="layui-col-xs2">
+													<select xm-select="add_district" id='add_district_1' name='district' lay-verify="required">
+														<option value=""></option>
+													</select>
+												</div>
+												<div class="layui-col-xs2">
+													<input type="text" class="layui-input add_detail"  id='add_detail_1' name='detail' lay-verify="required" placeholder="请输入详细地址">
+												</div>
+												</div>
+											</div>
+											<div class="layui-row">
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">邮编</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input add_zipcode" id='add_zipcode_1' name='zipcode' lay-verify="required" placeholder="请输入邮编">
+													</div>
+												</div>
+												<div class="magb15  layui-col-xs3">
+													<label class="layui-form-label">备注</label>
+													<div class="layui-input-block">
+														<input type="text" class="layui-input add_remark" id='add_remark_1' name='remark' lay-verify="required" placeholder="请输入备注">
+													</div>
+												</div>
+												<div class="magb15  layui-col-xs6">
+													<label class="layui-form-label" style='width:200px'>是否邮寄地址</label>
+													<div class="layui-input-block">
+														<input type="radio" name="ispost_1" value="0" title="是"> 
+														<input type="radio" name="ispost_1" value="1" title="否" checked>
+													</div>
+												</div>
+											</div>
+										</fieldset>
 					<div class="layui-layer-btn ">
 					<button class="layui-btn layui-btn-sm"  lay-submit="" lay-filter="addAdd">确认</button>
 					</div>
@@ -409,22 +617,19 @@
 				<form id="familyFrom" class="layui-form" style="width:100%;">
 			
 					
-					<fieldset id="firstFamily" class="layui-elem-field site-demo-button" style="padding:15px;">
-						<!-- 需要替换掉里面的值 -->
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
+					<fieldset id="firstFamily" class="layui-elem-field site-demo-button" style="padding:15px;"><input type="hidden" class="layui-input exp_name" id="family_id_0"   >
 						
 					<div class="layui-row">	
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">姓名</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input name" name='name' lay-verify="required" placeholder="请输入姓名">
+								<input type="text" class="layui-input name" id="family_name_0" name='name' lay-verify="required" placeholder="请输入姓名">
 							</div>
 						</div>
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">性别</label>
 							<div class="layui-input-block">
-								<select xm-select="sex" name='sex' id='fam_sex' lay-verify="required" lay-filter="aihao">
+								<select xm-select="sex" name='sex' id='fam_sex_0' lay-verify="required" lay-filter="aihao">
 									<option value=""></option>
 								</select>
 							</div>
@@ -433,15 +638,15 @@
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label" >是否校友</label>
 							<div class="layui-input-block">
-								<input type="radio" name="isschool" value="0" title="是"> 
-								<input type="radio" name="isschool" value="1" title="否" checked>
+								<input type="radio" name="isschool_0" value="0" title="是"> 
+								<input type="radio" name="isschool_0" value="1" title="否" checked>
 							</div>
 						</div>
 						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">关系</label>
 							<div class="layui-input-block">
-								<select xm-select="city" id='fam_relation' name='relation' lay-verify="required">
+								<select xm-select="city" id='fam_relation_0' name='relation' lay-verify="required">
 									<option value=""></option>
 								</select>
 							</div>
@@ -453,26 +658,94 @@
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">出入日期</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input birthday" id="fam_birthday" name='birthday' placeholder="yyyy-MM-dd">
+								<input type="text" class="layui-input birthday" id="fam_birthday_0" name='birthday' placeholder="yyyy-MM-dd">
 							</div>
 						</div>
 						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">职业</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input profession" name='profession' lay-verify="profession" placeholder="请输入姓名">
+								<input type="text" class="layui-input profession" id="fam_profession_0" name='profession' lay-verify="profession" placeholder="请输入姓名">
 							</div>
 						</div>
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">联系电话</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input phone" name='phone' lay-verify="required" placeholder="请输入姓名">
+								<input type="text" class="layui-input phone" id="fam_phone_0" name='phone' lay-verify="required" placeholder="请输入姓名">
 							</div>
 						</div>
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">工作单位</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input workplace" name='workplace' lay-verify="required" placeholder="请输入姓名">
+								<input type="text" class="layui-input workplace" id="fam_workplace_0" name='workplace' lay-verify="required" placeholder="请输入姓名">
+							</div>
+						</div>
+						</div>
+					</fieldset>
+					
+					
+					<fieldset id="firstFamily" class="layui-elem-field site-demo-button" style="padding:15px;">
+						<input type="hidden" class="layui-input exp_name" id="family_id_1"   >
+						
+					<div class="layui-row">	
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">姓名</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input name" id="family_name_1" name='name' lay-verify="required" placeholder="请输入姓名">
+							</div>
+						</div>
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">性别</label>
+							<div class="layui-input-block">
+								<select xm-select="sex" name='sex' id='fam_sex_1' lay-verify="required" lay-filter="aihao">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label" >是否校友</label>
+							<div class="layui-input-block">
+								<input type="radio" name="isschool_1" value="0" title="是"> 
+								<input type="radio" name="isschool_1" value="1" title="否" checked>
+							</div>
+						</div>
+						
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">关系</label>
+							<div class="layui-input-block">
+								<select xm-select="city" id='fam_relation_1' name='relation' lay-verify="required">
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+					
+						</div>
+						<div class="layui-row">
+							
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">出入日期</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input birthday" id="fam_birthday_1" name='birthday' placeholder="yyyy-MM-dd">
+							</div>
+						</div>
+						
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">职业</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input profession" id="fam_profession_1" name='profession' lay-verify="profession" placeholder="请输入姓名">
+							</div>
+						</div>
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">联系电话</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input phone" id="fam_phone_1" name='phone' lay-verify="required" placeholder="请输入姓名">
+							</div>
+						</div>
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">工作单位</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input workplace" id="fam_workplace_1" name='workplace' lay-verify="required" placeholder="请输入姓名">
 							</div>
 						</div>
 						</div>
@@ -489,16 +762,13 @@
 				<form  id="sociaForm" class="layui-form" style="width:100%;">
 					
 					<fieldset id="firstSocia" class="layui-elem-field site-demo-button"	 style="padding:15px;">
-						<!-- 需要替换掉里面的值 -->
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
-						
-						<input type="hidden" name='type' id='type' value='政治面貌' />
+						<input type="hidden" class="layui-input exp_name" id="soc_id_0"   >
+						<input type="hidden" name='type' id='soc_type_0' value='政治面貌' />
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">名称</label>
 								<div class="layui-input-block">
-									<select xm-select="name" id='soc_name' name='name' lay-verify="required">
+									<select xm-select="name" id='soc_name_0' name='name' lay-verify="required">
 										<option value=""></option>
 									</select>
 								</div>
@@ -506,14 +776,44 @@
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">加入时间</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input startdate" id="soc_startdate" name='startdate' placeholder="yyyy-MM-dd">
+								<input type="text" class="layui-input startdate" id="soc_startdate_0" name='startdate' placeholder="yyyy-MM-dd">
 							</div>
 						</div>
 						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">说明</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input remark" name='remark' lay-verify="required" placeholder="请输入姓名">
+								<input type="text" class="layui-input remark" id="soc_remark_0" name='remark' lay-verify="required" placeholder="请输入姓名">
+							</div>
+						</div>
+						</div>
+						
+					</fieldset>
+					
+					
+					<fieldset id="firstSocia" class="layui-elem-field site-demo-button"	 style="padding:15px;">
+						<input type="hidden" class="layui-input exp_name" id="soc_id_1"   >
+						<input type="hidden" name='type' id='soc_type_1' value='政治面貌' />
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">名称</label>
+								<div class="layui-input-block">
+									<select xm-select="name" id='soc_name_1' name='name' lay-verify="required">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">加入时间</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input startdate" id="soc_startdate_1" name='startdate' placeholder="yyyy-MM-dd">
+							</div>
+						</div>
+						
+						<div class="magb15  layui-col-xs3">
+							<label class="layui-form-label">说明</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input remark" id="soc_remark_1" name='remark' lay-verify="required" placeholder="请输入姓名">
 							</div>
 						</div>
 						</div>
@@ -529,30 +829,28 @@
 			</div>
 			<div class="layui-tab-item">
 				<form  id="socia_sForm" class="layui-form" style="width:100%;">
-					<!-- 需要替换掉里面的值 -->
 					
-					
-					<input type="hidden" name='type' id='type' value='社会兼职' />
+					<input type="hidden" class="layui-input exp_name" id="socia_id_0"   >
+
+					<input type="hidden" name='type' id='socia_type_0' value='社会兼职' />
 					<fieldset  id="firstSocia_s" class="layui-elem-field site-demo-button"	 style="padding:15px;">
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs4">
 								<label class="layui-form-label">名称</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input name" name='name' lay-verify="required" placeholder="请输入姓名">
+									<input type="text" class="layui-input name" id="socia_name_0" name='name' lay-verify="required" placeholder="请输入姓名">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs4">
 								<label class="layui-form-label">职务</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input position" name='position' lay-verify="required" placeholder="请输入姓名">
+									<input type="text" class="layui-input position" id="socia_position_0" name='position' lay-verify="required" placeholder="请输入姓名">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs4">
 								<label class="layui-form-label">说明</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input infoval" name='infoval' lay-verify="required" placeholder="请输入姓名">
+									<input type="text" class="layui-input infoval" id="socia_infoval_0" name='infoval' lay-verify="required" placeholder="请输入姓名">
 								</div>
 							</div>
 						</div>
@@ -561,13 +859,13 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">加入时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input startdate" id="soc_s_startdate" name='startdate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input startdate" id="soc_s_startdate_0" name='startdate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">退出时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input enddate" id="soc_s_enddate" name='enddate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input enddate" id="soc_s_enddate_0" name='enddate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 						</div>
@@ -582,23 +880,19 @@
 
 			<div class="layui-tab-item">
 				<form  id='honorForm' class="layui-form" style="width:100%;">
-					<!-- 需要替换掉里面的值 -->
-					
-					
 					<fieldset id='firstHonor' class="layui-elem-field site-demo-button"	 style="padding:15px;">
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
+						<input type="hidden" class="layui-input exp_name" id="honor_id_0"   >
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">名称</label>
 								<div class="layui-input-block">
-								<input type="text" class="layui-input name" name='name' lay-verify="required" placeholder="请输入名称">
+								<input type="text" class="layui-input name" id="honor_name_0" name='name' lay-verify="required" placeholder="请输入名称">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">领域</label>
 								<div class="layui-input-block">
-										<select xm-select="domain" id='honor_domain' name='domain' lay-verify="required">
+										<select xm-select="domain" id='honor_domain_0' name='domain' lay-verify="required">
 											<option value=""></option>
 											<option value="1">1</option>
 										</select>
@@ -607,7 +901,7 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">类型</label>
 								<div class="layui-input-block">
-									<select xm-select="type" id='honor_type' name='type' lay-verify="required">
+									<select xm-select="type" id='honor_type_0' name='type' lay-verify="required">
 										<option value=""></option>
 										<option value="a">a</option>
 									</select>
@@ -616,7 +910,7 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">获得时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input date" id="honor_date" name='date' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input date" id="honor_date_0" name='date' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 						</div>
@@ -624,11 +918,55 @@
 							<div class="magb15  layui-col-xs12">
 								<label class="layui-form-label">说明</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input infoval" name='infoval' lay-verify="required" placeholder="请输入姓名">
+									<input type="text" class="layui-input infoval" id="honor_infoval_0" name='infoval' lay-verify="required" placeholder="请输入姓名">
 								</div>
 							</div>
 						</div>
 					</fieldset>
+					<fieldset id='firstHonor' class="layui-elem-field site-demo-button"	 style="padding:15px;">
+						<input type="hidden" class="layui-input exp_name" id="honor_id_1"   >
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">名称</label>
+								<div class="layui-input-block">
+								<input type="text" class="layui-input name" id="honor_name_1" name='name' lay-verify="required" placeholder="请输入名称">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">领域</label>
+								<div class="layui-input-block">
+										<select xm-select="domain" id='honor_domain_1' name='domain' lay-verify="required">
+											<option value=""></option>
+											<option value="1">1</option>
+										</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">类型</label>
+								<div class="layui-input-block">
+									<select xm-select="type" id='honor_type_1' name='type' lay-verify="required">
+										<option value=""></option>
+										<option value="a">a</option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">获得时间</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input date" id="honor_date_1" name='date' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+						</div>
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs12">
+								<label class="layui-form-label">说明</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input infoval" id="honor_infoval_1" name='infoval' lay-verify="required" placeholder="请输入姓名">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					
 					<div class="layui-layer-btn ">
 						<button class="layui-btn layui-btn-sm"  lay-submit=""lay-filter="addHonor">确认</button>
 					</div>
@@ -641,24 +979,20 @@
 			
 			<div class="layui-tab-item">
 				<form  id='professionFrom' class="layui-form" style="width:100%;">
-					<!-- 需要替换掉里面的值 -->
-					
-					
 					<fieldset id="firstProfession" class="layui-elem-field site-demo-button" style="padding:15px;">
-						<input type="hidden"  name="username" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
+						<input type="hidden" class="layui-input exp_name" id="pro_id_0"   >
 						<div class="layui-row">
 							
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">工作单位</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input workplace" name='workplace' lay-verify="required" placeholder="工作单位名称">
+									<input type="text" class="layui-input workplace" id="pro_workplace_0"  name='workplace' lay-verify="required" placeholder="工作单位名称">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">单位性质</label>
 								<div class="layui-input-block">
-									<select xm-select="nature" id='pro_nature' name='nature' >
+									<select xm-select="nature" id='pro_nature_0' name='nature' >
 										<option value=""></option>
 									</select>
 								</div>
@@ -666,16 +1000,15 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">单位行业</label>
 								<div class="layui-input-block">
-									<select xm-select="industry" id='pro_industry' name='industry'>
+									<select xm-select="industry" id='pro_industry_0' name='industry'>
 										<option value=""></option>
 									</select>
 								</div>
 							</div>
-							
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">部门</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input department" name='department' lay-verify="required" placeholder="部门名称">
+									<input type="text" class="layui-input department" id='pro_department_0' name='department' lay-verify="required" placeholder="部门名称">
 								</div>
 							</div>
 						</div>
@@ -683,25 +1016,25 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">职位</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input position" name='position' lay-verify="required" placeholder="电话">
+									<input type="text" class="layui-input position" id='pro_position_0' name='position' lay-verify="required" placeholder="电话">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">电话</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input telephone" name='telephone' lay-verify="required" placeholder="电话">
+									<input type="text" class="layui-input telephone" id='pro_telephone_0' name='telephone' lay-verify="required" placeholder="电话">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">传真</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input fax" name='fax' lay-verify="required" placeholder="电话">
+									<input type="text" class="layui-input fax" id='pro_fax_0' name='fax' lay-verify="required" placeholder="电话">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">备注</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input remark" name='remark' lay-verify="required" placeholder="电话">
+									<input type="text" class="layui-input remark" id='pro_remark_0' name='remark' lay-verify="required" placeholder="电话">
 								</div>
 							</div>
 						</div>
@@ -709,17 +1042,93 @@
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">入职时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input pro_startdate" id="pro_startdate" name='pro_startdate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input pro_startdate" id="pro_startdate_0" name='pro_startdate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">离职时间</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input pro_date" id="pro_enddate" name='pro_enddate' placeholder="yyyy-MM-dd">
+									<input type="text" class="layui-input pro_date" id="pro_enddate_0" name='pro_enddate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 						</div>	
 					</fieldset>
+					<fieldset id="firstProfession" class="layui-elem-field site-demo-button" style="padding:15px;">
+						<input type="hidden" class="layui-input exp_name" id="pro_id_1"   >
+						<div class="layui-row">
+							
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">工作单位</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input workplace" id="pro_workplace_1"  name='workplace' lay-verify="required" placeholder="工作单位名称">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">单位性质</label>
+								<div class="layui-input-block">
+									<select xm-select="nature" id='pro_nature_1' name='nature' >
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">单位行业</label>
+								<div class="layui-input-block">
+									<select xm-select="industry" id='pro_industry_1' name='industry'>
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">部门</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input department" id='pro_department_1' name='department' lay-verify="required" placeholder="部门名称">
+								</div>
+							</div>
+						</div>
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">职位</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input position" id='pro_position_1' name='position' lay-verify="required" placeholder="电话">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">电话</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input telephone" id='pro_telephone_1' name='telephone' lay-verify="required" placeholder="电话">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">传真</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input fax" id='pro_fax_1' name='fax' lay-verify="required" placeholder="电话">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">备注</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input remark" id='pro_remark_1' name='remark' lay-verify="required" placeholder="电话">
+								</div>
+							</div>
+						</div>
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">入职时间</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input pro_startdate" id="pro_startdate_1" name='pro_startdate' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">离职时间</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input pro_date" id="pro_enddate_1" name='pro_enddate' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+						</div>	
+					</fieldset>
+					
+					
 					<div class="layui-layer-btn ">
 					<button class="layui-btn layui-btn-sm"  lay-submit="" lay-filter="addProfession">确认</button>
 					</div>
@@ -733,6 +1142,118 @@
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../../static/js/modules/schoolmate/schoolmate/schoolmateAdd.js"></script>
+	
+	<!-- 创建模板 {{#  for(var i = 0; i < d.list.length; i++){  }}-->
+	<script id="EduTemp" type="text/html">
+		
+		{{#  layui.each(d.list, function(index, item){ }}
+		<fieldset id='firstEdu' class="layui-elem-field site-demo-button" style="padding:15px; width: 50%; height: 50%;">
+								<input type="hidden" id='sysUserUsername_{{index}}' name="sysUserUsername" value="{{=item.sysUserUsername}}" />
+								<input type="hidden" id='sysUserId{{index}}' name="sysUserId" value="{{=item.sysUserId}}" />
+								
+								<div class="layui-row">
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">学校</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_school" id='edu_school_{{index}}' name='school' lay-verify="required">
+												<option value="{{=item.school}}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">学院</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_collage" id='edu_collage_{{index}}' name='college' lay-verify="required">
+												<option value="{{=item.college}}"></option>
+											</select>
+										</div>
+									</div>
+		
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">书院</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_academy" id='edu_academy_{{index}}' name='academy' lay-verify="required">
+												<option value="{{=item.academy}}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="magb15 layui-col-xs3">
+										<label class="layui-form-label">系</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_series" id='edu_series_{{index}}' name='series' lay-verify="required">
+												<option value="{{=item.series}}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="layui-row">
+									<div class="magb15 layui-col-xs3">
+										<label class="layui-form-label">专业</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_specialty" id='edu_specialty_{{index}}' name='specialty' lay-verify="required">
+												<option value="{{=item.specialty}}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">班级</label>
+										<div class="layui-input-block">
+											<input type="text" class="layui-input edu_class" id='className_{{index}}' name='className' value="{{=item.className}}" lay-verify="required" placeholder="请输入姓名">
+										</div>
+									</div>
+		
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">学历</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_degree" id='edu_degree_{{index}}' name='degree' lay-verify="required">
+												<option value="{{=item.degree}}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">学位类型</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_degreetype" id='edu_degreetype_{{index}}' name='degreetype' lay-verify="required">
+												<option value="{{=item.degreetype}}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="layui-row">
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">学号</label>
+										<div class="layui-input-block">
+											<input type="text" class="layui-input studentid" id="studentid_{{index}}"
+												name='studentid' lay-verify="required" value="{{=item.studentid}}" placeholder="请输入学号">
+										</div>
+									</div>
+									<div class="magb15 layui-col-xs3">
+										<label class="layui-form-label">学制</label>
+										<div class="layui-input-block">
+											<select xm-select="edu_schoollen" id='edu_schoollen_{{index}}' name='schoollen'   lay-verify="required">
+												<option value="{{=item.schoollen}}"></option>
+											</select>
+										</div>
+									</div>
+		
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">入学日期</label>
+										<div class="layui-input-block">
+											<input type="text" class="layui-input edu_startdate" id="edu_startdate_{{index}}" name='startdate' value="{{=item.startdate}}" placeholder="yyyy-MM-dd">
+										</div>
+									</div>
+									<div class="magb15  layui-col-xs3">
+										<label class="layui-form-label">毕业日期</label>
+										<div class="layui-input-block">
+											<input type="text" class="layui-input edu_enddate" id="edu_enddate_{{index}}" name='enddate'  value="{{=item.enddate}}" placeholder="yyyy-MM-dd">
+										</div>
+									</div>
+								</div>
+							</fieldset>							
+					{{#   })  }} 
+					
+	</script>
+	
 </body>
 
 </html>

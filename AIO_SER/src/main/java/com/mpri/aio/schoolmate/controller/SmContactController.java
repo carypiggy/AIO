@@ -57,8 +57,11 @@ public class SmContactController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@RequestBody SmContact smContact){
-		smContactService.save(smContact);							
+	public String save(@RequestBody SmContact [] smContact){
+		for( int i=0; i<smContact.length ; i++)
+		{
+		smContactService.save(smContact[i]);	
+		}
 		return SUCCESS;
 	}	
 	

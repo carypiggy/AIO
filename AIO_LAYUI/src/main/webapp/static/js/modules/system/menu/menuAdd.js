@@ -31,37 +31,53 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
         //弹出loading
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-        var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
+
+		var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
+
 		$.ajax({
-			url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
-			type: "POST",
-			data:{
-				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-				parentId : $(".parentId").val(),
-				name : $(".name").val(),
-				code : $(".code").val(),
-				href : $(".href").val(),
-				icon : $(".icon").val(),
-				type : $("#type").val(),
-				operate : $("#operate").val(),
-				permission : $(".permission").val(),
-				sort : $(".sort").val(),
-				operate : $("#operate").val(),
-				remark : $(".remark").val(),
-				isShow : $('input[name="isShow"]').filter(':checked').val(),
-				target : $(".target").val()
-			},
-			headers : { 'Authorization' : application.HEADER},			
-			success: function (data) {
+			
+				url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
+			
+				type: "POST",
+			
+					data:{
 				
-				if(data == "success"){
-				 	top.layer.close(index);
-		            top.layer.msg("菜单" + res + "成功");
-		            layer.closeAll("iframe");
-		            //刷新父页面
-		            parent.location.reload();	
-				}else{
-					top.layer.msg("菜单" + res + "失败！");
+						id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+				
+						parentId : $(".parentId").val(),
+				
+						name : $(".name").val(),
+				
+						code : $(".code").val(),
+				
+						href : $(".href").val(),
+				
+						icon : $(".icon").val(),
+						type : $("#type").val(),
+						operate : $("#operate").val(),
+						permission : $(".permission").val(),
+						sort : $(".sort").val(),
+						operate : $("#operate").val(),
+						remark : $(".remark").val(),
+						isShow : $('input[name="isShow"]').filter(':checked').val(),
+						target : $(".target").val()
+
+					},
+					headers : { 'Authorization' : application.HEADER},		
+					success: function (data) {
+						if(data == "success"){
+				 	
+							top.layer.close(index);
+		            
+							top.layer.msg("菜单" + res + "成功");
+		            
+							//layer.closeAll("iframe");
+//刷新父页面
+		           
+						parent.location.reload();	
+				
+						}else{
+							top.layer.msg("菜单" + res + "失败！");
 				}
 			},
 			error: function(data){

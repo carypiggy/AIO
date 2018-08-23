@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,8 +57,12 @@ public class SmFamilyController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SmFamily smFamily){
-		smFamilyService.save(smFamily);							
+	public String save(@RequestBody SmFamily[] smFamily){
+		
+		for( int i=0; i<smFamily.length ; i++)
+		{
+		smFamilyService.save(smFamily[i]);	
+		}
 		return SUCCESS;
 	}	
 	

@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,8 +57,11 @@ public class SmProfessionController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SmProfession smProfession){
-		smProfessionService.save(smProfession);							
+	public String save(@RequestBody SmProfession [] smProfession){
+		for( int i=0; i<smProfession.length ; i++)
+		{
+		smProfessionService.save(smProfession[i]);
+		}
 		return SUCCESS;
 	}	
 	

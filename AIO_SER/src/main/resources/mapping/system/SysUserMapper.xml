@@ -17,12 +17,16 @@
     <result column="type" jdbcType="CHAR" property="type" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="CHAR" property="flag" />
+    <result column="orgName" jdbcType="VARCHAR" property="orgName" />
+    <collection property="roleList" ofType="com.mpri.aio.system.model.SysRole">
+		<id property="id" column="roleList.id" />
+	</collection>  
   </resultMap>
   
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
-    id, org_id, username, password, safecode, name, idcard, photo, mobile, email, type, 
-    remark, flag
+    a.id, org_id, username, password, safecode, a.name, idcard, photo, a.mobile, email,a.type, 
+    a.remark, a.flag
   </sql>
   
   <!-- 查询条件定义 -->
@@ -70,7 +74,7 @@
   <select id="getSysUserByUsername" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sys_user
+    from sys_user a
     where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
  
@@ -78,8 +82,11 @@
   <select id="get" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sys_user
-    where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+    ,rul.role_id AS "roleList.id", so.name as "orgName"
+    from sys_user a
+    LEft JOIN  sys_org so ON so.id = a.org_id
+    LEFT JOIN sys_user_role rul ON rul.user_id = a.id
+    where a.id = #{id,jdbcType=VARCHAR} and a.flag = #{FLAG_NORMAL}
   </select>
   
   <!-- 插入对象 -->
@@ -222,7 +229,7 @@
   <select id="loadByPage" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from sys_user 
+    from sys_user a
     <where>
 	  <include refid="query_where"></include>
     </where>
@@ -232,10 +239,26 @@
   <select id="loadAllListBy"  parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from sys_user 
+    from sys_user a
 	<where>
 	  <include refid="query_where"></include>
     </where>
   </select>
+  
+  
+	<!--保存角色和用户关系  -->
+	<insert id="insertUserRole">
+		INSERT INTO sys_user_role(user_id, role_id)
+		<foreach collection="roleList" item="sysrole" separator=" union all ">
+			SELECT #{id}, #{sysrole.id}
+			FROM dual
+		</foreach>
+	</insert>	
+  
+  
+  <!--删除角色和用户的关系中间表-->
+	<delete id="deleteUserRole">
+		DELETE FROM sys_user_role WHERE user_id = #{id}
+	</delete>
   
 </mapper>

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mpri.aio</groupId>
   <artifactId>AIO_SER</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>AIO_SER</name>
   <url>http://maven.apache.org</url>
@@ -16,6 +16,17 @@
   </parent>
 
   <dependencies>
+  
+
+	<dependency>
+		<groupId>com.mpri.aio</groupId>
+		<artifactId>AIO_CORE</artifactId>
+		<version>1.0</version>
+		<scope>system</scope>
+		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
+	</dependency>
+ 
+  
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -48,12 +59,17 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-cache</artifactId>
 	</dependency>
-	
 	<dependency>
 		<groupId>com.github.ben-manes.caffeine</groupId>
 		<artifactId>caffeine</artifactId>
 	</dependency>
 	
+	<!-- ehcache缓存 
+	<dependency>
+	    <groupId>net.sf.ehcache</groupId>
+	    <artifactId>ehcache</artifactId>
+	    <version>2.9.1</version>
+	</dependency> -->
 	<!-- 二级缓存相关 
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -120,7 +136,7 @@
 	<dependency>
 		<groupId>com.alibaba</groupId>
 		<artifactId>druid-spring-boot-starter</artifactId>
-		<version>1.1.9</version>
+		<version>1.1.10</version>
 	</dependency>
 
 	<!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
@@ -319,6 +335,7 @@
 			<configuration>
 				<!-- 没有该配置，devtools 不生效 -->
 				<fork>true</fork>
+				<includeSystemScope>true</includeSystemScope>
 			</configuration>
 		</plugin>
 	    <plugin>
@@ -329,7 +346,13 @@
                <target>1.8</target>
            </configuration>
 	    </plugin>
-
+		<plugin>    
+		    <groupId>org.apache.maven.plugins</groupId>    
+		    <artifactId>maven-war-plugin</artifactId>    
+		    <configuration>    
+		     	<warSourceExcludes>src/test/java/**</warSourceExcludes>    
+		    </configuration>    
+	   </plugin>  
 	</plugins>
     </build>
 </project>
