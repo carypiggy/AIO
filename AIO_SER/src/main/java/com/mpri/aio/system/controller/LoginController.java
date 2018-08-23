@@ -62,32 +62,41 @@ public class LoginController extends BaseController {
 	public RestResponse<String>  login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("authCode")String authCode,HttpSession session) {
-		
-		SysUser sysUser=sysUserService.getSysUserByUsername(username);
-		//加盐处理密码
-		String safeCode=sysUser.getSafecode();
-		ByteSource salt = ByteSource.Util.bytes(safeCode);
-		String result = new Md5Hash(password,salt,3).toString();
-		
-		//验证码获取
-		String severCode = (String)session.getAttribute("authCode");
-        String clientCode = authCode;
+	
         //首先校认验证码
         if(true) {
-        	//登陆密码校验
-    		if (sysUser.getPassword().equals(result)) {
-                return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", JWTUtil.sign(username, result));
-            } else {
-                throw new UnauthorizedException("用户名密码错误");
-            }
+        	SysUser sysUser=sysUserService.getSysUserByUsername(username);
+    		//确认用户是否存在
+        	if(sysUser!=null) {
+    			//存在后处理
+    			//加盐处理密码
+    			String safeCode=sysUser.getSafecode();
+    			ByteSource salt = ByteSource.Util.bytes(safeCode);
+    			String result = new Md5Hash(password,salt,3).toString();
+    			
+    			//验证码获取
+    			String severCode = (String)session.getAttribute("authCode");
+    	        String clientCode = authCode;
         	
+	        	//登陆密码校验
+	    		if (sysUser.getPassword().equals(result)) {
+	                return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", JWTUtil.sign(username, result));
+	            } else {
+	                throw new UnauthorizedException("密码错误，请重新输入");
+	            }
+        	
+        	}else {
+        		return new RestResponse<String>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
+        	}
+		
         }else {
         	return new RestResponse<String>(1, "验证码错误！", null);
         }
+	
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 首页初次加载菜单
 	 * @param request

@@ -23,6 +23,9 @@ layui.define(function(exports){
 				window.location.href = "login.html";
 			}
 		},
+		//ajax请求返回的状态码
+		REQUEST_SUCCESS:200,
+		REQUEST_ERROR:500,
 		//服务的IP及端口
 		SERVE_PORT: "8080",
 		SERVE_IP: "127.0.0.1",
