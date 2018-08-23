@@ -10,7 +10,6 @@ layui.config({
 	"application": "application",
 	"publicUtil": "publicUtil"
 })
-var formdata;
 layui.use(['form', 'layer', 'laydate', 'table', 'laytpl', 'application', 'publicUtil'], function() {
 	var form = layui.form,
 		layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -119,42 +118,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl', 'application', 'public
 
 	//添加编码
 	function addCard(edit) {
-		$.ajax({
-			url: application.SERVE_URL + '/sys/smCard/get', //ajax请求地址
-			type: "POST",
-			data: {
-				id: edit?(edit.id?edit.id:null):null,
-			},
-			headers: {
-				'Authorization': application.HEADER
-			},
-			success: function(data) {
-				formdata=data;
-				var index = layui.layer.open({
-					title: "添加校友卡",
-					type: 2,
-					content: "cardadd.html",
-					success: function(layero, index) {
-						var body = layui.layer.getChildFrame('body', index);
-						if(edit) {
-							body.find("#cardid").val(data.id);
-							body.find(".name").val(data.name);
-							form.render();
-						}
-						setTimeout(function() {
-							layui.layer.tips('点击此处返回校友卡列表', '.layui-layer-setwin .layui-layer-close', {
-								tips: 3
-							});
-						}, 500)
-					}
-				})
-				layui.layer.full(index);
-				//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-				$(window).on("resize", function() {
-					layui.layer.full(index);
-				})
-			}
-		});
-		
+		var restUrl=application.SERVE_URL + '/sys/smCard/get';
+		var id=edit?(edit.id?edit.id:null):null;
+		publicUtil.gotoEditPage(restUrl,application.HEADER,id,"添加校友卡","cardadd.html")
 	}
 })

@@ -4,6 +4,7 @@
 	@Tittle: application
 	@Description: 封装一些公用
  */
+var editFormData;
 layui.define(['form','layer','jquery'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
@@ -93,7 +94,48 @@ layui.define(['form','layer','jquery'],function(exports){
 			$("#"+butgroupId).append(butHtml);
 		},
 		
-		
+		/**
+		 * 跳转到编辑页面
+		 * @param {String} getByIdUrl dsdasd
+		 * @param {Object} header
+		 * @param {Object} ID
+		 * @param {Object} titleName
+		 * @param {Object} pageUrl
+		 */
+		//dsadsadsa
+		gotoEditPage:function(getByIdUrl,header,ID,titleName,pageUrl)
+		{
+			$.ajax({
+				url: getByIdUrl, //ajax请求地址
+				type: "POST",
+				data: {
+					id: ID,
+				},
+				headers: {
+					'Authorization': header
+				},
+				success: function(data) {
+					editFormData=data;
+					var index = layui.layer.open({
+						title: titleName,
+						type: 2,
+						content: pageUrl,
+						success: function(layero, index) {
+							setTimeout(function() {
+								layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+									tips: 3
+								});
+							}, 500)
+						}
+					})
+					layui.layer.full(index);
+					//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+					$(window).on("resize", function() {
+						layui.layer.full(index);
+					})
+				}
+			});
+		},
 		
 		//取下拉菜单并进行回填
 		selectBaseAndSetVal : function (url,data,selectid,selectValue){

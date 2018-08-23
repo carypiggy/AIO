@@ -25,9 +25,13 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	//页面打开时，或者基本信息时，点击填充数据
 	function initSchoolmateData()
 	{
-		alert(parent.formdata.type)
-		//校友卡类型
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'CARD_TYPE'} ,"type",parent.formdata.type);	
+		if(parent.editFormData)
+		{
+			$("#cardid").val(parent.editFormData.id);
+			$(".name").val(parent.editFormData.name);
+			//校友卡类型
+			publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'CARD_TYPE'} ,"type",parent.editFormData.type);
+		}
 	}
 	initSchoolmateData();	
 	
