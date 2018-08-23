@@ -96,14 +96,14 @@ layui.define(['form','layer','jquery'],function(exports){
 		
 		/**
 		 * 跳转到编辑页面
-		 * @param {String} getByIdUrl dsdasd
+		 * @param {String} getByIdUrl 获取entity接口地址
 		 * @param {Object} header
 		 * @param {Object} ID
 		 * @param {Object} titleName
 		 * @param {Object} pageUrl
 		 */
 		//dsadsadsa
-		gotoEditPage:function(getByIdUrl,header,ID,titleName,pageUrl)
+		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl)
 		{
 			$.ajax({
 				url: getByIdUrl, //ajax请求地址
@@ -112,7 +112,7 @@ layui.define(['form','layer','jquery'],function(exports){
 					id: ID,
 				},
 				headers: {
-					'Authorization': header
+					'Authorization': sessionStorage.getItem('token')
 				},
 				success: function(data) {
 					editFormData=data;

@@ -120,6 +120,6 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl', 'application', 'public
 	function addCard(edit) {
 		var restUrl=application.SERVE_URL + '/sys/smCard/get';
 		var id=edit?(edit.id?edit.id:null):null;
-		publicUtil.gotoEditPage(restUrl,application.HEADER,id,"添加校友卡","cardadd.html")
+		publicUtil.gotoEditPage(restUrl,id,"添加校友卡","cardadd.html")
 	}
 })
