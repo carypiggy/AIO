@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.exception.UnauthorizedException;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysMenu;
@@ -76,7 +76,7 @@ public class LoginController extends BaseController {
         if(true) {
         	//登陆密码校验
     		if (sysUser.getPassword().equals(result)) {
-                return new RestResponse<String>(0, "登陆成功！", JWTUtil.sign(username, result));
+                return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", JWTUtil.sign(username, result));
             } else {
                 throw new UnauthorizedException("用户名密码错误");
             }
@@ -143,36 +143,6 @@ public class LoginController extends BaseController {
     public RestResponse<String> unauthorized() {
         return new RestResponse<>(0, "Unauthorized", null);
     }
-		
-	/**
-	 * 测试add
-	 */
-	@RequestMapping(value = "/tsAdd", method = RequestMethod.GET)
-	@RequiresPermissions("sys:add")
-	public String tsAdd() {
-		System.out.println("add");
-		return "/index.html";
-	}
-	
-	/**
-	 * 测试add
-	 */
-	@RequestMapping(value = "/tsEdit", method = RequestMethod.GET)
-	@RequiresPermissions("sys:edit")
-	public String tsEdit() {
-		System.out.println("edit");
-		return "/index.html";
-	}
-	
-	/**
-	 * 测试add
-	 */
-	@RequestMapping(value = "/tsDel", method = RequestMethod.GET)
-	@RequiresPermissions("sys:del")
-	public String tsDel() {
-		System.out.println("del");
-		return "/index.html";
-	}
 	
 	/**
 	 * 筛选组织menu

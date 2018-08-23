@@ -42,25 +42,29 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 				//初始化顶部菜
 				menuDatas = res.menu;
 				var data = menuDatas.children;
-				for (var i = 0; i < data.length; i++) {
-					var cur = data[i];
-
-					var tittle = "";
-					if (i == 0) {
-						tittle = '<li class="layui-nav-item layui-this" data-menu="' + cur.code + '" id = "' + cur.code + '">'
-						tittle += '<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i>';
-						tittle += '<cite>' + cur.name + '</cite></a></li>'
-						after = cur.code;
-						$("#topLevelMenus").append(tittle);
-
-					} else {
-						tittle = '<li class="layui-nav-item" data-menu="' + cur.code + '">'
-						tittle += '<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i>';
-						tittle += '<cite>' + cur.name + '</cite></a></li>'
-						$("#topLevelMenus").append(tittle);
+				if(data!=null){
+					for (var i = 0; i < data.length; i++) {
+						var cur = data[i];
+						var tittle = "";
+						if (i == 0) {
+							tittle = '<li class="layui-nav-item layui-this" data-menu="' + cur.code + '" id = "' + cur.code + '">'
+							tittle += '<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i>';
+							tittle += '<cite>' + cur.name + '</cite></a></li>'
+							after = cur.code;
+							$("#topLevelMenus").append(tittle);
+	
+						} else {
+							tittle = '<li class="layui-nav-item" data-menu="' + cur.code + '">'
+							tittle += '<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i>';
+							tittle += '<cite>' + cur.name + '</cite></a></li>'
+							$("#topLevelMenus").append(tittle);
+						}
+						element.init();
 					}
-					element.init();
+				}else{
+					top.layer.msg("您没有被授权使用系统，请联系管理员！");
 				}
+				
 			}
 		});
 	}

@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public RestResponse<ShiroException> handle401(ShiroException e) {
-        return new RestResponse<ShiroException>(401, e.getMessage(), null);
+        return new RestResponse<ShiroException>(ExceptionResult.NO_PERMISSION, "您权限不足，请联系管理员，或重新登陆！", null);
     }
  
 
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public RestResponse<UnauthorizedException> handle401() {
-        return new RestResponse<UnauthorizedException>(401, "该账号密码无法登陆", null);
+        return new RestResponse<UnauthorizedException>(ExceptionResult.NO_PERMISSION, "该账号密码无法登陆", null);
     }
 
     
