@@ -8,16 +8,25 @@
 layui.config({
 	base : "../../../../static/js/"
 }).extend({
-	"application" : "application"
+	"application" : "application",
+	"publicUtil"  : "publicUtil",
+	"dateUtils"  : "dateUtils"
 })
 $(function(){ 
-layui.use(['table','form','element','layer','jquery','application'],function(){
+layui.use(['table','form','element','layer','jquery','application','publicUtil','dateUtils'],function(){
 	var layer = layui.layer,
 		form = layui.form,
 		laydate = layui.laydate,
-		_$ = layui.jquery;
+		_$ = layui.jquery,
+		dateUtils = layui.dateUtils,
+		publicUtil = layui.publicUtil,
 		table = layui.table;
 		application = layui.application;
+		
+		
+		//获取权限并加载按钮
+		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+		
 		//节点标记
 		var treeObj;
 		var tableIns;
@@ -28,7 +37,9 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			},
 			data: {
 				simpleData: {
-					enable: true
+					enable: true,
+					idKey: "id",
+					pIdKey: "parentId"			
 				}
 			},
 			callback: {
@@ -37,23 +48,38 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			}
 		};
 		
-		//初始化树
-		initTree();
-		function initTree() {
-			$.ajax({
-				url: "../../../../static/json/orgTree_sim.json", //ajax请求地址
+	//初始化树
+	initTree();
+	function initTree() {
+		$.ajax({
+				url: application.SERVE_URL+'/sys/sysorg/tree',
+				headers : { 'Authorization' : application.HEADER},//ajax请求地址
 				success: function (data) {
-					treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data)); //加载数据
-					//console.log(treeObj);
-					//初始化
-					var node = treeObj.getNodeByParam('id', 0);//获取id为1的点
-					treeObj.selectNode(node);//选择点
-					treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);//调用事件	
-				}
-			});
+				treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
+				//初始化
+				var node = treeObj.getNodeByParam('id', 0);//获取id为1的点
+				treeObj.selectNode(node);//选择点
+				treeObj.expandAll(true);
+				treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);//调用事件	
+			}
+		});		
+		// $.fn.zTree.init($("#treeDemo"), setting);
+	}	
 		
-			// $.fn.zTree.init($("#treeDemo"), setting);
+	function covert(data) {
+		for (var i = 0; i < data.length; i++) {
+			data[i].name = data[i].name +"("+dateUtils.getYearAndDay(data[i].openDate)+"--"+ judgeNull(data[i].closeDate)+")"
 		}
+		return data;
+	}
+	
+	function judgeNull(data){
+		if(data == null ||data =='null' ||data ==""){
+			return "至今";
+		}else{
+			return dateUtils.getYearAndDay(data);
+		}
+	}
              
 
 		//根据Id 加载右侧用户数据
@@ -72,41 +98,20 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 						where:{orgId : treeNode.id},
 						height : "full-125",
 						limit : 10,
-						id : "userListTable",
+						id : "userList",
 						cols : [[
-							// {field: 'id', title: 'ID', align:"center"},
-							{field: 'username', title: '账号'},
+							{type:'checkbox'},
+							{field: 'username', title: '登录名'},
 							{field: 'name', title: '姓名'},
-							{field: 'type', title: '类型'},
-							{field: 'phone', title: '联系电话'},
+							{field: 'type', title: '用户类型'},
+							{field: 'mobile', title: '手机'},
 							{field: 'email', title: '邮箱'},
-							{title: '操作', width:170, templet:'#userListBar',fixed:"right",align:"center"}
 						]]
 					});	
 				}
 		/* 	});
 		} */		
 		
-		function covert(data) {
-			var nodes = [];
-			for (var i = 0; i < data.length; i++) {
-				if(data[i].open == true){
-					nodes.push({
-						id: data[i].id,
-						pId: data[i].parentId,
-						name: data[i].name,
-						open: data[i].open
-					});
-				}else{
-					nodes.push({
-						id: data[i].id,
-						pId: data[i].parentId,
-						name: data[i].name
-					});
-				}
-			}
-			return nodes;
-		}
 			
 	    //列表操作
 	    table.on('tool(userList)', function(obj){
@@ -130,10 +135,21 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	        }
 	    });	
 
-		//新增用户
-		$("#addUser_btn").click(function(){
-			addUser();
-		})	  
+		//新增操作
+		_$(document).on('click','#ADD',function(){
+				addUser();
+    }); 
+		
+		//编辑操作
+		_$(document).on('click','#EDIT',function(){		
+			var flag = publicUtil.jurgeSelectRows(table.checkStatus('userList').data);
+			if(flag){
+				addUser(table.checkStatus('userList').data[0]);
+			}else{
+				return false;
+			}
+	
+	  })		
 		
 		//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 		$(".search_btn").click(function(){
@@ -152,9 +168,8 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			}
 		});
 		
-		
 	    //添加用户
-	    function addUser(edit){
+	    function $addUser(edit){
 	        var index = layui.layer.open({
 	            title : "添加用户",
 	            type : 2,
@@ -167,6 +182,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 										$.ajax({
 												url: application.SERVE_URL +'/sys/sysuser/get', //ajax请求地址
 												type: "POST",
+												headers : { 'Authorization' : application.HEADER},
 												data:{
 													id :edit.id,
 												},						
@@ -190,28 +206,9 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 														top.layer.msg("用户信息获取失败！");
 													}
 												}
-											}); 
-	                    form.render();
-	                }else{
-	$.ajax({
-													url: application.SERVE_URL +'/sys/sysuser/get', //ajax请求地址
-													type: "POST",
-													data:{
-														id :edit.id,
-													},						
-													success: function (data) {
-														if(data){
-															body.find(".id").val(data.id);
-															body.find(".username").val(data.username);
-															body.find(".password").val(data.password)	
-														}else{
-															//console.data();
-															top.layer.msg("用户信息获取失败！");
-														}
-													}
-												}); 
+										}); 
+	                }
 		                    form.render();	
-									}
 	                setTimeout(function(){
 	                    layui.layer.tips('点击此处返回机构列表', '.layui-layer-setwin .layui-layer-close', {
 	                        tips: 3
@@ -224,6 +221,12 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 	        _$(window).on("resize",function(){
 	            layui.layer.full(index);
 	        })
+	    }		
+
+		
+	    //添加用户
+	    function addUser(edit){
+				publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysuser/get',application.HEADER,edit ==undefined?null:edit.id,"用户管理","userAdd.html")
 	    }		
 })
 })

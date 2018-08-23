@@ -18,4 +18,21 @@ public interface SysUserMapper extends CrudMapper<SysUser>{
 	 * @return
 	 */
     SysUser getSysUserByUsername(SysUser sysUser);
+    
+    /**
+     * 插入用户和角色信息
+    * <p>Title: insertUserRole</p>  
+    * <p>Description: </p>  
+    * @param sysUser
+     */
+    void insertUserRole(SysUser sysUser);
+    
+    /**
+     * 删除用户关联角色
+    * <p>Title: deleteUserRole</p>  
+    * <p>Description: </p>  
+    * @param sysUser
+     */
+    void deleteUserRole(SysUser sysUser);
+    
 }

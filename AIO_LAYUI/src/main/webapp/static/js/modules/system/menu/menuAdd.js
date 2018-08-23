@@ -31,6 +31,7 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
         //弹出loading
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+		var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
 			type: "POST",
@@ -52,7 +53,6 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 			},
 			headers : { 'Authorization' : application.HEADER},			
 			success: function (data) {
-				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 				if(data == "success"){
 				 	top.layer.close(index);
 		            top.layer.msg("菜单" + res + "成功");
