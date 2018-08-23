@@ -53,6 +53,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 			{
 				initSchoolInfo(i);
 			} */
+
+		
 		}else if(elem.index == 2) //校园经历
 		{
 			clicktable(application.SERVE_URL+"/sys/smExperience/list",{"username":username,"pageNo":10, "pageSize":0})
@@ -407,7 +409,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#exp_id_"+i).val(),"organization":$("#exp_organization_"+i).val(),"position":$("#exp_position_"+i).val(),"startdate":$("#exp_jiondate_"+i).val(),"studentid":$("#exp_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-					
+					}
 			jsondata = JSON.stringify(expList);
 			
 			
@@ -424,6 +426,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 	for(var i=0; i<edu; i++)
 	{
 		eduList.push({"id":$("#edu_id_"+i).val(),"academy":$("#edu_academy_"+i).val(),"className":$("#edu_className_"+i).val(),"college":$("#edu_collage_"+i).val(),"degree":$("#edu_degree_"+i).val(),"degreetype":$("#edu_degreetype_"+i).val(),"enddate":$("#edu_enddate_"+i).val(),"school":$("#edu_school_"+i).val(),"schoollen":$("#edu_schoollen_"+i).val(),"eries":$("#edu_series_"+i).val(),"specialty":$("#edu_specialty_"+i).val(),"startdate":$("#edu_startdate_"+i).val(),"studentid":$("#edu_studentid_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+		}
  jsondata = JSON.stringify(eduList);
 			ajaxinfo(application.SERVE_URL+'/sys/smEducation/save', jsondata,"教育经历");
 		})
@@ -435,8 +438,8 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 				var expList = [];
 				for(var i=0; i<edu; i++)
 				{
-					expList.push({"id":$("#cont_id_"+i).val(),"type":$("#cont_type_"+i).val(),"contacte":$("#cont_contacte_+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-				
+					expList.push({"id":$("#cont_id_"+i).val(),"type":$("#cont_type_"+i).val(),"contacte":$("#cont_contacte_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+				}
 		jsondata = JSON.stringify(expList);
 	ajaxinfo(application.SERVE_URL+'/sys/smContact/save', jsondata,"联系方式");
 
@@ -450,7 +453,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 				for(var i=0; i<edu; i++)
 				{
 					expList.push({"id":$("#add_id_"+i).val(),"country":$("#add_country_"+i).val(),"province":$("#add_province_"+i).val(),"city":$("#add_city_"+i).val(),"district":$("#add_district_"+i).val(),"detail":$("#add_detail_"+i).val(),"ispost":$("input[name='ispost"+i+"']").val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-				
+				}
 		jsondata = JSON.stringify(expList);
 			ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', jsondata,"通讯地址");
 		})
@@ -464,7 +467,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("family_id_"+i).val(),"name":$("#family_name_"+i).val(),"sex":$("#fam_sex_"+i).val(),"relation":$("#fam_relation_"+i).val(),"birthday":$("#fam_birthday_"+i).val(),"profession":$("#fam_profession_"+i).val(),"phone":$("#fam_phone_"+i).val(),"workplace":$("#fam_workplace_"+i).val(),"isschool":$("input[name='isschool"+i+"']").val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-					
+					}
 			jsondata = JSON.stringify(expList);
 	    ajaxinfo(application.SERVE_URL+'/sys/smAddress/save', jsondata,"家庭信息");
 		})
@@ -477,6 +480,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#soc_id_"+i).val(),"type":$("#soc_type_"+i).val(),"name":$("#soc_name_"+i).val(),"startdate":$("#soc_startdate_"+i).val(),"remark":$("#soc_remark_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
+						}
 			jsondata = JSON.stringify(expList);
 			
 			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', jsondata,"政治面貌");
@@ -491,7 +495,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#edu_id_"+i).val(),"type":$("#socia_type_"+i).val(),"name":$("#socia_name_"+i).val(),"position":$("#socia_position_"+i).val(),"infoval":$("#socia_infoval_"+i).val(),"startdate":$("#soc_s_startdate_"+i).val(),"enddate":$("#soc_s_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-					
+					}
 			jsondata = JSON.stringify(expList);
 			ajaxinfo(application.SERVE_URL+'/sys/smSocial/save', jsondata,"社会兼职");
 		})
@@ -505,7 +509,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#honor_id_"+i).val(),"name":$("#honor_name_"+i).val(),"domain":$("#honor_domain_"+i).val(),"type":$("#honor_type_"+i).val(),"date":$("#honor_date_"+i).val(),"infoval":$("#honor_infoval_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-					
+					}
 			jsondata = JSON.stringify(expList);
 			ajaxinfo(application.SERVE_URL+'/sys/smHonor/save', jsondata,"荣誉成就");
 		})
@@ -519,7 +523,7 @@ layui.use(['jquery','form','layer','laydate',/* 'formSelects', */'publicUtil','a
 					for(var i=0; i<edu; i++)
 					{
 						expList.push({"id":$("#pro_id_"+i).val(),"workplace":$("#pro_workplace_"+i).val(),"nature":$("#pro_nature_"+i).val(),"industry":$("#pro_industry_"+i).val(),"department":$("#pro_department_"+i).val(),"position":$("#pro_position_"+i).val(),"telephone":$("#pro_telephone_"+i).val(),"fax":$("#pro_fax_"+i).val(),"remark":$("#pro_remark_"+i).val(),"startdate":$("#pro_startdate_"+i).val(),"enddate":$("#pro_enddate_"+i).val(),"sysUserId":$("#sysUserId").val(),"sysUserUsername":$("#username").val()});
-					
+					}
 			jsondata = JSON.stringify(expList);
 			ajaxinfo(application.SERVE_URL+'/sys/smProfession/save', jsondata,"职业经历");
 		})
