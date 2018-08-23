@@ -115,8 +115,8 @@ public class SysAreaController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/loadChildrenByParent")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
-	public List<SysArea> loadChildrenByParent(@RequestParam String  parentId) {
-		return sysAreaService.loadChildrenByParent(parentId);
+	public List<SysArea> loadChildrenByParent(SysArea sysArea) {
+		return sysAreaService.loadChildrenByParent(sysArea);
 	}
 	
 	/**

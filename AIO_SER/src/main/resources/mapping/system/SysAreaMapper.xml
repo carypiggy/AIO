@@ -169,6 +169,7 @@
     where code = #{code,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
   
+  
   <!-- 删除对象 -->
   <update id="delete" parameterType="com.mpri.aio.system.model.SysArea">
     update sys_area set flag = #{FLAG_DELETE} where id = #{id,jdbcType=VARCHAR}
@@ -199,7 +200,7 @@
     select
     <include refid="Base_Column_List" />
     from sys_area 
-	where parent_id = #{id,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
+	where parent_id = #{parentId,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
   
 </mapper>
