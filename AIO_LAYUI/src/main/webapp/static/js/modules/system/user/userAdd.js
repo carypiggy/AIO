@@ -58,7 +58,8 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','application'],fun
 				 type: 1,
 				 orgId: data.field.userOrg,
 				 safecode:data.field.safecode,
-				 remark:data.field.userDesc
+				 remark:data.field.userDesc,
+				 
 				},function(data){
 				top.layer.close(index);
 				top.layer.msg(data.message);
