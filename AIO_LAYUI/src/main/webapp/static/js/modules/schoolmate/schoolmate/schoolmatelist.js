@@ -141,8 +141,12 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 							success: function (data) {
 								if(data){
 								body.find("#schoolmateid").val(data.id);
-								body.find(".sysUserId").val(data.id);
-								body.find(".username").val(data.username);
+								body.find("#sysUserId").val(data.id);
+								body.find("#username").val(data.username);
+								body.find("input[name='sysUserId']").val(data.id);
+								body.find("input[name='username']").val(data.username);
+								body.find(".sysUserUsername").val(data.username);
+								body.find(".sex").val(data.sex);
 								body.find(".name").val(data.name);
 								body.find(".userType").val(data.userType);  
 								body.find(".nation").val(data.nation);  
