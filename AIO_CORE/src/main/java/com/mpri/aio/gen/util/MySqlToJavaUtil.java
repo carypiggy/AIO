@@ -75,7 +75,7 @@ public class MySqlToJavaUtil {
 		if (sqlType.equalsIgnoreCase("bit")) {
 			return "Boolean";
 		} else if (sqlType.equalsIgnoreCase("tinyint") || sqlType.equalsIgnoreCase("smallint")
-				|| sqlType.equalsIgnoreCase("int")) {
+				|| sqlType.equalsIgnoreCase("int") || sqlType.equalsIgnoreCase("integer")) {
 			return "Integer";
 		} else if (sqlType.equalsIgnoreCase("bigint")) {
 			return "Long";

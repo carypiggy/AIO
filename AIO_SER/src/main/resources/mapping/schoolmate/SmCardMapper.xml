@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpri.aio.schoolmate.mapper.SmCardMapper">
+
+  	<!-- 基础返回值定义 -->
+	<resultMap id="BaseResultMap" type="com.mpri.aio.schoolmate.model.SmCard">
+			<id column="id" jdbcType="VARCHAR" property="id" />
+			<result column="name" jdbcType="VARCHAR" property="name" />
+			<result column="type" jdbcType="VARCHAR" property="type" />
+			<result column="start_level" jdbcType="INTEGER" property="startLevel" />
+			<result column="end_level" jdbcType="INTEGER" property="endLevel" />
+			<result column="front_font" jdbcType="VARCHAR" property="frontFont" />
+			<result column="front_font_color" jdbcType="VARCHAR" property="frontFontColor" />
+			<result column="front_font_style" jdbcType="VARCHAR" property="frontFontStyle" />
+			<result column="back_font" jdbcType="VARCHAR" property="backFont" />
+			<result column="back_font_color" jdbcType="VARCHAR" property="backFontColor" />
+			<result column="back_font_style" jdbcType="VARCHAR" property="backFontStyle" />
+			<result column="card_style_line" jdbcType="VARCHAR" property="cardStyleLine" />
+			<result column="card_style_radius" jdbcType="VARCHAR" property="cardStyleRadius" />
+			<result column="card_style_opacity" jdbcType="VARCHAR" property="cardStyleOpacity" />
+			<result column="front_background" jdbcType="VARCHAR" property="frontBackground" />
+			<result column="back_background" jdbcType="VARCHAR" property="backBackground" />
+			<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+			<result column="remark" jdbcType="VARCHAR" property="remark" />
+			<result column="flag" jdbcType="VARCHAR" property="flag" />
+	</resultMap>
+	
+    <!-- 基础字段定义 -->
+	<sql id="Base_Column_List">
+    	id, name, type, start_level, end_level, front_font, front_font_color, front_font_style, back_font, back_font_color, back_font_style, card_style_line, card_style_radius, card_style_opacity, front_background, back_background, create_date, remark, flag
+	</sql>
+
+	<!-- 查询条件定义 -->
+	<sql id="query_where">
+		<if test="entity!=null">
+			<if test="entity.id != null and entity.id!='' ">
+        		and id=#{entity.id}
+      		</if>	      	
+	       	<if test="entity.name!=null and entity.name!='' ">
+	           	and name LIKE %#{entity.name}%
+	       	</if>		
+			<if test="entity.type != null and entity.type!='' ">
+        		and type=#{entity.type}
+      		</if>	      	
+			<if test="entity.startLevel != null and entity.startLevel!='' ">
+        		and start_level=#{entity.startLevel}
+      		</if>	      	
+			<if test="entity.endLevel != null and entity.endLevel!='' ">
+        		and end_level=#{entity.endLevel}
+      		</if>	      	
+			<if test="entity.frontFont != null and entity.frontFont!='' ">
+        		and front_font=#{entity.frontFont}
+      		</if>	      	
+			<if test="entity.frontFontColor != null and entity.frontFontColor!='' ">
+        		and front_font_color=#{entity.frontFontColor}
+      		</if>	      	
+			<if test="entity.frontFontStyle != null and entity.frontFontStyle!='' ">
+        		and front_font_style=#{entity.frontFontStyle}
+      		</if>	      	
+			<if test="entity.backFont != null and entity.backFont!='' ">
+        		and back_font=#{entity.backFont}
+      		</if>	      	
+			<if test="entity.backFontColor != null and entity.backFontColor!='' ">
+        		and back_font_color=#{entity.backFontColor}
+      		</if>	      	
+			<if test="entity.backFontStyle != null and entity.backFontStyle!='' ">
+        		and back_font_style=#{entity.backFontStyle}
+      		</if>	      	
+			<if test="entity.cardStyleLine != null and entity.cardStyleLine!='' ">
+        		and card_style_line=#{entity.cardStyleLine}
+      		</if>	      	
+			<if test="entity.cardStyleRadius != null and entity.cardStyleRadius!='' ">
+        		and card_style_radius=#{entity.cardStyleRadius}
+      		</if>	      	
+			<if test="entity.cardStyleOpacity != null and entity.cardStyleOpacity!='' ">
+        		and card_style_opacity=#{entity.cardStyleOpacity}
+      		</if>	      	
+			<if test="entity.frontBackground != null and entity.frontBackground!='' ">
+        		and front_background=#{entity.frontBackground}
+      		</if>	      	
+			<if test="entity.backBackground != null and entity.backBackground!='' ">
+        		and back_background=#{entity.backBackground}
+      		</if>	      	
+			<if test="entity.createDate != null and entity.createDate!='' ">
+        		and create_date=#{entity.createDate}
+      		</if>	      	
+			<if test="entity.remark != null and entity.remark!='' ">
+        		and remark=#{entity.remark}
+      		</if>	      	
+			<if test="entity.flag != null and entity.flag!='' ">
+        		and flag= #{entity.FLAG_NORMAL}
+      		</if>
+		</if>
+	</sql>
+	
+  	<!-- 根据id查询 -->
+  	<select id="get" parameterType="com.mpri.aio.schoolmate.model.SmCard" resultMap="BaseResultMap">
+   	    select 
+    		<include refid="Base_Column_List" />
+    	from sm_card
+    	where id = #{id,jdbcType=VARCHAR} and flag = #{FLAG_NORMAL}
+  	</select>
+ 
+ 	<!-- 分页查询 -->
+    <select id="loadByPage" parameterType="com.mpri.aio.schoolmate.model.SmCard" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sm_card 
+    	<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+  	<!-- 依照条件查询所有对象 -->
+  	<select id="loadAllListBy"  parameterType="com.mpri.aio.schoolmate.model.SmCard" resultMap="BaseResultMap" >
+    	select
+    		<include refid="Base_Column_List" />
+    	from sm_card 
+		<where>
+	  		<include refid="query_where"></include>
+    	</where>
+  	</select>
+
+	<!-- 删除对象 -->
+  	<update id="delete" parameterType="com.mpri.aio.schoolmate.model.SmCard">
+    	update sm_card set flag = #{FLAG_HOLD} where id = #{id,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<!-- 插入数据 -->
+  	<insert id="insert" parameterType="com.mpri.aio.schoolmate.model.SmCard">
+		insert into sm_card
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+	   		<if test="id != null">
+	    		id,
+	  		</if>   			
+	   		<if test="name != null">
+	    		name,
+	  		</if>   			
+	   		<if test="type != null">
+	    		type,
+	  		</if>   			
+	   		<if test="startLevel != null">
+	    		start_level,
+	  		</if>   			
+	   		<if test="endLevel != null">
+	    		end_level,
+	  		</if>   			
+	   		<if test="frontFont != null">
+	    		front_font,
+	  		</if>   			
+	   		<if test="frontFontColor != null">
+	    		front_font_color,
+	  		</if>   			
+	   		<if test="frontFontStyle != null">
+	    		front_font_style,
+	  		</if>   			
+	   		<if test="backFont != null">
+	    		back_font,
+	  		</if>   			
+	   		<if test="backFontColor != null">
+	    		back_font_color,
+	  		</if>   			
+	   		<if test="backFontStyle != null">
+	    		back_font_style,
+	  		</if>   			
+	   		<if test="cardStyleLine != null">
+	    		card_style_line,
+	  		</if>   			
+	   		<if test="cardStyleRadius != null">
+	    		card_style_radius,
+	  		</if>   			
+	   		<if test="cardStyleOpacity != null">
+	    		card_style_opacity,
+	  		</if>   			
+	   		<if test="frontBackground != null">
+	    		front_background,
+	  		</if>   			
+	   		<if test="backBackground != null">
+	    		back_background,
+	  		</if>   			
+	   		<if test="createDate != null">
+	    		create_date,
+	  		</if>   			
+	   		<if test="remark != null">
+	    		remark,
+	  		</if>   			
+	   		<if test="flag != null">
+	    		flag,
+	  		</if>   			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+	   		<if test="id != null">
+	   			#{id,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="name != null">
+	   			#{name,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="type != null">
+	   			#{type,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="startLevel != null">
+	   			#{startLevel,jdbcType=INTEGER},
+	  		</if>   			
+	   		<if test="endLevel != null">
+	   			#{endLevel,jdbcType=INTEGER},
+	  		</if>   			
+	   		<if test="frontFont != null">
+	   			#{frontFont,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="frontFontColor != null">
+	   			#{frontFontColor,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="frontFontStyle != null">
+	   			#{frontFontStyle,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="backFont != null">
+	   			#{backFont,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="backFontColor != null">
+	   			#{backFontColor,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="backFontStyle != null">
+	   			#{backFontStyle,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="cardStyleLine != null">
+	   			#{cardStyleLine,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="cardStyleRadius != null">
+	   			#{cardStyleRadius,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="cardStyleOpacity != null">
+	   			#{cardStyleOpacity,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="frontBackground != null">
+	   			#{frontBackground,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="backBackground != null">
+	   			#{backBackground,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="createDate != null">
+	   			#{createDate,jdbcType=TIMESTAMP},
+	  		</if>   			
+	   		<if test="remark != null">
+	   			#{remark,jdbcType=VARCHAR},
+	  		</if>   			
+	   		<if test="flag != null">
+	   			#{flag,jdbcType=VARCHAR},
+	  		</if>   			
+		</trim>
+  	</insert>
+
+  	<!-- 更新数据 -->
+  	<update id="update" parameterType="com.mpri.aio.schoolmate.model.SmCard">
+    	update sm_card
+    	<set>
+			<if test="name != null">
+	   			name = #{name,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="type != null">
+	   			type = #{type,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="startLevel != null">
+	   			start_level = #{startLevel,jdbcType=INTEGER},
+	  		</if>  
+			<if test="endLevel != null">
+	   			end_level = #{endLevel,jdbcType=INTEGER},
+	  		</if>  
+			<if test="frontFont != null">
+	   			front_font = #{frontFont,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="frontFontColor != null">
+	   			front_font_color = #{frontFontColor,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="frontFontStyle != null">
+	   			front_font_style = #{frontFontStyle,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="backFont != null">
+	   			back_font = #{backFont,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="backFontColor != null">
+	   			back_font_color = #{backFontColor,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="backFontStyle != null">
+	   			back_font_style = #{backFontStyle,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="cardStyleLine != null">
+	   			card_style_line = #{cardStyleLine,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="cardStyleRadius != null">
+	   			card_style_radius = #{cardStyleRadius,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="cardStyleOpacity != null">
+	   			card_style_opacity = #{cardStyleOpacity,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="frontBackground != null">
+	   			front_background = #{frontBackground,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="backBackground != null">
+	   			back_background = #{backBackground,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="createDate != null">
+	   			create_date = #{createDate,jdbcType=TIMESTAMP},
+	  		</if>  
+			<if test="remark != null">
+	   			remark = #{remark,jdbcType=VARCHAR},
+	  		</if>  
+			<if test="flag != null">
+	   			flag = #{flag,jdbcType=VARCHAR},
+	  		</if>  
+    	</set>
+    	where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper>
