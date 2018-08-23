@@ -9,6 +9,7 @@ layui.define(['form','layer','jquery'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
+	var application = layui.application;
 	var obj ={
 		
 		//由子页面回填至父页面（多参数）
@@ -102,7 +103,6 @@ layui.define(['form','layer','jquery'],function(exports){
 		 * @param {Object} titleName
 		 * @param {Object} pageUrl
 		 */
-		//dsadsadsa
 		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl)
 		{
 			$.ajax({
@@ -112,7 +112,7 @@ layui.define(['form','layer','jquery'],function(exports){
 					id: ID,
 				},
 				headers: {
-					'Authorization': sessionStorage.getItem('token')
+					'Authorization': application.HEADER
 				},
 				success: function(data) {
 					editFormData=data;
