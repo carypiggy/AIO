@@ -14,7 +14,7 @@ layui.config({
 var formdatas;
 layui.use(['application','form','layer','laydate','table','publicUtil'],function(){
     var form = layui.form,
-        layer = parent.layer === undefined ? layui.layer : top.layer,
+        layer = layui.layer,
         $ = layui.jquery,
 				publicUtil = layui.publicUtil,
 		application = layui.application,
@@ -139,7 +139,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 												headers : { 'Authorization' : application.HEADER},												
 												success: function (data) {
 													if(data = "success"){
-														treeTable.reload();
+														table.reload();
 														layer.close(index);	
 													}
 												}
@@ -154,24 +154,33 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 		$(document).on('click','#PERM',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 				if(flag){
-					formdatas = table.checkStatus('roleList').data[0];
-					var index = layui.layer.open({
-							type: 2,
-							title: '菜单选择',
-							shadeClose: true,
-							shade: 0.8,
-							area: ['280px', '65%'],
-							// content: '../views/module/system/role/menuselect.html',
-							content: 'menuselect.html',
-							success : function(layero, index){
-								//
-								setTimeout(function(){
-										layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
-												tips: 3
-										});
-								},500)											
-							}
-					});	
+							$.ajax({
+								url : application.SERVE_URL+'/sys/sysrole/get',
+								type : 'POST',
+								headers : { 'Authorization' : application.HEADER},	
+								data : {"id" : table.checkStatus('roleList').data[0].id}, //ajax请求地址
+								success: function (data) {
+									formdatas = data;
+									var index = layui.layer.open({
+											type: 2,
+											title: '菜单选择',
+											shadeClose: true,
+											shade: 0.8,
+											area: ['280px', '65%'],
+											// content: '../views/module/system/role/menuselect.html',
+											content: 'menuselect.html',
+											success : function(layero, index){										
+												setTimeout(function(){
+														layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
+																tips: 3
+														});
+												},500)											
+											},
+									})																				
+								}
+							});
+											//
+
 				}else{
 					return false;
 				}
