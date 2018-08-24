@@ -7,16 +7,19 @@
 layui.config({
 	base : "../../../../static/js/"
 }).extend({
-	"application" : "application"
+	"application" : "application",
+	"publicUtil"  : "publicUtil"
 })
-layui.use(['form','layer','laydate','table','laytpl','application'],function(){
+layui.use(['publicUtil','form','layer','laydate','table','laytpl','application'],function(){
+
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-				application = layui.application,
+		application = layui.application,
         laydate = layui.laydate,
         laytpl = layui.laytpl,
-        table = layui.table;
+        table = layui.table,
+		publicUtil=layui.publicUtil;
     
 		application.init();
 				var start;
@@ -41,7 +44,8 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 							end	 =value;
 					}
 				});
-			
+	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
     //日志列表
     var tableIns = table.render({
         elem: '#logsList',
@@ -64,6 +68,7 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
             {field: 'excContent', title: '异常信息',event: 'setSign'}
         ]]
     });
+		
 	
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 	$(".search_btn").on("click",function(){
@@ -84,10 +89,10 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 	});
 	
 	//行点击事件
-	  //监听单元格事件
+	//监听单元格事件
 	table.on('tool(logsList)', function(obj){
 		var data = obj.data;
-			openLogsInfo(data);
+		publicUtil.show_menu(data);
 	});
 	
 	function openLogsInfo(edit){
