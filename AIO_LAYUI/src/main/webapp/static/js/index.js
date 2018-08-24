@@ -43,7 +43,8 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 				username = res.user.username;
 				var photo= res.user.photo;
 				if(photo!=null&&photo!=""){
-					$(".user-photo a img").Attr("src",photo);
+					$(".user-photo a img").attr("src",photo);
+					$(".userAvatar").attr("src",photo);
 				}
 				id = res.user.id;
 				//初始化顶部菜
