@@ -96,7 +96,6 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 							formSelects.data('userRole', 'local', {
 									arr: rs.list					
 							})
-							console.log(formSelectsdata);	
 
 							if(formSelectsdata != null && formSelectsdata != '' && formSelectsdata != 'undefined'){
 									layui.formSelects.value('userRole', formSelectsSetValue(formSelectsdata));								
