@@ -1,6 +1,7 @@
 package com.mpri.aio.system.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.exception.UnauthorizedException;
@@ -59,7 +62,7 @@ public class LoginController extends BaseController {
 	 * 管理登录
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public RestResponse<String>  login(@RequestParam("username") String username,
+	public RestResponse<String> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("authCode")String authCode,HttpSession session) {
 	
@@ -90,13 +93,36 @@ public class LoginController extends BaseController {
         	}
 		
         }else {
-        	return new RestResponse<String>(1, "验证码错误！", null);
+        	return new RestResponse<String>(ExceptionResult.NO_PERMISSION, "验证码错误！", null);
         }
-	
 	}
 
-
-
+	
+	/**
+	 * 首页初次加载菜单
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "refreshToken")
+	public RestResponse<String> refreshToken(HttpServletRequest request) {
+		String token=request.getHeader("Authorization");
+		
+		DecodedJWT jwt = JWT.decode(token);
+    	Date now=new Date();
+    	long nowTime=now.getTime();
+    	long tokenTime=jwt.getExpiresAt().getTime();
+    	//Date tokenDate=new Date(jwt.getExpiresAt().getTime());
+    	String username=JWTUtil.getUsername(token);
+    	if((tokenTime-nowTime)<JWTUtil.REFESH_TIME) {
+    		SysUser sysUser=sysUserService.getSysUserByUsername(username);
+    		String password=sysUser.getPassword();
+    		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "token已刷新", JWTUtil.sign(username, password));
+    	}else {
+    		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "token可以继续使用", token);
+    	}
+		
+	}
+	
 	/**
 	 * 首页初次加载菜单
 	 * @param request

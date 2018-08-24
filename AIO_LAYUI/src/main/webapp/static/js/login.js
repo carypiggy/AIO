@@ -37,7 +37,7 @@ layui.use(['form','layer','jquery','application'],function(){
 					//将token保存在cookie中			
 					sessionStorage.setItem("token", data.data);
 					top.layer.msg("登陆成功");
-					window.location.href = "../webapp/index.html";
+					window.location.href = "../index.html";
 				}else{
 					top.layer.msg(data.msg+"("+data.code+")");
 				}
