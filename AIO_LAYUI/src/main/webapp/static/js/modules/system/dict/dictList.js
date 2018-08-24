@@ -45,14 +45,14 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 
 	//新增操作
 	$(document).on('click','#ADD',function(){
-    	addDict();
+    	_addDict();
     });
 	
 	//编辑操作
 	$(document).on('click','#EDIT',function(){		
 		var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
-		if(flag){
-			addDict(table.checkStatus('dictList').data[0]);
+		if(flag){			
+			_addDict(table.checkStatus('dictList').data[0]);
 		}else{
 			return false;
 		}
@@ -146,5 +146,10 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         })
     }
 	
+	
+	//添加编码
+	function _addDict(edit){
+		publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysdict/get',edit ==undefined?null:edit.id,"编码管理","dictAdd.html");
+	}
 
 })

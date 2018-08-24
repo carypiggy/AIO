@@ -138,7 +138,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 								body.find(".params").val(result.data.params);
 								body.find(".excContent").val(result.data.excContent);
 							}
-						},
+						},	
 						error(data){
 							var result=data.responseJSON;
 							top.layer.msg(result.msg+"("+result.code+")");

@@ -10,25 +10,38 @@ layui.define(['form','layer','jquery','application'],function(exports){
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
+	
 	var obj ={
 		
 		
 		 //封装Ajax 未完成
-         aio_ajax :  function (sync, cache, type, url, datatype, data, func) { 
+		 /**
+		  * sync 
+		  * cache
+		  * type
+		  * url
+		  * datatype
+		  * data
+		  * sucfunc
+		  * errfunc
+		  */
+         aio_ajax :  function (sync, cache, type, url, datatype, data, sucfunc,errfunc) { 
                 $.ajax({
                     sync: sync,
                     type: type,
                     url: url,
                     dataType: datatype,
                     data: data,
-                    beforSend: function () {						
+                    beforSend: function () {
+						beforefunc();
                     },
+					success: function (sucdata) {
+						sucfunc(sucdata);
+					},
                     error: function (errdata) {
 						errfunc(errdata)
-                    },
-                    success: function (sucdata) {
-                        sucfunc(sucdata);
                     }
+
                 });
          },		
 		
@@ -126,8 +139,9 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		 * @param {Object} ID
 		 * @param {Object} titleName
 		 * @param {Object} pageUrl
+		 * @Paren 是否加载父元素
 		 */
-		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl)
+		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl,isParent)
 		{
 			$.ajax({
 				url: getByIdUrl, //ajax请求地址
@@ -157,6 +171,10 @@ layui.define(['form','layer','jquery','application'],function(exports){
 					$(window).on("resize", function() {
 						layui.layer.full(index);
 					})
+				},
+				error(data){
+					var result=data.responseJSON;
+					top.layer.msg(result.msg+"("+result.code+")");
 				}
 			});
 		},
@@ -264,5 +282,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 			}
 		}
 	}
+	
+	
     exports('publicUtil', obj);
 })

@@ -17,6 +17,28 @@ layui.use(['form','layer','application','validparam'],function(){
         $ = layui.jquery;
     
     form.verify(validparam);
+	
+	function formEdit(FormDatas){
+		if(parent.editFormData != ''){
+			data = parent.editFormData;
+			$(".id").val(data.id);
+			$(".remark").val(data.remark);
+			$(".value").val(data.value);
+			$(".typeCode").val(data.typeCode);
+			$(".label").val(data.label);
+			$(".value").val(data.value);
+			$(".sort").val(data.sort);
+		}else{
+			return false;
+		}
+	}
+
+	
+	/**
+	 * 表单回显
+	 */
+	formEdit(parent.editFormData);
+	
     form.on("submit(addDict)",function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});

@@ -65,6 +65,11 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 
 
     //添加区域
+    function _addArea(edit){
+		publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysarea/get',edit ==undefined?null:edit.id,"区域修改","areaAdd.html");
+    }
+
+    //添加区域
     function addArea(edit,type){
         var index = layui.layer.open({
             title : "区域修改",
@@ -132,12 +137,13 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
     }
 
 	$(document).on('click','#ADD',function(){
-		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
-		if(flag){
-			addArea(treeGrid.checkStatus('areaTree').data[0],'add');
-		}else{
-			return false;
-		}
+// 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
+// 		if(flag){
+			// addArea(treeGrid.checkStatus('areaTree').data[0],'add');
+// 		}else{
+// 			return false;
+// 		}
+		addArea();
 	});
 	
 	//编辑操作

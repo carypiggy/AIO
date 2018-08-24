@@ -42,7 +42,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
         ]]        
 		,done: function(res, curr, count){    //res 接口返回的信息,
 			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'},'isShow');
-			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'},'type');
+			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'},'type');
 		}
 
     });
