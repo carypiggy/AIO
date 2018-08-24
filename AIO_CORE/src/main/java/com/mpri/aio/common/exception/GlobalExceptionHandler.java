@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public RestResponse<ShiroException> handle401(ShiroException e) {
-        return new RestResponse<ShiroException>(401, e.getMessage(), null);
+        return new RestResponse<ShiroException>(ExceptionResult.NO_PERMISSION, "您权限不足，请联系管理员，或重新登陆！", null);
     }
  
 
@@ -32,15 +32,21 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public RestResponse<UnauthorizedException> handle401() {
-        return new RestResponse<UnauthorizedException>(401, "该账号密码无法登陆", null);
+        return new RestResponse<UnauthorizedException>(ExceptionResult.NO_PERMISSION, "账号或密码错误，请重新输入！", null);
     }
-
+    
+//    // 捕捉系统内部错误异常
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public RestResponse<Exception> handle500(HttpServletRequest request, Throwable ex) {
+//        return new RestResponse<Exception>(ExceptionResult.SYS_ERROR, "服务器内部错误，请检查网络或联系系统管理员！", null);
+//    }
+    
     
     // 捕捉其他所有异常
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public RestResponse<Exception> globalException(HttpServletRequest request, Throwable ex) {
-        return new RestResponse<Exception>(getStatus(request).value(), ex.getMessage(), null);
+        return new RestResponse<Exception>(getStatus(request).value(), "服务器内部错误，请检查网络或联系系统管理员！", null);
     }
 
     

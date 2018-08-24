@@ -41,16 +41,16 @@
 		<div class="layui-tab-content" style="">
 			<div class="layui-tab-item layui-show">
 				<form class="layui-form" style="width:100%;">
-					<input id='username' name='username'  />
-					<input id='sysUserId' name='sysUserId'  />
+					<input type="hidden" id='username' name='username'  />
+					<input type="hidden" id='sysUserId' name='sysUserId'  />
 					<fieldset class="layui-elem-field site-demo-button" style="padding:15px;">
-						<input type="hidden" class="layui-input truePhoto" name='id' id='schoolmateid' >
-						<input type="hidden" class="layui-input truePhoto" name='truePhoto'  placeholder="上传照片">
+						<input type="hidden" class="layui-input truePhoto" name='id' id='schoolmateid' />
+						<input type="hidden" class="layui-input truePhoto" name='truePhoto'  placeholder="上传照片"/>
 						<div class="layui-row">
 							<div class="magb15 layui-col-md6 layui-col-xs12">
 								<label class="layui-form-label">姓名</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input name" name='name' lay-verify="required" placeholder="请输入姓名">
+									<input type="text" class="layui-input name" name='name' lay-verify="required" placeholder="请输入姓名"/>
 								</div>
 							</div>
 							<div class="magb15 layui-col-md6 layui-col-xs12">
@@ -94,11 +94,10 @@
 							<div class="magb15 layui-col-md6 layui-col-xs12">
 								<label class="layui-form-label">证件号码</label>
 								<div class="layui-input-block">
-									<input type="text" class="layui-input cardId" name='cardId'  placeholder="请输入证件号码" ><!-- lay-verify="required" -->
+									<input type="text" class="layui-input cardId" name='cardId'  placeholder="请输入证件号码" >
 								</div>
 							</div>
 						</div>
-
 
 						<div class="layui-row">
 							<div class="magb15 layui-col-md6 layui-col-xs12">
@@ -112,22 +111,22 @@
 						<div class="layui-row">
 							<label class="layui-form-label">籍贯</label>
 							<div class="layui-col-xs2">
-								<select xm-select="country" id='country' name='country'><!-- lay-verify="required" -->
+								<select xm-select="country" id='country' name='country' lay-filter="country">
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<select xm-select="province" id='province' name='province' ><!-- lay-verify="required" -->
+								<select xm-select="province" id='province' name='province' lay-filter="province">
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<select xm-select="city" id='city' name='city'> <!-- lay-verify="required" -->
+								<select xm-select="city" id='city' name='city' lay-filter="city"> 
 									<option value=""></option>
 								</select>
 							</div>
 							<div class="layui-col-xs2">
-								<select xm-select="district" id='district' name='district' ><!-- lay-verify="required" -->
+								<select xm-select="district" id='district' name='district' lay-filter="district">
 									<option value=""></option>
 								</select>
 							</div>
@@ -143,8 +142,6 @@
 				<form class="layui-form" id='eduFrom' style="width:100%;">
 					 <fieldset id='firstEdu' class="layui-elem-field site-demo-button" style="padding:15px;">
 						<input type="hidden" class="layui-input exp_name" id="edu_id_0"   >
-						<input type="hidden"  name="sysUserUsername" value="123123" />
-						<input type="hidden"  name="sysUserId" value="123123" />
 						
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
@@ -196,7 +193,6 @@
 									<input type="text" class="layui-input edu_class" id='edu_className_0' name='className' lay-verify="required" placeholder="请输入姓名">
 								</div>
 							</div>
-
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">学历</label>
 								<div class="layui-input-block">
@@ -361,9 +357,6 @@
 
 			<div class="layui-tab-item">
 				<form id="expForm" class="layui-form" style="width:100%;">
-					
-					
-					<!-- <input type="hidden" id="exp_id" name="id" value="" /> -->
 					<fieldset id='firstExp' class="layui-elem-field site-demo-button" style="padding:15px;">
 						<input type="hidden" class="layui-input exp_name" id="exp_id_0"   >
 						<div class="layui-row">
@@ -374,12 +367,10 @@
 									
 								</div>
 							</div>
-
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">职务</label>
 								<div class="layui-input-block">
 									<input type="text" class="layui-input exp_pos" id="exp_position_0" name='position' lay-verify="required" placeholder="请输入职务">
-
 								</div>
 							</div>
 							<div class="magb15  layui-col-xs3">
@@ -440,9 +431,7 @@
 
 			<div class="layui-tab-item">
 				<form  id="contactForm" class="layui-form" style="width:100%;">
-	
 					<fieldset id='firstContact' class="layui-elem-field site-demo-button" style="padding:15px;">
-						<!-- 需要替换掉里面的值 -->
 						<input type="hidden" class="layui-input exp_name" id="cont_id_0"   >
 						<div class="layui-row">
 							<div class="magb15  layui-col-xs3">
@@ -453,7 +442,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="magb15  layui-col-xs3">
 								<label class="layui-form-label">联系内容</label>
 								<div class="layui-input-block">
@@ -494,9 +482,7 @@
 			</div>
 			<div class="layui-tab-item">
 				<form  id="addFrom" class="layui-form" style="width:100%;">
-					
 					<fieldset  class="layui-elem-field site-demo-button" style="padding:15px;">
-<
 						<input type="hidden" class="layui-input exp_name" id="add_id_0"   >
 						<div class="magb15 layui-row">
 							<div class="magb15">
@@ -548,10 +534,7 @@
 							</div>
 						</div>
 					</fieldset>
-					
-					
 						<fieldset  class="layui-elem-field site-demo-button" style="padding:15px;">
-					<
 											<input type="hidden" class="layui-input exp_name" id="cont_id_1"   >
 											<div class="magb15 layui-row">
 												<div class="magb15">
@@ -610,15 +593,10 @@
 				<div class="layui-layer-btn ">
 				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addAddinfo" id='addAddinfo'>新增</button>
 				</div>
-				
 			</div>
-
 			<div class="layui-tab-item">
 				<form id="familyFrom" class="layui-form" style="width:100%;">
-			
-					
 					<fieldset id="firstFamily" class="layui-elem-field site-demo-button" style="padding:15px;"><input type="hidden" class="layui-input exp_name" id="family_id_0"   >
-						
 					<div class="layui-row">	
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">姓名</label>
@@ -634,7 +612,6 @@
 								</select>
 							</div>
 						</div>
-						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label" >是否校友</label>
 							<div class="layui-input-block">
@@ -642,7 +619,6 @@
 								<input type="radio" name="isschool_0" value="1" title="否" checked>
 							</div>
 						</div>
-						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">关系</label>
 							<div class="layui-input-block">
@@ -651,17 +627,14 @@
 								</select>
 							</div>
 						</div>
-					
 						</div>
 						<div class="layui-row">
-							
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">出入日期</label>
 							<div class="layui-input-block">
 								<input type="text" class="layui-input birthday" id="fam_birthday_0" name='birthday' placeholder="yyyy-MM-dd">
 							</div>
 						</div>
-						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">职业</label>
 							<div class="layui-input-block">
@@ -682,11 +655,8 @@
 						</div>
 						</div>
 					</fieldset>
-					
-					
 					<fieldset id="firstFamily" class="layui-elem-field site-demo-button" style="padding:15px;">
 						<input type="hidden" class="layui-input exp_name" id="family_id_1"   >
-						
 					<div class="layui-row">	
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">姓名</label>
@@ -702,7 +672,6 @@
 								</select>
 							</div>
 						</div>
-						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label" >是否校友</label>
 							<div class="layui-input-block">
@@ -710,7 +679,6 @@
 								<input type="radio" name="isschool_1" value="1" title="否" checked>
 							</div>
 						</div>
-						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">关系</label>
 							<div class="layui-input-block">
@@ -719,17 +687,14 @@
 								</select>
 							</div>
 						</div>
-					
 						</div>
 						<div class="layui-row">
-							
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">出入日期</label>
 							<div class="layui-input-block">
 								<input type="text" class="layui-input birthday" id="fam_birthday_1" name='birthday' placeholder="yyyy-MM-dd">
 							</div>
 						</div>
-						
 						<div class="magb15  layui-col-xs3">
 							<label class="layui-form-label">职业</label>
 							<div class="layui-input-block">
@@ -787,10 +752,7 @@
 							</div>
 						</div>
 						</div>
-						
 					</fieldset>
-					
-					
 					<fieldset id="firstSocia" class="layui-elem-field site-demo-button"	 style="padding:15px;">
 						<input type="hidden" class="layui-input exp_name" id="soc_id_1"   >
 						<input type="hidden" name='type' id='soc_type_1' value='政治面貌' />
@@ -817,7 +779,6 @@
 							</div>
 						</div>
 						</div>
-						
 					</fieldset>
 					<div class="layui-layer-btn ">
 					<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addSocia">确认</button>
@@ -829,9 +790,7 @@
 			</div>
 			<div class="layui-tab-item">
 				<form  id="socia_sForm" class="layui-form" style="width:100%;">
-					
 					<input type="hidden" class="layui-input exp_name" id="socia_id_0"   >
-
 					<input type="hidden" name='type' id='socia_type_0' value='社会兼职' />
 					<fieldset  id="firstSocia_s" class="layui-elem-field site-demo-button"	 style="padding:15px;">
 						<div class="layui-row">
@@ -866,6 +825,45 @@
 								<label class="layui-form-label">退出时间</label>
 								<div class="layui-input-block">
 									<input type="text" class="layui-input enddate" id="soc_s_enddate_0" name='enddate' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset  id="firstSocia_s" class="layui-elem-field site-demo-button"	 style="padding:15px;">
+						<input type="hidden" class="layui-input exp_name" id="socia_id_1"   >
+						<input type="hidden" name='type' id='socia_type_1' value='社会兼职' />
+						<div class="layui-row">
+							<div class="magb15  layui-col-xs4">
+								<label class="layui-form-label">名称</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input name" id="socia_name_1" name='name' lay-verify="required" placeholder="请输入姓名">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs4">
+								<label class="layui-form-label">职务</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input position" id="socia_position_1" name='position' lay-verify="required" placeholder="请输入姓名">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs4">
+								<label class="layui-form-label">说明</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input infoval" id="socia_infoval_1" name='infoval' lay-verify="required" placeholder="请输入姓名">
+								</div>
+							</div>
+						</div>
+						<div class="layui-row">
+						
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">加入时间</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input startdate" id="soc_s_startdate_1" name='startdate' placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+							<div class="magb15  layui-col-xs3">
+								<label class="layui-form-label">退出时间</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input enddate" id="soc_s_enddate_1" name='enddate' placeholder="yyyy-MM-dd">
 								</div>
 							</div>
 						</div>
@@ -970,13 +968,10 @@
 					<div class="layui-layer-btn ">
 						<button class="layui-btn layui-btn-sm"  lay-submit=""lay-filter="addHonor">确认</button>
 					</div>
-			
 				</form>
 				<div class="layui-layer-btn ">
 				<button class="layui-btn layui-btn-sm"  lay-submit="" lay-filter="addHonorinfo" id='addHonorinfo'>新增</button></div>
 			</div>
-			
-			
 			<div class="layui-tab-item">
 				<form  id='professionFrom' class="layui-form" style="width:100%;">
 					<fieldset id="firstProfession" class="layui-elem-field site-demo-button" style="padding:15px;">
@@ -1138,122 +1133,8 @@
 			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript" src="../../../../static/js/ztree/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../../static/js/modules/schoolmate/schoolmate/schoolmateAdd.js"></script>
-	
-	<!-- 创建模板 {{#  for(var i = 0; i < d.list.length; i++){  }}-->
-	<script id="EduTemp" type="text/html">
-		
-		{{#  layui.each(d.list, function(index, item){ }}
-		<fieldset id='firstEdu' class="layui-elem-field site-demo-button" style="padding:15px; width: 50%; height: 50%;">
-								<input type="hidden" id='sysUserUsername_{{index}}' name="sysUserUsername" value="{{=item.sysUserUsername}}" />
-								<input type="hidden" id='sysUserId{{index}}' name="sysUserId" value="{{=item.sysUserId}}" />
-								
-								<div class="layui-row">
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">学校</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_school" id='edu_school_{{index}}' name='school' lay-verify="required">
-												<option value="{{=item.school}}"></option>
-											</select>
-										</div>
-									</div>
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">学院</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_collage" id='edu_collage_{{index}}' name='college' lay-verify="required">
-												<option value="{{=item.college}}"></option>
-											</select>
-										</div>
-									</div>
-		
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">书院</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_academy" id='edu_academy_{{index}}' name='academy' lay-verify="required">
-												<option value="{{=item.academy}}"></option>
-											</select>
-										</div>
-									</div>
-									<div class="magb15 layui-col-xs3">
-										<label class="layui-form-label">系</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_series" id='edu_series_{{index}}' name='series' lay-verify="required">
-												<option value="{{=item.series}}"></option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="layui-row">
-									<div class="magb15 layui-col-xs3">
-										<label class="layui-form-label">专业</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_specialty" id='edu_specialty_{{index}}' name='specialty' lay-verify="required">
-												<option value="{{=item.specialty}}"></option>
-											</select>
-										</div>
-									</div>
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">班级</label>
-										<div class="layui-input-block">
-											<input type="text" class="layui-input edu_class" id='className_{{index}}' name='className' value="{{=item.className}}" lay-verify="required" placeholder="请输入姓名">
-										</div>
-									</div>
-		
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">学历</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_degree" id='edu_degree_{{index}}' name='degree' lay-verify="required">
-												<option value="{{=item.degree}}"></option>
-											</select>
-										</div>
-									</div>
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">学位类型</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_degreetype" id='edu_degreetype_{{index}}' name='degreetype' lay-verify="required">
-												<option value="{{=item.degreetype}}"></option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="layui-row">
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">学号</label>
-										<div class="layui-input-block">
-											<input type="text" class="layui-input studentid" id="studentid_{{index}}"
-												name='studentid' lay-verify="required" value="{{=item.studentid}}" placeholder="请输入学号">
-										</div>
-									</div>
-									<div class="magb15 layui-col-xs3">
-										<label class="layui-form-label">学制</label>
-										<div class="layui-input-block">
-											<select xm-select="edu_schoollen" id='edu_schoollen_{{index}}' name='schoollen'   lay-verify="required">
-												<option value="{{=item.schoollen}}"></option>
-											</select>
-										</div>
-									</div>
-		
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">入学日期</label>
-										<div class="layui-input-block">
-											<input type="text" class="layui-input edu_startdate" id="edu_startdate_{{index}}" name='startdate' value="{{=item.startdate}}" placeholder="yyyy-MM-dd">
-										</div>
-									</div>
-									<div class="magb15  layui-col-xs3">
-										<label class="layui-form-label">毕业日期</label>
-										<div class="layui-input-block">
-											<input type="text" class="layui-input edu_enddate" id="edu_enddate_{{index}}" name='enddate'  value="{{=item.enddate}}" placeholder="yyyy-MM-dd">
-										</div>
-									</div>
-								</div>
-							</fieldset>							
-					{{#   })  }} 
-					
-	</script>
-	
 </body>
-
 </html>

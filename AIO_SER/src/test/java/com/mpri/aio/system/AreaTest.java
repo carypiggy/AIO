@@ -54,7 +54,7 @@ public class AreaTest extends ApplicationTests {
 	/**
 	 *. 更新 -- 通过
 	 */
-	@Test
+//	@Test
     public void testUpdateUsers(){
 		
 		SysArea area = new SysArea();
@@ -93,8 +93,8 @@ public class AreaTest extends ApplicationTests {
     @Test
     public void  testloadAllListBy() {
     	SysArea area=  new SysArea();
-//    	area.setFlag("0");
-    	area.setParentId("Root");
+   	    area.setFlag("0");
+    //	area.setParentId("Root");
 		List<SysArea> sysAreaList=sysAreaService.loadAllListBy(area);
 		super.outprint("java.util.List", sysAreaList);
 		   

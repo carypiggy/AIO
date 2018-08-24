@@ -22,10 +22,11 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
     
 	
 	/**
-	 * 根据角色id获取权限集合
+	 * 根据角色id获取角色集合
 	 * @param username
 	 * @return
 	 */
+	
 	public List<SysMenu> loadPerByRole(String id) {
 		SysRole sysRole=new SysRole();
 		sysRole.setId(id);
