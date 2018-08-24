@@ -39,6 +39,28 @@
 									</div>
 								</div>
 							</div>
+							<div class="layui-row">
+								<div class="layui-col-md6 layui-col-xs12">
+									<label class="layui-form-label">正面图片</label>
+									<button type="button" class="layui-btn selectphoto" data-phototype="front">上传图片</button>
+									<div class="layui-upload" style="display: flex;justify-content: center;align-items: center;">			  
+										<div class="layui-upload-list">
+											<img class="layui-upload-img" id="front_photo" style="vertical-align:middle;">
+											<p id="front_photoPath" name="front_photo"></p>
+										</div>
+									</div>   
+								</div>
+								<div class="layui-col-md6 layui-col-xs12">
+									<label class="layui-form-label">背面图片</label>
+									<button type="button" class="layui-btn selectphoto" data-phototype="behind">上传图片</button>
+									<div class="layui-upload" style="display: flex;justify-content: center;align-items: center;">			  
+										<div class="layui-upload-list">
+											<img class="layui-upload-img" id="behind_photo" style="vertical-align:middle;">
+											<p id="behind_photoPath" name="behind_photo"></p>
+										</div>
+									</div>   
+								</div>
+							</div>
 							<div class="layui-layer-btn ">
 								<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addSchoolfellow">确认</button>
 							</div>

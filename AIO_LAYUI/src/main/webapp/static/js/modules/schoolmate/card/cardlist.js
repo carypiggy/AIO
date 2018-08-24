@@ -43,14 +43,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl', 'application', 'public
 				field: 'type',
 				title: '卡片类型'
 			}, {
-				field: 'create_date',
+				field: 'createDate',
 				title: '创建时间'
-			}, {
-				title: '操作',
-				width: 170,
-				templet: '#userListBar',
-				fixed: "right",
-				align: "center"
 			}]
 		]
 	});
@@ -90,7 +84,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl', 'application', 'public
 					},
 					success: function(data) {
 						if(data = "success") {
-							table.reload();
+							tableIns.reload();
 							layer.close(index);
 						}
 					}
