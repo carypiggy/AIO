@@ -38,6 +38,16 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 		mapper.deleteUserRole(sysUser);
 		mapper.insertUserRole(sysUser);
 	};
+	
+    /**
+     * 删除用户和角色信息
+    * <p>Title: insertUserRole</p>  
+    * <p>Description: </p>  
+    * @param sysUser
+     */
+	public void deleteUserRole(SysUser sysUser) {
+		mapper.deleteUserRole(sysUser);
+	};
 
 //	@Transactional(rollbackFor=Exception.class)
 //	public void saveUsers(List<SysUser> userList) {

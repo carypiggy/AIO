@@ -54,11 +54,19 @@
 				
 				
 				$.ajax({
-						url: application.SERVE_URL+'/sys/sysorg/tree',                  //ajax请求地址
-						headers : { 'Authorization' : application.HEADER},
-						success: function (data) {	
-							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
-						}
+					url: application.SERVE_URL+'/sys/sysorg/tree',                  //ajax请求地址
+					headers : { 'Authorization' : application.HEADER},
+					success: function (data) {	
+						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
+											//获取根节点个数,getNodes获取的是根节点的集合
+						var nodeList = ztreeObj.getNodes();
+			　　　　　　//展开第一个根节点
+						ztreeObj.expandNode(nodeList[0], true);
+						//回填机构的
+						publicUtil.setTreeSel(parent.parent.formdatas.parentSysOrg.id,ztreeObj);
+						//回填用户
+						
+					}
 				 });	
 				 
 				 $("#getSelectData").click(function(){
