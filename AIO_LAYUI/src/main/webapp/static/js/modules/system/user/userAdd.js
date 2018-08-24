@@ -60,7 +60,6 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 							$('#photo').attr('src', result); //图片链接（base64）
 						});
 					}
-					,bindAction: '#addUser'
 					,done: function(res){
 						$('#photoPath').html(application.SERVE_URL+'/'+res.data);
 						//如果上传失败
@@ -96,7 +95,6 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 							formSelects.data('userRole', 'local', {
 									arr: rs.list					
 							})
-							console.log(formSelectsdata);	
 
 							if(formSelectsdata != null && formSelectsdata != '' && formSelectsdata != 'undefined'){
 									layui.formSelects.value('userRole', formSelectsSetValue(formSelectsdata));								

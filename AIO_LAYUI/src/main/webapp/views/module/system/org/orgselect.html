@@ -63,7 +63,12 @@
 			　　　　　　//展开第一个根节点
 						ztreeObj.expandNode(nodeList[0], true);
 						//回填机构的
-						publicUtil.setTreeSel(parent.parent.formdatas.parentSysOrg.id,ztreeObj);
+						if(parent.parent.formdatas != undefined){
+							publicUtil.setTreeSel(parent.parent.formdatas.parentSysOrg.id,ztreeObj);							
+						}else{
+							publicUtil.setTreeSel(parent.parent.editFormData.orgId,ztreeObj);
+						}
+
 						//回填用户
 						
 					}
