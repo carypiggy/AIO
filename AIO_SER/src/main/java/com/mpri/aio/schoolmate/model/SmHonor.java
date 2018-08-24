@@ -25,7 +25,6 @@ public class SmHonor extends DataEntity<SmHonor> {
 	private Date date;
 	private String domain;
 	private String infoval;
-	private Date createDate;
 
 	
 	public String getSysUserId() {
@@ -69,13 +68,6 @@ public class SmHonor extends DataEntity<SmHonor> {
 	}
 	public void setInfoval(String infoval) {
 		this.infoval = infoval;
-	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}	
 
 }

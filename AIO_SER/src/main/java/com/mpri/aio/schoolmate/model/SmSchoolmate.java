@@ -34,7 +34,6 @@ public class SmSchoolmate extends DataEntity<SmSchoolmate> {
 	private Integer point;
 	private String nation;
 	private Integer complete;
-	private Date createDate;
 	private SmAddress smAddress;
 	
 	public String getSysUserId() {
@@ -145,11 +144,5 @@ public class SmSchoolmate extends DataEntity<SmSchoolmate> {
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
-	}
-	public SmAddress getSmAddress() {
-		return smAddress;
-	}
-	public void setSmAddress(SmAddress smAddress) {
-		this.smAddress = smAddress;
 	}	
 }

@@ -25,7 +25,6 @@ public class SmSocial extends DataEntity<SmSocial> {
 	private Date startdate;
 	private Date enddate;
 	private String type;
-	private Date createDate;
 
 	
 	public String getSysUserId() {
@@ -77,12 +76,6 @@ public class SmSocial extends DataEntity<SmSocial> {
 	}
 	public void setType(String type) {
 		this.type = type;
-	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}	
 
 }

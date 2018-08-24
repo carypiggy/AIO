@@ -65,11 +65,5 @@ public class SmExperience extends DataEntity<SmExperience> {
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}	
 
 }

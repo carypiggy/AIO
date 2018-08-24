@@ -28,7 +28,6 @@ public class SmProfession extends DataEntity<SmProfession> {
 	private String fax;
 	private Date startdate;
 	private Date enddate;
-	private Date createDate;
 
 	
 	public String getSysUserId() {
@@ -98,12 +97,6 @@ public class SmProfession extends DataEntity<SmProfession> {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
-	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}	
 
 }

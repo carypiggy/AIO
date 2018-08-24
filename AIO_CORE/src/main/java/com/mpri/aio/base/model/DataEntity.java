@@ -2,8 +2,7 @@ package com.mpri.aio.base.model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mpri.aio.common.utils.IdGen;
 
 /**
@@ -16,6 +15,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 
 	private static final long serialVersionUID = 1L;
 	
+
 	protected Date createDate;
 	
 	protected String remark;	// 备注
@@ -77,6 +77,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		this.flag = flag;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	public Date getCreateDate() {
 		return createDate;
 	}

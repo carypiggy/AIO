@@ -32,7 +32,6 @@ public class SmEducation extends DataEntity<SmEducation> {
 	private String schoollen;
 	private Date startdate;
 	private Date enddate;
-	private Date createDate;
 
 	
 	public String getSysUserId() {
@@ -121,11 +120,6 @@ public class SmEducation extends DataEntity<SmEducation> {
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}	
+
 
 }

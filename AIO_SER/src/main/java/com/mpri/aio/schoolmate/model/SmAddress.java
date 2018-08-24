@@ -26,8 +26,6 @@ public class SmAddress extends DataEntity<SmAddress> {
 	private String detail;
 	private String phone;
 	private String zipcode;
-	private Date createDate;
-
 	
 	public String getSysUserId() {
 		return this.sysUserId;
@@ -89,11 +87,6 @@ public class SmAddress extends DataEntity<SmAddress> {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}	
+	
 
 }
