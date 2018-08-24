@@ -58,10 +58,10 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 				success: function (data) {
 				treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
 				//初始化
-				var node = treeObj.getNodeByParam('id', 0);//获取id为1的点
-				treeObj.selectNode(node);//选择点
-				treeObj.expandAll(true);
-				treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);//调用事件	
+				var nodeList = treeObj.getNodes();
+	　　　　　　//展开第一个根节点
+				treeObj.expandNode(nodeList[0], true);
+				treeObj.setting.callback.onClick(null, treeObj.setting.treeId, nodeList[0]);//调用事件	
 			}
 		});		
 		// $.fn.zTree.init($("#treeDemo"), setting);
@@ -97,7 +97,7 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 						cellMinWidth : 95,
 						page : true,
 						where:{orgId : treeNode.id},
-						height : "full-125",
+						height : "full-160",
 						limit : 10,
 						id : "userList",
 						cols : [[

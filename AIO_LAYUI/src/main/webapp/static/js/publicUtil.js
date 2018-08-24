@@ -197,17 +197,27 @@ layui.define(['form','layer','jquery'],function(exports){
 		 * Tree    树id
 		 * 
 		 */
-		setTreeSel : function(treeNode,treeObj,treeid){
-			console.log("知");
-			if (treeNode != null) {
+		setTreeSel : function(treeNode,treeObj){
+			console.log(typeof treeNode);
+			console.log(treeNode instanceof Object);
+			if (treeNode instanceof Object) {
 				//遍历勾选角色关联的菜单数据
 				for (var i = 0; i < treeNode.length; i++) {
 					//根据角色菜单节点数据的属性搜索，获取与完整菜单树完全匹配的节点JSON对象集合
 					var nodes = treeObj.getNodesByParam("id",
-							treeid+'_'+treeNode[i].id, null);
+							treeNode[i].id, null);
 					//勾选当前选中的节点
 					treeObj.checkNode(nodes[0], true, true);
+					ztreeObj.expandNode(nodes[0], true);
 				}
+			}else if(typeof treeNode == 'String'){
+				var nodes = treeObj.getNodesByParam("id",
+						treeNode, null);
+				//勾选当前选中的节点
+				treeObj.checkNode(nodes[0], true, true);
+				ztreeObj.expandNode(nodes[0], true);
+			}else{
+				return false;
 			}
 		}
 	}

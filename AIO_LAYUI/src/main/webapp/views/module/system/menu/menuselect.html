@@ -49,25 +49,29 @@
 				//重置按钮
 				//生产环境具体考虑
 				$("#reset").click(function(){
-					alert("66")
 					ztreeObj.checkAllNodes(true);
 				});
 				
 				
 				$.ajax({
-						url: application.SERVE_URL+'/sys/sysmenu/list',
-						headers : { 'Authorization' : application.HEADER},				  //ajax请求地址
-						success: function (data) {	
-							ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
+					url: application.SERVE_URL+'/sys/sysmenu/list',
+					headers : { 'Authorization' : application.HEADER},				  //ajax请求地址
+					success: function (data) {	
+						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
+											//获取根节点个数,getNodes获取的是根节点的集合
+						var nodeList = ztreeObj.getNodes();
+			　　　　　　//展开第一个根节点
+						ztreeObj.expandNode(nodeList[0], true);
+						//树回显
+						if(parent.parent.formdatas != undefined){
+							publicUtil.setTreeSel(parent.parent.formdatas.parentSysMenu.id,ztreeObj);
 						}
+						
+					}
 				 });	
 				 
 				 $("#getSelectData").click(function(){
 					 publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
-// 						$(window.parent.document).find(".parentId").val(ztreeObj.getCheckedNodes()[0].id);
-// 						$(window.parent.document).find(".parentName").val(ztreeObj.getCheckedNodes()[0].name);
-// 						var index=parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
 				 })
 			});
 

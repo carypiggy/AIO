@@ -38,23 +38,19 @@
 					},
 					data: {
 							simpleData: {
-									enable: true
+									enable: true,
+									idKey: "id",
+									pIdKey: "parentId"
+									// rootPId: 0									
 							}
 					}
 			};
 
 			//获取该角色已经配置的权限
+			
 			function getTreeCheckDatas(){
-				$.ajax({
-					url : application.SERVE_URL+'/sys/sysrole/get',
-					type : 'POST',
-					headers : { 'Authorization' : sessionStorage.getItem('token')},	
-					data : {"id" : parent.formdatas.id}, //ajax请求地址
-					succss: function (data) {
-						console.log(data)
-						publicUtil.setTreeSel(data.menuList,ztreeObj);
-					}
-				});	
+				var treeSelectDatas;
+
 			}
 
 
@@ -64,15 +60,23 @@
 				$("#reset").click(function(){
 					ztreeObj.checkAllNodes(false);
 				});
-			
+				
 				$.ajax({
 					url:  application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
 					headers : { 'Authorization' : application.HEADER},
 					success: function (res) {	
-						ztreeObj = $.fn.zTree.init($("#tree"), setting,covert(res.data));  //加载数据
+						ztreeObj = $.fn.zTree.init($("#tree"), setting,res.data);  //加载数据
+						var nodeList = ztreeObj.getNodes();
+			　　　　　　//展开第一个根节点
+						ztreeObj.expandNode(nodeList[0], true);
+						// getTreeCheckDatas(ztreeObj);
+						console.log(parent.formdatas.menuList);
+						publicUtil.setTreeSel(parent.formdatas.menuList,ztreeObj);
+						
+						// console.log(getTreeCheckDatas());
 					}
 				});	
-				getTreeCheckDatas()	;
+				// getTreeCheckDatas()	;
 			});
 			
 			

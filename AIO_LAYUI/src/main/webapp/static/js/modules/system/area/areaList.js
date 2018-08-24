@@ -79,7 +79,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 						},
 						headers : { 'Authorization' : application.HEADER},												
 						success: function (data) {
-							console.log(data);
 							formdatas = data;
 							if(data){
 								body.find(".parentId").val(edit.parentId);
