@@ -33,19 +33,21 @@ layui.use(['form','layer','jquery','application'],function(){
 				authCode : $("#code").val()
 			},
 			success: function (data) {
-				//将token保存在cookie中			
-				sessionStorage.setItem("token", data.data);
-				top.layer.msg("登陆成功");
-				window.location.href = "../webapp/index.html";
+				if(data.code==application.REQUEST_SUCCESS){
+					//将token保存在cookie中			
+					sessionStorage.setItem("token", data.data);
+					top.layer.msg("登陆成功");
+					window.location.href = "../index.html";
+				}else{
+					top.layer.msg(data.msg+"("+data.code+")");
+				}
 			},
 			error: function(data){
-				top.layer.msg("错误"+data.status+":"+data.responseJSON.msg);
+				var result=data.responseJSON;
+				top.layer.msg(result.msg+"("+result.code+")");
 				$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
 			}
 		}); 
-//         setTimeout(function(){
-//             window.location.href = "http://127.0.0.1:8848/AIO_LAYUI/src/main/webapp/index.html";
-//         },1000);
         return false;
     })
 

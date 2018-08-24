@@ -13,64 +13,73 @@
 	<link rel="stylesheet" href="../../../../static/css/public.css" media="all" />
 </head>
 <body class="childrenBody">
-<form class="layui-form " id= "dictForm" style="width:80%;">
+<form class="layui-form " id= "dictForm" style="width:95%; margin-top:30px">
 	<input type="text" class="layui-input id"  style="display: none;">
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">日志类型</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input type">
-		</div>
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">创建者：</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input username" >
+			</div>
+		</div>	
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">创建日期</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input createDate" >
+			</div>
+		</div>	
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">创建者</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input username" >
-		</div>
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">日志类型</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input type">
+			</div>
+		</div>	
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">操作IP</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input requestUri" >
+			</div>
+		</div>	
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">创建日期</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input createDate" >
-		</div>
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">用户代理</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input userAgent" >
+			</div>
+		</div>	
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">请求URI</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input requestUri" >
+			</div>
+		</div>	
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">操作IP地址</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input requestUri" >
-		</div>
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">操作方式</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input method" >
+			</div>
+		</div>	
+		<div class="magb15 layui-col-md6 layui-col-xs12">
+			<label class="layui-form-label">提交参数</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input params" >
+			</div>
+		</div>	
 	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">用户代理</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input userAgent" >
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">请求URI</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input requestUri" >
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">操作方式</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input method" >
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">操作提交的数据</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input params" >
-		</div>
-	</div>
+
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">异常信息</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input excContent" >
+			<textarea class="layui-textarea excContent">
+			</textarea>
 		</div>
 	</div>
 </form>
 	<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
-	<script type="text/javascript" src="../../../../static/js/modules/system/logs/logsInfo.js"></script>
 </body>
 </html>

@@ -96,7 +96,7 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 				title: '日志详情',
 				shadeClose: true,
 				shade: 0.8,
-				area: ['500px', '75%'],
+				area: ['80%', '75%'],
 				// content: '../views/module/system/menu/menuselect.html',
 				content: 'logsInfo.html',
 				success : function(layero, index){
@@ -108,32 +108,44 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 						data:{
 							id :edit.id,
 						},
-						headers : { 'Authorization' : application.HEADER},						
-						success: function (data) {
-							if(data){
-								body.find(".id").val(data.id);
-								body.find(".type").val(data.type);
-								body.find(".username").val(data.username);
-								body.find(".createDate").val(data.createDate);
-								body.find(".remoteAddr").val(data.remoteAddr);
-								body.find(".userAgent").val(data.userAgent);
-								body.find(".requestUri").val(data.requestUri); 
-								body.find(".method").val(data.method);
-								body.find(".params").val(data.params);
-								body.find(".excContent").val(data.excContent);
-							}else{
-								//console.data();
-								top.layer.msg("日志获取失败！");
+						headers : { 'Authorization' : application.HEADER},
+						beforeSend: function(){
+							$.ajax({
+								async:false,
+								url: application.SERVE_URL +'/refreshToken', //ajax请求地址
+								type: "POST",
+								headers : { 'Authorization' : application.HEADER},						
+								success: function (data) {
+									console.log(data);
+								}
+							});
+						},
+						success: function (result) {
+							if(result.code==application.REQUEST_SUCCESS){
+								body.find(".id").val(result.data.id);
+								body.find(".type").val(result.data.type);
+								body.find(".username").val(result.data.username);
+								body.find(".createDate").val(result.data.createDate);
+								body.find(".remoteAddr").val(result.data.remoteAddr);
+								body.find(".userAgent").val(result.data.userAgent);
+								body.find(".requestUri").val(result.data.requestUri); 
+								body.find(".method").val(result.data.method);
+								body.find(".params").val(result.data.params);
+								body.find(".excContent").val(result.data.excContent);
 							}
+						},
+						error(data){
+							var result=data.responseJSON;
+							top.layer.msg(result.msg+"("+result.code+")");
 						}
 					}); 
                     form.render();
-           }
-					setTimeout(function(){
-							layui.layer.tips('点击此处返回日志列表', '.layui-layer-setwin .layui-layer-close', {
-									tips: 3
-							});
-					},30)											
+        }
+				setTimeout(function(){
+					layui.layer.tips('点击此处返回日志列表', '.layui-layer-setwin .layui-layer-close', {
+						tips: 3
+					});
+				},120)											
 				},
 		})
 	}	

@@ -25,13 +25,14 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
     var treeTable =treeGrid.render({
         elem: '#menuTree'
         ,url: application.SERVE_URL+'/sys/sysmenu/list'
-        ,id: "menuTree"
+        ,id: "menuTree",
+		,expends:":"false"
 		,headers : { 'Authorization' : application.HEADER}
         ,treeId:'id'//树形id字段名称
         ,treeUpId:'parentId'//树形父id字段名称
         ,treeShowName:'name'//以树形式显示的字段
         ,cols: [[
-			{type:'checkbox'},
+			{type:'checkbox'},			
             {field:'name', title: '菜单名称'}
             ,{field:'code', title: '菜单编码'}
 			,{field:'href', title: '菜单链接'}

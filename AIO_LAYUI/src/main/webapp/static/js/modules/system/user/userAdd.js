@@ -22,7 +22,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 				layer =layui.layer;
 	
 	
-				console.log(parent.editFormData);
+				var formSelectsdata;
 				if(parent.editFormData != ''){
 					data = parent.editFormData;
 					$(".id").val(data.id);
@@ -35,48 +35,25 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 					$('#photoPath').html(data.photo);
 					$('.orgName').val(data.orgName);
 					$(".orgId").val(data.orgId);
+					if(data.photo != null){
+							document.getElementById("photo").src= data.photo;	
+					}
 					publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'} ,"type",data.type);	
-					layui.formSelects.value('userRole', formSelectsSetValue(data.roleList));
-					form.render();						
+					formSelectsdata = data.roleList;
+					form.render();
+					formSelects.render();
 				}else{
 					publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'} ,"type");
 					form.render();		
 				}
 	
-
-	initSelect();
-    form.on("submit(addUser)",function(data){
-        //弹出loading
-        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-
-       layui.use('layer', function(){
-				$.post(application.SERVE_URL+'/sys/sysuser/save',{
-				//保存用户参数
-				 username: data.field.username,
-				 password: data.field.password,
-				 name: data.field.name,
-				 idcard: data.field.idcard,
-				 photo: data.field.photo,
-				 mobile: data.field.mobile,
-				 email: data.field.email,
-				 type: 1,
-				 orgId: data.field.userOrg,
-				 safecode:data.field.safecode,
-				 remark:data.field.userDesc,
-				 
-				},function(data){
-				top.layer.close(index);
-				top.layer.msg(data.message);
-				layer.closeAll("iframe");
-				})
-		})
-        return false;
-    })
-
 	
 				var uploadInst = upload.render({
 					elem: '#selectphoto'
 					,url: application.SERVE_URL+'/sys/sysuser/uploadimg'
+					,accept: 'images'
+					,exts : 'jpg|png|gif|bmp|jpeg'
+					,size : 50
 					,choose: function(obj){
 						//预读本地文件示例，不支持ie8
 						obj.preview(function(index, file, result){
@@ -119,6 +96,11 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 							formSelects.data('userRole', 'local', {
 									arr: rs.list					
 							})
+							console.log(formSelectsdata);	
+
+							if(formSelectsdata != null && formSelectsdata != '' && formSelectsdata != 'undefined'){
+									layui.formSelects.value('userRole', formSelectsSetValue(formSelectsdata));								
+							}
 						}
 					});
 				}
@@ -162,28 +144,6 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 								top.layer.msg("用户" + res + "失败！");
 							}
 					 });
-					 
-					 
-// 					 layui.use('layer', function(){
-// 						$.post(,{
-// 						//保存用户参数
-// 						 username: data.field.username,
-// 						 password: data.field.password,
-// 						 name: data.field.name,
-// 						 idcard: data.field.idcard,
-// 						 photo: data.field.photo,
-// 						 mobile: data.field.mobile,
-// 						 email: data.field.email,
-// 						 type: 1,
-// 						 orgId: data.field.userOrg,
-// 						 safecode:data.field.safecode,
-// 						 remark:data.field.userDesc
-// 						},function(data){
-// 						top.layer.close(index);
-// 						top.layer.msg(data.message);
-// 						layer.closeAll("iframe");
-// 						})
-// 						})
 						return false;
 				})
 
@@ -224,10 +184,6 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 							},
 					})
 				}
-// 				//机构选择
-// 				$(".userOrg").click(function(){
-// 					selectOrg();
-// 				})
 		
 			//用户名判断提醒
 

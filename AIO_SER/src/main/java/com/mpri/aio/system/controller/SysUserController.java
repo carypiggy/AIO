@@ -25,6 +25,7 @@ import com.mpri.aio.common.utils.FileUtils;
 import com.mpri.aio.common.utils.IdGen;
 import com.mpri.aio.system.model.SysUser;
 import com.mpri.aio.system.service.SysUserService;
+import com.mpri.aio.system.utils.UserUtils;
 
 
 
@@ -35,7 +36,8 @@ public class SysUserController extends BaseController {
 	@Autowired
 	private SysUserService sysUserService;
 	
-	
+	/*初始没有身份证号的密码*/
+	public static final String DEFAULT_PWD = "123456";
 	/**
 	 * 获取用户列表
 	* <p>Title: list</p>  
@@ -62,13 +64,16 @@ public class SysUserController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public String save(@RequestBody @Validated SysUser sysUser){
-		sysUser.setSafecode(IdGen.uuid());
-		sysUser.setPassword("123456");
-		ByteSource salt = ByteSource.Util.bytes(sysUser.getSafecode());
-		//加盐炒三次safecode=salt
-		String result = new Md5Hash(sysUser.getPassword(),salt,3).toString();
-		sysUser.setPassword(result);
-		sysUser.setCreateDate(new Date());
+				
+		if((null == sysUser.getId() && "".equals(sysUser.getId()))) {
+			sysUser.setSafecode(IdGen.uuid());
+			sysUser.setPassword(initPwd(sysUser.getIdcard()));
+			ByteSource salt = ByteSource.Util.bytes(sysUser.getSafecode());
+			//加盐炒三次safecode=salt
+			String result = new Md5Hash(sysUser.getPassword(),salt,3).toString();
+			sysUser.setPassword(result);
+			sysUser.setCreateDate(new Date());
+		}
 		
 		sysUserService.save(sysUser);
 		sysUserService.insertUserRole(sysUser);
@@ -85,6 +90,7 @@ public class SysUserController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public String delete(SysUser sysUser) {
+		sysUserService.deleteUserRole(sysUser);
 		sysUserService.delete(sysUser);
 		return SUCCESS;
 	}
@@ -129,7 +135,7 @@ public class SysUserController extends BaseController {
     public RestResponse<String> uploadImg(@RequestParam("file") MultipartFile file,
             HttpServletRequest request) {
         String contentType = file.getContentType();
-        String fileName = file.getOriginalFilename();
+        String fileName = file.getOriginalFilename(); 
         System.out.println(ClassLoader.getSystemResource(""));
 //        System.out.println("fileName-->" + fileName);
 //        System.out.println("getContentType-->" + contentType);
@@ -143,5 +149,13 @@ public class SysUserController extends BaseController {
         }      
         return RestResponse.getInstance(-1, "上传失败", resfillPath+fileName);
     }
-	
+    
+    
+	private String initPwd(String idCard) {
+		if( null != idCard && idCard.length() > 6 ) {
+			return idCard.substring(idCard.length()-6);
+		}else {
+			return DEFAULT_PWD;
+		}
+	}
 }

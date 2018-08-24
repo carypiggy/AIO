@@ -2,6 +2,7 @@ package com.mpri.aio.system.service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +17,13 @@ import com.mpri.aio.system.model.SysUser;
  */
 @Service
 public class SysRoleService  extends CrudService<SysRoleMapper, SysRole>{
-    
 	
 	/**
 	 * 根据用户id获取角色集合
 	 * @param username
 	 * @return
 	 */
+	@Cacheable(value = "roleCache", key = "#id")
 	public List<SysRole> loadRoleByUser(String id) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);
@@ -38,5 +39,16 @@ public class SysRoleService  extends CrudService<SysRoleMapper, SysRole>{
 	public void saveRoleMenu(SysRole sysRole) {
 		mapper.deleteRoleMenu(sysRole);
 		mapper.insertRoleMenu(sysRole);
+	}
+	
+	/**
+	 * 
+	* <p>Title: deleteRoleMenu</p>  
+	* <p>Description: </p>  
+	* @param sysRole
+	 */
+	@Transactional(readOnly = false)
+	public void deleteRoleMenu(SysRole sysRole) {
+		mapper.deleteRoleMenu(sysRole);
 	}
 }

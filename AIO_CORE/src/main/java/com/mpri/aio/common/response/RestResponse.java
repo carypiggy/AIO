@@ -15,7 +15,6 @@ public class RestResponse<T> {
 
     // 返回的数据
     private T data;
-
     
     public static <T> RestResponse<T> getInstance(int code, String message,T data) {
     	

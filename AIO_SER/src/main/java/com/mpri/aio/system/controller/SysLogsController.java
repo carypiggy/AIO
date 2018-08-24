@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.PageIo;
+import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysLogs;
 import com.mpri.aio.system.service.SysLogsService;
 
@@ -50,10 +52,12 @@ public class SysLogsController extends BaseController{
 	* @param pageSize
 	* @param sysLogs
 	* @return
+	 * @throws Exception 
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-	public SysLogs get(SysLogs sysLogs){
-		return sysLogsService.get(sysLogs);
+	public RestResponse<SysLogs> get(SysLogs sysLogs){
+		//返回受到封装的对象
+		return new RestResponse<SysLogs>(ExceptionResult.REQUEST_SUCCESS,"获取成功",sysLogsService.get(sysLogs));
 	}
 }

@@ -57,15 +57,16 @@
 					headers : { 'Authorization' : application.HEADER},
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
+						
+						if(parent.parent.formdatas != undefined){
+							publicUtil.setTreeSel(parent.parent.formdatas.parentSysArea.id,ztreeObj);
+						}
 					}
 				 });	
 				 
 				 $("#getSelectData").click(function(){
 					 publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
-// 						$(window.parent.document).find(".parentId").val(ztreeObj.getCheckedNodes()[0].id);
-// 						$(window.parent.document).find(".parentName").val(ztreeObj.getCheckedNodes()[0].name);
-// 						var index=parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
+
 				 })
 			});
 

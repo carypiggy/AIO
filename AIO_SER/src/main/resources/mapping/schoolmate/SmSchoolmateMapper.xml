@@ -336,5 +336,5 @@
     	</set>
     	where id = #{id,jdbcType=VARCHAR}
 	</update>
-
+	
 </mapper>
