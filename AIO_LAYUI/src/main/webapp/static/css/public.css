@@ -4,6 +4,7 @@
 .fieldset-div{height:100%;border: none; }
 .rightztree{height:100% ;!important;}
 .layui-but-per{margin-bottom: 7px;margin-top:7px;}
+.layui-overflow-tree{overflow: auto;}
 /* .layui-elem-quote-blockquote{border-left: none !important;} */
 /*上面为新增样式*/
 .childrenBody{height:100% !important; }
