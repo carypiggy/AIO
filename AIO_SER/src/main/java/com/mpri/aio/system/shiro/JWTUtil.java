@@ -17,10 +17,10 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWTUtil  {
 	
 	 // 过期时间5分钟
-    private static final long EXPIRE_TIME = 5*60*1000;
+    private static final long EXPIRE_TIME = 15*60*1000;
     
     // 逾期时间3分钟
-    private static final long REFESH_TIME = 4*60*1000;
+    public static final long REFESH_TIME = 3*60*1000;
     
     /**
      * 校验token是否正确
@@ -98,9 +98,11 @@ public class JWTUtil  {
     	DecodedJWT jwt = JWT.decode(token);
     	Date now=new Date();
     	long nowTime=now.getTime();
-    	long tokenTime=jwt.getIssuedAt().getTime();
+    	long tokenTime=jwt.getExpiresAt().getTime();
+    	String password=getPassword(token);
+    	String username=getUsername(token);
     	if((nowTime-tokenTime)<REFESH_TIME) {
-    		return sign(getUsername(token),getPassword(token));
+    		return sign(username,password);
     	}else {
     		
     		return token;

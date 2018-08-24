@@ -108,7 +108,18 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 						data:{
 							id :edit.id,
 						},
-						headers : { 'Authorization' : application.HEADER},						
+						headers : { 'Authorization' : application.HEADER},
+						beforeSend: function(){
+							$.ajax({
+								async:false,
+								url: application.SERVE_URL +'/refreshToken', //ajax请求地址
+								type: "POST",
+								headers : { 'Authorization' : application.HEADER},						
+								success: function (data) {
+									console.log(data);
+								}
+							});
+						},
 						success: function (result) {
 							if(result.code==application.REQUEST_SUCCESS){
 								body.find(".id").val(result.data.id);

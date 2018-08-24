@@ -21,14 +21,17 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 	
 	
 	tab = layui.bodyTab({
-		openTabNum: "50", //最大可打开窗口数量
+		openTabNum: "20", //最大可打开窗口数量
 		// url: "static/json/menu.json" //获取菜单json地址,
 	});
 
 	
+	
+	//初始化一级菜单
+	initTopMenu();
+	
 	//初始化一级菜单
 	function initTopMenu(url) { //Ajax调用处理
-
 		$.ajax({
 			// url: "static/json/topMenu.json",
 			url: application.SERVE_URL + "/index",
@@ -38,6 +41,10 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 			success: function (res) {
 				$('.userName').html(res.user.name);
 				username = res.user.username;
+				var photo= res.user.photo;
+				if(photo!=null&&photo!=""){
+					$(".user-photo a img").Attr("src",photo);
+				}
 				id = res.user.id;
 				//初始化顶部菜
 				menuDatas = res.menu;
@@ -48,14 +55,14 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 						var tittle = "";
 						if (i == 0) {
 							tittle = '<li class="layui-nav-item layui-this" data-menu="' + cur.code + '" id = "' + cur.code + '">'
-							tittle += '<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i>';
+							tittle += '<a href="javascript:;"><i class="layui-icon '+cur.icon+'"></i>';
 							tittle += '<cite>' + cur.name + '</cite></a></li>'
 							after = cur.code;
 							$("#topLevelMenus").append(tittle);
 	
 						} else {
 							tittle = '<li class="layui-nav-item" data-menu="' + cur.code + '">'
-							tittle += '<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i>';
+							tittle += '<a href="javascript:;"><i class="layui-icon '+cur.icon+'"></i>';
 							tittle += '<cite>' + cur.name + '</cite></a></li>'
 							$("#topLevelMenus").append(tittle);
 						}
@@ -64,12 +71,11 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 				}else{
 					top.layer.msg("您没有被授权使用系统，请联系管理员！");
 				}
-				
 			}
 		});
 	}
-	initTopMenu();
-	//通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
+	
+	//通过顶部菜单获取左侧二三级菜单 
 	function getData(json) {
 		if(menuDatas == null){
 			return;
@@ -132,7 +138,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 
 
 	//通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据___初始化
-	getData("schoolfellow");
+	//getData("schoolfellow");
 
 
 	// 添加新窗口
