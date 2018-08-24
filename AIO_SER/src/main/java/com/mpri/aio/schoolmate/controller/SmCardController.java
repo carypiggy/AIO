@@ -1,5 +1,7 @@
 package com.mpri.aio.schoolmate.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,6 +59,10 @@ public class SmCardController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public String save(@Validated SmCard smCard){
+		if(smCard.getIsNewRecord())
+		{
+			smCard.setCreateDate(new Date());
+		}
 		smCardService.save(smCard);							
 		return SUCCESS;
 	}	
