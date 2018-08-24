@@ -25,8 +25,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
     var treeTable =treeGrid.render({
         elem: '#menuTree'
         ,url: application.SERVE_URL+'/sys/sysmenu/list'
-        ,id: "menuTree",
-		,expends:":"false"
+        ,id: "menuTree"
+	
 		,headers : { 'Authorization' : application.HEADER}
         ,treeId:'id'//树形id字段名称
         ,treeUpId:'parentId'//树形父id字段名称

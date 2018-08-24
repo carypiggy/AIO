@@ -42,9 +42,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
     
 	//获取权限并加载按钮
 	
-	alert(1);
-	setTimeout( publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per'), 100000);
-	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
         if($(".searchVal").val() != ''){
