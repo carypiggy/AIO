@@ -108,10 +108,12 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 							{field: 'mobile', title: '手机'},
 							{field: 'email', title: '邮箱'},
 						]]
+						,done: function(res, curr, count){    //res 接口返回的信息,
+							publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'},'type');
+						}	
 					});	
-				}
-		/* 	});
-		} */		
+		}
+	
 		
 				
 

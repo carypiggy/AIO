@@ -17,6 +17,12 @@ layui.use(['form','layer','publicUtil','application'],function(){
         layer = layui.layer ,
         $ = layui.jquery;
 
+	if(parent.formdatas != undefined){	
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'} ,"type",parent.formdatas.type);		
+	}else{
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'} ,"type");		
+	}
+
 	function selectArea(){
 		var index = layui.layer.open({
 				type: 2,
@@ -48,7 +54,7 @@ layui.use(['form','layer','publicUtil','application'],function(){
 				parentId : $(".parentId").val(),
 				name : $(".name").val(),
 				code : $(".code").val(),
-				type : $(".type").val(),
+				type : $("#type").val(),
 				sort : $(".sort").val(),
 				remark : $(".remark").val(),
 			},			

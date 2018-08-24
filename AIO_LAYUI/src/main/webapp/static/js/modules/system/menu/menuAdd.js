@@ -18,12 +18,13 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
         $ = layui.jquery;
 
 	if(parent.formdatas != undefined){
-		publicUtil.setCheckBoxVal('isShow',parent.formdatas.isShow);	
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENUTYPE'} ,"type",parent.formdatas.type);		
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow",parent.formdatas.isShow);		
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type",parent.formdatas.type);		
 		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",parent.formdatas.operate);
 	}else{
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENUTYPE'} ,"type");		
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate");
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type");		
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",true);
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow");
 	}
 
 
@@ -59,7 +60,7 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 						sort : $(".sort").val(),
 						operate : $("#operate").val(),
 						remark : $(".remark").val(),
-						isShow : $('input[name="isShow"]').filter(':checked').val(),
+						isShow :$("#isShow").val(),
 						target : $(".target").val()
 
 					},
@@ -86,6 +87,9 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 		}); 
         return false;
     })
+	
+	
+	
 	
 	function selectMenu(){
 		var index = layui.layer.open({

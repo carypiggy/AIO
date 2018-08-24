@@ -37,10 +37,14 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 			,{field:'remark', edit:'text',title: '备注信息'}
 			,{field:'createDate', edit:'text',title: '更新时间'}
         ]]
+		,done: function(res, curr, count){    //res 接口返回的信息,
+			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'},'type');
+		}
         ,page:false
     });
     
 	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
 	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
@@ -83,7 +87,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 								body.find(".name").val(edit.name);
 								body.find(".sort").val(edit.parentId);
 								body.find(".code").val(edit.code);
-								body.find(".type").val(edit.type);
+								body.find("#type").val(edit.type);
 								body.find(".remark").val(edit.remark);
 								body.find(".parentName").val(data.parentSysArea.name);
 								form.render();

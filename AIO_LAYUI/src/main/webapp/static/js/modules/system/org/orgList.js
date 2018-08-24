@@ -105,11 +105,19 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 						{field: 'type', title: '机构类型'},
 						{field: 'master', title: '机构负责人'},
 						{field: 'mobile', title: '手机号'},
-						{field: 'useable', title: '机构名称'},
+						{field: 'useable', title: '启用状态'},
 						{field: 'openDate', title: '开创时间'},
-						{field: 'closeDate', title: '关闭时间'}
-						
+						{field: 'closeDate', title: '关闭时间'}						
 					]]
+					,done: function(res, curr, count){    //res 接口返回的信息,
+						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'},'useable');
+						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'},'type');
+						$("[data-field = 'closeDate']").children().each(function(){							
+							if($(this).text().trim() ==''){								
+								$(this).text('至今');
+							}
+						})
+					}
 				});	
 	}		
 			

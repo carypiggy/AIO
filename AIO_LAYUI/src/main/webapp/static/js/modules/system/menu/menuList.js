@@ -40,21 +40,9 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 			,{field:'permission', title: '权限标记'}
             ,{field:'isShow', title: '是否显示'}
         ]]        
-		,done: function(res, curr, count){    //res 接口返回的信息
-			$("[data-field = 'isShow']").children().each(function(){
-				if($(this).text() == 1){
-					$(this).text("展示");
-				}else if($(this).text() == 0){
-					$(this).text("禁用");
-				}
-			}),
-			$("[data-field = 'type']").children().each(function(){
-				if($(this).text() == 0){
-					$(this).text("菜单");
-				}else if($(this).text() == 1){
-					$(this).text("权限");
-				}
-			})
+		,done: function(res, curr, count){    //res 接口返回的信息,
+			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'},'isShow');
+			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'},'type');
 		}
 
     });

@@ -42,6 +42,9 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
             {field: 'createDate', title: '创建时间'},
             {field: 'remark', title: '备注信息'}
         ]]
+				,done: function(res, curr, count){    //res 接口返回的信息,
+					publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'},'type');
+				}				
     });
 
 		//获取权限并加载按钮

@@ -18,9 +18,9 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
         $ = layui.jquery;
 		
 	if(parent.formdatas != undefined){
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLETYPE'} ,"type",parent.formdatas.type);		
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'} ,"type",parent.formdatas.type);		
 	}else{
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLETYPE'} ,"type");		
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'} ,"type");		
 	}
 	form.verify(validparam);
 	

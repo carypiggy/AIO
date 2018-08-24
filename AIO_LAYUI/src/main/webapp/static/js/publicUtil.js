@@ -5,12 +5,33 @@
 	@Description: 封装一些公用
  */
 var editFormData;
-layui.define(['form','layer','jquery'],function(exports){
+layui.define(['form','layer','jquery','application'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
 	var obj ={
+		
+		
+		 //封装Ajax 未完成
+         aio_ajax :  function (sync, cache, type, url, datatype, data, func) { 
+                $.ajax({
+                    sync: sync,
+                    type: type,
+                    url: url,
+                    dataType: datatype,
+                    data: data,
+                    beforSend: function () {						
+                    },
+                    error: function (errdata) {
+						errfunc(errdata)
+                    },
+                    success: function (sucdata) {
+                        sucfunc(sucdata);
+                    }
+                });
+         },		
+		
 		
 		//由子页面回填至父页面（多参数）
 		setAcrossNames : function(value , _idClass ,_nameClass) {
@@ -61,7 +82,7 @@ layui.define(['form','layer','jquery'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
 					$("#"+selectid).empty();
 					if(flag){
@@ -146,7 +167,7 @@ layui.define(['form','layer','jquery'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
 					$("#"+selectid).empty();
 					for(var i =0;i<res.length;i++){
@@ -172,7 +193,7 @@ layui.define(['form','layer','jquery'],function(exports){
 			$.ajax({
 				url: url, //ajax请求地址
 				type: methodType,			
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
 				data:{
 					menuId : menuId
 				},						
@@ -189,6 +210,32 @@ layui.define(['form','layer','jquery'],function(exports){
 					top.layer.msg("失败！");
 				}
 			}); 
+		},
+		
+		
+		/**
+		 * 表格字段取字典表回显
+		 */
+		tableSetStr : function(url,data,str){
+			$.ajax({
+				url:url,
+				type: "POST",
+				data: data ,
+				headers : { 'Authorization' : application.HEADER},
+				success:function(res){
+					/*渲染表格*/
+					$("[data-field = '"+str+"']").children().each(function(){
+						for(var i =0;i<res.length;i++){
+							if($(this).text().trim() == res[i].value){								
+								$(this).text(res[i].label);
+							}
+						}
+					})
+				},
+				error: function(){
+					console.log("shibai")
+				}
+			})
 		},
 		
 		//ztree 回显

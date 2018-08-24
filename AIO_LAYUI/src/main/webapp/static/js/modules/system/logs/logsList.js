@@ -7,12 +7,14 @@
 layui.config({
 	base : "../../../../static/js/"
 }).extend({
-	"application" : "application"
+	"application" : "application",
+	"publicUtil"  : "publicUtil"
 })
-layui.use(['form','layer','laydate','table','laytpl','application'],function(){
+layui.use(['form','layer','laydate','table','laytpl','application','publicUtil'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
+				publicUtil = layui.publicUtil,
 				application = layui.application,
         laydate = layui.laydate,
         laytpl = layui.laytpl,
@@ -62,7 +64,10 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 						{field: 'method', title: '操作方式',event: 'setSign'},
             {field: 'params', title: '操作提交的数据',event: 'setSign'},
             {field: 'excContent', title: '异常信息',event: 'setSign'}
-        ]]
+        ]],
+				done: function(res, curr, count){    //res 接口返回的信息
+						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'LOGS_TYPE'},'type');
+				}
     });
 	
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
@@ -108,7 +113,7 @@ layui.use(['form','layer','laydate','table','laytpl','application'],function(){
 						data:{
 							id :edit.id,
 						},
-						headers : { 'Authorization' : application.HEADER},
+						headers : { 'Authorization' : application.HEADER},						
 						beforeSend: function(){
 							$.ajax({
 								async:false,
