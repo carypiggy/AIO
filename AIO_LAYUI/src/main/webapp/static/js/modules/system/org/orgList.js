@@ -194,7 +194,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		
 		//新增操作
 		_$(document).on('click','#ADD',function(){
-				addOrg();
+				_addOrg();
     });
 
 		
@@ -202,7 +202,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		_$(document).on('click','#EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('orgList').data);
 				if(flag){
-					addOrg(table.checkStatus('orgList').data[0]);
+					_addOrg(table.checkStatus('orgList').data[0]);
 				}else{
 					return false;
 				}
@@ -233,16 +233,11 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 					return false;
 				}
 			})			
-		
-		
-		
-		
-    $(".addOrg_btn").click(function(){
-			if(flag !=''){
-				addOrg();
-			}else{
-				layer.msg("请选中一个节点后增加机构");
-			}
-    })	  
+		 
 	  
+		//添加机构
+		function _addOrg(edit){
+			publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysorg/get',edit ==undefined?null:edit.id,"机构修改","orgAdd.html");
+		}
+		
 });

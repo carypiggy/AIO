@@ -19,8 +19,8 @@ layui.use(['form','layer','application','validparam'],function(){
     form.verify(validparam);
 	
 	function formEdit(FormDatas){
-		if(parent.editFormData != ''){
-			data = parent.editFormData;
+		if(FormDatas != ''){
+			var data = FormDatas;
 			$(".id").val(data.id);
 			$(".remark").val(data.remark);
 			$(".value").val(data.value);
@@ -42,6 +42,7 @@ layui.use(['form','layer','application','validparam'],function(){
     form.on("submit(addDict)",function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+		var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysdict/save", //ajax请求地址
 			type: "POST",
@@ -57,16 +58,16 @@ layui.use(['form','layer','application','validparam'],function(){
 			success: function (data) {
 				if(data == "success"){
 				 	top.layer.close(index);
-		            top.layer.msg("编码" + $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" + "成功");
+		            top.layer.msg("编码" + res + "成功");
 		            layer.closeAll("iframe");
 		            //刷新父页面
 		            parent.location.reload();	
 				}else{
-					top.layer.msg("编码" + $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" + "失败！");
+					top.layer.msg("编码" + res + "失败！");
 				}
 			},
 			error: function(data){
-				top.layer.msg("编码" + $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" + "失败！");
+				top.layer.msg("编码" + res + "失败！");
 			}
 		}); 
         return false;

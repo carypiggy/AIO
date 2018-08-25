@@ -57,10 +57,7 @@
 					headers : { 'Authorization' : application.HEADER},
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
-						
-						if(parent.parent.formdatas != undefined){
-							publicUtil.setTreeSel(parent.parent.formdatas.parentSysArea.id,ztreeObj);
-						}
+						publicUtil.setTreeSel($(".parentId",parent.document).val(),ztreeObj);
 					}
 				 });	
 				 

@@ -17,15 +17,43 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
         layer = layui.layer,
         $ = layui.jquery;
 
-	if(parent.formdatas != undefined){
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow",parent.formdatas.isShow);		
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type",parent.formdatas.type);		
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",parent.formdatas.operate);
-	}else{
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type");		
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",true);
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow");
+	function formEdit(FormDatas){
+		if(FormDatas != ''){
+			console.log(parent.isAdd)
+			var data = FormDatas;
+			if(parent.isAdd){
+				$(".parentId").val(data.id);
+				$(".parentName").val(data.name);  
+				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type");		
+				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",true);
+				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow");
+			}else{				
+				$(".id").val(data.id);
+				$(".remark").val(data.remark);
+				$(".code").val(data.code);
+				$(".parentId").val(data.parentId);
+				$(".name").val(data.name);
+				$(".type select").val(data.type); 
+				$(".permission").val(data.permission);  
+				$(".sort").val(data.sort);  
+				$(".icon").val(data.icon);  
+				$(".target").val(data.target);  
+				$(".href").val(data.href); 
+				$(".parentName").val(data.parentSysMenu !=null ?data.parentSysMenu.name:"");  
+				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow",data.isShow);		
+				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type",data.type);		
+				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",data.operate);
+			}
+		}else{
+			return false;
+		}
 	}
+
+	/**
+	 * 表单回填
+	 */
+	formEdit(parent.editFormData);
+
 
 
     form.on("submit(addMenu)",function(data){
@@ -33,57 +61,57 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 
-		var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
+				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 
-		$.ajax({
-			
-				url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
-			
-				type: "POST",
-			
-					data:{
-				
-						id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-				
-						parentId : $(".parentId").val(),
-				
-						name : $(".name").val(),
-				
-						code : $(".code").val(),
-				
-						href : $(".href").val(),
-				
-						icon : $(".icon").val(),
-						type : $("#type").val(),
-						operate : $("#operate").val(),
-						permission : $(".permission").val(),
-						sort : $(".sort").val(),
-						operate : $("#operate").val(),
-						remark : $(".remark").val(),
-						isShow :$("#isShow").val(),
-						target : $(".target").val()
+				$.ajax({
+					
+						url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
+					
+						type: "POST",
+					
+							data:{
+						
+								id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+						
+								parentId : $(".parentId").val(),
+						
+								name : $(".name").val(),
+						
+								code : $(".code").val(),
+						
+								href : $(".href").val(),
+						
+								icon : $(".icon").val(),
+								type : $("#type").val(),
+								operate : $("#operate").val(),
+								permission : $(".permission").val(),
+								sort : $(".sort").val(),
+								operate : $("#operate").val(),
+								remark : $(".remark").val(),
+								isShow :$("#isShow").val(),
+								target : $(".target").val()
 
+							},
+							headers : { 'Authorization' : application.HEADER},		
+							success: function (data) {
+								if(data == "success"){
+							
+									top.layer.close(index);
+										
+									top.layer.msg("菜单" + res + "成功");
+										
+									//layer.closeAll("iframe");
+		//刷新父页面
+									 
+								parent.location.reload();	
+						
+								}else{
+									top.layer.msg("菜单" + res + "失败！");
+						}
 					},
-					headers : { 'Authorization' : application.HEADER},		
-					success: function (data) {
-						if(data == "success"){
-				 	
-							top.layer.close(index);
-		            
-							top.layer.msg("菜单" + res + "成功");
-		            
-							//layer.closeAll("iframe");
-//刷新父页面
-		           
-						parent.location.reload();	
-				
-						}else{
-							top.layer.msg("菜单" + res + "失败！");
-				}
-			},
-			error: function(data){
-				top.layer.msg("菜单" + res + "失败！");
-			}
+					error: function(data){
+						top.layer.msg("菜单" + res + "失败！");
+					}
 		}); 
         return false;
     })

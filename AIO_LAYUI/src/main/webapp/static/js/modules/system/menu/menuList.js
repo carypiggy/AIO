@@ -11,7 +11,7 @@ layui.config({
 	"publicUtil"  : "publicUtil"
 })
 //表单回填
-var formdatas;
+var formdatas;var isAdd;
 layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publicUtil'], function () {
     var treeGrid = layui.treeGrid,
 	    $ = layui.jquery,
@@ -63,86 +63,13 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 		})
     });
 
-    //添加菜单
-    function addMenu(edit,type){
-        var index = layui.layer.open({
-            title : "菜单修改",
-            type : 2,
-            content : "menuAdd.html",
-            success : function(layero, index){
-                var body = layui.layer.getChildFrame('body', index);
-				
-                if(type == "edit"){
-					$.ajax({
-						url: application.SERVE_URL +'/sys/sysmenu/get', //ajax请求地址
-						type: "POST",
-						data:{
-							id :edit.id,
-						},
-						headers : { 'Authorization' : application.HEADER},						
-						success: function (data) {
-							formdatas = data;
-							if(data){
-								body.find(".id").val(data.id);
-								body.find(".remark").val(data.remark);
-								body.find(".code").val(data.code);
-								body.find(".parentId").val(data.parentId);
-								body.find(".name").val(data.name);
-								body.find(".type select").val(data.type); 
-								// body.find(".operate select").val(data.operate);
-								body.find(".permission").val(data.permission);  
-								body.find(".sort").val(data.sort);  
-								body.find(".icon").val(data.icon);  
-								body.find(".target").val(data.target);  
-								body.find(".href").val(data.href); 
-								body.find(".isShow input[name='isShow'][value='"+edit.isShow+"']").prop("checked","checked"); 
-								body.find(".parentName").val(data.parentSysMenu.name);  
-								form.render();
-							}else{
-								//console.data();
-								top.layer.msg("编码获取失败！");
-							}
-						}
-					}); 
-                }else{
-					$.ajax({
-						url: application.SERVE_URL +'/sys/sysmenu/get', //ajax请求地址
-						type: "POST",
-						data:{
-							id :edit.id,
-						},
-						headers : { 'Authorization' : application.HEADER},						
-						success: function (data) {
-							if(data){
-								body.find(".parentId").val(data.id);
-								body.find(".parentName").val(data.name);  
-							}else{
-								//console.data();
-								top.layer.msg("菜单获取失败！");
-							}
-						}
-					}); 
-					form.render();
-				}
-                setTimeout(function(){
-                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                },500)
-            }
-        })
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
-    }
-	
+   
 		//新增操作
 		$(document).on('click','#ADD',function(){
 	    	var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
 	    	if(flag){
-	    		addMenu(treeGrid.checkStatus('menuTree').data[0],'add');
+				isAdd = true;
+	    		_addMenu(treeGrid.checkStatus('menuTree').data[0],'add');
 	    	}else{
 	    		return false;
 	    	}
@@ -152,7 +79,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 		$(document).on('click','#EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
 			if(flag){
-				addMenu(treeGrid.checkStatus('menuTree').data[0],'edit');
+				isAdd = false;
+				_addMenu(treeGrid.checkStatus('menuTree').data[0],'edit');
 			}else{
 				return false;
 			}
@@ -185,5 +113,8 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 	    })
 	
 	
-	
+	//添加菜单
+	function _addMenu(edit,type){
+		publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysmenu/get',edit ==undefined?null:edit.id,"菜单修改","menuAdd.html");
+	}
 });

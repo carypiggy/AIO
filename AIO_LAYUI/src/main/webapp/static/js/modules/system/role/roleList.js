@@ -67,61 +67,16 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
         }
     });
 
-    //添加角色
-    function addRole(edit){
-        var index = layui.layer.open({
-            title : "添加角色",
-            type : 2,
-            content : "roleAdd.html",
-            success : function(layero, index){
-                var body = layui.layer.getChildFrame('body', index);
-                if(edit){
-										$.ajax({
-											url: application.SERVE_URL +'/sys/sysrole/get', //ajax请求地址
-											type: "POST",
-											data:{
-												id :edit.id,
-											},
-											headers : { 'Authorization' : application.HEADER},						
-											success: function (data) {
-												if(data){
-													 formdatas = data;
-													 body.find(".id").val(data.id);
-													 body.find(".role").val(edit.role);
-													 body.find(".code").val(edit.code);
-													 body.find(".name").val(edit.name);
-													 body.find(".remark").val(edit.remark);	
-												}else{
-													//console.data();
-													top.layer.msg("编码获取失败！");
-												}
-											}
-										}); 
-                    form.render();
-                }									 
-                setTimeout(function(){
-                    layui.layer.tips('点击此处返回编码列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                },500)
-            }
-        })
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
-    }
 		//新增操作
 		$(document).on('click','#ADD',function(){
-	    	addRole()
+	    	_addRole()
 	  });
 		
 		//编辑操作
 		$(document).on('click','#EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 			if(flag){
-				addRole(table.checkStatus('roleList').data[0]);
+				_addRole(table.checkStatus('roleList').data[0]);
 			}else{
 				return false;
 			}
@@ -190,6 +145,9 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 	
 		})
 
-
+		//添加角色
+    function _addRole(edit){
+			publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysrole/get',edit ==undefined?null:edit.id,"角色管理","roleAdd.html");
+		}
 
 })

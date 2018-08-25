@@ -10,7 +10,7 @@ layui.config({
 	"application" : "application",
 	"publicUtil"  : "publicUtil"
 })
-var formdatas;
+var formdatas; var isAdd;
 layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','application'], function () {
     var treeGrid = layui.treeGrid,
 	    $ = layui.jquery,
@@ -19,6 +19,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 	    laydate = layui.laydate,
 		form = layui.form,
 	    laytpl = layui.laytpl; 
+		
     var treeTable = treeGrid.render({
         elem: '#areaTree'
         ,url:application.SERVE_URL+'/sys/sysarea/list'
@@ -69,88 +70,23 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 		publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysarea/get',edit ==undefined?null:edit.id,"区域修改","areaAdd.html");
     }
 
-    //添加区域
-    function addArea(edit,type){
-        var index = layui.layer.open({
-            title : "区域修改",
-            type : 2,
-            content : "areaAdd.html",
-            success : function(layero, index){
-                var body = layui.layer.getChildFrame('body', index);
-				if(type == "edit"){
-					$.ajax({
-						url: application.SERVE_URL +'/sys/sysarea/get', //ajax请求地址
-						type: "POST",
-						data:{
-							id :edit.id,
-						},
-						headers : { 'Authorization' : application.HEADER},												
-						success: function (data) {
-							formdatas = data;
-							if(data){
-								body.find(".parentId").val(edit.parentId);
-								body.find(".name").val(edit.name);
-								body.find(".sort").val(edit.parentId);
-								body.find(".code").val(edit.code);
-								body.find("#type").val(edit.type);
-								body.find(".remark").val(edit.remark);
-								body.find(".parentName").val(data.parentSysArea.name);
-								form.render();
-							}else{
-								//console.data();
-								top.layer.msg("编码获取失败！");
-							}
-						}
-					}); 
-				}else{
-					$.ajax({
-						url: application.SERVE_URL +'/sys/sysarea/get', //ajax请求地址
-						type: "POST",
-						data:{
-							id :edit.id,
-						},
-						headers : { 'Authorization' : application.HEADER},						
-						success: function (data) {
-							if(data){
-								body.find(".parentId").val(data.id);
-								body.find(".parentName").val(data.name);  
-							}else{
-								//console.data();
-								top.layer.msg("编码获取失败！");
-							}
-						}
-					}); 
-					form.render();
-				}
-                setTimeout(function(){
-                    layui.layer.tips('点击此处返回区域列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                },500)
-            }
-        })
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
-    }
-
 	$(document).on('click','#ADD',function(){
-// 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
-// 		if(flag){
-			// addArea(treeGrid.checkStatus('areaTree').data[0],'add');
-// 		}else{
-// 			return false;
-// 		}
-		addArea();
+		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
+		if(flag){
+			isAdd = true;
+			_addArea(treeGrid.checkStatus('areaTree').data[0]);
+		}else{
+			return false;
+		}
+		
 	});
 	
 	//编辑操作
 	$(document).on('click','#EDIT',function(){		
 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
-		if(flag){
-			addArea(treeGrid.checkStatus('areaTree').data[0],'edit');
+		if(flag){		
+			isAdd = false;
+			_addArea(treeGrid.checkStatus('areaTree').data[0]);
 		}else{
 			return false;
 		}

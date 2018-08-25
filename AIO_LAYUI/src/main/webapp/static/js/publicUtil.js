@@ -25,7 +25,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		  * sucfunc
 		  * errfunc
 		  */
-         aio_ajax :  function (sync, cache, type, url, datatype, data, sucfunc,errfunc) { 
+         aio_ajax :  function (sync,  type, url, datatype, data, sucfunc,errfunc,beforefunc) { 
                 $.ajax({
                     sync: sync,
                     type: type,
@@ -139,44 +139,65 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		 * @param {Object} ID
 		 * @param {Object} titleName
 		 * @param {Object} pageUrl
-		 * @Paren 是否加载父元素
+		 * 
 		 */
-		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl,isParent)
+		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl)
 		{
-			$.ajax({
-				url: getByIdUrl, //ajax请求地址
-				type: "POST",
-				data: {
-					id: ID,
-				},
-				headers: {
-					'Authorization': application.HEADER
-				},
-				success: function(data) {
-					editFormData=data;
-					var index = layui.layer.open({
-						title: titleName,
-						type: 2,
-						content: pageUrl,
-						success: function(layero, index) {
-							setTimeout(function() {
-								layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-									tips: 3
-								});
-							}, 500)
-						}
-					})
+			if(ID == null){
+				editFormData= "";
+				var index = layui.layer.open({
+					title: titleName,
+					type: 2,
+					content: pageUrl,
+					success: function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+								tips: 3
+							});
+						}, 500)
+					}
+				})
+				layui.layer.full(index);
+				//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
 					layui.layer.full(index);
-					//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-					$(window).on("resize", function() {
+				})
+			}else{
+				$.ajax({
+					url: getByIdUrl, //ajax请求地址
+					type: "POST",
+					data: {
+						id: ID,
+					},
+					headers: {
+						'Authorization': application.HEADER
+					},
+					success: function(data) {
+						editFormData=data;
+						var index = layui.layer.open({
+							title: titleName,
+							type: 2,
+							content: pageUrl,
+							success: function(layero, index) {
+								setTimeout(function() {
+									layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+										tips: 3
+									});
+								}, 500)
+							}
+						})
 						layui.layer.full(index);
-					})
-				},
-				error(data){
-					var result=data.responseJSON;
-					top.layer.msg(result.msg+"("+result.code+")");
-				}
-			});
+						//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+						$(window).on("resize", function() {
+							layui.layer.full(index);
+						})
+					},
+					error(data){
+						var result=data.responseJSON;
+						top.layer.msg(result.msg+"("+result.code+")");
+					}
+				});				
+			}
 		},
 		
 		//取下拉菜单并进行回填
