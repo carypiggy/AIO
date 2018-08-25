@@ -25,25 +25,24 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		  * sucfunc
 		  * errfunc
 		  */
-         aio_ajax :  function (sync,  type, url, datatype, data, sucfunc,errfunc,beforefunc) { 
-                $.ajax({
-                    sync: sync,
-                    type: type,
-                    url: url,
-                    dataType: datatype,
-                    data: data,
-                    beforSend: function () {
-						beforefunc();
-                    },
-					success: function (sucdata) {
-						sucfunc(sucdata);
-					},
-                    error: function (errdata) {
-						errfunc(errdata)
-                    }
-
-                });
-         },		
+		 aio_ajax :  function (sync,  type, url, datatype, data, sucfunc,errfunc) { 
+			$.ajax({
+				sync: sync,
+				type: type,
+				url: url,
+				dataType: datatype,
+				data: data,
+				beforSend: function () {
+							beforefunc();
+				},
+				success: function (sucdata) {
+							sucfunc(sucdata)
+				},
+				error: function (errdata) {
+							errfunc(errdata);
+				}
+			});
+		 },		
 		
 		
 		//由子页面回填至父页面（多参数）
@@ -96,18 +95,23 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				type: "POST",
 				data: data ,
 				headers : { 'Authorization' : application.HEADER},
+				beforeSend: function(){
+					beforefunc();
+				}, 
 				success:function(res){
-					$("#"+selectid).empty();
-					if(flag){
-						$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
-					}
-					for(var i =0;i<res.length;i++){
-						$("#"+selectid).append('<option  value="'+res[i].value+'" >'+res[i].label+' </option>');//往下拉菜单里添加元素
+					if(res.code==application.REQUEST_SUCCESS){
+						$("#"+selectid).empty();
+						if(flag){
+							$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
+						}
+						for(var i =0;i<res.length;i++){
+							$("#"+selectid).append('<option  value="'+res[i].value+'" >'+res[i].label+' </option>');//往下拉菜单里添加元素
+						}
 					}
 					form.render();//菜单渲染 把内容加载进去
 				},
 				error: function(){
-					console.log("shibai")
+					errofuntion();
 				}
 			})
 		},
@@ -172,29 +176,33 @@ layui.define(['form','layer','jquery','application'],function(exports){
 					headers: {
 						'Authorization': application.HEADER
 					},
-					success: function(data) {
-						editFormData=data;
-						var index = layui.layer.open({
-							title: titleName,
-							type: 2,
-							content: pageUrl,
-							success: function(layero, index) {
-								setTimeout(function() {
-									layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-										tips: 3
-									});
-								}, 500)
-							}
-						})
-						layui.layer.full(index);
-						//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-						$(window).on("resize", function() {
-							layui.layer.full(index);
-						})
+					beforSend: function () {
+								beforefunc();
 					},
-					error(data){
-						var result=data.responseJSON;
-						top.layer.msg(result.msg+"("+result.code+")");
+					success: function(data) {
+						// if(data.code==application.REQUEST_SUCCESS){
+							editFormData=data;
+							var index = layui.layer.open({
+								title: titleName,
+								type: 2,
+								content: pageUrl,
+								success: function(layero, index) {
+									setTimeout(function() {
+										layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+											tips: 3
+										});
+									}, 500)
+								}
+							})
+							layui.layer.full(index);
+							//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+							$(window).on("resize", function() {
+								layui.layer.full(index);
+							})
+						// }
+					},
+					error: function(){
+						errofuntion();
 					}
 				});				
 			}
@@ -207,16 +215,21 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				type: "POST",
 				data: data ,
 				headers : { 'Authorization' : application.HEADER},
+				beforeSend: function(){
+					beforefunc();
+				},
 				success:function(res){
-					$("#"+selectid).empty();
-					for(var i =0;i<res.length;i++){
-						$("#"+selectid).append('<option  value="'+res[i].value+'">'+res[i].label+'</option>');//往下拉菜单里添加元素
+					if(res.code==application.REQUEST_SUCCESS){
+						$("#"+selectid).empty();
+						for(var i =0;i<res.length;i++){
+							$("#"+selectid).append('<option  value="'+res[i].value+'">'+res[i].label+'</option>');//往下拉菜单里添加元素
+						}
+						$('#'+selectid).val(selectValue);
+						form.render('select');//菜单渲染 把内容加载进去
 					}
-					$('#'+selectid).val(selectValue);
-					form.render('select');//菜单渲染 把内容加载进去
 				},
 				error: function(){
-					console.log("shibai")
+					errofuntion();
 				}
 			})
 		},
@@ -235,25 +248,30 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				headers : { 'Authorization' : application.HEADER},
 				data:{
 					menuId : menuId
-				},						
-				success: function (data) {
-					var permissons = data;
-					var butHtml = '';
-					var leftMenu="";
-					$("table").first().after("<dl class='show_menu' id='show_menu'></dl>");
-					for(var i=0;i<permissons.length;i++){
-						var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
-						butHtml += '<a class="layui-btn" id="'+permissons[i].operate+'" ><i class="layui-icon '+ icon +'"></i> '+permissons[i].name+'</a>';
-						/**
-						 * 此处应将权限唯一标识符进行处理，使得两处菜单可以调用同一方法
-						 */
-						leftMenu+="<dd><a href='javascript:;' id='oplog'><i class='layui-icon "+icon+"'></i> "+permissons[i].name+"</a></dd>";
-					}
-					$("#"+butGroupId).append(butHtml);
-					$("#show_menu").append(leftMenu);
 				},
-				error: function(data){
-					top.layer.msg("失败！");
+				beforeSend: function(){
+					beforefunc();
+				},										
+				success: function (result) {
+					// if(result.code==application.REQUEST_SUCCESS){
+						var permissons = result;
+						var butHtml = '';
+						var leftMenu="";
+						$("table").first().after("<dl class='show_menu' id='show_menu'></dl>");
+						for(var i=0;i<permissons.length;i++){
+							var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
+							butHtml += '<a class="layui-btn PER_'+permissons[i].operate+'" ><i class="layui-icon '+ icon +'"></i> '+permissons[i].name+'</a>';
+							/**
+							 * 此处应将权限唯一标识符进行处理，使得两处菜单可以调用同一方法
+							 */
+							leftMenu+="<dd><a href='javascript:;' class='PER_"+permissons[i].operate+"' ><i class='layui-icon "+icon+"'></i> "+permissons[i].name+"</a></dd>";
+						}
+						$("#"+butGroupId).append(butHtml);
+						$("#show_menu").append(leftMenu);
+					// }
+				},
+				error: function(){
+					errofuntion();
 				}
 			}); 
 		},
@@ -267,19 +285,24 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
+				beforeSend: function(){
+					beforefunc();
+				},
 				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
-					/*渲染表格*/
-					$("[data-field = '"+str+"']").children().each(function(){
-						for(var i =0;i<res.length;i++){
-							if($(this).text().trim() == res[i].value){								
-								$(this).text(res[i].label);
+					if(res.code==application.REQUEST_SUCCESS){
+						/*渲染表格*/
+						$("[data-field = '"+str+"']").children().each(function(){
+							for(var i =0;i<res.length;i++){
+								if($(this).text().trim() == res[i].value){								
+									$(this).text(res[i].label);
+								}
 							}
-						}
-					})
+						})
+					}
 				},
 				error: function(){
-					console.log("shibai")
+					errofuntion();
 				}
 			})
 		},
@@ -309,6 +332,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				}
 			}
 		},
+		
 		/**
 		 * 权限左键菜单
 		 */
@@ -319,15 +343,112 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				top : window.event.pageY,
 				left : window.event.pageX,
 				display:'block'
-			}).show().delay(90000).hide(300);
-	// 		$("#oplog").click(function(){
-	// 			
-	// 			openLogsInfo(data);
-	// 			
-	// 		});
+			}).show().delay(3000).hide(300);
+		// 		$("#oplog").click(function(){
+		// 			
+		// 			openLogsInfo(data);
+		// 			
+		// 		});
 		
-	}
-	}
+		},
+			
+		//刷新Token方法
+		refreshToken	: function (){
+				if(judgeTokenIssue()){
+					$.ajax({
+						async:false,
+						url: application.SERVE_URL +'/refreshToken', //ajax请求地址
+						type: "POST",
+						headers : { 'Authorization' : application.HEADER},						
+						success: function (data) {
+							sessionStorage.clear();
+							sessionStorage.setItem("token", data.data.token);
+							sessionStorage.setItem("tokenTime", data.data.tokenTime);
+						},
+						error: function (errdata) {
+							window.location.href = application.BASE_URL+"/login.html";
+						}
+					});
+				}
+		},
+		
+		//erro 方法 
+		errofunc :function(data){
+			var result=data.responseJSON;
+			top.layer.msg(result.msg+"("+result.code+")");
+		}
+	
+}
 
+
+
+
+
+
+		function judgeTokenIssue(){
+			var timelogin= application.TOKENTIME - new Date().getTime() ;		
+			if(timelogin < application.TOKENISSUE){
+				return true;
+			}else if(timelogin < 0) {
+				window.location.href = application.BASE_URL+"/login.html";
+			}else{
+				return false;
+			}
+		}
+
+		 //封装Ajax 未完成
+		 /**
+		  * sync 
+		  * cache
+		  * type
+		  * url
+		  * datatype
+		  * data
+		  * sucfunc
+		  * errfunc
+		  */
+			function aio_ajax(sync,  type, url, datatype, data, sucfunc,errfunc) { 
+					$.ajax({
+						sync: sync,
+						type: type,
+						url: url,
+						dataType: datatype,
+						data: data,
+						beforSend: function () {
+							beforefunc();
+						},
+						success: function (sucdata) {
+							sucfunc(sucdata);
+						},
+						error: function (errdata) {
+							errfunc(errdata)
+						}
+					});
+			}		
+
+
+		//erro 方法
+		function errofuntion(data){
+			var result=data.responseJSON;
+			top.layer.msg(result.msg+"("+result.code+")");
+		}
+
+		//刷新token的方法（）
+		function beforefunc(){
+			if(judgeTokenIssue()){
+				$.ajax({
+					async:false,
+					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
+					type: "POST",
+					headers : { 'Authorization' : application.HEADER},						
+					success: function (data) {
+						sessionStorage.clear();
+						sessionStorage.setItem("token", data.data.token);
+						sessionStorage.setItem("tokenTime", data.data.tokenTime);
+					}
+				});
+			}
+		}
+		
     exports('publicUtil', obj);
 })

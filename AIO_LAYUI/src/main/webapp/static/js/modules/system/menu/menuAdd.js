@@ -100,8 +100,7 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 										
 									top.layer.msg("菜单" + res + "成功");
 										
-									//layer.closeAll("iframe");
-		//刷新父页面
+									//layer.closeAll("iframe")
 									 
 								parent.location.reload();	
 						

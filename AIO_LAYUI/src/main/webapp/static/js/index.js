@@ -8,13 +8,14 @@ var $, tab, dataStr, layer; var menuDatas; var cur_menu_id;var username;
 layui.config({
 	base: "static/js/"
 }).extend({
-	"bodyTab": "bodyTab"
+	"bodyTab": "bodyTab",
+	"application" : "application"
 })
 layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], function () {
 	var form = layui.form,
 		application = layui.application,
 		element = layui.element;
-	$ = layui.$;
+		$ = layui.$;
 	layer = parent.layer === undefined ? layui.layer : top.layer;
 
 	application.initindex();
@@ -32,6 +33,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 	
 	//初始化一级菜单
 	function initTopMenu(url) { //Ajax调用处理
+	console.log(application.HEADER);
 		$.ajax({
 			// url: "static/json/topMenu.json",
 			url: application.SERVE_URL + "/index",

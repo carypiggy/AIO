@@ -61,7 +61,6 @@ public class SysMenuController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	@RequiresAuthentication
-	@RequiresPermissions("sysdict:edit")
 	public String save(@Validated SysMenu sysMenu){
 		if("".equals(sysMenu.getParentId())|| null == sysMenu.getParentId()) {
 			//setRoot 目录
@@ -84,7 +83,6 @@ public class SysMenuController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	@RequiresPermissions("sysdict:edit2")
 	public String delete(SysMenu sysMenu) {
 		sysMenuService.delete(sysMenu);
 		return SUCCESS;
