@@ -43,7 +43,7 @@ public class JWTUtil  {
     }
 
     /**
-     * 获得token中的信息无需secret解密也能获得
+     *  获得token中的信息无需secret解密也能获得 
      * @return token中包含的用户名
      */
     public static String getUsername(String token) {
@@ -57,15 +57,16 @@ public class JWTUtil  {
     
     
     /**
-     * 获得token中的信息无需secret解密也能获得
+     * 获得token中的过期时间
      * @return token中包含的用户名
      */
-    public static String getPassword(String token) {
+    public static long getTokenTime(String token) {
         try {
-            DecodedJWT jwt = JWT.decode(token);
-            return jwt.getClaim("password").asString();
+        	DecodedJWT jwt = JWT.decode(token);
+			long tokenTime=jwt.getExpiresAt().getTime();
+			return tokenTime;
         } catch (JWTDecodeException e) {
-            return null;
+            return 0;
         }
     }
 

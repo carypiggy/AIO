@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.ResJson;
+import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysArea;
-import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.service.SysAreaService;
 
 /**
@@ -43,7 +43,7 @@ public class SysAreaController extends BaseController {
 	@CrossOrigin
 	@GetMapping(value = "/list")
 	public ResJson<SysArea> list(SysArea sysDict) {
-		ResJson<SysArea>rj = new ResJson<SysArea>();
+		ResJson<SysArea> rj = new ResJson<SysArea>();
 		List<SysArea> list =  sysAreaService.loadAllListBy(sysDict);	
 		rj.setData(list);
 		return rj;
@@ -59,7 +59,7 @@ public class SysAreaController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SysArea sysArea){
+	public RestResponse<String> save(@Validated SysArea sysArea){
 		if("Root".equals(sysArea.getParentId())|| null == sysArea.getParentId()) {
 			//setRoot 目录
 		}else {
@@ -68,8 +68,9 @@ public class SysAreaController extends BaseController {
 			parentSysArea = sysAreaService.get(parentSysArea);
 			sysArea.setParentIds(parentSysArea.getParentIds()+","+parentSysArea.getId());
 		}
-		sysAreaService.save(sysArea);							
-		return SUCCESS;
+		sysAreaService.save(sysArea);
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
+		
 	}	
 	
 	/**\
@@ -81,9 +82,10 @@ public class SysAreaController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	public String delete(SysArea sysArea) {
+	public RestResponse<String> delete(SysArea sysArea) {
 		sysAreaService.delete(sysArea);
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
+
 	}
 	
 
