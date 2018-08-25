@@ -30,7 +30,7 @@ layui.define(function(exports){
 		SERVE_PORT: "8080",
 		SERVE_IP: "127.0.0.1",
 		SERVE_URL: "http://127.0.0.1:8080",
-		TMP_SERVE_URL: "http://192.168.140.37:8080",
+		TMP_SERVE_URL: "http://127.0.0.1:8080",
 		//获取权限的URL
 		PERMS_URL : 'http://127.0.0.1:8080/getPagePer',
 		

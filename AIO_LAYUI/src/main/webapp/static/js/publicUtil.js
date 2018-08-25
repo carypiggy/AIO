@@ -239,11 +239,18 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				success: function (data) {
 					var permissons = data;
 					var butHtml = '';
+					var leftMenu="";
+					$("table").first().after("<dl class='show_menu' id='show_menu'></dl>");
 					for(var i=0;i<permissons.length;i++){
 						var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
-						butHtml += '<a class="layui-btn" id="'+permissons[i].operate+'" ><i class="layui-icon"> '+icon +' </i> '+permissons[i].name+'</a>';
+						butHtml += '<a class="layui-btn" id="'+permissons[i].operate+'" ><i class="layui-icon '+ icon +'"></i> '+permissons[i].name+'</a>';
+						/**
+						 * 此处应将权限唯一标识符进行处理，使得两处菜单可以调用同一方法
+						 */
+						leftMenu+="<dd><a href='javascript:;' id='oplog'><i class='layui-icon "+icon+"'></i> "+permissons[i].name+"</a></dd>";
 					}
 					$("#"+butGroupId).append(butHtml);
+					$("#show_menu").append(leftMenu);
 				},
 				error: function(data){
 					top.layer.msg("失败！");
@@ -301,9 +308,26 @@ layui.define(['form','layer','jquery','application'],function(exports){
 					ztreeObj.expandNode(nodes[0], true);
 				}
 			}
-		}
+		},
+		/**
+		 * 权限左键菜单
+		 */
+		show_menu:function(data){
+			
+			$("#show_menu").css({
+				//定义菜单显示位置为事件发生的X坐标和Y坐标
+				top : window.event.pageY,
+				left : window.event.pageX,
+				display:'block'
+			}).show().delay(90000).hide(300);
+	// 		$("#oplog").click(function(){
+	// 			
+	// 			openLogsInfo(data);
+	// 			
+	// 		});
+		
 	}
-	
-	
+	}
+
     exports('publicUtil', obj);
 })

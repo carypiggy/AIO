@@ -10,17 +10,18 @@ layui.config({
 	"application" : "application",
 	"publicUtil"  : "publicUtil"
 })
+
 layui.use(['form','layer','laydate','table','laytpl','application','publicUtil'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-				publicUtil = layui.publicUtil,
-				application = layui.application,
-        laydate = layui.laydate,
-        laytpl = layui.laytpl,
-        table = layui.table;
+			application = layui.application,
+	        laydate = layui.laydate,
+	        laytpl = layui.laytpl,
+	        table = layui.table,
+			publicUtil=layui.publicUtil;
     
-		application.init();
+			application.init();
 				var start;
 				var end ;
 				//执行一个laydate实例
@@ -43,7 +44,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 							end	 =value;
 					}
 				});
-			
+	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
     //日志列表
     var tableIns = table.render({
         elem: '#logsList',
@@ -69,6 +71,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'LOGS_TYPE'},'type');
 				}
     });
+		
 	
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 	$(".search_btn").on("click",function(){
@@ -89,10 +92,10 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	});
 	
 	//行点击事件
-	  //监听单元格事件
+	//监听单元格事件
 	table.on('tool(logsList)', function(obj){
 		var data = obj.data;
-			openLogsInfo(data);
+		publicUtil.show_menu(data);
 	});
 	
 	function openLogsInfo(edit){

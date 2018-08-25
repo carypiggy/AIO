@@ -30,7 +30,6 @@ public class SmCard extends DataEntity<SmCard> {
 	private String cardStyleOpacity;
 	private String frontBackground;
 	private String backBackground;
-	private Date createDate;
 
 	
 	public String getName() {
@@ -122,12 +121,6 @@ public class SmCard extends DataEntity<SmCard> {
 	}
 	public void setBackBackground(String backBackground) {
 		this.backBackground = backBackground;
-	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}	
 
 }

@@ -28,7 +28,6 @@ public class SmFamily extends DataEntity<SmFamily> {
 	private String phone;
 	private String workplace;
 	private String isschool;
-	private Date createDate;
 
 	
 	public String getSysUserId() {
@@ -91,12 +90,6 @@ public class SmFamily extends DataEntity<SmFamily> {
 	}
 	public void setIsschool(String isschool) {
 		this.isschool = isschool;
-	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}	
+	}		
 
 }

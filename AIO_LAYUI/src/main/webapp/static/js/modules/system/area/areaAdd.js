@@ -83,18 +83,20 @@ layui.use(['form','layer','publicUtil','application'],function(){
 				remark : $(".remark").val(),
 			},			
 			success: function (data) {
-				if(data == "success"){
-				 	top.layer.close(index);
-		            top.layer.msg("区域" + res + "成功");
-		            layer.closeAll("iframe");
-		            //刷新父页面
-		            parent.location.reload();	
+				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
+				if(data.code==application.REQUEST_SUCCESS){
+					top.layer.close(index);
+					top.layer.msg(data.msg);
+					layer.closeAll("iframe");
+					//刷新父页面
+					parent.location.reload();
 				}else{
-					top.layer.msg("区域" + res + "失败！");
+					top.layer.msg(data.msg+"("+data.code+")");
 				}
 			},
 			error: function(data){
-				top.layer.msg("区域" + res + "失败！");
+				var result=data.responseJSON;
+				top.layer.msg(result.msg+"("+result.code+")");
 			}
 		}); 
         setTimeout(function(){

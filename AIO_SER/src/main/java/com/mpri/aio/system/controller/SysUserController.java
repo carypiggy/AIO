@@ -37,7 +37,7 @@ public class SysUserController extends BaseController {
 	private SysUserService sysUserService;
 	
 	/*初始没有身份证号的密码*/
-	public static final String DEFAULT_PWD = "123456";
+	private static final String DEFAULT_PWD = "123456";
 	/**
 	 * 获取用户列表
 	* <p>Title: list</p>  

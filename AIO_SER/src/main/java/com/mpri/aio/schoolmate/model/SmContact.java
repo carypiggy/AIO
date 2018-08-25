@@ -20,7 +20,6 @@ public class SmContact extends DataEntity<SmContact> {
 	private String username;
 	private String type;
 	private String contact;
-	private Date createDate;
 	
 	
 	public String getSysUserId() {
@@ -47,11 +46,6 @@ public class SmContact extends DataEntity<SmContact> {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}	
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}	
+
 
 }

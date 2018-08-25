@@ -26,6 +26,7 @@ import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.exception.UnauthorizedException;
 import com.mpri.aio.common.response.RestResponse;
+import com.mpri.aio.common.response.RestToken;
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.model.SysRole;
 import com.mpri.aio.system.model.SysUser;
@@ -62,7 +63,7 @@ public class LoginController extends BaseController {
 	 * 管理登录
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public RestResponse<String> login(@RequestParam("username") String username,
+	public RestResponse<RestToken> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("authCode")String authCode,HttpSession session) {
 	
@@ -83,17 +84,28 @@ public class LoginController extends BaseController {
         	
 	        	//登陆密码校验
 	    		if (sysUser.getPassword().equals(result)) {
-	                return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", JWTUtil.sign(username, result));
+	    			//注册token
+	    			String token=JWTUtil.sign(username, result);
+	    			
+	    			//获取token过期时间
+	    			long tokenTime= JWTUtil.getTokenTime(token);
+	    			
+	    			//封装token
+	    			RestToken restToken=new RestToken();
+	    			restToken.setToken(token);
+	    			restToken.setTokenTime(tokenTime);
+	    			
+	                return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", restToken);
 	            } else {
 	                throw new UnauthorizedException("密码错误，请重新输入");
 	            }
         	
         	}else {
-        		return new RestResponse<String>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
+        		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
         	}
 		
         }else {
-        	return new RestResponse<String>(ExceptionResult.NO_PERMISSION, "验证码错误！", null);
+        	return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "验证码错误！", null);
         }
 	}
 
@@ -104,23 +116,40 @@ public class LoginController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "refreshToken")
-	public RestResponse<String> refreshToken(HttpServletRequest request) {
+	public RestResponse<RestToken> refreshToken(HttpServletRequest request) {
 		String token=request.getHeader("Authorization");
-		
-		DecodedJWT jwt = JWT.decode(token);
-    	Date now=new Date();
+    	//当前时间
+		Date now=new Date();
     	long nowTime=now.getTime();
-    	long tokenTime=jwt.getExpiresAt().getTime();
-    	//Date tokenDate=new Date(jwt.getExpiresAt().getTime());
+    	//当前token过期时间
+    	long tokenTime=JWTUtil.getTokenTime(token);
     	String username=JWTUtil.getUsername(token);
+    	
+    	//刷新token时间
     	if((tokenTime-nowTime)<JWTUtil.REFESH_TIME) {
     		SysUser sysUser=sysUserService.getSysUserByUsername(username);
     		String password=sysUser.getPassword();
-    		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "token已刷新", JWTUtil.sign(username, password));
+    		
+    		//注册new token
+			String newToken=JWTUtil.sign(username, password);
+			
+			//获取token过期时间
+			long newTokenTime= JWTUtil.getTokenTime(token);
+			
+			//封装token
+			RestToken restToken=new RestToken();
+			restToken.setToken(newToken);
+			restToken.setTokenTime(newTokenTime);
+			
+            return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "Token已刷新", restToken);
+			
     	}else {
-    		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "token可以继续使用", token);
+    		//封装token
+			RestToken restToken=new RestToken();
+			restToken.setToken(token);
+			restToken.setTokenTime(tokenTime);
+    		return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "token可以继续使用", restToken);
     	}
-		
 	}
 	
 	/**

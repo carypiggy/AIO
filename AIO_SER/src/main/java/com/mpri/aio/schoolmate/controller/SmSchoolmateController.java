@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.page.PageIo;
-import com.mpri.aio.schoolmate.model.SmAddress;
 import com.mpri.aio.schoolmate.model.SmSchoolmate;
 import com.mpri.aio.schoolmate.service.SmAddressService;
 import com.mpri.aio.schoolmate.service.SmSchoolmateService;
