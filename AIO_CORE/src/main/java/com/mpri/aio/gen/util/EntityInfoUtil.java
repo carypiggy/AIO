@@ -2,6 +2,7 @@ package com.mpri.aio.gen.util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mpri.aio.gen.model.GenColumuInfo;
@@ -17,6 +18,7 @@ public class EntityInfoUtil {
 	public static final String ID = "id";
 	public static final String FLAG = "flag";
 	public static final String REMARK = "remark";
+	public static final String CREATEDATE = "create_date";
 	/**
 	 * 
 	* <p>Title: getInfo</p>  
@@ -42,7 +44,9 @@ public class EntityInfoUtil {
 			//过滤到ID REMARK FLAG 属性
 			for (GenColumuInfo genColumuInfo : columns) {
 				if(ID.equalsIgnoreCase(genColumuInfo.getColumnName()) ||
-						FLAG.equalsIgnoreCase(genColumuInfo.getColumnName()) || REMARK.equalsIgnoreCase(genColumuInfo.getColumnName())) {
+						FLAG.equalsIgnoreCase(genColumuInfo.getColumnName()) || 
+						REMARK.equalsIgnoreCase(genColumuInfo.getColumnName()) ||
+						CREATEDATE.equalsIgnoreCase(genColumuInfo.getColumnName())) {
 					continue;
 				}else {
 					genColumuInfo.setJavaType(MySqlToJavaUtil.jdbcTypeToJavaType(genColumuInfo.getColumnType()));

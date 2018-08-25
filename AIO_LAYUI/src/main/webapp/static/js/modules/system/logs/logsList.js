@@ -10,18 +10,18 @@ layui.config({
 	"application" : "application",
 	"publicUtil"  : "publicUtil"
 })
-layui.use(['publicUtil','form','layer','laydate','table','laytpl','application'],function(){
 
+layui.use(['form','layer','laydate','table','laytpl','application','publicUtil'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-		application = layui.application,
-        laydate = layui.laydate,
-        laytpl = layui.laytpl,
-        table = layui.table,
-		publicUtil=layui.publicUtil;
+			application = layui.application,
+	        laydate = layui.laydate,
+	        laytpl = layui.laytpl,
+	        table = layui.table,
+			publicUtil=layui.publicUtil;
     
-		application.init();
+			application.init();
 				var start;
 				var end ;
 				//执行一个laydate实例
@@ -66,7 +66,10 @@ layui.use(['publicUtil','form','layer','laydate','table','laytpl','application']
 						{field: 'method', title: '操作方式',event: 'setSign'},
             {field: 'params', title: '操作提交的数据',event: 'setSign'},
             {field: 'excContent', title: '异常信息',event: 'setSign'}
-        ]]
+        ]],
+				done: function(res, curr, count){    //res 接口返回的信息
+						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'LOGS_TYPE'},'type');
+				}
     });
 		
 	
@@ -113,7 +116,7 @@ layui.use(['publicUtil','form','layer','laydate','table','laytpl','application']
 						data:{
 							id :edit.id,
 						},
-						headers : { 'Authorization' : application.HEADER},
+						headers : { 'Authorization' : application.HEADER},						
 						beforeSend: function(){
 							$.ajax({
 								async:false,
@@ -138,7 +141,7 @@ layui.use(['publicUtil','form','layer','laydate','table','laytpl','application']
 								body.find(".params").val(result.data.params);
 								body.find(".excContent").val(result.data.excContent);
 							}
-						},
+						},	
 						error(data){
 							var result=data.responseJSON;
 							top.layer.msg(result.msg+"("+result.code+")");

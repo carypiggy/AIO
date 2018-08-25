@@ -17,6 +17,35 @@ layui.use(['form','layer','publicUtil','application'],function(){
         layer = layui.layer ,
         $ = layui.jquery;
 
+	function formEdit(FormDatas){
+		if(FormDatas != ''){
+			console.log(parent.isAdd)
+			var data = FormDatas;
+			if(parent.isAdd){
+				$(".parentId").val(data.id);
+				$(".parentName").val(data.name); 
+				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'} ,"type");
+			}else{
+				 $(".id").val(data.id);
+				 $(".parentId").val(data.parentSysArea.id);
+				 $(".name").val(data.name);
+				 $(".sort").val(data.sort);
+				 $(".code").val(data.code);
+				 $(".remark").val(data.remark);
+				 $(".parentName").val(data.parentSysArea.name);
+				 publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'} ,"type",data.type);
+			}
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * 表单回填
+	 */
+	formEdit(parent.editFormData);
+
+
 	function selectArea(){
 		var index = layui.layer.open({
 				type: 2,
@@ -39,6 +68,7 @@ layui.use(['form','layer','publicUtil','application'],function(){
     form.on("submit(addArea)",function(data){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+		var res = ($(".id").val() ==null|| $(".id").val() =="") ? "新增":"修改" ;
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysarea/save", //ajax请求地址
 			type: "POST",
@@ -48,7 +78,7 @@ layui.use(['form','layer','publicUtil','application'],function(){
 				parentId : $(".parentId").val(),
 				name : $(".name").val(),
 				code : $(".code").val(),
-				type : $(".type").val(),
+				type : $("#type").val(),
 				sort : $(".sort").val(),
 				remark : $(".remark").val(),
 			},			

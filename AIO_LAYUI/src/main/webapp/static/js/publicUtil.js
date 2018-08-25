@@ -5,12 +5,46 @@
 	@Description: 封装一些公用
  */
 var editFormData;
-layui.define(['form','layer','jquery'],function(exports){
+layui.define(['form','layer','jquery','application'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
+	
 	var obj ={
+		
+		
+		 //封装Ajax 未完成
+		 /**
+		  * sync 
+		  * cache
+		  * type
+		  * url
+		  * datatype
+		  * data
+		  * sucfunc
+		  * errfunc
+		  */
+         aio_ajax :  function (sync,  type, url, datatype, data, sucfunc,errfunc,beforefunc) { 
+                $.ajax({
+                    sync: sync,
+                    type: type,
+                    url: url,
+                    dataType: datatype,
+                    data: data,
+                    beforSend: function () {
+						beforefunc();
+                    },
+					success: function (sucdata) {
+						sucfunc(sucdata);
+					},
+                    error: function (errdata) {
+						errfunc(errdata)
+                    }
+
+                });
+         },		
+		
 		
 		//由子页面回填至父页面（多参数）
 		setAcrossNames : function(value , _idClass ,_nameClass) {
@@ -61,7 +95,7 @@ layui.define(['form','layer','jquery'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
 					$("#"+selectid).empty();
 					if(flag){
@@ -105,39 +139,65 @@ layui.define(['form','layer','jquery'],function(exports){
 		 * @param {Object} ID
 		 * @param {Object} titleName
 		 * @param {Object} pageUrl
+		 * 
 		 */
 		gotoEditPage:function(getByIdUrl,ID,titleName,pageUrl)
 		{
-			$.ajax({
-				url: getByIdUrl, //ajax请求地址
-				type: "POST",
-				data: {
-					id: ID,
-				},
-				headers: {
-					'Authorization': application.HEADER
-				},
-				success: function(data) {
-					editFormData=data;
-					var index = layui.layer.open({
-						title: titleName,
-						type: 2,
-						content: pageUrl,
-						success: function(layero, index) {
-							setTimeout(function() {
-								layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-									tips: 3
-								});
-							}, 500)
-						}
-					})
+			if(ID == null){
+				editFormData= "";
+				var index = layui.layer.open({
+					title: titleName,
+					type: 2,
+					content: pageUrl,
+					success: function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+								tips: 3
+							});
+						}, 500)
+					}
+				})
+				layui.layer.full(index);
+				//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
 					layui.layer.full(index);
-					//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-					$(window).on("resize", function() {
+				})
+			}else{
+				$.ajax({
+					url: getByIdUrl, //ajax请求地址
+					type: "POST",
+					data: {
+						id: ID,
+					},
+					headers: {
+						'Authorization': application.HEADER
+					},
+					success: function(data) {
+						editFormData=data;
+						var index = layui.layer.open({
+							title: titleName,
+							type: 2,
+							content: pageUrl,
+							success: function(layero, index) {
+								setTimeout(function() {
+									layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+										tips: 3
+									});
+								}, 500)
+							}
+						})
 						layui.layer.full(index);
-					})
-				}
-			});
+						//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+						$(window).on("resize", function() {
+							layui.layer.full(index);
+						})
+					},
+					error(data){
+						var result=data.responseJSON;
+						top.layer.msg(result.msg+"("+result.code+")");
+					}
+				});				
+			}
 		},
 		
 		//取下拉菜单并进行回填
@@ -146,7 +206,7 @@ layui.define(['form','layer','jquery'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
 					$("#"+selectid).empty();
 					for(var i =0;i<res.length;i++){
@@ -172,7 +232,7 @@ layui.define(['form','layer','jquery'],function(exports){
 			$.ajax({
 				url: url, //ajax请求地址
 				type: methodType,			
-				headers : { 'Authorization' : sessionStorage.getItem('token')},
+				headers : { 'Authorization' : application.HEADER},
 				data:{
 					menuId : menuId
 				},						
@@ -196,6 +256,32 @@ layui.define(['form','layer','jquery'],function(exports){
 					top.layer.msg("失败！");
 				}
 			}); 
+		},
+		
+		
+		/**
+		 * 表格字段取字典表回显
+		 */
+		tableSetStr : function(url,data,str){
+			$.ajax({
+				url:url,
+				type: "POST",
+				data: data ,
+				headers : { 'Authorization' : application.HEADER},
+				success:function(res){
+					/*渲染表格*/
+					$("[data-field = '"+str+"']").children().each(function(){
+						for(var i =0;i<res.length;i++){
+							if($(this).text().trim() == res[i].value){								
+								$(this).text(res[i].label);
+							}
+						}
+					})
+				},
+				error: function(){
+					console.log("shibai")
+				}
+			})
 		},
 		
 		//ztree 回显
@@ -242,6 +328,6 @@ layui.define(['form','layer','jquery'],function(exports){
 		
 	}
 	}
-	
+
     exports('publicUtil', obj);
 })

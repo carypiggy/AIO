@@ -17,10 +17,30 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
         layer =layui.layer,
         $ = layui.jquery;
 		
+	
+	function formEdit(FormDatas){
+		if(FormDatas != ''){
+			var data = FormDatas;
+		$(".id").val(data.id);
+		$(".role").val(data.role);
+		$(".code").val(data.code);
+		$(".name").val(data.name);
+		$(".remark").val(data.remark);	
+		}else{
+			return false;
+		}
+	}
+
+	
+	/**
+	 * 表单回显
+	 */
+	formEdit(parent.editFormData);		
+		
 	if(parent.formdatas != undefined){
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLETYPE'} ,"type",parent.formdatas.type);		
+		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'} ,"type",parent.formdatas.type);		
 	}else{
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLETYPE'} ,"type");		
+		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'} ,"type");		
 	}
 	form.verify(validparam);
 	

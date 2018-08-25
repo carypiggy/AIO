@@ -134,16 +134,14 @@ public class SysUserController extends BaseController {
     @PostMapping(value = "/uploadimg")
     public RestResponse<String> uploadImg(@RequestParam("file") MultipartFile file,
             HttpServletRequest request) {
-        String contentType = file.getContentType();
-        String fileName = file.getOriginalFilename(); 
-        System.out.println(ClassLoader.getSystemResource(""));
-//        System.out.println("fileName-->" + fileName);
-//        System.out.println("getContentType-->" + contentType);
+//        String contentType = file.getContentType();
+        String fileName = file.getOriginalFilename();
+        String newFilName = String.valueOf(new Date().getTime())+"."+fileName.substring(fileName.lastIndexOf(".") + 1); /*更改文件名*/
         String resfillPath  = DateUtils.getDate();
         String filePath = request.getSession().getServletContext().getRealPath(resfillPath+ "/");
         try {
-            FileUtils.uploadFile(file.getBytes(), filePath, fileName);
-            return RestResponse.getInstance(200, "上传成功", resfillPath +"/"+fileName);
+            FileUtils.uploadFile(file.getBytes(), filePath, newFilName);
+            return RestResponse.getInstance(200, "上传成功", resfillPath +"/"+newFilName);
         } catch (Exception e) {
             // TODO: handle exception
         }      

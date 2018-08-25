@@ -63,9 +63,7 @@
 			　　　　　　//展开第一个根节点
 						ztreeObj.expandNode(nodeList[0], true);
 						//树回显
-						if(parent.parent.formdatas != undefined){
-							publicUtil.setTreeSel(parent.parent.formdatas.parentSysMenu.id,ztreeObj);
-						}
+						publicUtil.setTreeSel($(".parentId",parent.document).val(),ztreeObj);
 						
 					}
 				 });	

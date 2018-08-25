@@ -105,11 +105,19 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 						{field: 'type', title: '机构类型'},
 						{field: 'master', title: '机构负责人'},
 						{field: 'mobile', title: '手机号'},
-						{field: 'useable', title: '机构名称'},
+						{field: 'useable', title: '启用状态'},
 						{field: 'openDate', title: '开创时间'},
-						{field: 'closeDate', title: '关闭时间'}
-						
+						{field: 'closeDate', title: '关闭时间'}						
 					]]
+					,done: function(res, curr, count){    //res 接口返回的信息,
+						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'},'useable');
+						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'},'type');
+						$("[data-field = 'closeDate']").children().each(function(){							
+							if($(this).text().trim() ==''){								
+								$(this).text('至今');
+							}
+						})
+					}
 				});	
 	}		
 			
@@ -186,7 +194,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		
 		//新增操作
 		_$(document).on('click','#ADD',function(){
-				addOrg();
+				_addOrg();
     });
 
 		
@@ -194,7 +202,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		_$(document).on('click','#EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('orgList').data);
 				if(flag){
-					addOrg(table.checkStatus('orgList').data[0]);
+					_addOrg(table.checkStatus('orgList').data[0]);
 				}else{
 					return false;
 				}
@@ -225,16 +233,11 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 					return false;
 				}
 			})			
-		
-		
-		
-		
-    $(".addOrg_btn").click(function(){
-			if(flag !=''){
-				addOrg();
-			}else{
-				layer.msg("请选中一个节点后增加机构");
-			}
-    })	  
+		 
 	  
+		//添加机构
+		function _addOrg(edit){
+			publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysorg/get',edit ==undefined?null:edit.id,"机构修改","orgAdd.html");
+		}
+		
 });

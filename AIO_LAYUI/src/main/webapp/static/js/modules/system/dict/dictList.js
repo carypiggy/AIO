@@ -45,14 +45,14 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 
 	//新增操作
 	$(document).on('click','#ADD',function(){
-    	addDict();
+    	_addDict();
     });
 	
 	//编辑操作
 	$(document).on('click','#EDIT',function(){		
 		var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
-		if(flag){
-			addDict(table.checkStatus('dictList').data[0]);
+		if(flag){			
+			_addDict(table.checkStatus('dictList').data[0]);
 		}else{
 			return false;
 		}
@@ -99,52 +99,11 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
             })
     });
 
-    //添加编码
-    function addDict(edit){
-        var index = layui.layer.open({
-            title : "添加编码",
-            type : 2,
-            content : "dictAdd.html",
-            success : function(layero, index){
-                var body = layui.layer.getChildFrame('body', index);
-                if(edit){
-					$.ajax({
-						url: application.SERVE_URL +'/sys/sysdict/get', //ajax请求地址
-						type: "POST",
-						data:{
-							id :edit.id,
-						},
-						headers : { 'Authorization' : application.HEADER},						
-						success: function (data) {
-							if(data){
-								body.find(".id").val(data.id);
-								body.find(".remark").val(data.remark);
-								body.find(".value").val(data.value);
-								body.find(".typeCode").val(data.typeCode);
-								body.find(".label").val(data.label);
-								body.find(".value").val(data.value);
-								body.find(".sort").val(data.sort);  	
-							}else{
-								//console.data();
-								top.layer.msg("编码获取失败！");
-							}
-						}
-					}); 
-                    form.render();
-                }
-                setTimeout(function(){
-                    layui.layer.tips('点击此处返回编码列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                },500)
-            }
-        })
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
-    }
 	
+	
+	//添加编码
+	function _addDict(edit){
+		publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysdict/get',edit ==undefined?null:edit.id,"编码管理","dictAdd.html");
+	}
 
 })

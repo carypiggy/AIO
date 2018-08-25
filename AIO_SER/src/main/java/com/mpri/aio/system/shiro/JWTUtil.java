@@ -96,17 +96,17 @@ public class JWTUtil  {
      * @return
      */
     public static String refresh(String token) {
-    	DecodedJWT jwt = JWT.decode(token);
-    	Date now=new Date();
-    	long nowTime=now.getTime();
-    	long tokenTime=jwt.getExpiresAt().getTime();
-    	String password=getPassword(token);
-    	String username=getUsername(token);
-    	if((nowTime-tokenTime)<REFESH_TIME) {
-    		return sign(username,password);
-    	}else {
+//    	DecodedJWT jwt = JWT.decode(token);
+//    	Date now=new Date();
+//    	long nowTime=now.getTime();
+//    	long tokenTime=jwt.getExpiresAt().getTime();
+//    	String password=getPassword(token);
+//    	String username=getUsername(token);
+//    	if((nowTime-tokenTime)<REFESH_TIME) {
+//    		return sign(username,password);
+//    	}else {
     		
     		return token;
-    	}
+//    	}
     }
 }

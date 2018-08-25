@@ -17,15 +17,37 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
 		publicUtil  = layui.publicUtil,
 		upload = layui.upload;
         $ = layui.jquery;
-
-	if(parent.formdatas != undefined){
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'} ,"type",parent.formdatas.type);		
-		publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'} ,"useable",parent.formdatas.useable);
-	}else{
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'} ,"type");		
-		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'} ,"useable");
-	}
 		
+		function formEdit(FormDatas){
+			if(FormDatas != ''){
+				var data = FormDatas;	 
+				 $(".id").val(data.id);
+				 $(".parentId").val(data.parentId);
+				 $(".name").val(data.name);
+				 $(".code").val(data.code);													
+				 $(".master").val(data.master);  
+				 $(".mobile").val(data.mobile);  
+				 $(".mobile").val(data.mobile);  
+				 $("#openDate").val(data.openDate);  
+				 $("#closeDate").val(data.closeDate); 
+				 $(".remark").val(data.remark);
+				 $(".sort").val(data.sort);
+				 $(".parentName").val(data.parentSysOrg.name);
+				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'} ,"type",data.type);		
+				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'} ,"useable",data.useable);
+			}else{
+				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'} ,"type");		
+				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'} ,"useable");
+				return false;
+			}
+		}													
+	
+	
+	/**
+	* 表单回填
+	*/
+	formEdit(parent.editFormData);
+	
 	var openDate;
 	var closeDate ;
 	//执行一个laydate实例
@@ -52,6 +74,7 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
     form.on("submit(addOrg)",function(data){
 		
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+		var res = ($(".id").val() ==null|| $(".id").val() =="") ?"新增":"修改" ;
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysorg/save", //ajax请求地址
 			type: "POST",
@@ -72,7 +95,6 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
 				remark : $(".remark").val()
 			}),			
 			success: function (data) {
-				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 				if(data == "success"){
 				 	top.layer.close(index);
 		            top.layer.msg("机构" + res + "成功");
