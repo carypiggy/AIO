@@ -35,7 +35,7 @@ layui.use(['form','layer','jquery','application'],function(){
 			success: function (data) {
 				if(data.code==application.REQUEST_SUCCESS){
 					//将token保存在cookie中			
-					sessionStorage.setItem("token", data.data);
+					sessionStorage.setItem("token", data.data.token);
 					top.layer.msg("登陆成功");
 					window.location.href = "../index.html";
 				}else{

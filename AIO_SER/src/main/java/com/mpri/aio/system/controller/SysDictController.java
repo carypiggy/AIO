@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.PageIo;
+import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysDict;
 import com.mpri.aio.system.service.SysDictService;
 
@@ -43,9 +44,9 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@GetMapping(value = "/list")
-	public PageInfo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
-		PageIo<SysDict> pageInfo =  sysDictService.loadByPage(pageNo,pageSize,sysDict);							
-		return pageInfo;
+	public PageIo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
+		PageIo<SysDict> info = sysDictService.loadByPage(pageNo,pageSize,sysDict);	
+		return info;
 	}
 	
 	
@@ -58,9 +59,9 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SysDict sysDict){
+	public RestResponse<String> save(@Validated SysDict sysDict){
 		sysDictService.save(sysDict);							
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
 	}	
 	
 	/**
@@ -72,9 +73,9 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	public String delete(SysDict sysDict) {
+	public RestResponse<String> delete(SysDict sysDict) {
 		sysDictService.delete(sysDict);
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
 	}
 	
 	/**
@@ -89,8 +90,10 @@ public class SysDictController extends BaseController {
 	@RequiresAuthentication
 	@RequiresPermissions("sysdict:edit")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
-	public SysDict get(SysDict sysDict) {
-		return sysDictService.get(sysDict);		
+	public RestResponse<SysDict> get(SysDict sysDict) {
+		
+		return new RestResponse<SysDict>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysDictService.get(sysDict));
+
 	}
 	
 	/**
@@ -100,8 +103,8 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/getByTypeCode")
-	public List<SysDict> getSysDictByTypecode(String typeCode) {
-		return sysDictService.getSysDictByTypecode(typeCode);
+	public  RestResponse<List<SysDict>> getSysDictByTypecode(String typeCode) {
+		return new RestResponse<List<SysDict>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysDictService.getSysDictByTypecode(typeCode));
 	}
 		
 }
