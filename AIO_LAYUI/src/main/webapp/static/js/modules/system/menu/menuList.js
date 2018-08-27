@@ -55,7 +55,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 	//监听单元格事件
 	treeGrid.on('tool(menuTree)', function(obj){
 		var data = obj.data;
-		
 		publicUtil.show_menu(data);
 	});
 	

@@ -99,12 +99,15 @@ public class SysAreaController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/get")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
-	public SysArea get(SysArea sysArea) {
+	public RestResponse<SysArea> get(SysArea sysArea) {
+		
 		SysArea resSysArea = sysAreaService.get(sysArea);
 		SysArea parentSysArea = new SysArea();
 		parentSysArea.setId(resSysArea.getParentId());
 		resSysArea.setParentSysArea(sysAreaService.get(parentSysArea));
-		return resSysArea;		
+		
+		return new RestResponse<SysArea>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", resSysArea);
+	
 	}
 	
 	/**
@@ -117,8 +120,10 @@ public class SysAreaController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/loadChildrenByParent")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
-	public List<SysArea> loadChildrenByParent(SysArea sysArea) {
-		return sysAreaService.loadChildrenByParent(sysArea);
+	public RestResponse<List<SysArea>> loadChildrenByParent(SysArea sysArea) {
+		
+		return new RestResponse<List<SysArea>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysAreaService.loadChildrenByParent(sysArea));
+
 	}
 	
 	/**
@@ -131,7 +136,7 @@ public class SysAreaController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/loadAllListBy")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
-	public List<SysArea> loadAllListBy(SysArea sysArea) {
-		return sysAreaService.loadAllListBy(sysArea);
+	public RestResponse<List<SysArea>> loadAllListBy(SysArea sysArea) {
+		return new RestResponse<List<SysArea>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysAreaService.loadAllListBy(sysArea));
 	}
 }
