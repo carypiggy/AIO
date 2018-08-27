@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户管理</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../../../../static/layui/css/layui.css" media="all" />
+	<link href="../../../../static/css/zTree/metroStyle/metroStyle.css" type="text/css" media="screen" rel="stylesheet"/>
+	<link href="../../../../static/css/zTree/demo.css" type="text/css" media="screen" rel="stylesheet"/>
+	<link rel="stylesheet" href="../../../../static/css/public.css" media="all" />
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.core.min.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.excheck.js"></script>
+	<script type="text/javascript" src="../../../../static/js/ztree/jquery.ztree.exedit.js"></script>
+<style>
+
+</style>	
+</head>
+<body class="childrenBody">
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space11">
+			<div class="layui-col-md2 layui-overflow-tree">
+				<fieldset class="layui-elem-field fieldset-div">
+				 <legend >机构树</legend>
+				 <ul id="orgTree" class="ztree"></ul>		
+				 </fieldset>
+			</div>
+
+			<div class="layui-col-md10">
+				<fieldset id="user_div" class="layui-elem-field">
+					<legend>用户列表</legend>
+					<div class="layui-field-box">
+					<form class="layui-form">
+						<div class="layui-inline" style="margin-left: 15px">
+						<label>登录名：</label>
+						<div class="layui-input-inline">
+							<input type="text"   placeholder="请输入登录名" class="layui-input username">
+						</div>
+						</div>
+						<div class="layui-inline" style="margin-left: 15px">
+						<label>姓名：</label>
+						<div class="layui-input-inline">
+							<input type="text"  placeholder="请输入姓名" class="layui-input name">
+						</div>
+						</div>
+						<div class="layui-inline" style="margin-left: 15px">
+						<label>用户类型：</label>
+						<div class="layui-input-inline">
+							<select id="type" >
+								<option value=""></option>
+							</select>
+						</div>
+						</div>
+						<div class="layui-inline">
+							<a class="layui-btn" lay-submit="" lay-filter="searchForm" class="layui-btn search_btn" >查询</a>
+						</div>
+					</form>
+					</div>
+					<div layui-inline class="layui-but-per">
+						<div class="layui-btn-group" id="but_per">
+						</div>
+					</div>
+					<table id="userList" lay-filter="userList"></table>
+			</div>  
+				</fieldset>
+	</div>
+</body>
+<script type="text/javascript" src="../../../../static/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../../static/js/modules/system/user/userList.js"></script>
+</html>
