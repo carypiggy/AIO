@@ -59,7 +59,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         cols : [[
             {field: 'type', title: '日志类型',event: 'setSign'},
             {field: 'username', title: '创建者',event: 'setSign'},
-						{field: 'createDate', title: '创建日期',event: 'setSign'},
+			{field: 'createDate', title: '创建日期',event: 'setSign'},
             {field: 'remoteAddr', title: '操作IP地址',event: 'setSign'},
 						{field: 'userAgent', title: '用户代理',event: 'setSign'},
 						{field: 'requestUri', title: '请求URI',event: 'setSign'},

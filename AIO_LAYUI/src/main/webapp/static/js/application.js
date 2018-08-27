@@ -4,7 +4,8 @@
 	@Tittle: application
 	@Description: 封装一些配置项
 */
-layui.define(function(exports){
+layui.define('jquery',function(exports){
+	var $ = layui.jquery;
 	var obj ={
 		
 		//初始化
@@ -14,6 +15,10 @@ layui.define(function(exports){
 				sessionStorage.getItem("token") == undefined){			
 				parent.location.href = "../../../../login.html";
 			}
+			$(document).bind("contextmenu",function(e){
+				return false;
+				
+			});
 		},
 		//初始化
 		initindex : function (){
@@ -23,9 +28,14 @@ layui.define(function(exports){
 				window.location.href = "login.html";
 			}
 		},
+		
+		
 		//ajax请求返回的状态码
 		REQUEST_SUCCESS:200,
 		REQUEST_ERROR:500,
+		//Login
+		BASE_URL : "http://127.0.0.1:80",
+		
 		//服务的IP及端口
 		SERVE_PORT: "8080",
 		SERVE_IP: "127.0.0.1",
@@ -34,7 +44,9 @@ layui.define(function(exports){
 		//获取权限的URL
 		PERMS_URL : 'http://127.0.0.1:8080/getPagePer',
 		
-		HEADER : sessionStorage.getItem('token')
+		HEADER : sessionStorage.getItem('token'),
+		TOKENTIME : sessionStorage.getItem('tokenTime'),
+		TOKENISSUE : 3000
 	}
     exports('application', obj);
 })

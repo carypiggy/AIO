@@ -1106,42 +1106,51 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
     });
     
     //工具条操作事件
-    that.layBody.on('click', '*[lay-event]', function(){
-      var othis = $(this)
-      ,index = othis.parents('tr').eq(0).data('index')
-      ,tr = that.layBody.find('tr[data-index="'+ index +'"]')
-      ,ELEM_CLICK = 'layui-table-click'
-      ,data = table.cache[that.key][index];
+    that.layBody.on('mousedown', '*[lay-event]', function(e){
+			if(3 == e.which){
+				
+				var othis = $(this)
+				,index = othis.parents('tr').eq(0).data('index')
+				,tr = that.layBody.find('tr[data-index="'+ index +'"]')
+				,ELEM_CLICK = 'layui-table-click'
+				,data = table.cache[that.key][index];
+				
+				layui.event.call(this, MOD_NAME, 'tool('+ filter +')', {
+					data: table.clearCacheKey(data)
+					,event: othis.attr('lay-event')
+					,tr: tr
+					,del: function(){
+						table.cache[that.key][index] = [];
+						tr.remove();
+						that.scrollPatch();
+					}
+					,update: function(fields){
+						fields = fields || {};
+						layui.each(fields, function(key, value){
+							if(key in data){
+								var templet, td = tr.children('td[data-field="'+ key +'"]');
+								data[key] = value;
+								that.eachCols(function(i, item2){
+									if(item2.field == key && item2.templet){
+										templet = item2.templet;
+									}
+								});
+								td.children(ELEM_CELL).html(
+									templet ? laytpl($(templet).html() || value).render(data) : value
+								);
+								td.data('content', value);
+							}
+						});
+					}
+				});
+				tr.addClass(ELEM_CLICK).siblings('tr').removeClass(ELEM_CLICK);
+				
+			}else{
+				return;
+				
+			}
+			
       
-      layui.event.call(this, MOD_NAME, 'tool('+ filter +')', {
-        data: table.clearCacheKey(data)
-        ,event: othis.attr('lay-event')
-        ,tr: tr
-        ,del: function(){
-          table.cache[that.key][index] = [];
-          tr.remove();
-          that.scrollPatch();
-        }
-        ,update: function(fields){
-          fields = fields || {};
-          layui.each(fields, function(key, value){
-            if(key in data){
-              var templet, td = tr.children('td[data-field="'+ key +'"]');
-              data[key] = value;
-              that.eachCols(function(i, item2){
-                if(item2.field == key && item2.templet){
-                  templet = item2.templet;
-                }
-              });
-              td.children(ELEM_CELL).html(
-                templet ? laytpl($(templet).html() || value).render(data) : value
-              );
-              td.data('content', value);
-            }
-          });
-        }
-      });
-      tr.addClass(ELEM_CLICK).siblings('tr').removeClass(ELEM_CLICK);
     });
     
     //同步滚动条

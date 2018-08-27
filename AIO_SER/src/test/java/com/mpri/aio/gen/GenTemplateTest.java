@@ -70,9 +70,9 @@ public class GenTemplateTest extends ApplicationTests {
 		genConfigInfo.setGenTableInfo(genTableInfo);
 		
 		
-		//genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,NOT_LODE);				
+		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,NOT_LODE);				
 		//生成实体类  checked
-		//super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createEntity(JAVA_URL, genConfigInfo));
+		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createEntity(JAVA_URL, genConfigInfo));
 		//生成Dao   chedked
 		//super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createDao(JAVA_URL, genConfigInfo));
 		//生成Service   checked
@@ -81,8 +81,8 @@ public class GenTemplateTest extends ApplicationTests {
 		//super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createController(JAVA_URL, genConfigInfo));
 		
 		//此处需要id remark flag等数据操作
-		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,LODE);
-		//生成mapper 映射文件
-		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createMapping(XML_URL, genConfigInfo));
+//		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,LODE);
+//		//生成mapper 映射文件
+//		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createMapping(XML_URL, genConfigInfo));
 	}
 }

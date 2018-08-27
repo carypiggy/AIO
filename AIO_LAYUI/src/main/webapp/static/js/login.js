@@ -28,14 +28,15 @@ layui.use(['form','layer','jquery','application'],function(){
 			// url: "http://192.168.140.37:8080"+"/login", 
 			type: "POST",
 			data: { 
-				username : $("#userName").val(),
+				username : $("#username").val(),
 				password : $("#password").val(),
 				authCode : $("#code").val()
 			},
 			success: function (data) {
 				if(data.code==application.REQUEST_SUCCESS){
-					//将token保存在cookie中			
+					//将token保存在cookie中	
 					sessionStorage.setItem("token", data.data.token);
+					sessionStorage.setItem("tokenTime", data.data.tokenTime);
 					top.layer.msg("登陆成功");
 					window.location.href = "../index.html";
 				}else{
