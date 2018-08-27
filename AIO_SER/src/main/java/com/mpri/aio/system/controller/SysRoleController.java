@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.PageIo;
+import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysRole;
 /**
  * 
@@ -39,7 +40,7 @@ public class SysRoleController extends BaseController {
 	 */
 	@CrossOrigin
 	@GetMapping(value = "/list")
-	public PageInfo<SysRole> list(int pageNo,int pageSize,SysRole sysRole) {
+	public PageIo<SysRole> list(int pageNo,int pageSize,SysRole sysRole) {
 		PageIo<SysRole> pageInfo =  sysRoleService.loadByPage(pageNo,pageSize,sysRole);							
 		return pageInfo;
 	} 
@@ -54,8 +55,10 @@ public class SysRoleController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/get")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
-	public SysRole get(SysRole sysRole) {
-		return sysRoleService.get(sysRole);		
+	public RestResponse<SysRole> get(SysRole sysRole) {
+		
+		return new RestResponse<SysRole>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysRoleService.get(sysRole));
+
 	}
 	
 	/**
@@ -67,10 +70,11 @@ public class SysRoleController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	public String delete(SysRole sysRole) {
+	public RestResponse<String> delete(SysRole sysRole) {
 		sysRoleService.deleteRoleMenu(sysRole);
 		sysRoleService.delete(sysRole);
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
+
 	}
 	
 	
@@ -83,10 +87,11 @@ public class SysRoleController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated SysRole sysRole){
+	public RestResponse<String> save(@Validated SysRole sysRole){
 		sysRoleService.save(sysRole);							
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
 	}
+	
 	/**
 	 * 
 	* <p>Title: insertRoleMenu</p>  
@@ -96,9 +101,10 @@ public class SysRoleController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/saveRoleMenu")
-	public String saveRoleMenu(@RequestBody SysRole sysRole) {
+	public RestResponse<String> saveRoleMenu(@RequestBody SysRole sysRole) {
 		sysRoleService.saveRoleMenu(sysRole);
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
+
 	}
 	
 		

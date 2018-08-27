@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.exception.UnauthorizedException;

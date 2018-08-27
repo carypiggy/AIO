@@ -3,7 +3,6 @@ package com.mpri.aio.system.controller;
 import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.ResJson;
+import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.service.SysMenuService;
 
@@ -61,7 +62,7 @@ public class SysMenuController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	@RequiresAuthentication
-	public String save(@Validated SysMenu sysMenu){
+	public RestResponse<String> save(@Validated SysMenu sysMenu){
 		if("".equals(sysMenu.getParentId())|| null == sysMenu.getParentId()) {
 			//setRoot 目录
 		}else {
@@ -70,8 +71,8 @@ public class SysMenuController extends BaseController {
 			parentSysMenu = sysMenuService.get(parentSysMenu);
 			sysMenu.setParentIds(parentSysMenu.getParentIds()+","+parentSysMenu.getId());
 		}
-		sysMenuService.save(sysMenu);							
-		return SUCCESS;
+		sysMenuService.save(sysMenu);
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
 	}	
 	
 	/**
@@ -83,9 +84,9 @@ public class SysMenuController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	public String delete(SysMenu sysMenu) {
+	public RestResponse<String> delete(SysMenu sysMenu) {
 		sysMenuService.delete(sysMenu);
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
 	}
 	
 	/**
@@ -98,11 +99,12 @@ public class SysMenuController extends BaseController {
 	@CrossOrigin
 	@PostMapping(value = "/get")
 
-	public SysMenu get(SysMenu sysMenu) {
+	public RestResponse<SysMenu> get(SysMenu sysMenu) {
 		SysMenu resSysMenu = sysMenuService.get(sysMenu);
 		SysMenu parentSysMenu = new SysMenu();
 		parentSysMenu.setId(resSysMenu.getParentId());
 		resSysMenu.setParentSysMenu(sysMenuService.get(parentSysMenu));
-		return resSysMenu;		
+		return new RestResponse<SysMenu>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", resSysMenu);
+	
 	}
 }
