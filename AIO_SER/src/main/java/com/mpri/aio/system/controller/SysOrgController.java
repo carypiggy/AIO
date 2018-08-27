@@ -3,7 +3,6 @@ package com.mpri.aio.system.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
+import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.page.ResJson;
-import com.mpri.aio.system.model.SysDict;
-import com.mpri.aio.system.model.SysMenu;
+import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysOrg;
 import com.mpri.aio.system.service.SysOrgService;
 
@@ -79,13 +77,14 @@ public class SysOrgController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@RequestBody SysOrg sysOrg){		
+	public RestResponse<String> save(@RequestBody SysOrg sysOrg){		
 		SysOrg parentSysOrg = new SysOrg();
 		parentSysOrg.setId(sysOrg.getParentId());
 		parentSysOrg = sysOrgService.get(parentSysOrg);
 		sysOrg.setParentIds(parentSysOrg.getParentIds()+","+parentSysOrg.getId());
 		sysOrgService.save(sysOrg);							
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
+		
 	}	
 	
 	/**
@@ -97,9 +96,10 @@ public class SysOrgController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	public String delete(SysOrg sysOrg) {
+	public RestResponse<String> delete(SysOrg sysOrg) {
 		sysOrgService.delete(sysOrg);
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
+
 	}
 	
 	/**
@@ -111,12 +111,12 @@ public class SysOrgController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-	public SysOrg get(SysOrg sysOrg) {
+	public RestResponse<SysOrg> get(SysOrg sysOrg) {
 		SysOrg resSysOrg = sysOrgService.get(sysOrg);
 		SysOrg parentSysOrg = new SysOrg();
 		parentSysOrg.setId(resSysOrg.getParentId());
 		resSysOrg.setParentSysOrg(sysOrgService.get(parentSysOrg));
-		return resSysOrg;
+		return new RestResponse<SysOrg>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", resSysOrg);
 	}
 	
 	/**
@@ -126,8 +126,9 @@ public class SysOrgController extends BaseController {
 	 */
 	@CrossOrigin
 	@GetMapping(value = "/loadAllListBy")
-	public List<SysOrg> loadAllListBy(SysOrg sysOrg) {		
-		return sysOrgService.loadAllListBy(sysOrg);
+	public RestResponse<List<SysOrg>>  loadAllListBy(SysOrg sysOrg) {			
+		return new RestResponse<List<SysOrg>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysOrgService.loadAllListBy(sysOrg));
+
 	}
 		
 }
