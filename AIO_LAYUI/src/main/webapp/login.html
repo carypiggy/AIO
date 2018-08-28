@@ -13,6 +13,12 @@
 	<link rel="icon" href="favicon.ico">
 	<link rel="stylesheet" href="static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="static/css/public.css" media="all" />
+	<link rel="stylesheet" href="static/js/verify/css/verify.css">
+	<script type="text/javascript" src="static/layui/layui.js"></script>
+	<script type="text/javascript" src="static/js/login.js"></script>
+	<script type="text/javascript" src="static/js/cache.js"></script>
+	<script type="text/javascript" src="static/js/verify/js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="static/js/verify/js/verify.js"></script>   
 </head>
 <body class="loginBody">
 	<form class="layui-form">
@@ -25,17 +31,18 @@
 			<label for="password">密码</label>
 			<input type="password" placeholder="请输入密码" id="password" class="layui-input" lay-verify="required">
 		</div>
-		<div class="layui-form-item input-item" id="imgCode">
-			<label for="code">验证码</label>
-			<input type="text" placeholder="请输入验证码" id="code" class="layui-input">
-			<img id="codeImg"/>
-		</div>
+		<!-- <div class="layui-form-item input-item"> -->
+		<div class="layui-form-item">
+			<!-- <label for="code">验证码</label> -->
+			<!-- <input type="text" placeholder="请输入验证码" id="code" class="layui-input"> -->
+			<input type = "text" id="input" class="layui-input"  placeholder="请输入验证码" style="width: 60%; float: left;"/>
+			<div id="mpanel4" /></div>
+			<!-- <img id="codeImg"/> -->
+		</div>	
 		<div class="layui-form-item">
 			<button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
 		</div>
 	</form>
-	<script type="text/javascript" src="static/layui/layui.js"></script>
-	<script type="text/javascript" src="static/js/login.js"></script>
-	<script type="text/javascript" src="static/js/cache.js"></script>
+
 </body>
 </html>

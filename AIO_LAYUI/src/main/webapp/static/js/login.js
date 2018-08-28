@@ -9,47 +9,85 @@ layui.config({
 }).extend({
 	"application" : "application"
 })
-layui.use(['form','layer','jquery','application'],function(){
+layui.use(['form','layer','application'],function(){
     var form = layui.form,
 		application = layui.application,
-        layer = parent.layer === undefined ? layui.layer : top.layer
-        $ = layui.jquery;
+        layer = parent.layer === undefined ? layui.layer : top.layer;
 
-		$(document).ready(function(){
-			  document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片               
-    });
+// 		$(document).ready(function(){
+// 			  // document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片           
+//     });
+		
+		//验证码
+		$('#mpanel4').codeVerify({
+        	type : 1,
+        	width : '100px',
+		    height : '36px',
+		    fontSize : '20px',
+				codeLength : 4,
+				ready : function() {
+				},
+				success : function() {
+					alert('验证成功，添加你自己的代码！');
+					//......后续操作
+				},
+				error : function() {
+				//              alert('验证失败！');
+				}
+ 
+		}); 
+
+		
+		
+		
     //登录按钮
     form.on("submit(login)",function(data){
-    //$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-		
-      //请求登陆
-		$.ajax({
-			url: application.SERVE_URL+"/login", //ajax请求地址
-			// url: "http://192.168.140.37:8080"+"/login", 
-			type: "POST",
-			data: { 
-				username : $("#username").val(),
-				password : $("#password").val(),
-				authCode : $("#code").val(),
-				comeFrom : application.COMEFROM
-			},
-			success: function (data) {
-				if(data.code==application.REQUEST_SUCCESS){
-					//将token保存在cookie中	
-					sessionStorage.setItem("token", data.data.token);
-					sessionStorage.setItem("tokenTime", data.data.tokenTime);
-					top.layer.msg("登陆成功");
-					window.location.href = "../index.html";
-				}else{
-					top.layer.msg(data.msg+"("+data.code+")");
-				}
-			},
-			error: function(data){
-				var result=data.responseJSON;
-				top.layer.msg(result.msg+"("+result.code+")");
-				$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
-			}
-		}); 
+			//$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写  
+			//获取验证吗内容	 
+			var code_area = '';
+			for(var i=0;i<$(".verify-code").find("font").length;i++){
+				code_area += $(".verify-code").find("font").eq(i).html();//遍历所有font的文本
+			} 
+			code_area = code_area.toUpperCase();
+			if(inputCode.length <= 0) { //若输入的验证码长度为0
+				top.layer.msg("请输入验证码！");
+				return false;//则弹出请输入验证码
+			}else if(inputCode != code_area ) { //若输入的验证码与产生的验证码不一致时
+				top.layer.msg("验证码输入错误！"); //则弹出验证码输入错误
+				createCode();//刷新验证码
+				document.getElementById("input").value = "";//清空文本框
+				return false;
+			}else {
+				//请求登陆
+				$.ajax({
+					url: application.SERVE_URL+"/login", //ajax请求地址
+					// url: "http://192.168.140.37:8080"+"/login", 
+					type: "POST",
+					data: { 
+						username : $("#username").val(),
+						password : $("#password").val(),
+						// authCode : $("#code").val(),
+						comeFrom : application.COMEFROM
+					},
+					success: function (data) {
+						if(data.code==application.REQUEST_SUCCESS){
+							//将token保存在cookie中	
+							sessionStorage.setItem("token", data.data.token);
+							sessionStorage.setItem("tokenTime", data.data.tokenTime);
+							top.layer.msg("登陆成功");
+							window.location.href = "../index.html";
+						}else{
+							top.layer.msg(data.msg+"("+data.code+")");
+						}
+					},
+					error: function(data){
+						var result=data.responseJSON;
+						top.layer.msg(result.msg+"("+result.code+")");
+						$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
+					}
+				});
+			} 
         return false;
     })
 
