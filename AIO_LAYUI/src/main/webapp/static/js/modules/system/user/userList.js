@@ -23,7 +23,7 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 		table = layui.table;
 		application = layui.application;
 		
-		
+		application.init();
 		//获取权限并加载按钮
 		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
 		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'} ,"type",true);
@@ -56,13 +56,13 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 				url: application.SERVE_URL+'/sys/sysorg/tree',
 				headers : { 'Authorization' : application.HEADER},//ajax请求地址
 				success: function (data) {
-				treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
-				//初始化
-				var nodeList = treeObj.getNodes();
-	　　　　　　//展开第一个根节点
-				treeObj.expandNode(nodeList[0], true);
-				treeObj.setting.callback.onClick(null, treeObj.setting.treeId, nodeList[0]);//调用事件	
-			}
+					treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
+					//初始化
+					var nodeList = treeObj.getNodes();
+		　　　　　　//展开第一个根节点
+					treeObj.expandNode(nodeList[0], true);
+					treeObj.setting.callback.onClick(null, treeObj.setting.treeId, nodeList[0]);//调用事件	
+				}
 		});		
 		// $.fn.zTree.init($("#treeDemo"), setting);
 	}	
@@ -96,17 +96,18 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 						url : application.SERVE_URL+'/sys/sysuser/list',
 						cellMinWidth : 95,
 						page : true,
+						even : true ,
 						where:{orgId : treeNode.id},
 						height : "full-160",
 						limit : 10,
 						id : "userList",
 						cols : [[
 							{type:'checkbox'},
-							{field: 'username', title: '登录名'},
-							{field: 'name', title: '姓名'},
-							{field: 'type', title: '用户类型'},
-							{field: 'mobile', title: '手机'},
-							{field: 'email', title: '邮箱'},
+							{field: 'username', title: '登录名',event: 'setSign'},
+							{field: 'name', title: '姓名',event: 'setSign'},
+							{field: 'type', title: '用户类型',event: 'setSign'},
+							{field: 'mobile', title: '手机',event: 'setSign'},
+							{field: 'email', title: '邮箱',event: 'setSign'},
 						]]
 						,done: function(res, curr, count){    //res 接口返回的信息,
 							publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'},'type');
@@ -114,16 +115,20 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 					});	
 		}
 	
-		
+		//行点击事件
+		//监听单元格事件
+		table.on('tool(userList)', function(obj){
+			publicUtil.show_menu(obj);
+		});
 				
 
 		//新增操作
-		_$(document).on('click','#ADD',function(){
+		_$(document).on('click','.PER_ADD',function(){
 				addUser();
     }); 
 		
 		//编辑操作
-		_$(document).on('click','#EDIT',function(){		
+		_$(document).on('click','.PER_EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('userList').data);
 			if(flag){
 				addUser(table.checkStatus('userList').data[0]);
@@ -134,7 +139,7 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 	  })		
 		
 		//删除
-		_$(document).on('click','#DEL',function(){		
+		_$(document).on('click','.PER_DEL',function(){		
 				var flag = publicUtil.jurgeSelectRows(table.checkStatus('userList').data);
 				var parm = table.checkStatus('userList').data[0].id ;
 				if(flag){
@@ -145,10 +150,22 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 											data:{
 												id :  parm
 											},
+											beforSend: function () {
+												publicUtil.refreshToken();
+											},
 											headers : { 'Authorization' : application.HEADER},												
 											success: function (data) {
+												if(res.code==application.REQUEST_SUCCESS){
 													table.reload('userList');
+													// location.reload();
 													layer.close(index);	
+													layer.msg(res.msg);							
+												}else{
+													layer.msg(res.msg);
+												}
+											},
+											error: function(res){
+												publicUtil.errofunc(res);
 											}
 									})
 						});		

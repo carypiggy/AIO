@@ -72,6 +72,9 @@ layui.use(['form','layer','publicUtil','application'],function(){
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysarea/save", //ajax请求地址
 			type: "POST",
+			beforSend: function () {
+				publicUtil.refreshToken();
+			},
 			headers : { 'Authorization' : application.HEADER},	
 			data:{
 				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
@@ -83,7 +86,6 @@ layui.use(['form','layer','publicUtil','application'],function(){
 				remark : $(".remark").val(),
 			},			
 			success: function (data) {
-				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 				if(data.code==application.REQUEST_SUCCESS){
 					top.layer.close(index);
 					top.layer.msg(data.msg);

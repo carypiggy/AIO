@@ -193,13 +193,13 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
     }
 		
 		//新增操作
-		_$(document).on('click','#ADD',function(){
+		_$(document).on('click','.PER_ADD',function(){
 				_addOrg();
     });
 
 		
 		//编辑操作
-		_$(document).on('click','#EDIT',function(){		
+		_$(document).on('click','.PER_EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('orgList').data);
 				if(flag){
 					_addOrg(table.checkStatus('orgList').data[0]);
@@ -210,7 +210,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		})
 		
 		//删除
-		_$(document).on('click','#DEL',function(){		
+		_$(document).on('click','.PER_DEL',function(){		
 				var flag = publicUtil.jurgeSelectRows(table.checkStatus('orgList').data);
 				if(flag){
 								layer.confirm('确定删除此机构吗？',{icon:3, title:'提示信息'},function(index){

@@ -52,7 +52,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         url : application.SERVE_URL+'/sys/syslogs/list',
         cellMinWidth : 95,
         page : true,
-				headers : { 'Authorization' : application.HEADER},
+		even : true ,
+		headers : { 'Authorization' : application.HEADER},
         height : "full-160",
         limit : 10,
         id : "logsListTable",
@@ -94,8 +95,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	//行点击事件
 	//监听单元格事件
 	table.on('tool(logsList)', function(obj){
-		var data = obj.data;
-		publicUtil.show_menu(data);
+		publicUtil.show_menu(obj);
 	});
 	
 	function openLogsInfo(edit){

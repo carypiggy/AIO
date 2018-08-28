@@ -107,11 +107,13 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 				initSelect();
 				form.on("submit(addUser)",function(data){
 						//弹出loading
-					 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-					 var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;					 
+					 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});				 
 					 $.ajax({
 							url: application.SERVE_URL+'/sys/sysuser/save', //ajax请求地址
 							type: "POST",
+							beforSend: function () {
+								publicUtil.refreshToken();
+							},
 							headers : { 'Authorization' : application.HEADER},
 							contentType: "application/json",
 							data: JSON.stringify({
@@ -127,22 +129,22 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 											type : $("#type").val(),
 											roleList : convert(layui.formSelects.value('userRole', 'val'))
 										}),		
-							success: function (data) {
-								if(data == "success"){
+							success: function (res) {
+								// if(res.code==200){
 									top.layer.close(index);
-									top.layer.msg("用户" + res + "成功");
+									top.layer.msg(res.msg);	
 									layer.closeAll("iframe");
 									//刷新父页面
-									parent.location.reload();	
-								}else{
-									top.layer.msg("用户" + res + "失败！");
-								}
+									parent.location.reload();
+// 								}else{
+// 									layer.msg(res.msg);
+// 								}
 							},
-							error: function(data){
-								top.layer.msg("用户" + res + "失败！");
+							error: function(res){
+								publicUtil.errofunc(res);
 							}
 					 });
-						return false;
+					 return false;
 				})
 
 				function convert (arr){

@@ -100,12 +100,13 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				}, 
 				success:function(res){
 					if(res.code==application.REQUEST_SUCCESS){
+						var data = res.data;
 						$("#"+selectid).empty();
 						if(flag){
 							$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
 						}
-						for(var i =0;i<res.length;i++){
-							$("#"+selectid).append('<option  value="'+res[i].value+'" >'+res[i].label+' </option>');//往下拉菜单里添加元素
+						for(var i =0;i<data.length;i++){
+							$("#"+selectid).append('<option  value="'+data[i].value+'" >'+data[i].label+' </option>');//往下拉菜单里添加元素
 						}
 					}
 					form.render();//菜单渲染 把内容加载进去
@@ -179,27 +180,30 @@ layui.define(['form','layer','jquery','application'],function(exports){
 					beforSend: function () {
 								beforefunc();
 					},
-					success: function(data) {
-						// if(data.code==application.REQUEST_SUCCESS){
-							editFormData=data;
-							var index = layui.layer.open({
-								title: titleName,
-								type: 2,
-								content: pageUrl,
-								success: function(layero, index) {
-									setTimeout(function() {
-										layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-											tips: 3
-										});
-									}, 500)
-								}
-							})
-							layui.layer.full(index);
-							//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-							$(window).on("resize", function() {
+					success: function(res) {
+						 if(res.code==application.REQUEST_SUCCESS){
+								editFormData=res.data;
+								var index = layui.layer.open({
+									title: titleName,
+									type: 2,
+									content: pageUrl,
+									success: function(layero, index) {
+										setTimeout(function() {
+											layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+												tips: 3
+											});
+										}, 500)
+									}
+								})
 								layui.layer.full(index);
-							})
-						// }
+								//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+								$(window).on("resize", function() {
+									layui.layer.full(index);
+								})
+						 }else{
+							 layui.layer.msg(res.msg);
+							 return false;
+						 }
 					},
 					error: function(){
 						errofuntion();
@@ -220,12 +224,16 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				},
 				success:function(res){
 					if(res.code==application.REQUEST_SUCCESS){
+						var data = res.data;
 						$("#"+selectid).empty();
-						for(var i =0;i<res.length;i++){
-							$("#"+selectid).append('<option  value="'+res[i].value+'">'+res[i].label+'</option>');//往下拉菜单里添加元素
+						for(var i =0;i<data.length;i++){
+							$("#"+selectid).append('<option  value="'+data[i].value+'">'+data[i].label+'</option>');//往下拉菜单里添加元素
 						}
 						$('#'+selectid).val(selectValue);
 						form.render('select');//菜单渲染 把内容加载进去
+					}else{
+						layui.layer.msg(res.msg);
+						return false;
 					}
 				},
 				error: function(){
@@ -254,6 +262,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				},										
 				success: function (result) {
 					// if(result.code==application.REQUEST_SUCCESS){
+						
 						var permissons = result;
 						var butHtml = '';
 						var leftMenu="";
@@ -268,7 +277,10 @@ layui.define(['form','layer','jquery','application'],function(exports){
 						}
 						$("#"+butGroupId).append(butHtml);
 						$("#show_menu").append(leftMenu);
-					// }
+// 					}else{
+// 						// layui.layer.msg(result.msg);
+// 						return false;
+// 					}
 				},
 				error: function(){
 					errofuntion();
@@ -299,10 +311,13 @@ layui.define(['form','layer','jquery','application'],function(exports){
 								}
 							}
 						})
+					}else{
+						// layui.layer.msg(res.msg);
+						return false;
 					}
 				},
-				error: function(){
-					errofuntion();
+				error: function(data){
+					errofuntion(data);
 				}
 			})
 		},
@@ -373,8 +388,8 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		},
 		
 		//erro 方法 
-		errofunc :function(data){
-			var result=data.responseJSON;
+		errofunc :function(res){
+			var result=res.responseJSON;
 			top.layer.msg(result.msg+"("+result.code+")");
 		}
 	
@@ -428,7 +443,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 
 
 		//erro 方法
-		function errofuntion(data){
+		function errofuntion(res){
 			var result=data.responseJSON;
 			top.layer.msg(result.msg+"("+result.code+")");
 		}
