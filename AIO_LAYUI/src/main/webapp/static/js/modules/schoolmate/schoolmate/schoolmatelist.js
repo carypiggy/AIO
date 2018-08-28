@@ -8,18 +8,24 @@
 layui.config({
 	base : "../../../../static/js/"
 }).extend({
-	"application" : "application"
+	"application" : "application",
+	"publicUtil" : "publicUtil"
 })
 
-layui.use(['table','form','element','layer','jquery','application'],function(){
+layui.use(['table','form','element','layer','jquery','application','publicUtil'],function(){
 	var layer = layui.layer,
 		form = layui.form,
 		laydate = layui.laydate,
-		_$ = layui.jquery;
-		table = layui.table;
+		$ = layui.jquery,
+		publicUtil = layui.publicUtil,
+		table = layui.table,
 		application = layui.application;
 		
-
+		application.init();
+		//获取权限并加载按钮
+		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+		
+		
 		//根据Id 加载右侧用户数据
 		/**
 		 * 校友管理列表
@@ -30,6 +36,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			//生产坏境下请求后台
 			cellMinWidth : 95,
 			page : true,
+			even : true ,
 			where:{orgId : 0},
 			height : "full-125",
 			limit : 10,
@@ -37,6 +44,7 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			cols : [[
 				//姓名、性别、证件类型、证件号码、入校日期、专业、班级、校友类型、申请日期、状态、操作
 				// {field: 'id', title: 'ID', align:"center"},
+				{type:'checkbox'},
 				{field: 'name', title: '姓名'},
 				{field: 'sex', title: '性别'},
 				{field: 'cardtype', title: '证件类型'},
@@ -51,26 +59,63 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			]]
 		});	
 
-		function covert(data) {
-			var nodes = [];
-			for (var i = 0; i < data.length; i++) {
-				if(data[i].open == true){
-					nodes.push({
-						id: data[i].id,
-						pId: data[i].parentId,
-						name: data[i].name,
-						open: data[i].open
-					});
-				}else{
-					nodes.push({
-						id: data[i].id,
-						pId: data[i].parentId,
-						name: data[i].name
-					});
-				}
+
+		//新增操作
+		$(document).on('click','.PER_ADD',function(){
+			addSm();
+		});
+		
+		//编辑操作
+		$(document).on('click','.PER_EDIT',function(){		
+			var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
+			if(flag){			
+				_addDict(table.checkStatus('dictList').data[0]);
+			}else{
+				return false;
 			}
-			return nodes;
-		}
+
+		})
+		
+		//删除
+		$(document).on('click','.PER_DEL',function(){		
+			var flag = publicUtil.jurgeSelectRows(table.checkStatus('dictList').data);
+			if(flag){
+				layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){				
+					$.ajax({
+						url: application.SERVE_URL+"/sys/sysdict/delete", //ajax请求地址
+						type: "POST",
+						data:{
+							id : table.checkStatus('dictList').data[0].id  
+						},
+						beforSend: function () {
+							publicUtil.refreshToken();
+						},
+						headers : { 'Authorization' : application.HEADER},												
+						success: function (res) {
+							if(res.code==application.REQUEST_SUCCESS){
+								tableIns.reload();
+								// location.reload();
+								top.layer.close(index);	
+								top.layer.msg(res.msg);							
+							}else{
+								top.layer.msg(res.msg);
+							}
+
+						},
+						error: function(res){
+							publicUtil.errofunc(res);
+						}
+					});	
+				});			
+			}else{
+				return false;
+			}
+		})	
+
+
+
+
+
 			
 	    //列表操作
 	    table.on('tool(userList)', function(obj){
@@ -118,8 +163,16 @@ layui.use(['table','form','element','layer','jquery','application'],function(){
 			}
 		});
 		
+		
+		//添加编码
+		function addSm(edit){
+			publicUtil.gotoEditPage(application.SERVE_URL +'/sys/smSchoolmate/get',edit ==undefined?null:edit.id,"校友管理","schoolmateAdd.html");
+		}
+		
+		
+		
 	    //添加用户
-	    function addUser(edit){
+	    function _addSm(edit){
 				var title ="编辑校友"
 				if(edit !=undefined && edit!="" )
 				{
