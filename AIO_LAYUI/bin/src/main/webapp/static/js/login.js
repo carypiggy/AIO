@@ -30,7 +30,8 @@ layui.use(['form','layer','jquery','application'],function(){
 			data: { 
 				username : $("#username").val(),
 				password : $("#password").val(),
-				authCode : $("#code").val()
+				authCode : $("#code").val(),
+				comeFrom : application.COMEFROM
 			},
 			success: function (data) {
 				if(data.code==application.REQUEST_SUCCESS){

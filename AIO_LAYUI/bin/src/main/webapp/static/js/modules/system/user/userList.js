@@ -23,7 +23,7 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 		table = layui.table;
 		application = layui.application;
 		
-		
+		application.init();
 		//获取权限并加载按钮
 		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
 		publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'} ,"type",true);
@@ -96,17 +96,18 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 						url : application.SERVE_URL+'/sys/sysuser/list',
 						cellMinWidth : 95,
 						page : true,
+						even : true ,
 						where:{orgId : treeNode.id},
 						height : "full-160",
 						limit : 10,
 						id : "userList",
 						cols : [[
 							{type:'checkbox'},
-							{field: 'username', title: '登录名'},
-							{field: 'name', title: '姓名'},
-							{field: 'type', title: '用户类型'},
-							{field: 'mobile', title: '手机'},
-							{field: 'email', title: '邮箱'},
+							{field: 'username', title: '登录名',event: 'setSign'},
+							{field: 'name', title: '姓名',event: 'setSign'},
+							{field: 'type', title: '用户类型',event: 'setSign'},
+							{field: 'mobile', title: '手机',event: 'setSign'},
+							{field: 'email', title: '邮箱',event: 'setSign'},
 						]]
 						,done: function(res, curr, count){    //res 接口返回的信息,
 							publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'USER_TYPE'},'type');
@@ -114,7 +115,11 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 					});	
 		}
 	
-		
+		//行点击事件
+		//监听单元格事件
+		table.on('tool(userList)', function(obj){
+			publicUtil.show_menu(obj);
+		});
 				
 
 		//新增操作

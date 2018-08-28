@@ -5,12 +5,12 @@
 	@Description: 封装一些公用
  */
 var editFormData;
-layui.define(['form','layer','jquery','application'],function(exports){
+layui.define(['form','layer','jquery','application','table'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
-	
+	var table = layui.table;
 	var obj ={
 		
 		
@@ -266,7 +266,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 						var permissons = result;
 						var butHtml = '';
 						var leftMenu="";
-						$("table").first().after("<dl class='show_menu' id='show_menu'></dl>");
+						$("body div").first().after("<dl class='show_menu' id='show_menu'></dl>");
 						for(var i=0;i<permissons.length;i++){
 							var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
 							butHtml += '<a class="layui-btn PER_'+permissons[i].operate+'" ><i class="layui-icon '+ icon +'"></i> '+permissons[i].name+'</a>';
@@ -302,12 +302,13 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				},
 				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
+					var data = res.data;
 					if(res.code==application.REQUEST_SUCCESS){
 						/*渲染表格*/
 						$("[data-field = '"+str+"']").children().each(function(){
-							for(var i =0;i<res.length;i++){
-								if($(this).text().trim() == res[i].value){								
-									$(this).text(res[i].label);
+							for(var i =0;i<data.length;i++){
+								if($(this).text().trim() == data[i].value){								
+									$(this).text(data[i].label);
 								}
 							}
 						})
@@ -351,20 +352,27 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		/**
 		 * 权限左键菜单
 		 */
-		show_menu:function(data){
-			
+		show_menu:function(obj){
+			var data = obj.data;
+
+			//兼容性 Chrom
 			$("#show_menu").css({
 				//定义菜单显示位置为事件发生的X坐标和Y坐标
 				top : window.event.pageY,
 				left : window.event.pageX,
 				display:'block'
-			}).show().delay(3000).hide(300);
-		// 		$("#oplog").click(function(){
-		// 			
-		// 			openLogsInfo(data);
-		// 			
-		// 		});
-		
+			}).show().delay(5000).hide(300);
+			
+			//清空列表内checkbox
+			var item = $("table").first();
+			for(var i=0;i<item.length;i++){
+				$("input").prop("checked", false);
+				form.render('checkbox');
+			}
+			//此处需传值当前行
+			obj.tr.find("input[name='layTableCheckbox']+").prop('checked', true);
+			obj.tr.find('input[name="layTableCheckbox"]+').click();
+			form.render('checkbox');
 		},
 			
 		//刷新Token方法
@@ -374,7 +382,8 @@ layui.define(['form','layer','jquery','application'],function(exports){
 						async:false,
 						url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 						type: "POST",
-						headers : { 'Authorization' : application.HEADER},						
+						headers : { 'Authorization' : application.HEADER},
+						data : {"comeFrom" : application.COMEFROM},
 						success: function (data) {
 							sessionStorage.clear();
 							sessionStorage.setItem("token", data.data.token);
@@ -455,6 +464,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 					async:false,
 					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 					type: "POST",
+					data : {"comeFrom" : application.COMEFROM},
 					headers : { 'Authorization' : application.HEADER},						
 					success: function (data) {
 						sessionStorage.clear();

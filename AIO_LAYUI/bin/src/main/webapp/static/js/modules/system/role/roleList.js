@@ -17,18 +17,21 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
         layer = layui.layer,
         $ = layui.jquery,
 				publicUtil = layui.publicUtil,
-		application = layui.application,
+			application = layui.application,
         laydate = layui.laydate,
         laytpl = layui.laytpl,
         table = layui.table;
+		//选中标记
+		var flag ;
 
-		application.initindex();
+		application.init();
     //编码列表
     var tableIns = table.render({
         elem: '#roleList',
         url : application.SERVE_URL+'/sys/sysrole/list',
         cellMinWidth : 95,
         page : true,
+				even : true ,
 				headers : { 'Authorization' : application.HEADER},
         height : "full-160",
         limit : 20,
@@ -36,11 +39,11 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
         id : "roleList",
         cols : [[
             {type:'checkbox'},
-            {field: 'name', title: '角色名称'},
-            {field: 'type', title: '角色类型'},
-            {field: 'code', title: '角色编码'},
-            {field: 'createDate', title: '创建时间'},
-            {field: 'remark', title: '备注信息'}
+            {field: 'name', title: '角色名称',event: 'setSign'},
+            {field: 'type', title: '角色类型',event: 'setSign'},
+            {field: 'code', title: '角色编码',event: 'setSign'},
+            {field: 'createDate', title: '创建时间',event: 'setSign'},
+            {field: 'remark', title: '备注信息',event: 'setSign'}
         ]]
 				,done: function(res, curr, count){    //res 接口返回的信息,
 					publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'},'type');
@@ -49,7 +52,11 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 
 		//获取权限并加载按钮
 		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
-
+		//行点击事件
+		//监听单元格事件
+		table.on('tool(roleList)', function(obj){
+			publicUtil.show_menu(obj);
+		});
 	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
@@ -73,8 +80,8 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 	  });
 		
 		//编辑操作
-		$(document).on('click','.PER_EDIT',function(){		
-			var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
+		$(document).on('click','.PER_EDIT',function(){
+			flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 			if(flag){
 				_addRole(table.checkStatus('roleList').data[0]);
 			}else{
@@ -85,7 +92,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 		
 		//删除
 		$(document).on('click','.PER_DEL',function(){		
-				var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
+				flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 				if(flag){
 								layer.confirm('确定删除此此角色？',{icon:3, title:'提示信息'},function(index){
 											$.ajax({
@@ -94,12 +101,21 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 												data:{
 													id : table.checkStatus('roleList').data[0].id  
 												},
-												headers : { 'Authorization' : application.HEADER},												
-												success: function (data) {
-													if(data = "success"){
-														table.reload();
-														layer.close(index);	
+												beforSend: function () {
+													publicUtil.refreshToken();
+												},
+												headers : { 'Authorization' : application.HEADER},											
+												success: function (res) {
+													if(res.code==application.REQUEST_SUCCESS){
+														top.layer.msg(res.msg);	
+														layer.close(index);
+														table.reload();															
+													}else{
+														layer.msg('权限配置失败');
 													}
+												},
+												error: function(res){
+													publicUtil.errofunc(res);
 												}
 											})
 								});		
@@ -115,10 +131,13 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 							$.ajax({
 								url : application.SERVE_URL+'/sys/sysrole/get',
 								type : 'POST',
+								beforSend: function () {
+									publicUtil.refreshToken();
+								},
 								headers : { 'Authorization' : application.HEADER},	
 								data : {"id" : table.checkStatus('roleList').data[0].id}, //ajax请求地址
-								success: function (data) {
-									formdatas = data;
+								success: function (res) {
+									formdatas = res.data;
 									var index = layui.layer.open({
 											type: 2,
 											title: '菜单选择',
