@@ -9,95 +9,52 @@ layui.config({
 }).extend({
 	"application" : "application"
 })
-layui.use(['form','layer','jquery','application'],function(){
+layui.use(['form','layer','application'],function(){
     var form = layui.form,
 		application = layui.application,
-        layer = parent.layer === undefined ? layui.layer : top.layer
-        $ = layui.jquery;
+        layer = parent.layer === undefined ? layui.layer : top.layer;
 
-		$(document).ready(function(){
-			  // document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片           
-						createCode();
-
-    });
+// 		$(document).ready(function(){
+// 			  // document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片           
+//     });
 		
-		$('#mpanel4').slideVerify({
-    type : 2,   //类型
-    vOffset : 5,  //误差量，根据需求自行调整
-    vSpace : 5, //间隔
-    imgName : ['1.jpg', '2.jpg'],
-    imgSize : {
-      width: '400px',
-      height: '200px',
-    },
-    blockSize : {
-      width: '40px',
-      height: '40px',
-    },
-    barSize : {
-      width : '400px',
-      height : '40px',
-    },
-    ready : function() {
-    },
-    success : function() {
-      alert('验证成功，添加你自己的代码！');
-      //......后续操作
-    },
-    error : function() {
-    //              alert('验证失败！');
-    }
+		//验证码
+		$('#mpanel4').codeVerify({
+        	type : 1,
+        	width : '100px',
+		    height : '36px',
+		    fontSize : '20px',
+				codeLength : 4,
+				ready : function() {
+				},
+				success : function() {
+					alert('验证成功，添加你自己的代码！');
+					//......后续操作
+				},
+				error : function() {
+				//              alert('验证失败！');
+				}
  
-}); 
+		}); 
+
 		
-		
-// 		/**
-// 		 * 验证码
-// 		 */
-// 		var code ; //在全局定义验证码 
-// 					
-// 		function createCode(){
-// 			 code = ""; 
-// 			 var codeLength = 4;//验证码的长度
-// 			 var checkCode = document.getElementById("code"); 
-// 			 var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',
-// 			 'S','T','U','V','W','X','Y','Z');//随机数
-// 			 for(var i = 0; i < codeLength; i++) {//循环操作
-// 				var index = Math.floor(Math.random()*36);//取得随机数的索引（0~35）
-// 				code += random[index];//根据索引取得随机数加到code上
-// 			}
-// 			checkCode.value = code;//把code值赋给验证码
-// 		}
-// 		
-// 		//校验验证码
-// 		function validate(){
-// 			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写      
-// 			if(inputCode.length <= 0) { //若输入的验证码长度为0
-// 				top.layer.msg("请输入验证码！");
-// 				return;//则弹出请输入验证码
-// 			}else if(inputCode != code ) { //若输入的验证码与产生的验证码不一致时
-// 				top.layer.msg("验证码输入错误!"); //则弹出验证码输入错误
-// 				createCode();//刷新验证码
-// 				document.getElementById("input").value = "";//清空文本框
-// 				return;
-// 			}         
-// 		}		
-// 		
-// 		$("#code").on('click',function(){
-// 				createCode();
-// 		})
 		
 		
     //登录按钮
     form.on("submit(login)",function(data){
 			//$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写      
+			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写  
+			//获取验证吗内容	 
+			var code_area = '';
+			for(var i=0;i<$(".verify-code").find("font").length;i++){
+				code_area += $(".verify-code").find("font").eq(i).html();//遍历所有font的文本
+			} 
+			code_area = code_area.toUpperCase();
 			if(inputCode.length <= 0) { //若输入的验证码长度为0
 				top.layer.msg("请输入验证码！");
 				return false;//则弹出请输入验证码
-			}else if(inputCode != code ) { //若输入的验证码与产生的验证码不一致时
-				top.layer.msg("验证码输入错误！@_@"); //则弹出验证码输入错误
-				createCode();//刷新验证码
+			}else if(inputCode != code_area ) { //若输入的验证码与产生的验证码不一致时
+				top.layer.msg("验证码输入错误！"); //则弹出验证码输入错误
 				document.getElementById("input").value = "";//清空文本框
 				return false;
 			}else {
@@ -109,7 +66,7 @@ layui.use(['form','layer','jquery','application'],function(){
 					data: { 
 						username : $("#username").val(),
 						password : $("#password").val(),
-						authCode : $("#code").val(),
+						// authCode : $("#code").val(),
 						comeFrom : application.COMEFROM
 					},
 					success: function (data) {
