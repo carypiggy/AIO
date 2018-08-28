@@ -16,11 +16,23 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  */
 public class JWTUtil  {
 	
-	 // 过期时间5分钟
+	 // web有效时间15分钟
     private static final long EXPIRE_TIME = 15*60*1000;
     
-    // 逾期时间3分钟
+    // web逾期时间3分钟
     public static final long REFESH_TIME = 3*60*1000;
+    
+    //移动有效时间7天
+    private static final long APP_EXPIRE_TIME = 7*24*60*1000;
+    
+    // 移动逾期时间1天
+    public static final long APP_REFESH_TIME = 1*24*60*1000;
+    
+    //来源-web
+    public static final String FROM_WEB = "WEB";
+    
+    //来源-app
+    public static final String FROM_APP = "APP";
     
     /**
      * 校验token是否正确
@@ -76,18 +88,25 @@ public class JWTUtil  {
      * @param secret 用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret) {
+    public static String sign(String username, String secret,String comeFrom) {
         try {
-            Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            // 附带username信息
-            return JWT.create()
-                    .withClaim("username", username)
-                    .withExpiresAt(date)
-                    .sign(algorithm);
+        	
+        	Algorithm algorithm = Algorithm.HMAC256(secret);
+        	// 附带username信息
+        	if(comeFrom.equals(FROM_WEB)) {
+        		Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
+        		return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
+        	}else if(comeFrom.equals(FROM_APP)){
+        		Date date = new Date(System.currentTimeMillis()+APP_EXPIRE_TIME);	
+        		return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
+        	}else {
+        		Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
+        		return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
+        	}
         } catch (Exception e) {
             return null;
         }
+        
     }
     
     /**

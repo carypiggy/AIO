@@ -63,7 +63,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RestResponse<RestToken> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
-            			@RequestParam("authCode")String authCode,HttpSession session) {
+            			@RequestParam("authCode")String authCode,@RequestParam("comeFrom")String comeFrom,HttpSession session) {
 	
         //首先校认验证码
         if(true) {
@@ -83,7 +83,7 @@ public class LoginController extends BaseController {
 	        	//登陆密码校验
 	    		if (sysUser.getPassword().equals(result)) {
 	    			//注册token
-	    			String token=JWTUtil.sign(username, result);
+	    			String token=JWTUtil.sign(username, result,comeFrom);
 	    			
 	    			//获取token过期时间
 	    			long tokenTime= JWTUtil.getTokenTime(token);
@@ -114,7 +114,7 @@ public class LoginController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "refreshToken")
-	public RestResponse<RestToken> refreshToken(HttpServletRequest request) {
+	public RestResponse<RestToken> refreshToken(@RequestParam("comeFrom")String comeFrom,HttpServletRequest request) {
 		String token=request.getHeader("Authorization");
     	//当前时间
 		Date now=new Date();
@@ -123,13 +123,24 @@ public class LoginController extends BaseController {
     	long tokenTime=JWTUtil.getTokenTime(token);
     	String username=JWTUtil.getUsername(token);
     	
+    	long freshTime=0;
+
+    	if(comeFrom.equals(JWTUtil.FROM_WEB)) {
+    		freshTime=JWTUtil.REFESH_TIME;
+    	}else if(comeFrom.equals(JWTUtil.FROM_APP)){
+    		freshTime=JWTUtil.APP_REFESH_TIME;
+    	}else {
+    		freshTime=JWTUtil.REFESH_TIME;
+    	}
+    	
+    	
     	//刷新token时间
-    	if((tokenTime-nowTime)<JWTUtil.REFESH_TIME) {
+    	if((tokenTime-nowTime)>0&(tokenTime-nowTime)<freshTime) {
     		SysUser sysUser=sysUserService.getSysUserByUsername(username);
     		String password=sysUser.getPassword();
     		
     		//注册new token
-			String newToken=JWTUtil.sign(username, password);
+			String newToken=JWTUtil.sign(username, password,comeFrom);
 			
 			//获取token过期时间
 			long newTokenTime= JWTUtil.getTokenTime(token);
@@ -141,7 +152,9 @@ public class LoginController extends BaseController {
 			
             return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "Token已刷新", restToken);
 			
-    	}else {
+    	}else if((tokenTime-nowTime)<0){
+    		return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "Token已经过期，请重新登陆", null);
+    	}else  {
     		//封装token
 			RestToken restToken=new RestToken();
 			restToken.setToken(token);
