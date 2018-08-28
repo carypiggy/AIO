@@ -79,7 +79,9 @@ public class SysUserController extends BaseController {
 		
 		sysUserService.save(sysUser);
 		sysUserService.insertUserRole(sysUser);
-		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
+		RestResponse<String> rs= new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
+		
+		return rs;
 	}	
 	
 	/**

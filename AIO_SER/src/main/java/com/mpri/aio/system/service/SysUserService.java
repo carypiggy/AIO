@@ -2,6 +2,7 @@ package com.mpri.aio.system.service;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mpri.aio.base.service.CrudService;
 import com.mpri.aio.system.mapper.SysUserMapper;
@@ -34,6 +35,7 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
     * <p>Description: </p>  
     * @param sysUser
      */
+	@Transactional(readOnly = false)
 	public void insertUserRole(SysUser sysUser) {
 		mapper.deleteUserRole(sysUser);
 		mapper.insertUserRole(sysUser);
@@ -45,6 +47,7 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
     * <p>Description: </p>  
     * @param sysUser
      */
+	@Transactional(readOnly = false)
 	public void deleteUserRole(SysUser sysUser) {
 		mapper.deleteUserRole(sysUser);
 	};

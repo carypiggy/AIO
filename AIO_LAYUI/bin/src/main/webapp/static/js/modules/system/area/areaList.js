@@ -70,7 +70,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 		publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysarea/get',edit ==undefined?null:edit.id,"区域修改","areaAdd.html");
     }
 
-	$(document).on('click','#ADD',function(){
+	$(document).on('click','.PER_ADD',function(){
 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
 		if(flag){
 			isAdd = true;
@@ -82,7 +82,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 	});
 	
 	//编辑操作
-	$(document).on('click','#EDIT',function(){		
+	$(document).on('click','.PER_EDIT',function(){		
 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
 		if(flag){		
 			isAdd = false;
@@ -94,7 +94,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 	})
 	
 	//删除
-	$(document).on('click','#DEL',function(){		
+	$(document).on('click','.PER_DEL',function(){		
 		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaTree').data);
 		if(flag){
 			layer.confirm('确定删除此区域吗？',{icon:3, title:'提示信息'},function(index){

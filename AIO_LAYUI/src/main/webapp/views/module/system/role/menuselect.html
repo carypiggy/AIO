@@ -22,7 +22,7 @@
 		})
 		layui.use(['layer','application',"publicUtil",'application'],function(){
 			var form = layui.form;
-				layer = parent.layer,
+				layer = layui.layer,
 				application = layui.application;
 				publicUtil  = layui.publicUtil
 				layer =layui.layer;
@@ -63,19 +63,23 @@
 				
 				$.ajax({
 					url:  application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
+					beforSend: function () {
+						publicUtil.refreshToken();
+					},
 					headers : { 'Authorization' : application.HEADER},
-					success: function (res) {	
-						ztreeObj = $.fn.zTree.init($("#tree"), setting,res.data);  //加载数据
-						var nodeList = ztreeObj.getNodes();
-			　　　　　　//展开第一个根节点
-						ztreeObj.expandNode(nodeList[0], true);
-						// getTreeCheckDatas(ztreeObj);
-						console.log(parent.formdatas.menuList);
-						publicUtil.setTreeSel(parent.formdatas.menuList,ztreeObj);
-						
-						// console.log(getTreeCheckDatas());
+					success: function (res) {
+							ztreeObj = $.fn.zTree.init($("#tree"), setting,res.data);  //加载数据
+							var nodeList = ztreeObj.getNodes();
+				　　　　　　//展开第一个根节点
+							ztreeObj.expandNode(nodeList[0], true);
+							// getTreeCheckDatas(ztreeObj);
+							publicUtil.setTreeSel(parent.formdatas.menuList,ztreeObj);
+					},
+					error: function(res){
+						publicUtil.errofunc(res);
 					}
-				});	
+				});
+					
 				// getTreeCheckDatas()	;
 			});
 			
@@ -88,23 +92,26 @@
 					type: "POST",
 					headers : { 'Authorization' : application.HEADER},
 					contentType: "application/json",
+					beforSend: function () {
+						publicUtil.refreshToken();
+					},
 					data:JSON.stringify({
 						id : parent.formdatas.id,
 						menuList : getSelectData(ztreeObj.getCheckedNodes())
 					}),			
-					success: function (data) {
-						if(data == "success"){
+					success: function (res) {
+						
+						if(res.code==application.REQUEST_SUCCESS){
 							top.layer.close(index);
-							top.layer.msg("权限修改成功");
-							layer.closeAll("iframe");
+							layer.msg("权限修改成功");
 							//刷新父页面
 							parent.location.reload();	
 						}else{
-							top.layer.msg("权限修改失败！");
+							layer.msg("权限修改失败！");
 						}
 					},
-					error: function(data){
-						top.layer.msg("权限修改失败！");
+					error: function(res){
+						publicUtil.errofunc(res);
 					}
 				});	
 				return false;
