@@ -63,7 +63,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RestResponse<RestToken> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
-            			@RequestParam("authCode")String authCode,@RequestParam("comeFrom")String comeFrom,HttpSession session) {
+            			@RequestParam("comeFrom")String comeFrom,HttpSession session) {
 	
         //首先校认验证码
         if(true) {
@@ -76,9 +76,9 @@ public class LoginController extends BaseController {
     			ByteSource salt = ByteSource.Util.bytes(safeCode);
     			String result = new Md5Hash(password,salt,3).toString();
     			
-    			//验证码获取
-    			String severCode = (String)session.getAttribute("authCode");
-    	        String clientCode = authCode;
+//    			//验证码获取
+//    			String severCode = (String)session.getAttribute("authCode");
+//    	        String clientCode = authCode;
         	
 	        	//登陆密码校验
 	    		if (sysUser.getPassword().equals(result)) {
