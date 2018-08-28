@@ -55,7 +55,6 @@ layui.use(['form','layer','application'],function(){
 				return false;//则弹出请输入验证码
 			}else if(inputCode != code_area ) { //若输入的验证码与产生的验证码不一致时
 				top.layer.msg("验证码输入错误！"); //则弹出验证码输入错误
-				createCode();//刷新验证码
 				document.getElementById("input").value = "";//清空文本框
 				return false;
 			}else {
