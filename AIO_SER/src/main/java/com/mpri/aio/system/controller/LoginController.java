@@ -63,48 +63,49 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RestResponse<RestToken> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
-            			@RequestParam("authCode")String authCode,@RequestParam("comeFrom")String comeFrom,HttpSession session) {
+            			@RequestParam("comeFrom")String comeFrom) {
 	
-        //首先校认验证码
-        if(true) {
-        	SysUser sysUser=sysUserService.getSysUserByUsername(username);
-    		//确认用户是否存在
-        	if(sysUser!=null) {
-    			//存在后处理
-    			//加盐处理密码
-    			String safeCode=sysUser.getSafecode();
-    			ByteSource salt = ByteSource.Util.bytes(safeCode);
-    			String result = new Md5Hash(password,salt,3).toString();
+
+		//首先校认验证码
+        //if(true) {
+    	SysUser sysUser=sysUserService.getSysUserByUsername(username);
+		//确认用户是否存在
+    	if(sysUser!=null) {
+			//存在后处理
+			//加盐处理密码
+			String safeCode=sysUser.getSafecode();
+			ByteSource salt = ByteSource.Util.bytes(safeCode);
+			String result = new Md5Hash(password,salt,3).toString();
+			
+			//验证码获取
+			//String severCode = (String)session.getAttribute("authCode");
+	        //String clientCode = authCode;
+    	
+        	//登陆密码校验
+    		if (sysUser.getPassword().equals(result)) {
+    			//注册token
+    			String token=JWTUtil.sign(username, result,comeFrom);
     			
-    			//验证码获取
-    			String severCode = (String)session.getAttribute("authCode");
-    	        String clientCode = authCode;
-        	
-	        	//登陆密码校验
-	    		if (sysUser.getPassword().equals(result)) {
-	    			//注册token
-	    			String token=JWTUtil.sign(username, result,comeFrom);
-	    			
-	    			//获取token过期时间
-	    			long tokenTime= JWTUtil.getTokenTime(token);
-	    			
-	    			//封装token
-	    			RestToken restToken=new RestToken();
-	    			restToken.setToken(token);
-	    			restToken.setTokenTime(tokenTime);
-	    			
-	                return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", restToken);
-	            } else {
-	                throw new UnauthorizedException("密码错误，请重新输入");
-	            }
-        	
-        	}else {
-        		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
-        	}
+    			//获取token过期时间
+    			long tokenTime= JWTUtil.getTokenTime(token);
+    			
+    			//封装token
+    			RestToken restToken=new RestToken();
+    			restToken.setToken(token);
+    			restToken.setTokenTime(tokenTime);
+    			
+                return new RestResponse<RestToken>(ExceptionResult.REQUEST_SUCCESS, "登陆成功！", restToken);
+            } else {
+                throw new UnauthorizedException("密码错误，请重新输入");
+            }
+    	
+    	}else {
+    		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
+    	}
 		
-        }else {
-        	return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "验证码错误！", null);
-        }
+//        }else {
+//        	return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "验证码错误！", null);
+//        }
 	}
 
 	

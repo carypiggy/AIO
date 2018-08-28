@@ -2,8 +2,6 @@ package com.mpri.aio.system.shiro;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -92,6 +90,7 @@ public class JWTUtil  {
         try {
         	
         	Algorithm algorithm = Algorithm.HMAC256(secret);
+        	
         	// 附带username信息
         	if(comeFrom.equals(FROM_WEB)) {
         		Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
