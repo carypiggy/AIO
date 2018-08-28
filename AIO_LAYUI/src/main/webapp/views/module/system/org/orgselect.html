@@ -54,7 +54,10 @@
 				
 				
 				$.ajax({
-					url: application.SERVE_URL+'/sys/sysorg/tree',                  //ajax请求地址
+					url: application.SERVE_URL+'/sys/sysorg/tree',
+					beforSend: function () {
+						publicUtil.refreshToken();
+					},				  //ajax请求地址
 					headers : { 'Authorization' : application.HEADER},
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据

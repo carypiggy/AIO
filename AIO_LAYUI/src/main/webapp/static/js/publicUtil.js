@@ -5,12 +5,12 @@
 	@Description: 封装一些公用
  */
 var editFormData;
-layui.define(['form','layer','jquery','application'],function(exports){
+layui.define(['form','layer','jquery','application','table'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
-	
+	var table = layui.table;
 	var obj ={
 		
 		
@@ -100,12 +100,13 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				}, 
 				success:function(res){
 					if(res.code==application.REQUEST_SUCCESS){
+						var data = res.data;
 						$("#"+selectid).empty();
 						if(flag){
 							$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
 						}
-						for(var i =0;i<res.length;i++){
-							$("#"+selectid).append('<option  value="'+res[i].value+'" >'+res[i].label+' </option>');//往下拉菜单里添加元素
+						for(var i =0;i<data.length;i++){
+							$("#"+selectid).append('<option  value="'+data[i].value+'" >'+data[i].label+' </option>');//往下拉菜单里添加元素
 						}
 					}
 					form.render();//菜单渲染 把内容加载进去
@@ -179,27 +180,30 @@ layui.define(['form','layer','jquery','application'],function(exports){
 					beforSend: function () {
 								beforefunc();
 					},
-					success: function(data) {
-						// if(data.code==application.REQUEST_SUCCESS){
-							editFormData=data;
-							var index = layui.layer.open({
-								title: titleName,
-								type: 2,
-								content: pageUrl,
-								success: function(layero, index) {
-									setTimeout(function() {
-										layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-											tips: 3
-										});
-									}, 500)
-								}
-							})
-							layui.layer.full(index);
-							//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-							$(window).on("resize", function() {
+					success: function(res) {
+						 if(res.code==application.REQUEST_SUCCESS){
+								editFormData=res.data;
+								var index = layui.layer.open({
+									title: titleName,
+									type: 2,
+									content: pageUrl,
+									success: function(layero, index) {
+										setTimeout(function() {
+											layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+												tips: 3
+											});
+										}, 500)
+									}
+								})
 								layui.layer.full(index);
-							})
-						// }
+								//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+								$(window).on("resize", function() {
+									layui.layer.full(index);
+								})
+						 }else{
+							 layui.layer.msg(res.msg);
+							 return false;
+						 }
 					},
 					error: function(){
 						errofuntion();
@@ -220,12 +224,16 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				},
 				success:function(res){
 					if(res.code==application.REQUEST_SUCCESS){
+						var data = res.data;
 						$("#"+selectid).empty();
-						for(var i =0;i<res.length;i++){
-							$("#"+selectid).append('<option  value="'+res[i].value+'">'+res[i].label+'</option>');//往下拉菜单里添加元素
+						for(var i =0;i<data.length;i++){
+							$("#"+selectid).append('<option  value="'+data[i].value+'">'+data[i].label+'</option>');//往下拉菜单里添加元素
 						}
 						$('#'+selectid).val(selectValue);
 						form.render('select');//菜单渲染 把内容加载进去
+					}else{
+						layui.layer.msg(res.msg);
+						return false;
 					}
 				},
 				error: function(){
@@ -254,10 +262,11 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				},										
 				success: function (result) {
 					// if(result.code==application.REQUEST_SUCCESS){
+						
 						var permissons = result;
 						var butHtml = '';
 						var leftMenu="";
-						$("table").first().after("<dl class='show_menu' id='show_menu'></dl>");
+						$("body div").first().after("<dl class='show_menu' id='show_menu'></dl>");
 						for(var i=0;i<permissons.length;i++){
 							var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
 							butHtml += '<a class="layui-btn PER_'+permissons[i].operate+'" ><i class="layui-icon '+ icon +'"></i> '+permissons[i].name+'</a>';
@@ -268,7 +277,10 @@ layui.define(['form','layer','jquery','application'],function(exports){
 						}
 						$("#"+butGroupId).append(butHtml);
 						$("#show_menu").append(leftMenu);
-					// }
+// 					}else{
+// 						// layui.layer.msg(result.msg);
+// 						return false;
+// 					}
 				},
 				error: function(){
 					errofuntion();
@@ -290,19 +302,23 @@ layui.define(['form','layer','jquery','application'],function(exports){
 				},
 				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
+					var data = res.data;
 					if(res.code==application.REQUEST_SUCCESS){
 						/*渲染表格*/
 						$("[data-field = '"+str+"']").children().each(function(){
-							for(var i =0;i<res.length;i++){
-								if($(this).text().trim() == res[i].value){								
-									$(this).text(res[i].label);
+							for(var i =0;i<data.length;i++){
+								if($(this).text().trim() == data[i].value){								
+									$(this).text(data[i].label);
 								}
 							}
 						})
+					}else{
+						// layui.layer.msg(res.msg);
+						return false;
 					}
 				},
-				error: function(){
-					errofuntion();
+				error: function(data){
+					errofuntion(data);
 				}
 			})
 		},
@@ -336,20 +352,27 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		/**
 		 * 权限左键菜单
 		 */
-		show_menu:function(data){
-			
+		show_menu:function(obj){
+			var data = obj.data;
+
+			//兼容性 Chrom
 			$("#show_menu").css({
 				//定义菜单显示位置为事件发生的X坐标和Y坐标
 				top : window.event.pageY,
 				left : window.event.pageX,
 				display:'block'
-			}).show().delay(3000).hide(300);
-		// 		$("#oplog").click(function(){
-		// 			
-		// 			openLogsInfo(data);
-		// 			
-		// 		});
-		
+			}).show().delay(5000).hide(300);
+			
+			//清空列表内checkbox
+			var item = $("table").first();
+			for(var i=0;i<item.length;i++){
+				$("input").prop("checked", false);
+				form.render('checkbox');
+			}
+			//此处需传值当前行
+			obj.tr.find("input[name='layTableCheckbox']+").prop('checked', true);
+			obj.tr.find('input[name="layTableCheckbox"]+').click();
+			form.render('checkbox');
 		},
 			
 		//刷新Token方法
@@ -373,8 +396,8 @@ layui.define(['form','layer','jquery','application'],function(exports){
 		},
 		
 		//erro 方法 
-		errofunc :function(data){
-			var result=data.responseJSON;
+		errofunc :function(res){
+			var result=res.responseJSON;
 			top.layer.msg(result.msg+"("+result.code+")");
 		}
 	
@@ -428,7 +451,7 @@ layui.define(['form','layer','jquery','application'],function(exports){
 
 
 		//erro 方法
-		function errofuntion(data){
+		function errofuntion(res){
 			var result=data.responseJSON;
 			top.layer.msg(result.msg+"("+result.code+")");
 		}

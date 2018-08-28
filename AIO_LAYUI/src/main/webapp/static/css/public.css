@@ -9,7 +9,12 @@
 .show_menu dd a{font:14px;font-weight:bold}
 .show_menu dd a:hover{background: #009688;  display: block; color:white}
 
+/* 横向滚动条 */
+body{overflow-y: scroll; !important;}
 
+.layui-table th{
+font-weight: bold;
+}
 /* .layui-elem-quote-blockquote{border-left: none !important;} */
 /*上面为新增样式*/
 .childrenBody{height:100% !important; }

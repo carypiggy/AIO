@@ -91,7 +91,11 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 						url: application.SERVE_URL+'/sys/sysrole/list', //ajax请求地址
 						headers : { 'Authorization' : application.HEADER},
 						data : {pageNo : "1", pageSize : "100"},
+						beforSend: function () {
+							publicUtil.refreshToken();
+						},
 						success: function (rs) {
+							console.log(rs);
 							formSelects.data('userRole', 'local', {
 									arr: rs.list					
 							})
@@ -107,11 +111,13 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 				initSelect();
 				form.on("submit(addUser)",function(data){
 						//弹出loading
-					 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-					 var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;					 
+					 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});				 
 					 $.ajax({
 							url: application.SERVE_URL+'/sys/sysuser/save', //ajax请求地址
 							type: "POST",
+							beforSend: function () {
+								publicUtil.refreshToken();
+							},
 							headers : { 'Authorization' : application.HEADER},
 							contentType: "application/json",
 							data: JSON.stringify({
@@ -127,22 +133,22 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 											type : $("#type").val(),
 											roleList : convert(layui.formSelects.value('userRole', 'val'))
 										}),		
-							success: function (data) {
-								if(data == "success"){
+							success: function (res) {
+								// if(res.code==200){
 									top.layer.close(index);
-									top.layer.msg("用户" + res + "成功");
+									top.layer.msg(res.msg);	
 									layer.closeAll("iframe");
 									//刷新父页面
-									parent.location.reload();	
-								}else{
-									top.layer.msg("用户" + res + "失败！");
-								}
+									parent.location.reload();
+// 								}else{
+// 									layer.msg(res.msg);
+// 								}
 							},
-							error: function(data){
-								top.layer.msg("用户" + res + "失败！");
+							error: function(res){
+								publicUtil.errofunc(res);
 							}
 					 });
-						return false;
+					 return false;
 				})
 
 				function convert (arr){
@@ -190,14 +196,24 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 						$.ajax({
 							url: application.SERVE_URL+'/sys/sysuser/getusername', //ajax请求地址
 							type: "POST",
+							beforSend: function () {
+								publicUtil.refreshToken();
+							},
 							data:{
 								username: $(".username").val()
 							},
 							headers : { 'Authorization' : application.HEADER},												
-							success: function (data) {
-								if(data!="" && data.id !="undefined"){
-										layer.msg("该用户名已被使用");
+							success: function (res) {
+								if(res.code==application.REQUEST_SUCCESS){
+									if(res.data!="" && res.data.id !="null"){
+											layer.msg("该用户名已被使用");
+									}					
+								}else{
+									top.layer.msg(res.msg);
 								}
+							},
+							error: function(res){
+								publicUtil.errofunc(res);
 							}
 						})
 				})				

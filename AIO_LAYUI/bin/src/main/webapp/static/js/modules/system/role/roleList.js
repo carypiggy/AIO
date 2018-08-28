@@ -68,12 +68,12 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
     });
 
 		//新增操作
-		$(document).on('click','#ADD',function(){
+		$(document).on('click','.PER_ADD',function(){
 	    	_addRole()
 	  });
 		
 		//编辑操作
-		$(document).on('click','#EDIT',function(){		
+		$(document).on('click','.PER_EDIT',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 			if(flag){
 				_addRole(table.checkStatus('roleList').data[0]);
@@ -84,7 +84,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 	  })
 		
 		//删除
-		$(document).on('click','#DEL',function(){		
+		$(document).on('click','.PER_DEL',function(){		
 				var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 				if(flag){
 								layer.confirm('确定删除此此角色？',{icon:3, title:'提示信息'},function(index){
@@ -109,7 +109,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 	    })	
 
 		//权限操作
-		$(document).on('click','#PERM',function(){		
+		$(document).on('click','.PER_PERM',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 				if(flag){
 							$.ajax({
