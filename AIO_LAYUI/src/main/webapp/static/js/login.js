@@ -16,18 +16,21 @@ layui.use(['form','layer','jquery','application'],function(){
         $ = layui.jquery;
 
 		$(document).ready(function(){
-			  document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片               
+
+
+			  document.getElementById("codeImg").src=""          
     });
+
     //登录按钮
     form.on("submit(login)",function(data){
     //$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-		
+
       //请求登陆
 		$.ajax({
 			url: application.SERVE_URL+"/login", //ajax请求地址
-			// url: "http://192.168.140.37:8080"+"/login", 
+			// url: "http://192.168.140.37:8080"+"/login",
 			type: "POST",
-			data: { 
+			data: {
 				username : $("#username").val(),
 				password : $("#password").val(),
 				authCode : $("#code").val(),
@@ -35,7 +38,7 @@ layui.use(['form','layer','jquery','application'],function(){
 			},
 			success: function (data) {
 				if(data.code==application.REQUEST_SUCCESS){
-					//将token保存在cookie中	
+					//将token保存在cookie中
 					sessionStorage.setItem("token", data.data.token);
 					sessionStorage.setItem("tokenTime", data.data.tokenTime);
 					top.layer.msg("登陆成功");
@@ -49,12 +52,12 @@ layui.use(['form','layer','jquery','application'],function(){
 				top.layer.msg(result.msg+"("+result.code+")");
 				$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
 			}
-		}); 
+		});
         return false;
     })
 
 	$("#codeImg").on('click',function(){
-		document.getElementById("codeImg").src = document.getElementById("codeImg").src + "?nocache=" + new Date().getTime();	
+		document.getElementById("codeImg").src = document.getElementById("codeImg").src + "?nocache=" + new Date().getTime();
 	})
 
 
