@@ -74,10 +74,12 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
     form.on("submit(addOrg)",function(data){
 		
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-		var res = ($(".id").val() ==null|| $(".id").val() =="") ?"新增":"修改" ;
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysorg/save", //ajax请求地址
 			type: "POST",
+			beforSend: function () {
+				publicUtil.refreshToken();
+			},
 			contentType: "application/json",
 			headers : { 'Authorization' : application.HEADER},
 			data:JSON.stringify({
@@ -94,19 +96,19 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
 				closeDate : closeDate,
 				remark : $(".remark").val()
 			}),			
-			success: function (data) {
-				if(data == "success"){
+			success: function (res) {
+				if(res.code==application.REQUEST_SUCCESS){
 				 	top.layer.close(index);
-		            top.layer.msg("机构" + res + "成功");
+		            top.layer.msg(res.msg);	
 		            layer.closeAll("iframe");
 		            //刷新父页面
-		            parent.location.reload();	
+		            parent.location.reload();
 				}else{
-					top.layer.msg("机构" + res + "失败！");
+					layer.msg(res.msg);
 				}
 			},
-			error: function(data){
-				top.layer.msg("机构" + res + "失败！");
+			error: function(res){
+				publicUtil.errofunc(res);
 			}
 		}); 
         return false;

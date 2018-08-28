@@ -46,7 +46,8 @@ layui.define('jquery',function(exports){
 		
 		HEADER : sessionStorage.getItem('token'),
 		TOKENTIME : sessionStorage.getItem('tokenTime'),
-		TOKENISSUE : 3000
+		TOKENISSUE : 3000,
+		COMEFROM : 'WEB'
 	}
     exports('application', obj);
 })

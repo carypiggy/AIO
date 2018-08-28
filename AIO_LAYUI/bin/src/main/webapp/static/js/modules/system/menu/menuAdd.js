@@ -68,49 +68,48 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 						url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
 					
 						type: "POST",
+						beforSend: function () {
+							publicUtil.refreshToken();
+						},
+						data:{
 					
-							data:{
-						
-								id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-						
-								parentId : $(".parentId").val(),
-						
-								name : $(".name").val(),
-						
-								code : $(".code").val(),
-						
-								href : $(".href").val(),
-						
-								icon : $(".icon").val(),
-								type : $("#type").val(),
-								operate : $("#operate").val(),
-								permission : $(".permission").val(),
-								sort : $(".sort").val(),
-								operate : $("#operate").val(),
-								remark : $(".remark").val(),
-								isShow :$("#isShow").val(),
-								target : $(".target").val()
+							id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+					
+							parentId : $(".parentId").val(),
+					
+							name : $(".name").val(),
+					
+							code : $(".code").val(),
+					
+							href : $(".href").val(),
+					
+							icon : $(".icon").val(),
+							type : $("#type").val(),
+							operate : $("#operate").val(),
+							permission : $(".permission").val(),
+							sort : $(".sort").val(),
+							operate : $("#operate").val(),
+							remark : $(".remark").val(),
+							isShow :$("#isShow").val(),
+							target : $(".target").val()
 
-							},
-							headers : { 'Authorization' : application.HEADER},		
-							success: function (data) {
-								if(data == "success"){
-							
-									top.layer.close(index);
-										
-									top.layer.msg("菜单" + res + "成功");
-										
-									//layer.closeAll("iframe")
-									 
-								parent.location.reload();	
-						
-								}else{
-									top.layer.msg("菜单" + res + "失败！");
+						},
+						headers : { 'Authorization' : application.HEADER},		
+						success: function (data) {
+							if(data.code==application.REQUEST_SUCCESS){
+								top.layer.close(index);
+								top.layer.msg(data.msg);
+								layer.closeAll("iframe");
+								//刷新父页面
+								parent.location.reload();
+							}else{
+								top.layer.msg(data.msg+"("+data.code+")");
+							}
+						},
+						error: function(data){
+							var result=data.responseJSON;
+							top.layer.msg(result.msg+"("+result.code+")");
 						}
-					},
-					error: function(data){
-						top.layer.msg("菜单" + res + "失败！");
-					}
 		}); 
         return false;
     })

@@ -57,21 +57,24 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
 				type : $("#type").val(),
 				sort : $(".sort").val(),
 				remark : $(".remark").val(),
-			},			
-			success: function (data) {
-				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
-				if(data == "success"){
+			},	
+			beforSend: function () {
+				publicUtil.refreshToken();
+			},
+			headers : { 'Authorization' : application.HEADER},
+			success: function (res) {
+				if(res.code==application.REQUEST_SUCCESS){
 				 	top.layer.close(index);
-		            top.layer.msg("角色" + res + "成功");
+		            top.layer.msg(res.msg);	
 		            layer.closeAll("iframe");
 		            //刷新父页面
-		            parent.location.reload();	
+		            parent.location.reload();
 				}else{
-					top.layer.msg("角色" + res + "失败！");
+					layer.msg(res.msg);
 				}
 			},
-			error: function(data){
-				top.layer.msg("角色" + res + "失败！");
+			error: function(res){
+				publicUtil.errofunc(res);
 			}
 		}); 
         return false;

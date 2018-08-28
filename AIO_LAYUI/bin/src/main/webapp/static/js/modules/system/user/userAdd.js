@@ -91,7 +91,11 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 						url: application.SERVE_URL+'/sys/sysrole/list', //ajax请求地址
 						headers : { 'Authorization' : application.HEADER},
 						data : {pageNo : "1", pageSize : "100"},
+						beforSend: function () {
+							publicUtil.refreshToken();
+						},
 						success: function (rs) {
+							console.log(rs);
 							formSelects.data('userRole', 'local', {
 									arr: rs.list					
 							})
@@ -192,14 +196,24 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 						$.ajax({
 							url: application.SERVE_URL+'/sys/sysuser/getusername', //ajax请求地址
 							type: "POST",
+							beforSend: function () {
+								publicUtil.refreshToken();
+							},
 							data:{
 								username: $(".username").val()
 							},
 							headers : { 'Authorization' : application.HEADER},												
-							success: function (data) {
-								if(data!="" && data.id !="undefined"){
-										layer.msg("该用户名已被使用");
+							success: function (res) {
+								if(res.code==application.REQUEST_SUCCESS){
+									if(res.data!="" && res.data.id !="null"){
+											layer.msg("该用户名已被使用");
+									}					
+								}else{
+									top.layer.msg(res.msg);
 								}
+							},
+							error: function(res){
+								publicUtil.errofunc(res);
 							}
 						})
 				})				

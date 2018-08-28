@@ -382,7 +382,8 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 						async:false,
 						url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 						type: "POST",
-						headers : { 'Authorization' : application.HEADER},						
+						headers : { 'Authorization' : application.HEADER},
+						data : {"comeFrom" : application.COMEFROM},
 						success: function (data) {
 							sessionStorage.clear();
 							sessionStorage.setItem("token", data.data.token);
@@ -463,6 +464,7 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 					async:false,
 					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 					type: "POST",
+					data : {"comeFrom" : application.COMEFROM},
 					headers : { 'Authorization' : application.HEADER},						
 					success: function (data) {
 						sessionStorage.clear();

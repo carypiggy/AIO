@@ -20,10 +20,12 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 		form = layui.form,
 	    laytpl = layui.laytpl; 
 		
+	application.init();	
     var treeTable = treeGrid.render({
         elem: '#areaTree'
         ,url:application.SERVE_URL+'/sys/sysarea/list'
-        ,cellMinWidth: 100    
+        ,cellMinWidth: 100,
+		even : true     
         ,id: "areaTree"
 		,headers : { 'Authorization' : application.HEADER}
         ,treeId:'id'//树形id字段名称
@@ -31,12 +33,12 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
         ,treeShowName:'name'//以树形式显示的字段
         ,cols: [[
 			{type:'checkbox'}
-            ,{field:'name', edit:'text',title: '区域名称'}
-			,{field:'code', edit:'text',title: '区域编码'}
-			,{field:'type', edit:'text',title: '区域类型'}
-			,{field:'sort', edit:'text',title: '排序号'}
-			,{field:'remark', edit:'text',title: '备注信息'}
-			,{field:'createDate', edit:'text',title: '更新时间'}
+            ,{field:'name', edit:'text',title: '区域名称',event: 'setSign'}
+			,{field:'code', edit:'text',title: '区域编码',event: 'setSign'}
+			,{field:'type', edit:'text',title: '区域类型',event: 'setSign'}
+			,{field:'sort', edit:'text',title: '排序号',event: 'setSign'}
+			,{field:'remark', edit:'text',title: '备注信息',event: 'setSign'}
+			,{field:'createDate', edit:'text',title: '更新时间',event: 'setSign'}
         ]]
 		,done: function(res, curr, count){    //res 接口返回的信息,
 			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'},'type');
@@ -46,6 +48,12 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
     
 	//获取权限并加载按钮
 	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+	//行点击事件
+	//监听单元格事件
+	treeGrid.on('tool(areaTree)', function(obj){
+		var data = obj.data;
+		publicUtil.show_menu(data);
+	});
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
@@ -101,15 +109,24 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 				$.ajax({
 					url: application.SERVE_URL+"/sys/sysarea/delete", //ajax请求地址
 					type: "POST",
+					beforSend: function () {
+						publicUtil.refreshToken();
+					},
 					data:{
 						id : treeGrid.checkStatus('areaTree').data[0].id 
 					},
 					headers : { 'Authorization' : application.HEADER},												
-					success: function (data) {
-						if(data = "success"){
+					success: function (res) {
+						if(res.code==application.REQUEST_SUCCESS){
 							treeTable.reload();
-							layer.close(index);	
+							layer.close(index);
+							top.layer.msg(res.msg);
+						}else{
+							top.layer.msg(res.msg);
 						}
+					},
+					error: function(res){
+						publicUtil.errofunc(res);
 					}
 				});					 
 			});			
