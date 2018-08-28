@@ -15,12 +15,13 @@ import java.util.Random;
  */
 public class CaptchaUtil {
 
-    private static int width = 80;// 定义图片的width
-    private static int height = 40;// 定义图片的height
+    private static int width = 75;// 定义图片的width
+    private static int height = 36;// 定义图片的height
     private static int codeCount = 4;// 定义图片上显示验证码的个数
-    private static int xx = 15;
-    private static int fontHeight = 18;
-    private static int codeY = 16;
+    private static int xx_f = 5;
+    private static int xx_o = 15;
+    private static int fontHeight = 25;
+    private static int codeY = 26;
     private static char[] codeSequence = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
             'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
@@ -70,8 +71,16 @@ public class CaptchaUtil {
 
             // 用随机产生的颜色将验证码绘制到图像中。
             gd.setColor(new Color(red, green, blue));
-            gd.drawString(code, (i + 1) * xx, codeY);
-
+            
+            //处理第一个字母的初始位置
+	        if(i==0) {
+	        	gd.drawString(code, (i+1) * xx_f , codeY);
+	        }else {
+	        	
+	        	gd.drawString(code, i* xx_o+xx_f , codeY);
+	        }
+            
+            
             // 将产生的四个随机数组合在一起。
             randomCode.append(code);
         }
