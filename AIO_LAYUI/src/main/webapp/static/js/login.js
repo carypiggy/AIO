@@ -13,10 +13,6 @@ layui.use(['form','layer','application'],function(){
     var form = layui.form,
 		application = layui.application,
         layer = parent.layer === undefined ? layui.layer : top.layer;
-
-// 		$(document).ready(function(){
-// 			  // document.getElementById("codeImg").src=application.SERVE_URL+"/captcha"; //这里的图片是更换后的图片           
-//     });
 		
 		//验证码
 		$('#mpanel4').codeVerify({
@@ -58,7 +54,6 @@ layui.use(['form','layer','application'],function(){
 				//请求登陆
 				$.ajax({
 					url: application.SERVE_URL+"/login", //ajax请求地址
-					// url: "http://192.168.140.37:8080"+"/login", 
 					type: "POST",
 					data: { 
 						username : $("#username").val(),
@@ -79,8 +74,14 @@ layui.use(['form','layer','application'],function(){
 					},
 					error: function(data){
 						var result=data.responseJSON;
-						top.layer.msg(result.msg+"("+result.code+")");
-						$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
+						if(result==undefined){
+							top.layer.msg("服务连接中断，请检查网络连接情况");
+						}else{
+							top.layer.msg(result.msg+"("+result.code+")");
+							$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
+						}
+						
+						
 					}
 				});
 			} 
