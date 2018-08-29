@@ -16,8 +16,8 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
     var form = layui.form,
         layer = layui.layer,
         $ = layui.jquery,
-				publicUtil = layui.publicUtil,
-			application = layui.application,
+		publicUtil = layui.publicUtil,
+		application = layui.application,
         laydate = layui.laydate,
         laytpl = layui.laytpl,
         table = layui.table;
@@ -30,9 +30,8 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
         elem: '#roleList',
         url : application.SERVE_URL+'/sys/sysrole/list',
         cellMinWidth : 95,
+        method: "POST",
         page : true,
-				even : true ,
-				headers : { 'Authorization' : application.HEADER},
         height : "full-160",
         limit : 20,
         limits : [10,15,20,25],
@@ -45,18 +44,18 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
             {field: 'createDate', title: '创建时间',event: 'setSign'},
             {field: 'remark', title: '备注信息',event: 'setSign'}
         ]]
-				,done: function(res, curr, count){    //res 接口返回的信息,
-					publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'},'type');
-				}				
+		,done: function(res, curr, count){    //res 接口返回的信息,
+			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ROLE_TYPE'},'type');
+		}				
     });
 
-		//获取权限并加载按钮
-		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
-		//行点击事件
-		//监听单元格事件
-		table.on('tool(roleList)', function(obj){
-			publicUtil.show_menu(obj);
-		});
+	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+	//行点击事件
+	//监听单元格事件
+	table.on('tool(roleList)', function(obj){
+		publicUtil.show_menu(obj);
+	});
 	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
@@ -92,33 +91,33 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 		
 		//删除
 		$(document).on('click','.PER_DEL',function(){		
-				flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
-				if(flag){
-								layer.confirm('确定删除此此角色？',{icon:3, title:'提示信息'},function(index){
-											$.ajax({
-												url: application.SERVE_URL+"/sys/sysrole/delete", //ajax请求地址
-												type: "POST",
-												data:{
-													id : table.checkStatus('roleList').data[0].id  
-												},
-												beforSend: function () {
-													publicUtil.refreshToken();
-												},
-												headers : { 'Authorization' : application.HEADER},											
-												success: function (res) {
-													if(res.code==application.REQUEST_SUCCESS){
-														top.layer.msg(res.msg);	
-														layer.close(index);
-														table.reload();															
-													}else{
-														layer.msg('权限配置失败');
-													}
-												},
-												error: function(res){
-													publicUtil.errofunc(res);
-												}
-											})
-								});		
+			flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
+			if(flag){
+				layer.confirm('确定删除此此角色？',{icon:3, title:'提示信息'},function(index){
+					$.ajax({
+						url: application.SERVE_URL+"/sys/sysrole/delete", //ajax请求地址
+						type: "POST",
+						data:{
+							id : table.checkStatus('roleList').data[0].id  
+						},
+						beforSend: function () {
+							publicUtil.refreshToken();
+						},
+						headers : { 'Authorization' : application.HEADER},											
+						success: function (res) {
+							if(res.code==application.REQUEST_SUCCESS){
+								top.layer.msg(res.msg);	
+								layer.close(index);
+								table.reload();															
+							}else{
+								layer.msg('权限配置失败');
+							}
+						},
+						error: function(res){
+							publicUtil.errofunc(res);
+						}
+					})
+				});		
 				}else{
 					return false;
 				}
@@ -128,35 +127,30 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 		$(document).on('click','.PER_PERM',function(){		
 			var flag = publicUtil.jurgeSelectRows(table.checkStatus('roleList').data);
 				if(flag){
-							$.ajax({
-								url : application.SERVE_URL+'/sys/sysrole/get',
-								type : 'POST',
-								beforSend: function () {
-									publicUtil.refreshToken();
+					$.ajax({
+						url : application.SERVE_URL+'/sys/sysrole/get',
+						type : 'POST',
+						data : {"id" : table.checkStatus('roleList').data[0].id}, //ajax请求地址
+						success: function (res) {
+							formdatas = res.data;
+							var index = layui.layer.open({
+								type: 2,
+								title: '菜单选择',
+								shadeClose: true,
+								shade: 0.8,
+								area: ['280px', '65%'],
+								// content: '../views/module/system/role/menuselect.html',
+								content: 'menuselect.html',
+								success : function(layero, index){										
+									setTimeout(function(){
+										layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
+											tips: 3
+										});
+									},500)
 								},
-								headers : { 'Authorization' : application.HEADER},	
-								data : {"id" : table.checkStatus('roleList').data[0].id}, //ajax请求地址
-								success: function (res) {
-									formdatas = res.data;
-									var index = layui.layer.open({
-											type: 2,
-											title: '菜单选择',
-											shadeClose: true,
-											shade: 0.8,
-											area: ['280px', '65%'],
-											// content: '../views/module/system/role/menuselect.html',
-											content: 'menuselect.html',
-											success : function(layero, index){										
-												setTimeout(function(){
-														layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
-																tips: 3
-														});
-												},500)											
-											},
-									})																				
-								}
-							});
-											//
+							})																				
+						}
+					});
 
 				}else{
 					return false;
@@ -165,7 +159,7 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 		})
 
 		//添加角色
-    function _addRole(edit){
+		function _addRole(edit){
 			publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysrole/get',edit ==undefined?null:edit.id,"角色管理","roleAdd.html");
 		}
 

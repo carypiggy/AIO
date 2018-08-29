@@ -18,7 +18,7 @@ public class JWTUtil  {
     private static final long EXPIRE_TIME = 15*60*1000;
     
     // web逾期时间3分钟
-    public static final long REFESH_TIME = 3*60*1000;
+    public static final long REFESH_TIME = 5*60*1000;
     
     //移动有效时间7天
     private static final long APP_EXPIRE_TIME = 7*24*60*1000;

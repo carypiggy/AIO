@@ -11,39 +11,23 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 	var $ = layui.jquery;
 	var application = layui.application;
 	var table = layui.table;
+	
+	/**
+	 * 初始化AJAX的请求
+	 */
+	$.ajaxSetup( {
+	    type: "POST", // 默认使用POST方式
+	    headers : { "Authorization" : application.HEADER},
+	    beforeSend: function(){
+	    	refreshToken();
+		},
+	    error: function(res){ // 出错时默认的处理函数
+	    	console.log(res);
+	    	//publicUtil.errofunc(res);
+	    }
+	} );
+	
 	var obj ={
-		
-		
-		 //封装Ajax 未完成
-		 /**
-		  * sync 
-		  * cache
-		  * type
-		  * url
-		  * datatype
-		  * data
-		  * sucfunc
-		  * errfunc
-		  */
-		 aio_ajax :  function (sync,  type, url, datatype, data, sucfunc,errfunc) { 
-			$.ajax({
-				sync: sync,
-				type: type,
-				url: url,
-				dataType: datatype,
-				data: data,
-				beforSend: function () {
-							beforefunc();
-				},
-				success: function (sucdata) {
-							sucfunc(sucdata)
-				},
-				error: function (errdata) {
-							errfunc(errdata);
-				}
-			});
-		 },		
-		
 		
 		//由子页面回填至父页面（多参数）
 		setAcrossNames : function(value , _idClass ,_nameClass) {
@@ -94,10 +78,6 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				headers : { 'Authorization' : application.HEADER},
-				beforeSend: function(){
-					beforefunc();
-				}, 
 				success:function(res){
 					if(res.code==application.REQUEST_SUCCESS){
 						var data = res.data;
@@ -174,12 +154,6 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 					data: {
 						id: ID,
 					},
-					headers: {
-						'Authorization': application.HEADER
-					},
-					beforSend: function () {
-								beforefunc();
-					},
 					success: function(res) {
 						 if(res.code==application.REQUEST_SUCCESS){
 								editFormData=res.data;
@@ -218,10 +192,6 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				headers : { 'Authorization' : application.HEADER},
-				beforeSend: function(){
-					beforefunc();
-				},
 				success:function(res){
 					if(res.code==application.REQUEST_SUCCESS){
 						var data = res.data;
@@ -252,14 +222,10 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 		getPerms : function (url,header,menuId,methodType,butGroupId){
 			$.ajax({
 				url: url, //ajax请求地址
-				type: methodType,			
-				headers : { 'Authorization' : application.HEADER},
+				type: methodType,
 				data:{
 					menuId : menuId
-				},
-				beforeSend: function(){
-					beforefunc();
-				},										
+				},									
 				success: function (result) {
 					// if(result.code==application.REQUEST_SUCCESS){
 						
@@ -297,10 +263,6 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 				url:url,
 				type: "POST",
 				data: data ,
-				beforeSend: function(){
-					beforefunc();
-				},
-				headers : { 'Authorization' : application.HEADER},
 				success:function(res){
 					var data = res.data;
 					if(res.code==application.REQUEST_SUCCESS){
@@ -350,7 +312,7 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 		},
 		
 		/**
-		 * 权限左键菜单
+		 * 权限左/右键菜单
 		 */
 		show_menu:function(obj){
 			var data = obj.data;
@@ -382,36 +344,17 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			form.render('checkbox');
 		},
 			
-		//刷新Token方法
-		refreshToken	: function (){
-				if(judgeTokenIssue()){
-					$.ajax({
-						async:false,
-						url: application.SERVE_URL +'/refreshToken', //ajax请求地址
-						type: "POST",
-						headers : { 'Authorization' : application.HEADER},
-						data : {"comeFrom" : application.COMEFROM},
-						success: function (data) {
-							sessionStorage.clear();
-							sessionStorage.setItem("token", data.data.token);
-							sessionStorage.setItem("tokenTime", data.data.tokenTime);
-						},
-						error: function (errdata) {
-							window.location.href = application.BASE_URL+"/login.html";
-						}
-					});
-				}
-		},
-		
-		//erro 方法 
+		//error 方法 
 		errofunc :function(res){
-			var result=res.responseJSON;
-			top.layer.msg(result.msg+"("+result.code+")");
+			var result=data.responseJSON;
+			if(result==undefined){
+				top.layer.msg("服务连接中断，请检查网络连接情况！");
+			}else{
+				top.layer.msg(result.msg+"("+result.code+")");
+			}
 		}
 	
-}
-
-
+	}
 		//清空table缓存
 		function execTbCache(tbCaches){
 			var arr = [];
@@ -427,70 +370,43 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			return arr;
 		}
 
-
+		//error方法
+		function errofuntion(res){
+			var result=res.responseJSON;
+			top.layer.msg(result.msg+"("+result.code+")");
+		}
+		
+		//刷新token的方法（）
+		function refreshToken(){
+			if(judgeTokenIssue()){
+				$.ajax({
+					async:false,
+					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
+					beforeSend: function(){},
+					data : {"comeFrom" : application.COMEFROM},
+					success: function (data) {
+						sessionStorage.clear();
+						sessionStorage.setItem("token", data.data.token);
+						sessionStorage.setItem("tokenTime", data.data.tokenTime);
+					},
+					error: function (errdata) {
+						top.location.href = application.BASE_URL+"/login.html";
+					}
+				});
+			}
+		}
+		
+		//判断token起效时间的方法
 		function judgeTokenIssue(){
-			var timelogin= application.TOKENTIME - new Date().getTime() ;		
-			if(timelogin < application.TOKENISSUE){
+			
+			var timelogin= application.TOKENTIME - new Date().getTime() ;
+			
+			if(timelogin < application.TOKENISSUE && timelogin>0){
 				return true;
 			}else if(timelogin < 0) {
 				window.location.href = application.BASE_URL+"/login.html";
 			}else{
 				return false;
-			}
-		}
-
-		 //封装Ajax 未完成
-		 /**
-		  * sync 
-		  * cache
-		  * type
-		  * url
-		  * datatype
-		  * data
-		  * sucfunc
-		  * errfunc
-		  */
-			function aio_ajax(sync,  type, url, datatype, data, sucfunc,errfunc) { 
-					$.ajax({
-						sync: sync,
-						type: type,
-						url: url,
-						dataType: datatype,
-						data: data,
-						beforSend: function () {
-							beforefunc();
-						},
-						success: function (sucdata) {
-							sucfunc(sucdata);
-						},
-						error: function (errdata) {
-							errfunc(errdata)
-						}
-					});
-			}		
-
-
-		//erro 方法
-		function errofuntion(res){
-			var result=data.responseJSON;
-			top.layer.msg(result.msg+"("+result.code+")");
-		}
-
-		//刷新token的方法（）
-		function beforefunc(){
-			if(judgeTokenIssue()){
-				$.ajax({
-					async:false,
-					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
-					type: "POST",
-					data : {"comeFrom" : application.COMEFROM},
-					headers : { 'Authorization' : application.HEADER},						
-					success: function (data) {
-						sessionStorage.clear();
-						sessionStorage.setItem("token", data.data.token);
-						sessionStorage.setItem("tokenTime", data.data.tokenTime);
-					}
-				});
 			}
 		}
 		
