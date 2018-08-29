@@ -352,7 +352,7 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 		/**
 		 * 权限左键菜单
 		 */
-		show_menu:function(obj,tableIns){
+		show_menu:function(obj){
 			var data = obj.data;
 
 			//兼容性 Chrom
@@ -374,13 +374,9 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			
 			
 			/*  tabCache 需要return   此处不通用*/
-			var tbCaches = table.cache.dictList;
-			// console.log( Object.getOwnPropertyNames(table.cache));	
+			var pro = Object.keys(table.cache)[0];
+			var tbCaches = table.cache[pro];
 			table.cache.dictList = execTbCache(tbCaches);
-			
-			
-			//此处需传值当前行
-			// obj.tr.find("input[name='layTableCheckbox']+").prop('checked', true);
 		
 			obj.tr.find('input[name="layTableCheckbox"]+').click();
 			form.render('checkbox');
