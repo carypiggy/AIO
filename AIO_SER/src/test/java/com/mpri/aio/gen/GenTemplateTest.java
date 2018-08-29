@@ -37,7 +37,7 @@ public class GenTemplateTest extends ApplicationTests {
 	
 	//需要修改的
 
-	public static final String TABLE = "sm_card";    //表名
+	public static final String TABLE = "sm_mark";    //表名
 	public static final String CLASSCOMMENT ="校友卡管理"; //模块名称
 	public static final String JAVA_URL = "D:\\xiaoyou2.0\\AIO\\AIO_SER\\src\\main\\java\\";  // 物理路径       E:\git_res\AIO\AIO_SER\src\main\java
 	public static final String XML_URL = "D:\\xiaoyou2.0\\AIO\\AIO_SER\\src\\main\\resources\\mapping\\";
@@ -45,20 +45,55 @@ public class GenTemplateTest extends ApplicationTests {
 	public static final String AGILE=new Date().getTime()+"";	//序列化 -扩展字段
 	
 	@Test
-	public void creat() {
+	public void creat(){
 		//设相关值
 		GenConfigInfo genConfigInfo = new GenConfigInfo();
-		genConfigInfo.setAuthor("LZQ");
+		//作者名
+		genConfigInfo.setAuthor("CC");
+		//项目名
+		genConfigInfo.setProject("sm");
+		//版本号
+		genConfigInfo.setVersion("v_1.0");
+		
+		//mapping的GenConfigInfo对象
+		GenConfigInfo genConfigInfoMapping = setGenConfigInfo(genConfigInfo);		
+		//此处需要id remark flag等数据操作
+		genConfigInfoMapping = EntityInfoUtil.getInfo(genConfigInfoMapping,LODE);
+		//生成mapper 映射文件
+		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createMapping(XML_URL, genConfigInfoMapping));
+
+		
+		
+		//mapping的GenConfigInfo对象
+		GenConfigInfo genConfigInfoJava = setGenConfigInfo(genConfigInfo);
+		genConfigInfoJava=EntityInfoUtil.getInfo(genConfigInfoJava,NOT_LODE);
+		//生成实体类  checked
+		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createEntity(JAVA_URL, genConfigInfo));
+		//生成Dao   chedked
+		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createDao(JAVA_URL, genConfigInfo));
+		//生成Service   checked
+		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createService(JAVA_URL, genConfigInfo));
+		//生成Controller   checked
+		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createController(JAVA_URL, genConfigInfo));
+
+	}
+	
+	
+	/**
+	 * 装载对象
+	* <p>Title: setGenConfigInfo</p>  
+	* <p>Description: </p>  
+	* @param genConfigInfo
+	* @return
+	 */
+	private GenConfigInfo setGenConfigInfo(GenConfigInfo genConfigInfo) {
+		genConfigInfo.setCreateTime(TIME);
 		genConfigInfo.setCreateTime((new Date()).toString());
 		genConfigInfo.setEntityUrl(ENTITY_URL);
 		genConfigInfo.setDaoUrl(MAPPER_URL);
 		genConfigInfo.setServiceUrl(SERVICE_URL);
 		genConfigInfo.setControllerUrl(CONTROLLER_URL);
 		genConfigInfo.setMapperUrl(MAPPER_XML_URL);
-		genConfigInfo.setProject("AIO");
-		genConfigInfo.setVersion("v_1.0");
-		genConfigInfo.setCreateTime(TIME);
-		
 		
 		GenTableInfo genTableInfo  =  new GenTableInfo();
 		genTableInfo.setTable(TABLE);
@@ -66,23 +101,8 @@ public class GenTemplateTest extends ApplicationTests {
 		genTableInfo.setEntityName(MySqlToJavaUtil.getClassNameBytableName(TABLE));
 		genTableInfo.setObjectName(MySqlToJavaUtil.changeToJavaFiled(TABLE));
 		genTableInfo.setEntityComment(CLASSCOMMENT);
-		genTableInfo = generator.getGenConfigInfo(genTableInfo);		
+		genTableInfo = generator.getGenConfigInfo(genTableInfo);;
 		genConfigInfo.setGenTableInfo(genTableInfo);
-		
-		
-		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,NOT_LODE);				
-		//生成实体类  checked
-		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createEntity(JAVA_URL, genConfigInfo));
-		//生成Dao   chedked
-		//super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createDao(JAVA_URL, genConfigInfo));
-		//生成Service   checked
-		//super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createService(JAVA_URL, genConfigInfo));
-		//生成Controller   checked
-		//super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createController(JAVA_URL, genConfigInfo));
-		
-		//此处需要id remark flag等数据操作
-//		genConfigInfo=EntityInfoUtil.getInfo(genConfigInfo,LODE);
-//		//生成mapper 映射文件
-//		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createMapping(XML_URL, genConfigInfo));
+		return genConfigInfo;
 	}
 }

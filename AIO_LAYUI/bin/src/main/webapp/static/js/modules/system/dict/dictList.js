@@ -109,7 +109,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	//监听单元格事件
 	table.on('tool(dictList)', function(obj){
 		
-		publicUtil.show_menu(obj,"dictList");
+		publicUtil.show_menu(obj);
 	});
 	
 	
