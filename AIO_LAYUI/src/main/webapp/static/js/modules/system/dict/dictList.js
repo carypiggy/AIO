@@ -108,7 +108,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	//行点击事件
 	//监听单元格事件
 	table.on('tool(dictList)', function(obj){
-		publicUtil.show_menu(obj);
+		
+		publicUtil.show_menu(obj,"dictList");
 	});
 	
 	

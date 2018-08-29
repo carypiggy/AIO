@@ -33,7 +33,6 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application'], func
 	
 	//初始化一级菜单
 	function initTopMenu(url) { //Ajax调用处理
-	console.log(application.HEADER);
 		$.ajax({
 			// url: "static/json/topMenu.json",
 			url: application.SERVE_URL + "/index",

@@ -352,7 +352,7 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 		/**
 		 * 权限左键菜单
 		 */
-		show_menu:function(obj){
+		show_menu:function(obj,tableIns){
 			var data = obj.data;
 
 			//兼容性 Chrom
@@ -362,15 +362,26 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 				left : window.event.pageX,
 				display:'block'
 			}).show().delay(5000).hide(300);
-			
+
+			// table.cache = {};			
 			//清空列表内checkbox
 			var item = $("table").first();
+			
 			for(var i=0;i<item.length;i++){
-				$("input").prop("checked", false);
+				$("input").prop("checked", false);				
 				form.render('checkbox');
 			}
+			
+			
+			/*  tabCache 需要return   此处不通用*/
+			var tbCaches = table.cache.dictList;
+			// console.log( Object.getOwnPropertyNames(table.cache));	
+			table.cache.dictList = execTbCache(tbCaches);
+			
+			
 			//此处需传值当前行
-			obj.tr.find("input[name='layTableCheckbox']+").prop('checked', true);
+			// obj.tr.find("input[name='layTableCheckbox']+").prop('checked', true);
+		
 			obj.tr.find('input[name="layTableCheckbox"]+').click();
 			form.render('checkbox');
 		},
@@ -405,8 +416,20 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 }
 
 
+		//清空table缓存
+		function execTbCache(tbCaches){
+			var arr = [];
 
-
+			for(var i=0;i<tbCaches.length;i++){
+				var tbCache=tbCaches[i];
+				if(tbCache[table.config.checkName]){
+					arr.push(table.clearCacheKey(tbCaches[i]));
+				}else{
+					arr.push(tbCache);
+				}
+			}
+			return arr;
+		}
 
 
 		function judgeTokenIssue(){
