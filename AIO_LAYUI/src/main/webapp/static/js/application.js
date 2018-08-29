@@ -6,6 +6,7 @@
 */
 layui.define('jquery',function(exports){
 	var $ = layui.jquery;
+	
 	var obj ={
 		
 		//初始化
@@ -29,7 +30,6 @@ layui.define('jquery',function(exports){
 			}
 		},
 		
-		
 		//ajax请求返回的状态码
 		REQUEST_SUCCESS:200,
 		REQUEST_ERROR:500,
@@ -46,7 +46,7 @@ layui.define('jquery',function(exports){
 		
 		HEADER : sessionStorage.getItem('token'),
 		TOKENTIME : sessionStorage.getItem('tokenTime'),
-		TOKENISSUE : 3000,
+		TOKENISSUE : 5*60*1000, //五分钟续约有效期
 		COMEFROM : 'WEB'
 	}
     exports('application', obj);
