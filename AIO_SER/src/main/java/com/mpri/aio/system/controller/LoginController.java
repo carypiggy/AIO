@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
@@ -198,7 +197,7 @@ public class LoginController extends BaseController {
 	}
 	
 	/**
-	 * 首页初次加载菜单
+	 * 首页初次加载权限按钮
 	 * @param request
 	 * @return
 	 */

@@ -88,25 +88,17 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 					// selected: boolean',         //自定义返回数据中disabled的key, 默认 disabled
 				function initSelect(){
 					$.ajax({
-						url: application.SERVE_URL+'/sys/sysrole/list', //ajax请求地址
-						headers : { 'Authorization' : application.HEADER},
-						data : {pageNo : "1", pageSize : "100"},
-						beforSend: function () {
-							publicUtil.refreshToken();
-						},
+						url: application.SERVE_URL+'/sys/sysrole/loadAll', //ajax请求地址
 						success: function (rs) {
-							console.log(rs);
 							formSelects.data('userRole', 'local', {
-									arr: rs.list					
+								arr: rs.data					
 							})
-
 							if(formSelectsdata != null && formSelectsdata != '' && formSelectsdata != 'undefined'){
-									layui.formSelects.value('userRole', formSelectsSetValue(formSelectsdata));								
+								layui.formSelects.value('userRole', formSelectsSetValue(formSelectsdata));								
 							}
 						}
 					});
 				}
-				
 				
 				initSelect();
 				form.on("submit(addUser)",function(data){

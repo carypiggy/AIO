@@ -1,9 +1,10 @@
 package com.mpri.aio.system.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +40,21 @@ public class SysRoleController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
+	@PostMapping(value = "/list")
 	public PageIo<SysRole> list(int pageNo,int pageSize,SysRole sysRole) {
 		PageIo<SysRole> pageInfo =  sysRoleService.loadByPage(pageNo,pageSize,sysRole);							
 		return pageInfo;
 	} 
+	
+	//获取系统所有角色
+	@CrossOrigin
+	@PostMapping(value = "/loadAll")
+	public RestResponse<List<SysRole>> loadAllBy(SysRole sysRole) {
+		List<SysRole> roleList =  sysRoleService.loadAllListBy(sysRole);
+		return new RestResponse<List<SysRole>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", roleList);
+	} 
+	
+	
 	
 	/**
 	 * 

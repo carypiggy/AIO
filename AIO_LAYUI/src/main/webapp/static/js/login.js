@@ -28,13 +28,17 @@ layui.use(['form','layer','application'],function(){
 					//......后续操作
 				},
 				error : function() {
-				//              alert('验证失败！');
+				// alert('验证失败！');
 				}
  
 		}); 
+		
+		//清缓存
+		window.sessionStorage.clear();
+		window.localStorage.clear();	
 
-    //登录按钮
-    form.on("submit(login)",function(data){
+	    //登录按钮
+	    form.on("submit(login)",function(data){
 			//$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
 			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写  
 			//获取验证吗内容	 
@@ -43,18 +47,20 @@ layui.use(['form','layer','application'],function(){
 				code_area += $(".verify-code").find("font").eq(i).html();//遍历所有font的文本
 			} 
 			code_area = code_area.toUpperCase();
-			if(inputCode.length <= 0) { //若输入的验证码长度为0
-				top.layer.msg("请输入验证码！");
-				return false;//则弹出请输入验证码
-			}else if(inputCode != code_area ) { //若输入的验证码与产生的验证码不一致时
-				top.layer.msg("验证码输入错误！"); //则弹出验证码输入错误
-				document.getElementById("input").value = "";//清空文本框
-				return false;
-			}else {
+//			if(inputCode.length <= 0) { //若输入的验证码长度为0
+//				top.layer.msg("请输入验证码！");
+//				return false;//则弹出请输入验证码
+//			}else if(inputCode != code_area ) { //若输入的验证码与产生的验证码不一致时
+//				top.layer.msg("验证码输入错误！"); //则弹出验证码输入错误
+//				document.getElementById("input").value = "";//清空文本框
+//				return false;
+//			}else {
 				//请求登陆
 				$.ajax({
 					url: application.SERVE_URL+"/login", //ajax请求地址
 					type: "POST",
+					dataType: "json",
+					headers : { "Authorization" : "" },
 					data: { 
 						username : $("#username").val(),
 						password : $("#password").val(),
@@ -80,11 +86,9 @@ layui.use(['form','layer','application'],function(){
 							top.layer.msg(result.msg+"("+result.code+")");
 							$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
 						}
-						
-						
 					}
 				});
-			} 
+		//	} 
         return false;
     })
 
