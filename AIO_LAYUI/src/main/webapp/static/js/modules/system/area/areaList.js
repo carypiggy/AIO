@@ -51,8 +51,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 	//行点击事件
 	//监听单元格事件
 	treeGrid.on('tool(areaTree)', function(obj){
-		var data = obj.data;
-		publicUtil.show_menu(data);
+		publicUtil.show_menu(obj);
 	});
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
