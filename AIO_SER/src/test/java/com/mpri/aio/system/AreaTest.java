@@ -1,5 +1,6 @@
 package com.mpri.aio.system;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -11,6 +12,8 @@ import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.utils.IdGen;
 import com.mpri.aio.system.model.SysArea;
 import com.mpri.aio.system.service.SysAreaService;
+import com.mpri.aio.system.utils.DatasCovert;
+import com.mpri.aio.system.vo.FormSelectDatas;
 
 /**
 * .用户管理单元测试类
@@ -93,17 +96,24 @@ public class AreaTest extends ApplicationTests {
     @Test
     public void  testloadAllListBy() {
     	SysArea area=  new SysArea();
-   	    area.setFlag("0");
+   	    area.setFlag("NORMAL");
     //	area.setParentId("Root");
 		List<SysArea> sysAreaList=sysAreaService.loadAllListBy(area);
-		super.outprint("java.util.List", sysAreaList);
+		List<FormSelectDatas> formSelectDatas = new ArrayList<FormSelectDatas>();
+		
+		for(SysArea sysArea : sysAreaList) {
+			formSelectDatas.add(new FormSelectDatas(sysArea.getId(),sysArea.getParentId(),sysArea.getName())); 
+		}
+		FormSelectDatas res = DatasCovert.setRootFormSelectData(formSelectDatas, "root");
+//		super.outprint("com.mpri.aio.system.vo.FormSelectDatas", res);
+		System.out.println(res.toString());
 		   
     }
     
     /**
      * .分页查询数据  -- 通过
      */
-    @Test
+    //@Test
     public void testloadUsers(){
     	
     	try{
@@ -131,7 +141,7 @@ public class AreaTest extends ApplicationTests {
     /**
      * .根据code获取地区
      */
-    @Test
+    //@Test
     public void testGetAreaByCode()
     {
     	sysAreaService.getSysAreaByCode("af9434401e7f4a74af615505547fe1af");
