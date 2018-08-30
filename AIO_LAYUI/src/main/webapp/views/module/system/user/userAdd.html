@@ -22,7 +22,7 @@
 				<div class="magb15 layui-col-md6 layui-col-xs12">
 					<label class="layui-form-label">登录名</label>
 					<div class="layui-input-block">
-						<input type="text" class="layui-input username" name='username' lay-verify="required" placeholder="请输入登录名">
+						<input type="text" class="layui-input username" name='username' lay-verify="required|user_exist" placeholder="请输入登录名">
 					</div>
 				</div>	
 				<div class="magb15 layui-col-md6 layui-col-xs12">
@@ -79,14 +79,13 @@
 			</div>
 		</div>	
 		<div class="layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">用户图片</label>
-			<button type="button" class="layui-btn" id="selectphoto">上传图片</button>
 			<div class="layui-upload" style="display: flex;justify-content: center;align-items: center;">			  
 			  <div class="layui-upload-list">
-				<img class="layui-upload-img" id="photo" src="" style="vertical-align:middle;">
-				<p id="photoPath" name="photo"  style="display: none;"></p>
+				<img class="layui-upload-img" id="photo" style="width:250px;height:250px;"/>
+				<p id="photoPath"   style="display: none;"></p>
 			  </div>
-			</div>   
+			</div>
+			<button type="button" class="layui-btn" id="selectphoto">上传图片</button>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">

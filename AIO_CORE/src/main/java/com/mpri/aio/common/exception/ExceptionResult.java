@@ -19,6 +19,6 @@ public class ExceptionResult implements Serializable {
 	
 	public static final Integer SYS_ERROR = 500;
 	
-	
+	public static final Integer DATA_USED = 201;
 	
 }

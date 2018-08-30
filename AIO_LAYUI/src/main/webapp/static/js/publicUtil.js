@@ -27,6 +27,12 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 	    }
 	} );
 	
+	
+	//刷新当前
+	$(document).on("click",".refreshTable",function(){ 
+		parent.$(".refresh").click();
+	})
+	
 	var obj ={
 		
 		//由子页面回填至父页面（多参数）
@@ -105,16 +111,6 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			}else{
 				return true;
 			}
-		},
-		
-		//根据权限加载a按钮
-		lodingPerBut : function(permissons,butgroupId){
-			var butHtml = '';
-			for(var i=0;i<permissons.length;i++){
-				var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
-				butHtml += '<a class="layui-btn" id="'+permissons[i].operate+'" ><i class="layui-icon"> '+icon +' </i> '+permissons[i].name+'</a>';
-			}
-			$("#"+butgroupId).append(butHtml);
 		},
 		
 		/**
@@ -231,10 +227,11 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 						
 						var permissons = result;
 						var butHtml = '';
-						var leftMenu="";
+						var leftMenu="<dd><a href='javascript:;' class='PER_REFRESH  refreshTable refreshThis'><i class='layui-icon layui-icon-refresh-3'></i> 刷新</a></dd>";
 						$("body div").first().after("<dl class='show_menu' id='show_menu'></dl>");
 						for(var i=0;i<permissons.length;i++){
-							var icon = permissons[i].icon ==null || permissons[i].icon =="null"  ? "": permissons[i].icon;
+							var icon = permissons[i].icon ==null || permissons[i].icon =="null"||permissons[i].icon ==""  ? "layui-icon-ok-circle": permissons[i].icon;
+							
 							butHtml += '<a class="layui-btn PER_'+permissons[i].operate+'" ><i class="layui-icon '+ icon +'"></i> '+permissons[i].name+'</a>';
 							/**
 							 * 此处应将权限唯一标识符进行处理，使得两处菜单可以调用同一方法
@@ -338,7 +335,7 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			/*  tabCache 需要return   此处不通用*/
 			var pro = Object.keys(table.cache)[0];
 			var tbCaches = table.cache[pro];
-			table.cache.dictList = execTbCache(tbCaches);
+			table.cache[pro] = execTbCache(tbCaches);
 		
 			obj.tr.find('input[name="layTableCheckbox"]+').click();
 			form.render('checkbox');
@@ -353,6 +350,8 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 				top.layer.msg(result.msg+"("+result.code+")");
 			}
 		}
+		
+		
 	
 	}
 		//清空table缓存
@@ -371,9 +370,13 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 		}
 
 		//error方法
-		function errofuntion(res){
-			var result=res.responseJSON;
-			top.layer.msg(result.msg+"("+result.code+")");
+		function errofuntion(res){	
+			var result=data.responseJSON;
+			if(result==undefined){
+				top.layer.msg("服务连接中断，请检查网络连接情况，并重新登陆！");
+			}else{
+				top.layer.msg(result.msg+"("+result.code+")");
+			}
 		}
 		
 		//刷新token的方法（）
@@ -409,6 +412,8 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 				return false;
 			}
 		}
+		
+		
 		
     exports('publicUtil', obj);
 })

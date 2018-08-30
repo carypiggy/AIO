@@ -49,7 +49,6 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysrole/save", //ajax请求地址
-			type: "POST",
 			data:{
 				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
 				name : $(".name").val(),
@@ -58,10 +57,6 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
 				sort : $(".sort").val(),
 				remark : $(".remark").val(),
 			},	
-			beforSend: function () {
-				publicUtil.refreshToken();
-			},
-			headers : { 'Authorization' : application.HEADER},
 			success: function (res) {
 				if(res.code==application.REQUEST_SUCCESS){
 				 	top.layer.close(index);
@@ -72,9 +67,6 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
 				}else{
 					layer.msg(res.msg);
 				}
-			},
-			error: function(res){
-				publicUtil.errofunc(res);
 			}
 		}); 
         return false;

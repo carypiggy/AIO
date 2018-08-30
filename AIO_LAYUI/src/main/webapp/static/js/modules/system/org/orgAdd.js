@@ -76,12 +76,7 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysorg/save", //ajax请求地址
-			type: "POST",
-			beforSend: function () {
-				publicUtil.refreshToken();
-			},
 			contentType: "application/json",
-			headers : { 'Authorization' : application.HEADER},
 			data:JSON.stringify({
 				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
 				parentId : $(".parentId").val(),
@@ -106,33 +101,28 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
 				}else{
 					layer.msg(res.msg);
 				}
-			},
-			error: function(res){
-				publicUtil.errofunc(res);
 			}
 		}); 
         return false;
     })
-
-
-
+    
 	function selectOrg(){
 		var index = layui.layer.open({
-				type: 2,
-				title: '机构选择',
-				shadeClose: true,
-				shade: 0.8,
-				area: ['280px', '65%'],
-				// content: '../views/module/system/menu/menuselect.html',
-				content: 'orgselect.html',
-				success : function(layero, index){
-					//
-					setTimeout(function(){
-							layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-									tips: 3
-							});
-					},500)											
-				},
+			type: 2,
+			title: '机构选择',
+			shadeClose: true,
+			shade: 0.8,
+			area: ['280px', '65%'],
+			// content: '../views/module/system/menu/menuselect.html',
+			content: 'orgselect.html',
+			success : function(layero, index){
+				//
+				setTimeout(function(){
+						layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+								tips: 3
+						});
+				},500)											
+			},
 		})
 	}
 	

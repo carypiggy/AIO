@@ -1,6 +1,7 @@
-/*公共样式*/
+
+/*鍏叡鏍峰紡*/
 /*.layui-legend {font-size: 16px;border-top: none;padding-top: 5px;font: "microsoft yahei" !important}*/
-.layui-fluid{height:100%;margin:15px;}
+.layui-fluid{height:100%;margin:10px;}
 .fieldset-div{height:100%;border: none; }
 .rightztree{height:100% ;!important;}
 .layui-but-per{margin-bottom: 7px;margin-top:7px;}
@@ -8,15 +9,17 @@
 .show_menu{width: 100px; display: none; position: absolute; left: 118px; top: 141px; line-height: 36px; padding: 5px; box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 4px; border: 1px solid rgb(210, 210, 210); background-color: #f2f2f2; z-index: 100; border-radius: 2px; white-space: nowrap;}
 .show_menu dd a{font:14px;font-weight:bold}
 .show_menu dd a:hover{background: #009688;  display: block; color:white}
-
-/* 横向滚动条 */
+.layui-form{margin-top:15px}
+.layui-upload-list{border-style: groove;}
+#selectphoto{margin-left:45%;margin-top:5px;}
+/* 妯悜婊氬姩鏉� */
 body{overflow-y: scroll; !important;}
 
 .layui-table th{
 font-weight: bold;
 }
 /* .layui-elem-quote-blockquote{border-left: none !important;} */
-/*上面为新增样式*/
+/*涓婇潰涓烘柊澧炴牱寮�*/
 .childrenBody{height:100% !important; }
 .layui-table-view{ margin:2px 0px 0px 0px !important;}
 .magb0{margin-bottom:0 !important;}
@@ -42,9 +45,9 @@ font-weight: bold;
 .loginBody .layui-input-focus .layui-input:-ms-input-placeholder{transition: color 0.2s linear 0.2s;}
 .loginBody .layui-input-focus .layui-input::placeholder{transition: color 0.2s linear 0.2s;-webkit-transition: color 0.2s linear 0.2s;}
 
-/*修改密码*/
+/*淇敼瀵嗙爜*/
 .pwdTips{ min-height:auto; margin:40px 0 15px 110px;}
-/*个人资料*/
+/*涓汉璧勬枡*/
 form input.layui-input[disabled]{ background:#f2f2f2; color:#595963!important; }
 .user_right{ text-align: center; }
 .user_right p{ margin:10px 0 25px; font-size: 12px; text-align: center; color: #FF5722;}
@@ -52,7 +55,7 @@ form input.layui-input[disabled]{ background:#f2f2f2; color:#595963!important; }
 .userAddress.layui-form-item .layui-input-inline{ width:23%; }
 .userAddress.layui-form-item .layui-input-inline:last-child{ margin-right:0; }
 
-/*404页面*/
+/*404椤甸潰*/
 .noFind{ text-align:center; padding-top:2%;}
 .noFind i{ line-height:1em; font-size:12em !important; color: #393D50; display:block;}
 .ufo{ text-align:center; height:100%; position:relative;}
@@ -61,24 +64,24 @@ form input.layui-input[disabled]{ background:#f2f2f2; color:#595963!important; }
 .noFind .ufo_icon{ top:100px; animation:ufo 1s ease-in 0.6s forwards; -webkit-animation:ufo 1s ease-in 0.6s forwards; -o-animation:ufo 1s ease-in 0.6s forwards; -moz-animation:ufo 1s ease-in 0.6s forwards;}
 .page404{ margin-top:10%; opacity:0; font-size:0; animation:page404 0.5s ease-in 1.7s forwards; -webkit-animation:page404 0.5s ease-in 1.7s forwards; -o-animation:page404 0.5s ease-in 1.7s forwards; -moz-animation:page404 0.5s ease-in 1.7s forwards;}
 .page404 p{ font-size: 20px; font-weight: 300; color: #999;}
-/*页面被吸走*/
+/*椤甸潰琚惛璧�*/
 @keyframes pageGo{from{font-size: 12em; top:300px;} to{font-size:0; opacity:0; top: 100px;}}
 @-moz-keyframes pageGo{from{font-size: 12em; top:300px;} to{font-size:0; opacity:0; top:100px}}
 @-webkit-keyframes pageGo{from{font-size: 12em; top:300px;} to{font-size:0; opacity:0; top:100px}}
 @-o-keyframes pageGo{from{font-size: 12em; top:300px;} to{font-size:0; opacity:0; top:100px}}
-/*ufo飞走*/
+/*ufo椋炶蛋*/
 @keyframes ufo{0%{font-size: 14em; top:100px;} 20%{font-size: 12em; top:50px;} 100%{font-size:0; opacity:0; top:-100px; left:80%;}}
 @-moz-keyframes ufo{0%{font-size: 14em; top:100px;} 20%{font-size: 12em;  top:50px;} 100%{font-size:0; opacity:0; top:-100px; left:80%;}}
 @-webkit-keyframes ufo{0%{font-size: 14em; top:100px;} 20%{font-size: 12em;  top:50px;} 100%{font-size:0; opacity:0; top:-100px; left:80%;}}
 @-o-keyframes ufo{0%{font-size: 14em; top:100px;} 20%{font-size: 12em; top:50px;} 100%{font-size:0; opacity:0; top:-100px; left:80%;}}
-/*404显示*/
+/*404鏄剧ず*/
 @keyframes page404{from{opacity:0; font-size:2em;} to{opacity:1;font-size:2em;}}
 @-moz-keyframes page404{from{opacity:0; font-size:2em;} to{opacity:1;font-size:2em;}}
 @-webkit-keyframes page404{from{opacity:0; font-size:2em;} to{opacity:1;font-size:2em;}}
 @-o-keyframes page404{from{opacity:0; font-size:2em;} to{opacity:1;font-size:2em;}}
 
 
-/*登录*/
+/*鐧诲綍*/
 .loginHtml,.loginBody{ height:100%;}
 /* .loginBody{ background:url("../images/login_bg.jpg") no-repeat center center;} */
 .loginBody form.layui-form{ padding:0 20px; width:300px; height:335px; position:absolute; left:50%; top:50%; margin:-150px 0 0 -150px; -webkit-box-sizing:border-box;-moz-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; background:#fff;-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; box-shadow:0 0 50px #009688;}

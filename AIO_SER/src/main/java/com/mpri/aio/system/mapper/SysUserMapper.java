@@ -35,4 +35,11 @@ public interface SysUserMapper extends CrudMapper<SysUser>{
      */
     void deleteUserRole(SysUser sysUser);
     
+    /**
+     * 获取既有用户数
+     * @param sysUser
+     * @return
+     */
+    int getUserNum(SysUser sysUser);
+    
 }

@@ -74,14 +74,9 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
             layer.confirm('确定删除此此编码？',{icon:3, title:'提示信息'},function(index){				
 				$.ajax({
 					url: application.SERVE_URL+"/sys/sysdict/delete", //ajax请求地址
-					type: "POST",
 					data:{
 						id : table.checkStatus('dictList').data[0].id  
-					},
-					beforSend: function () {
-						publicUtil.refreshToken();
-					},
-					headers : { 'Authorization' : application.HEADER},												
+					},										
 					success: function (res) {
 						if(res.code==application.REQUEST_SUCCESS){
 							tableIns.reload();
@@ -92,9 +87,6 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 							top.layer.msg(res.msg);
 						}
 
-					},
-					error: function(res){
-						publicUtil.errofunc(res);
 					}
 				});	
             });			

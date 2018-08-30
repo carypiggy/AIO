@@ -98,29 +98,21 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 			var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('menuTree').data);
 			if(flag){
 	            layer.confirm('确定删除此菜单吗？',{icon:3, title:'提示信息'},function(index){
-								$.ajax({
-									url: application.SERVE_URL+"/sys/sysmenu/delete", //ajax请求地址
-									beforSend: function () {
-										publicUtil.refreshToken();
-									},
-									type: "POST",
-									data:{
-										id : treeGrid.checkStatus('menuTree').data[0].id 
-									},
-									headers : { 'Authorization' : application.HEADER},												
-									success: function (res) {
-										if(res.code==application.REQUEST_SUCCESS){
-											treeTable.reload();
-											layer.close(index);
-											top.layer.msg(res.msg);
-										}else{
-											top.layer.msg(res.msg);
-										}
-									},
-									error: function(res){
-										publicUtil.errofunc(res);
-									}
-								});											 
+					$.ajax({
+						url: application.SERVE_URL+"/sys/sysmenu/delete", //ajax请求地址
+						data:{
+							id : treeGrid.checkStatus('menuTree').data[0].id 
+						},											
+						success: function (res) {
+							if(res.code==application.REQUEST_SUCCESS){
+								treeTable.reload();
+								layer.close(index);
+								top.layer.msg(res.msg);
+							}else{
+								top.layer.msg(res.msg);
+							}
+						}
+					});											 
 	            });			
 			}else{
 				return false;

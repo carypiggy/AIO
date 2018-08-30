@@ -14,7 +14,7 @@ layui.define('jquery',function(exports){
 			if(sessionStorage.getItem("token") == null ||
 				sessionStorage.getItem("token") == '' ||
 				sessionStorage.getItem("token") == undefined){			
-				parent.location.href = "../../../../login.html";
+				top.location.href = "../../../../login.html";
 			}
 			$(document).bind("contextmenu",function(e){
 				return false;
@@ -33,6 +33,7 @@ layui.define('jquery',function(exports){
 		//ajax请求返回的状态码
 		REQUEST_SUCCESS:200,
 		REQUEST_ERROR:500,
+		DATA_USED:201,
 		//Login
 		BASE_URL : "http://127.0.0.1:80",
 		

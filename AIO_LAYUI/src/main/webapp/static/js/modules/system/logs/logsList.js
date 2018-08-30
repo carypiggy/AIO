@@ -112,22 +112,9 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 				if(edit){
 					$.ajax({
 						url: application.SERVE_URL +'/sys/syslogs/get', //ajax请求地址
-						type: "POST",
 						data:{
 							id :edit.id,
-						},
-						headers : { 'Authorization' : application.HEADER},						
-						beforeSend: function(){
-							$.ajax({
-								async:false,
-								url: application.SERVE_URL +'/refreshToken', //ajax请求地址
-								type: "POST",
-								headers : { 'Authorization' : application.HEADER},						
-								success: function (data) {
-									console.log(data);
-								}
-							});
-						},
+						},					
 						success: function (result) {
 							if(result.code==application.REQUEST_SUCCESS){
 								body.find(".id").val(result.data.id);
@@ -141,10 +128,6 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 								body.find(".params").val(result.data.params);
 								body.find(".excContent").val(result.data.excContent);
 							}
-						},	
-						error(data){
-							var result=data.responseJSON;
-							top.layer.msg(result.msg+"("+result.code+")");
 						}
 					}); 
                     form.render();
