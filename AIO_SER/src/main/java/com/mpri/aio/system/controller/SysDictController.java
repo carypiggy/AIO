@@ -43,7 +43,7 @@ public class SysDictController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
+	@PostMapping(value = "/list")
 	public PageIo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
 		PageIo<SysDict> info = sysDictService.loadByPage(pageNo,pageSize,sysDict);	
 		return info;

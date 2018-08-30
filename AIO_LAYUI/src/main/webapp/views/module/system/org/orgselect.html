@@ -27,16 +27,16 @@
 			//ztree设置
 			var setting = {
 					view: {
-							selectedMulti: false
+						selectedMulti: false
 					},
 
 					data: {
-							simpleData: {
-									enable: true,
-									idKey: "id",
-									pIdKey: "parentId"
-									// rootPId: 0									
-							}
+						simpleData: {
+							enable: true,
+							idKey: "id",
+							pIdKey: "parentId"
+							// rootPId: 0									
+						}
 					},
 					check: {
 						enable: true,
@@ -55,15 +55,11 @@
 				
 				$.ajax({
 					url: application.SERVE_URL+'/sys/sysorg/tree',
-					beforSend: function () {
-						publicUtil.refreshToken();
-					},				  //ajax请求地址
-					headers : { 'Authorization' : application.HEADER},
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
-											//获取根节点个数,getNodes获取的是根节点的集合
+						//获取根节点个数,getNodes获取的是根节点的集合
 						var nodeList = ztreeObj.getNodes();
-			　　　　　　//展开第一个根节点
+			　　　　　　	//展开第一个根节点
 						ztreeObj.expandNode(nodeList[0], true);
 						//回填机构的
 						publicUtil.setTreeSel($(".parentId",parent.document).val(),ztreeObj);							

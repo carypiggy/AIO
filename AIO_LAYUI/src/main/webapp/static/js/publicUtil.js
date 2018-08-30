@@ -5,12 +5,13 @@
 	@Description: 封装一些公用
  */
 var editFormData;
-layui.define(['form','layer','jquery','application','table'],function(exports){
+layui.define(['form','layer','jquery','application','table','treeGrid'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
 	var table = layui.table;
+	var treeGrid=layui.treeGrid;
 	
 	/**
 	 * 初始化AJAX的请求
@@ -313,32 +314,16 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 		 */
 		show_menu:function(obj){
 			var data = obj.data;
-
-			//兼容性 Chrom
+			//兼容性 Chrome
 			$("#show_menu").css({
 				//定义菜单显示位置为事件发生的X坐标和Y坐标
 				top : window.event.pageY,
 				left : window.event.pageX,
 				display:'block'
 			}).show().delay(5000).hide(300);
-
-			// table.cache = {};			
-			//清空列表内checkbox
-			var item = $("table").first();
+			//选中处理
+			check_ed(obj);
 			
-			for(var i=0;i<item.length;i++){
-				$("input").prop("checked", false);				
-				form.render('checkbox');
-			}
-			
-			
-			/*  tabCache 需要return   此处不通用*/
-			var pro = Object.keys(table.cache)[0];
-			var tbCaches = table.cache[pro];
-			table.cache[pro] = execTbCache(tbCaches);
-		
-			obj.tr.find('input[name="layTableCheckbox"]+').click();
-			form.render('checkbox');
 		},
 			
 		//error 方法 
@@ -349,17 +334,50 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			}else{
 				top.layer.msg(result.msg+"("+result.code+")");
 			}
-		}
+		},
 		
+		hiddenMenu : function(obj){
+			check_ed(obj);
+			//隐藏右键菜单
+			$("#show_menu").css({display:'block'}).hide();
+			return;
+		}
 		
 	
 	}
+		//checkbox 被选中事件
+		function check_ed(obj){		
+			//清空列表内checkbox
+			var item = $("table").first();
+			for(var i=0;i<item.length;i++){
+				$("input").prop("checked", false);				
+				form.render('checkbox');
+			}
+			var pro = Object.keys(table.cache)[0];
+			/*  tabCache 需要return*/
+			if(pro!=undefined){
+				var tbCaches = table.cache[pro];
+				table.cache[pro] = execTbCache(tbCaches);
+			}else{
+				var grid_pro = Object.keys(treeGrid.cache)[0];
+				var tbCaches = treeGrid.cache[grid_pro];
+				treeGrid.cache[grid_pro] = execTbCache(tbCaches);
+			}
+			
+		
+			obj.tr.find('input[name="layTableCheckbox"]+').click();
+			form.render('checkbox');
+		
+		}
+	
 		//清空table缓存
 		function execTbCache(tbCaches){
 			var arr = [];
-
 			for(var i=0;i<tbCaches.length;i++){
 				var tbCache=tbCaches[i];
+				/**
+				 * 此处虽然有效但逻辑错误，未区分TG和T的类型，仅因两个结构一体同生，处理方式方法相同
+				 */
 				if(tbCache[table.config.checkName]){
 					arr.push(table.clearCacheKey(tbCaches[i]));
 				}else{

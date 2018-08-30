@@ -20,7 +20,10 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         laytpl = layui.laytpl,
         table = layui.table;
 
-	 application.init();
+	application.init();
+	
+	//获取权限并加载按钮
+	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
 	
     //编码列表
     var tableIns = table.render({
@@ -40,17 +43,27 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/
 			{type:'checkbox'},
-            {field: 'typeCode', title: '编码类型',event: 'setSign'},
-            {field: 'label', title: '编码名称',event: 'setSign'},
-            {field: 'value', title: '编码值',event: 'setSign'},
-			{field: 'sort',sort: true, title: '排序',event: 'setSign'},
-            {field: 'remark', title: '备注',event: 'setSign'}
+            {field: 'typeCode', title: '编码类型'},
+            {field: 'label', title: '编码名称'},
+            {field: 'value', title: '编码值'},
+			{field: 'sort',sort: true, title: '排序'},
+            {field: 'remark', title: '备注'}
         ]],
 		done: function (res, curr, count) {
 			$('th div span').css({'font-weight:': 'bold'});
 		}
     });
 
+	//右键点击事件
+	table.on('rowRight(dictList)', function(obj){
+		publicUtil.show_menu(obj);
+	});
+	
+	//左键点击事件
+	table.on('row(dictList)', function(obj){
+		publicUtil.hiddenMenu(obj);
+	});
+	
 	//新增操作
 	$(document).on('click','.PER_ADD',function(){
     	_addDict();
@@ -95,14 +108,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 		}
     })	
 	
-	//获取权限并加载按钮
-	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
-	//行点击事件
-	//监听单元格事件
-	table.on('tool(dictList)', function(obj){
-		
-		publicUtil.show_menu(obj);
-	});
+	
 	
 	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
