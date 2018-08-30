@@ -96,7 +96,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 					cellMinWidth : 95,
 					page : true,
 					even : true ,
-					height : "full-160",
+					height : "full-180",
 					id : "orgList",
 					cols : [[
 						{type:'checkbox'},
