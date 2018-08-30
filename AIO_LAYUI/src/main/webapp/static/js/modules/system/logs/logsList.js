@@ -46,6 +46,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 				});
 	//获取权限并加载按钮
 	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+	
     //日志列表
     var tableIns = table.render({
         elem: '#logsList',
@@ -56,23 +57,34 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 		headers : { 'Authorization' : application.HEADER},
         height : "full-160",
         limit : 10,
-        id : "logsListTable",
+        id : "logsList",
         cols : [[
-            {field: 'type', title: '日志类型',event: 'setSign'},
-            {field: 'username', title: '创建者',event: 'setSign'},
-			{field: 'createDate', title: '创建日期',event: 'setSign'},
-            {field: 'remoteAddr', title: '操作IP地址',event: 'setSign'},
-						{field: 'userAgent', title: '用户代理',event: 'setSign'},
-						{field: 'requestUri', title: '请求URI',event: 'setSign'},
-						{field: 'method', title: '操作方式',event: 'setSign'},
-            {field: 'params', title: '操作提交的数据',event: 'setSign'},
-            {field: 'excContent', title: '异常信息',event: 'setSign'}
+        	//{type:'checkbox'},
+            {field: 'type', title: '日志类型'},
+            {field: 'username', title: '创建者'},
+			{field: 'createDate', title: '创建日期'},
+            {field: 'remoteAddr', title: '操作IP地址'},
+						{field: 'userAgent', title: '用户代理'},
+						{field: 'requestUri', title: '请求URI'},
+						{field: 'method', title: '操作方式'},
+            {field: 'params', title: '操作提交的数据'},
+            {field: 'excContent', title: '异常信息'}
         ]],
 				done: function(res, curr, count){    //res 接口返回的信息
 						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'LOGS_TYPE'},'type');
 				}
     });
 		
+    //右键点击事件
+	table.on('rowRight(logsList)', function(obj){
+		
+		publicUtil.show_menu(obj);
+	});
+	
+	//左键点击事件
+	table.on('row(logsList)', function(obj){
+		publicUtil.hiddenMenu(obj);
+	});
 	
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 	$(".search_btn").on("click",function(){
@@ -90,12 +102,6 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 					queryEndDate : end
 				}
 			})
-	});
-	
-	//行点击事件
-	//监听单元格事件
-	table.on('tool(logsList)', function(obj){
-		publicUtil.show_menu(obj);
 	});
 	
 	function openLogsInfo(edit){

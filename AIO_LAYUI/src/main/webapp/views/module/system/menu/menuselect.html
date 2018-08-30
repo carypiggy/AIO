@@ -26,23 +26,23 @@
 			publicUtil  = layui.publicUtil
 			//ztree设置
 			var setting = {
-					view: {
-							selectedMulti: false
-					},
+				view: {
+						selectedMulti: false
+				},
 
-					data: {
-							simpleData: {
-									enable: true,
-									idKey: "id",
-									pIdKey: "parentId"
-									// rootPId: 0									
-							}
-					},
-					check: {
+				data: {
+					simpleData: {
 						enable: true,
-						chkStyle: "radio",  //单选框
-						radioType: "all"   //对所有节点设置单选
+						idKey: "id",
+						pIdKey: "parentId"
+						// rootPId: 0									
 					}
+				},
+				check: {
+					enable: true,
+					chkStyle: "radio",  //单选框
+					radioType: "all"   //对所有节点设置单选
+				}
 			};
 
 			$(document).ready(function(){
@@ -58,9 +58,9 @@
 					headers : { 'Authorization' : application.HEADER},				  //ajax请求地址
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
-											//获取根节点个数,getNodes获取的是根节点的集合
+						//获取根节点个数,getNodes获取的是根节点的集合
 						var nodeList = ztreeObj.getNodes();
-			　　　　　　//展开第一个根节点
+			　　　　　　	//展开第一个根节点
 						ztreeObj.expandNode(nodeList[0], true);
 						//树回显
 						publicUtil.setTreeSel($(".parentId",parent.document).val(),ztreeObj);
@@ -75,19 +75,6 @@
 
  		});	
 
-
-		
-		
-		
-// 		function getSelectData(){
-// // 				console.log("选中的节点为：")
-// // 				console.log(ztreeObj.getCheckedNodes());
-// 			//生产情况下需对时父标签的过滤  isParent     
-// 			//提交后台
-// 
-// 			parent.layer.close();
-// 		}
-			//转换数据
 	</script>
 </HEAD>
 

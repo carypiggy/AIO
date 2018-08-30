@@ -1109,17 +1109,77 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
             });
         });
 
-        //行事件
-        that.layBody.on('mouseenter', 'tr', function(){
-            var othis = $(this)
-                ,index = othis.index();
-            that.layBody.find('tr:eq('+ index +')').addClass(ELEM_HOVER)
-        }).on('mouseleave', 'tr', function(){
-            var othis = $(this)
-                ,index = othis.index();
-            that.layBody.find('tr:eq('+ index +')').removeClass(ELEM_HOVER)
+      //行事件
+        that.layBody.on('mouseenter', 'tr', function(){ //鼠标移入行
+          var othis = $(this)
+          ,index = othis.index();
+          that.layBody.find('tr:eq('+ index +')').addClass(ELEM_HOVER)
+        }).on('mouseleave', 'tr', function(){ //鼠标移出行
+          var othis = $(this)
+          ,index = othis.index();
+          that.layBody.find('tr:eq('+ index +')').removeClass(ELEM_HOVER)
+        }).on('mousedown', 'tr', function(e){ //单击行
+        	//鼠标左键事件触发
+        	if(1== e.which){	
+        		setRowEvent.call(this, 'row');
+        	}
+        }).on('dblclick', 'tr', function(){ //双击行
+          setRowEvent.call(this, 'rowDouble');
+        }).on('mousedown', 'tr', function(e){ //右击行
+        	//鼠标右键事件触发
+        	if(3 == e.which){	
+        		setRowEvent.call(this, 'rowRight');
+        	}
         });
+        
+        //创建行单击、双击事件监听
+        var setRowEvent = function(eventType){
+          var othis = $(this);
+          layui.event.call(this,
+            MOD_NAME, eventType + '('+ filter +')'
+            ,commonMember.call(othis.children('td')[0])
+          );
+        };
 
+      //数据行中的事件监听返回的公共对象成员
+        var commonMember = function(sets){
+          var othis = $(this)
+          ,index = othis.parents('tr').eq(0).data('index')
+          ,tr = that.layBody.find('tr[data-index="'+ index +'"]')
+          ,data = table.cache[that.key][index];
+          
+          return $.extend({
+            tr: tr //行元素
+            ,data: table.clearCacheKey(data) //当前行数据
+            ,del: function(){ //删除行数据
+              table.cache[that.key][index] = [];
+              tr.remove();
+              that.scrollPatch();
+            }
+            ,update: function(fields){ //修改行数据
+              fields = fields || {};
+              layui.each(fields, function(key, value){
+                if(key in data){
+                  var templet, td = tr.children('td[data-field="'+ key +'"]');
+                  data[key] = value;
+                  that.eachCols(function(i, item2){
+                    if(item2.field == key && item2.templet){
+                      templet = item2.templet;
+                    }
+                  });
+                  td.children(ELEM_CELL).html(function(){
+                    return templet ? function(){
+                      return typeof templet === 'function' 
+                        ? templet(data)
+                      : laytpl($(templet).html() || value).render(data)
+                    }() : value;
+                  }());
+                  td.data('content', value);
+                }
+              });
+            }
+          }, sets);
+        };
         //单元格编辑
         that.layBody.on('change', '.'+ELEM_EDIT, function(){
             var othis = $(this)

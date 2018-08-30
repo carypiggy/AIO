@@ -1482,8 +1482,11 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
       var othis = $(this)
       ,index = othis.index();
       that.layBody.find('tr:eq('+ index +')').removeClass(ELEM_HOVER)
-    }).on('click', 'tr', function(){ //单击行
-      setRowEvent.call(this, 'row');
+    }).on('mousedown', 'tr', function(e){ //单击行
+    	//鼠标左键事件触发
+    	if(1== e.which){	
+    		setRowEvent.call(this, 'row');
+    	}
     }).on('dblclick', 'tr', function(){ //双击行
       setRowEvent.call(this, 'rowDouble');
     }).on('mousedown', 'tr', function(e){ //右击行

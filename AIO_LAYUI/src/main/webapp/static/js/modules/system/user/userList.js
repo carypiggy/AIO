@@ -54,6 +54,7 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 	function initTree() {
 		$.ajax({
 			url: application.SERVE_URL+'/sys/sysorg/tree',
+			type: "POST", // 默认使用POST方式
 			success: function (data) {
 				treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
 				//初始化
@@ -114,16 +115,19 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 			});	
 		}
 	
-		//行点击事件
+		//右键点击事件
 		table.on('rowRight(userList)', function(obj){
-			
 			publicUtil.show_menu(obj);
 		});
+		
+		//左键点击事件
+		table.on('row(userList)', function(obj){
+			publicUtil.hiddenMenu(obj);
+		});
 				
-
 		//新增操作
 		_$(document).on('click','.PER_ADD',function(){
-				addUser();
+			addUser();
     }); 
 		
 		//编辑操作

@@ -39,7 +39,7 @@ public class SysLogsController extends BaseController{
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
+	@PostMapping(value = "/list")
 	public PageIo<SysLogs> list(int pageNo,int pageSize,SysLogs sysLogs){
 		return sysLogsService.loadByPage(pageNo, pageSize, sysLogs);
 	}
