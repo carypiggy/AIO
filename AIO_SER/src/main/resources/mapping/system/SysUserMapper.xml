@@ -77,6 +77,18 @@
     from sys_user a
     where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
+  
+  
+  
+  <!-- 查询user数量 -->
+  <select id="getUserNum" parameterType="com.mpri.aio.system.model.SysUser" resultType = "Integer">
+    select 
+    	count(a.id)
+    from sys_user a
+    where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
+  </select>
+  
+  
  
   <!-- 根据id查询对象-->
   <select id="get" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
@@ -256,7 +268,7 @@
 	</insert>	
   
   
-  <!--删除角色和用户的关系中间表-->
+    <!--删除角色和用户的关系中间表-->
 	<delete id="deleteUserRole">
 		DELETE FROM sys_user_role WHERE user_id = #{id}
 	</delete>

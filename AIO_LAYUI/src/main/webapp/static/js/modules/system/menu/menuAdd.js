@@ -61,55 +61,39 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 
-				var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
+			var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
 
-				$.ajax({
-					
-						url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
-					
-						type: "POST",
-						beforSend: function () {
-							publicUtil.refreshToken();
-						},
-						data:{
-					
-							id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-					
-							parentId : $(".parentId").val(),
-					
-							name : $(".name").val(),
-					
-							code : $(".code").val(),
-					
-							href : $(".href").val(),
-					
-							icon : $(".icon").val(),
-							type : $("#type").val(),
-							operate : $("#operate").val(),
-							permission : $(".permission").val(),
-							sort : $(".sort").val(),
-							operate : $("#operate").val(),
-							remark : $(".remark").val(),
-							isShow :$("#isShow").val(),
-							target : $(".target").val()
+			$.ajax({
+				
+				url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
+				data:{	
+					id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+					parentId : $(".parentId").val(),
+					name : $(".name").val(),
+					code : $(".code").val(),
+					href : $(".href").val(),
+					icon : $(".icon").val(),
+					type : $("#type").val(),
+					operate : $("#operate").val(),
+					permission : $(".permission").val(),
+					sort : $(".sort").val(),
+					operate : $("#operate").val(),
+					remark : $(".remark").val(),
+					isShow :$("#isShow").val(),
+					target : $(".target").val()
 
-						},
-						headers : { 'Authorization' : application.HEADER},		
-						success: function (data) {
-							if(data.code==application.REQUEST_SUCCESS){
-								top.layer.close(index);
-								top.layer.msg(data.msg);
-								layer.closeAll("iframe");
-								//刷新父页面
-								parent.location.reload();
-							}else{
-								top.layer.msg(data.msg+"("+data.code+")");
-							}
-						},
-						error: function(data){
-							var result=data.responseJSON;
-							top.layer.msg(result.msg+"("+result.code+")");
-						}
+				},
+				success: function (data) {
+					if(data.code==application.REQUEST_SUCCESS){
+						top.layer.close(index);
+						top.layer.msg(data.msg);
+						layer.closeAll("iframe");
+						//刷新父页面
+						parent.location.reload();
+					}else{
+						top.layer.msg(data.msg+"("+data.code+")");
+					}
+				}
 		}); 
         return false;
     })

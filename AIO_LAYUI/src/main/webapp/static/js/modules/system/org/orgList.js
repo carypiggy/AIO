@@ -54,20 +54,16 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 	initTree();
 	function initTree() {
 		$.ajax({
-				url: application.SERVE_URL+'/sys/sysorg/tree',
-				beforSend: function () {
-					publicUtil.refreshToken();
-				},
-				headers : { 'Authorization' : application.HEADER},//ajax请求地址
-				success: function (data) {
-					treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
-					//初始化
-										//获取根节点个数,getNodes获取的是根节点的集合
-					var nodeList = treeObj.getNodes();
-		　　　　　　//展开第一个根节点
-					treeObj.expandNode(nodeList[0], true);
-					treeObj.setting.callback.onClick(null, treeObj.setting.treeId, nodeList[0]);//调用事件	
-				}
+			url: application.SERVE_URL+'/sys/sysorg/tree',
+			success: function (data) {
+				treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
+				//初始化
+									//获取根节点个数,getNodes获取的是根节点的集合
+				var nodeList = treeObj.getNodes();
+	　　　　　　//展开第一个根节点
+				treeObj.expandNode(nodeList[0], true);
+				treeObj.setting.callback.onClick(null, treeObj.setting.treeId, nodeList[0]);//调用事件	
+			}
 		});		
 		// $.fn.zTree.init($("#treeDemo"), setting);
 	}	
@@ -92,39 +88,39 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		// console.log(treeNode.id);
 		//生产坏境下请求后台
 		treeCheckNode = treeNode.id;
-				tableIns = table.render({
-					elem: '#orgList',
-					//生产坏境下请求后台
-					url : application.SERVE_URL+'/sys/sysorg/list',
-					headers : { 'Authorization' : application.HEADER},
-					where :{parentId : treeNode.id},
-					cellMinWidth : 95,
-					page : true,
-					
-					even : true ,
-					height : "full-160",
-					id : "orgList",
-					cols : [[
-						{type:'checkbox'},
-						{field: 'name', title: '机构名称',event: 'setSign'},
-						{field: 'code', title: '机构编码',event: 'setSign'},
-						{field: 'type', title: '机构类型',event: 'setSign'},
-						{field: 'master', title: '机构负责人',event: 'setSign'},
-						{field: 'mobile', title: '手机号',event: 'setSign'},
-						{field: 'useable', title: '启用状态',event: 'setSign'},
-						{field: 'openDate', title: '开创时间',event: 'setSign'},
-						{field: 'closeDate', title: '关闭时间',event: 'setSign'}						
-					]]
-					,done: function(res, curr, count){    //res 接口返回的信息,
-						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'},'useable');
-						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'},'type');
-						$("[data-field = 'closeDate']").children().each(function(){							
-							if($(this).text().trim() ==''){								
-								$(this).text('至今');
-							}
-						})
-					}
-				});	
+			tableIns = table.render({
+				elem: '#orgList',
+				//生产坏境下请求后台
+				url : application.SERVE_URL+'/sys/sysorg/list',
+				headers : { 'Authorization' : application.HEADER},
+				where :{parentId : treeNode.id},
+				cellMinWidth : 95,
+				page : true,
+				
+				even : true ,
+				height : "full-160",
+				id : "orgList",
+				cols : [[
+					{type:'checkbox'},
+					{field: 'name', title: '机构名称',event: 'setSign'},
+					{field: 'code', title: '机构编码',event: 'setSign'},
+					{field: 'type', title: '机构类型',event: 'setSign'},
+					{field: 'master', title: '机构负责人',event: 'setSign'},
+					{field: 'mobile', title: '手机号',event: 'setSign'},
+					{field: 'useable', title: '启用状态',event: 'setSign'},
+					{field: 'openDate', title: '开创时间',event: 'setSign'},
+					{field: 'closeDate', title: '关闭时间',event: 'setSign'}						
+				]]
+				,done: function(res, curr, count){    //res 接口返回的信息,
+					publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'},'useable');
+					publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'},'type');
+					$("[data-field = 'closeDate']").children().each(function(){							
+						if($(this).text().trim() ==''){								
+							$(this).text('至今');
+						}
+					})
+				}
+			});	
 	}		
 			
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
@@ -170,33 +166,25 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		_$(document).on('click','.PER_DEL',function(){		
 				var flag = publicUtil.jurgeSelectRows(table.checkStatus('orgList').data);
 				if(flag){
-								layer.confirm('确定删除此机构吗？',{icon:3, title:'提示信息'},function(index){
-										$.ajax({
-											url: application.SERVE_URL+"/sys/sysorg/delete", //ajax请求地址
-											type: "POST",
-											beforSend: function () {
-												publicUtil.refreshToken();
-											},
-											data:{
-												id : table.checkStatus('orgList').data[0].id  
-											},
-											headers : { 'Authorization' : application.HEADER},												
-											success: function (res) {
-												if(res.code==application.REQUEST_SUCCESS){
-													tableIns.reload();
-													// location.reload();
-													top.layer.close(index);	
-													top.layer.msg(res.msg);							
-												}else{
-													top.layer.msg(res.msg);
-												}
+					layer.confirm('确定删除此机构吗？',{icon:3, title:'提示信息'},function(index){
+						$.ajax({
+							url: application.SERVE_URL+"/sys/sysorg/delete", //ajax请求地址
+							data:{
+								id : table.checkStatus('orgList').data[0].id  
+							},							
+							success: function (res) {
+								if(res.code==application.REQUEST_SUCCESS){
+									tableIns.reload();
+									// location.reload();
+									top.layer.close(index);	
+									top.layer.msg(res.msg);							
+								}else{
+									top.layer.msg(res.msg);
+								}
 
-											},
-											error: function(res){
-												publicUtil.errofunc(res);
-											}
-										})
-								});													
+							}
+						})
+					});													
 				}else{
 					return false;
 				}

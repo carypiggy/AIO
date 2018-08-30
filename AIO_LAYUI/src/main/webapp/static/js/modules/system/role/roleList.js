@@ -96,14 +96,9 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 				layer.confirm('确定删除此此角色？',{icon:3, title:'提示信息'},function(index){
 					$.ajax({
 						url: application.SERVE_URL+"/sys/sysrole/delete", //ajax请求地址
-						type: "POST",
 						data:{
 							id : table.checkStatus('roleList').data[0].id  
-						},
-						beforSend: function () {
-							publicUtil.refreshToken();
-						},
-						headers : { 'Authorization' : application.HEADER},											
+						},							
 						success: function (res) {
 							if(res.code==application.REQUEST_SUCCESS){
 								top.layer.msg(res.msg);	
@@ -112,9 +107,6 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 							}else{
 								layer.msg('权限配置失败');
 							}
-						},
-						error: function(res){
-							publicUtil.errofunc(res);
 						}
 					})
 				});		
@@ -129,7 +121,6 @@ layui.use(['application','form','layer','laydate','table','publicUtil'],function
 				if(flag){
 					$.ajax({
 						url : application.SERVE_URL+'/sys/sysrole/get',
-						type : 'POST',
 						data : {"id" : table.checkStatus('roleList').data[0].id}, //ajax请求地址
 						success: function (res) {
 							formdatas = res.data;

@@ -29,6 +29,16 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 		return mapper.getSysUserByUsername(sysUser);
 	}
 
+	/**
+	 * 获取既有用户数
+	 * @param username
+	 * @return
+	 */
+	public int getUserNum(String username) {
+		SysUser sysUser=new SysUser();
+		sysUser.setUsername(username);
+		return mapper.getUserNum(sysUser);
+	}
     /**
      * 插入用户和角色信息
     * <p>Title: insertUserRole</p>  

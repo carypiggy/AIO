@@ -9,14 +9,13 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.github.pagehelper.PageInfo;
+
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.PageIo;
@@ -24,10 +23,8 @@ import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.common.utils.DateUtils;
 import com.mpri.aio.common.utils.FileUtils;
 import com.mpri.aio.common.utils.IdGen;
-import com.mpri.aio.system.model.SysArea;
 import com.mpri.aio.system.model.SysUser;
 import com.mpri.aio.system.service.SysUserService;
-import com.mpri.aio.system.utils.UserUtils;
 
 
 
@@ -50,7 +47,7 @@ public class SysUserController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
+	@PostMapping(value = "/list")
 	public PageIo<SysUser> list(int pageNo,int pageSize,SysUser SysUser) {
 		PageIo<SysUser> pageInfo =  sysUserService.loadByPage(pageNo,pageSize,SysUser);							
 		return pageInfo;
@@ -122,8 +119,34 @@ public class SysUserController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/getusername")
-	public RestResponse<SysUser> getSysUserByUsername(@RequestParam("username") String username) {
-		return new RestResponse<SysUser>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysUserService.getSysUserByUsername(username));	
+	public RestResponse<String> getSysUserByUsername(@RequestParam("username") String username) {
+		
+		SysUser sysUser=sysUserService.getSysUserByUsername(username);
+		if(null==sysUser) {
+			return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "用户名不存在！", null);	
+		}else {
+			return new RestResponse<String>(ExceptionResult.DATA_USED, "用户名已经存在！", null);	
+		}
+		
+	}
+	
+	/**
+	 * 根据username获取用户
+	* <p>Title: get</p>  
+	* <p>Description: </p>  
+	* @param username
+	* @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/checkUserExist")
+	public RestResponse<String> checkUserExist(@RequestParam("username") String username) {
+		int userNum=sysUserService.getUserNum(username);
+		if(userNum>0) {
+			return new RestResponse<String>(ExceptionResult.DATA_USED, "用户名已经存在！", null);	
+		}else {
+			return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "用户名不存在！", null);	
+		}
+		
 	}
 	
 	

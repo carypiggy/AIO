@@ -107,10 +107,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 			layer.confirm('确定删除此区域吗？',{icon:3, title:'提示信息'},function(index){
 				$.ajax({
 					url: application.SERVE_URL+"/sys/sysarea/delete", //ajax请求地址
-					type: "POST",
-					beforSend: function () {
-						publicUtil.refreshToken();
-					},
 					data:{
 						id : treeGrid.checkStatus('areaTree').data[0].id 
 					},
@@ -123,9 +119,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 						}else{
 							top.layer.msg(res.msg);
 						}
-					},
-					error: function(res){
-						publicUtil.errofunc(res);
 					}
 				});					 
 			});			

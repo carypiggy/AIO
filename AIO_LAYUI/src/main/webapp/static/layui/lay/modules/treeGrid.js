@@ -1211,8 +1211,10 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
         });
 
         //工具条操作事件
-        that.layBody.on('click', '*[lay-event]', function(){
-            var othis = $(this)
+        that.layBody.on('mousedown', '*[lay-event]', function(e){
+        	//鼠标右键事件触发
+		  if(3 == e.which){	
+        	var othis = $(this)
                 ,index = othis.parents('tr').eq(0).data('index')
                 ,tr = that.layBody.find('tr[data-index="'+ index +'"]')
                 ,ELEM_CLICK = 'layui-table-click'
@@ -1247,7 +1249,17 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
                 }
             });
             tr.addClass(ELEM_CLICK).siblings('tr').removeClass(ELEM_CLICK);
-        });
+		  	}else{
+				//隐藏右键菜单
+				$("#show_menu").css({
+					//定义菜单显示位置为事件发生的X坐标和Y坐标
+					top : window.event.pageY,
+					left : window.event.pageX,
+					display:'block'
+				}).hide();
+				return;
+		  	}
+		});
 
         //同步滚动条
         that.layMain.on('scroll', function(){

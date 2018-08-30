@@ -71,11 +71,6 @@ layui.use(['form','layer','publicUtil','application'],function(){
 		var res = ($(".id").val() ==null|| $(".id").val() =="") ? "新增":"修改" ;
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysarea/save", //ajax请求地址
-			type: "POST",
-			beforSend: function () {
-				publicUtil.refreshToken();
-			},
-			headers : { 'Authorization' : application.HEADER},	
 			data:{
 				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
 				parentId : $(".parentId").val(),
@@ -95,10 +90,6 @@ layui.use(['form','layer','publicUtil','application'],function(){
 				}else{
 					top.layer.msg(data.msg+"("+data.code+")");
 				}
-			},
-			error: function(data){
-				var result=data.responseJSON;
-				top.layer.msg(result.msg+"("+result.code+")");
 			}
 		}); 
         setTimeout(function(){
