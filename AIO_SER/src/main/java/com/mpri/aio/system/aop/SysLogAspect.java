@@ -47,13 +47,9 @@ public class SysLogAspect{
        Logs logs = method.getAnnotation(Logs.class);
        if(logs != null){
           //注解上的描述
-           sysLogs.setMethod(logs.value());;//保存获取的操作
+           sysLogs.setMethod(logs.value());//保存获取的操作
+           sysLogs.setType(logs.type());
        }
-       
-       //请求的方法名
-       String className = joinPoint.getTarget().getClass().getName();
-       String methodName = signature.getName();
-       sysLogs.setRequestUri(className + "/" + methodName + "");
        
        //请求的参数
        Object[] args = joinPoint.getArgs();
@@ -65,7 +61,9 @@ public class SysLogAspect{
        //设置IP地址
        sysLogs.setRemoteAddr(IPUtils.getIpAddr(request));
        
+       sysLogs.setRequestUri(request.getRequestURI());
        //用户名
+//       sysLogs.setUsername(request.getRemoteUser());
        
        //浏览器
        sysLogs.setUserAgent(request.getHeader("User-Agent"));
