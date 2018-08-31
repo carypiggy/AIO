@@ -106,6 +106,9 @@
       <if test="excContent != null">
         exc_content,
       </if>
+      <if test="flag != null">
+        flag
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -137,6 +140,9 @@
       </if>
       <if test="excContent != null">
         #{excContent,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="flag != null">
+        #{flag,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>

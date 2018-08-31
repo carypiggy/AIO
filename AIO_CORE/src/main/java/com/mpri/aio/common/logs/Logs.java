@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Logs {
     String value() default "";
+    String type () default "OTHER";
 }

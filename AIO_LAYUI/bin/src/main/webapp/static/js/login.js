@@ -37,9 +37,6 @@ layui.use(['form','layer','application'],function(){
  
 		}); 
 
-		
-		
-		
     //登录按钮
     form.on("submit(login)",function(data){
 			//$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
@@ -91,7 +88,7 @@ layui.use(['form','layer','application'],function(){
     })
 
 	$("#codeImg").on('click',function(){
-		document.getElementById("codeImg").src = document.getElementById("codeImg").src + "?nocache=" + new Date().getTime();	
+		document.getElementById("codeImg").src = document.getElementById("codeImg").src + "?nocache=" + new Date().getTime();
 	})
 
 
