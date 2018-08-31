@@ -22,31 +22,46 @@
 			<div class="layui-main mag0">
 				<a href="#" class="logo">校友卡平台</a>
 				<!-- 显示/隐藏菜单 -->
-				<a href="javascript:;" class="seraph hideMenu icon-caidan"><i class="layui-icon layui-icon-face-smile"></i> </a>
-				<!--校友  schoolfellow-->
-				<!--信息  info-->
-				<!--活动  activity-->
-				<!--消息  news-->
-				<!--统计  statistics-->
-				<!--系统  system -->
-				<ul class="layui-nav topLevelMenus" id = "topLevelMenus">							
-				</ul>
+				<a href="javascript:;" class="seraph hideMenu"><i class="layui-icon layui-icon-spread-left"></i></a>
+				<!-- 顶部主菜单 -->
+				<ul class="layui-nav topLevelMenus" id = "topLevelMenus"></ul>
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
-					<li class="layui-nav-item">
-						<a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+			    	<li class="layui-nav-item">
+						<a href="javascript:;"><i class="layui-icon layui-icon-layouts"></i>页面操作</a>
+						<dl class="layui-nav-child">
+							<dd><a href="javascript:;" class="refresh refreshThis">
+								<i class="layui-icon layui-icon-refresh-1"></i><cite>刷新当前</cite>
+								</a></dd>
+							<dd><a href="javascript:;" class="closePageOther">
+								<i class="layui-icon layui-icon-close-fill"></i><cite>关闭其他</cite>
+								</a></dd>
+							<dd><a href="javascript:;" class="closePageAll">
+								<i class="layui-icon layui-icon-templeate-1"></i><cite>关闭全部</cite>
+								</a></dd>
+						</dl>
 					</li>
-<!-- 					<li class="layui-nav-item lockcms" >
+					<!-- 
+					<li class="layui-nav-item lockcms" >
 						<a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
 					</li> -->
 					<li class="layui-nav-item" id="userInfo">
 						<a href="javascript:;"><img src="static/images/face.png" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName userName">管理员</cite></a>
 						<dl class="layui-nav-child">
+							<!-- 
 							<dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
-							<dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
 							<dd pc><a href="javascript:;" class="functionSetting"><i class="layui-icon">&#xe620;</i><cite>功能设定</cite><span class="layui-badge-dot"></span></a></dd>
-							<dd pc><a href="javascript:;" class="changeSkin"><i class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>
-							<dd><a href="login.html" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a></dd>
+							<dd><a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a></dd>
+							-->
+							<dd><a href="javascript:;" data-url="page/user/changePwd.html">
+								<i class="layui-icon layui-icon-password"></i><cite>修改密码</cite>
+								</a></dd>
+							<dd><a href="javascript:;" data-url="page/user/changePwd.html">
+								<i class="layui-icon layui-icon-theme"></i><cite>更换皮肤</cite>
+								</a></dd>
+							<dd><a href="login.html" class="signOut">
+								<i class="layui-icon layui-icon-close"></i><cite>退出</cite>
+								</a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -69,16 +84,7 @@
 				<ul class="layui-tab-title top_tab" id="top_tabs">
 					<li class="layui-this" lay-id=""><i class="layui-icon">&#xe68e;</i> <cite>首页</cite></li>
 				</ul>
-				<ul class="layui-nav closeBox">
-					<li class="layui-nav-item">
-						<a href="javascript:;"><i class="layui-icon caozuo">&#xe643;</i> 页面操作</a>
-						<dl class="layui-nav-child">
-						<dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
-							<dd><a href="javascript:;" class="closePageOther"><i class="seraph icon-prohibit"></i> 关闭其他</a></dd>
-							<dd><a href="javascript:;" class="closePageAll"><i class="seraph icon-guanbi"></i> 关闭全部</a></dd>
-						</dl>
-					</li>
-				</ul>
+				
 				<div class="layui-tab-content clildFrame">
 					<div class="layui-tab-item layui-show">
 						<iframe src="main.html"></iframe>
