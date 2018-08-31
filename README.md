@@ -2,9 +2,9 @@
 
 一、AIO_SER:服务端程序
 
-1.当前最新的springboot2.0框架整合样例
+1.当前springboot2.0.4框架整合样例
 
-2.加入layui及其相关内容
+2.加入layui2.4.2版本及其相关内容
 
 3.shiro框架基础功能
 
