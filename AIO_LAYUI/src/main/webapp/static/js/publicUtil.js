@@ -411,6 +411,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 						sessionStorage.setItem("tokenTime", data.data.tokenTime);
 					},
 					error: function (errdata) {
+						alert("token超时1");
 						top.location.href = application.BASE_URL+"/login.html";
 					}
 				});
@@ -425,7 +426,8 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			if(timelogin < application.TOKENISSUE && timelogin>0){
 				return true;
 			}else if(timelogin < 0) {
-				window.location.href = application.BASE_URL+"/login.html";
+				alert("token超时2");
+				top.location.href = application.BASE_URL+"/login.html";
 			}else{
 				return false;
 			}

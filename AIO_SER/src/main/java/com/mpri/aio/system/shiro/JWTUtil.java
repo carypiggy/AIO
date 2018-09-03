@@ -15,10 +15,10 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWTUtil  {
 	
 	 // web有效时间15分钟
-    private static final long EXPIRE_TIME = 15*60*1000;
+    private static final long EXPIRE_TIME = 3*60*1000;
     
     // web逾期时间5分钟
-    public static final long REFESH_TIME = 5*60*1000;
+    public static final long REFESH_TIME = 1*60*1000;
     
     //移动有效时间7天
     private static final long APP_EXPIRE_TIME = 7*24*60*60*1000;

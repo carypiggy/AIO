@@ -397,7 +397,8 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 							sessionStorage.setItem("tokenTime", data.data.tokenTime);
 						},
 						error: function (errdata) {
-							window.location.href = application.BASE_URL+"/login.html";
+							alert("token超时");
+							top.location.href = application.BASE_URL+"/login.html";
 						}
 					});
 				}
@@ -433,7 +434,8 @@ layui.define(['form','layer','jquery','application','table'],function(exports){
 			if(timelogin < application.TOKENISSUE){
 				return true;
 			}else if(timelogin < 0) {
-				window.location.href = application.BASE_URL+"/login.html";
+				alert("token超时");
+				top.location.href = application.BASE_URL+"/login.html";
 			}else{
 				return false;
 			}
