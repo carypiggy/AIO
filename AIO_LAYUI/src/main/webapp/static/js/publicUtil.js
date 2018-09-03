@@ -147,7 +147,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			}else{
 				$.ajax({
 					url: getByIdUrl, //ajax请求地址
-					type: "POST",
 					data: {
 						id: ID,
 					},
@@ -402,8 +401,8 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			if(judgeTokenIssue()){
 				$.ajax({
 					async:false,
-					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 					beforeSend: function(){},
+					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 					data : {"comeFrom" : application.COMEFROM},
 					success: function (data) {
 						sessionStorage.clear();
