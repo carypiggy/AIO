@@ -1,6 +1,8 @@
 # ALL In One
 
 演示地址：http://www.caryskying.com
+账号admin  密码admin1（不用输入可以直接登陆，默认值已写入，样式原因被遮罩）
+
 临时库，请勿删除数据。
 
 
