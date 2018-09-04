@@ -1,5 +1,12 @@
 # ALL In One
 
+演示地址：http://www.caryskying.com
+
+账号admin  密码admin1（不用输入可以直接登陆，默认值已写入，样式原因被遮罩）
+
+临时库，请勿删除数据。
+
+
 一、AIO_SER:服务端程序
 
 1.当前springboot2.0.4框架整合样例

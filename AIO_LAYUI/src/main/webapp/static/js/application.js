@@ -26,7 +26,7 @@ layui.define('jquery',function(exports){
 			if(sessionStorage.getItem("token") == null ||
 				sessionStorage.getItem("token") == '' ||
 				sessionStorage.getItem("token") == undefined){			
-				window.location.href = "login.html";
+				top.location.href = "login.html";
 			}
 		},
 		
