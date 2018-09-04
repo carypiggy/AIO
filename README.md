@@ -1,6 +1,7 @@
 # ALL In One
 
 演示地址：http://www.caryskying.com
+临时库，请勿删除数据。
 
 
 一、AIO_SER:服务端程序
