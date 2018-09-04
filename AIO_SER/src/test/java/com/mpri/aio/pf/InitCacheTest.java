@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import com.mpri.aio.ApplicationTests;
 import com.mpri.aio.system.init.InitCache;
+import com.mpri.aio.system.model.SysArea;
 import com.mpri.aio.system.model.SysDict;
+import com.mpri.aio.system.model.SysOrg;
 
 /**
  * 初始化缓存测试
@@ -17,17 +19,47 @@ import com.mpri.aio.system.model.SysDict;
 public class InitCacheTest extends ApplicationTests{
 	
 	
-	@Test
+	//@Test
 	public void testInitDict() {
 		
 		Map<String,List<SysDict>> dictCache =InitCache.dictCache;
-		super.outprint("java.util.Map", dictCache);
+		
+		for (String key : dictCache.keySet()) {
+			
+			System.out.println(key);
+			
+		}
 		System.out.println("当前具有数据集组数："+dictCache.size());
 		
 	}
 	
+	//@Test
+	public void testInitArea() {
+		
+		Map<String,List<SysArea>> cache =InitCache.areaCache;
+		
+		for (String key : cache.keySet()) {
+			
+			System.out.println(key);
+			
+		}
+		System.out.println("当前具有数据集组数："+cache.size());
+		
+	}
 	
-	
+	@Test
+	public void testInitOrg() {
+		
+		Map<String,List<SysOrg>> cache =InitCache.orgCache;
+		
+		for (String key : cache.keySet()) {
+			
+			System.out.println(key);
+			
+		}
+		System.out.println("当前具有数据集组数："+cache.size());
+		
+	}
 	
 	
 
