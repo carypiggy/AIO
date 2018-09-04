@@ -30,8 +30,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 		pageName: 'pageNo' //页码的参数名称，默认：page
 		,limitName: 'pageSize' //每页数据量的参数名，默认：limit,
 		,dataName: 'list'
-		,statusCode: 200,
-		even : true 		
+		,statusCode: 200
+		,even : true 		
         ,elem: '#dictList'
         ,url : application.SERVE_URL+'/sys/sysdict/list',
         cellMinWidth : 95,
