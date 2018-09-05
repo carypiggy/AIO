@@ -1,6 +1,6 @@
 # ALL In One
 
-演示地址：http://www.caryskying.com
+演示地址：http://aio.caryskying.com
 
 账号admin  密码admin1（不用输入可以直接登陆，默认值已写入，样式原因被遮罩）
 
