@@ -1,6 +1,6 @@
 # ALL In One
 
-演示地址：http://www.caryskying.com
+演示地址：http://aio.caryskying.com
 
 账号admin  密码admin1（不用输入可以直接登陆，默认值已写入，样式原因被遮罩）
 
@@ -17,13 +17,15 @@
 
 4.系统管理基础功能完善
 
+5.增加对ssl的支持
+
 二、AIO_LAYUI：前端程序，使用LAYUI实现
 
 1.使用layui实现前端系统管理部分
 
 2.增加权限与资源互动
 
-3.自实现简单路由守卫
+3.jquery实现简单路由守卫
 
 二、AIO_CORE：核心程序
 
