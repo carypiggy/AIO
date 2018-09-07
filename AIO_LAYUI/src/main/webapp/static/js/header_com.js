@@ -10,5 +10,6 @@ document.writeln("<meta http-equiv='Access-Control-Allow-Origin' content='*'>");
 document.writeln("<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>");
 document.writeln("<link rel='stylesheet' href='"+getRoot()+"/static/layui/css/layui.css' media='all'/>");
 document.writeln("<link rel='stylesheet' href='"+getRoot()+"/static/css/public.css' media='all' />");
-document.writeln("<script type='text/javascript' src='"+getRoot()+"/static/layui/layui.js'></script>");
 document.writeln("<script type='text/javascript' src='"+getRoot()+"/static/js/crypto/crypto.js'></script>");
+document.writeln("<script type='text/javascript' src='"+getRoot()+"/static/layui/layui.js'></script>");
+
