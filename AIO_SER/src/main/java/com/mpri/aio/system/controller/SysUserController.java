@@ -26,7 +26,11 @@ import com.mpri.aio.common.utils.IdGen;
 import com.mpri.aio.system.model.SysUser;
 import com.mpri.aio.system.service.SysUserService;
 
-
+/**
+ * 用户登陆控制器 
+ * @author Cary
+ * @date 2018年9月7日
+ */
 
 @RestController
 @RequestMapping("/sys/sysuser")
@@ -64,14 +68,13 @@ public class SysUserController extends BaseController {
 	@PostMapping(value = "/save")
 	public RestResponse<String> save(@RequestBody @Validated SysUser sysUser){
 				
-		if((null == sysUser.getId() && "".equals(sysUser.getId()))) {
+		if((null == sysUser.getId() || "".equals(sysUser.getId()))) {
 			sysUser.setSafecode(IdGen.uuid());
 			sysUser.setPassword(initPwd(sysUser.getIdcard()));
 			ByteSource salt = ByteSource.Util.bytes(sysUser.getSafecode());
 			//加盐炒三次safecode=salt
 			String result = new Md5Hash(sysUser.getPassword(),salt,3).toString();
 			sysUser.setPassword(result);
-			sysUser.setCreateDate(new Date());
 		}
 		
 		sysUserService.save(sysUser);

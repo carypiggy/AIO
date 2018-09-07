@@ -5,14 +5,16 @@
 	@Description: 封装一些公用
  */
 var editFormData;
+
 layui.define(['form','layer','jquery','application','table','treeGrid'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
 	var table = layui.table;
-	var treeGrid=layui.treeGrid;
-	
+	var treeGrid = layui.treeGrid;
+
+    
 	/**
 	 * 初始化AJAX的请求
 	 */
@@ -430,6 +432,15 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			}
 		}
 		
+		//请求加密
+		function encryptData(key,value){
+			key=CryptoJS.enc.Utf8.parse;
+		    var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {  
+		        mode: CryptoJS.mode.ECB,  
+		        padding: CryptoJS.pad.Pkcs7  
+		    }); 
+			return encryptedData;
+		}
 		
 		
     exports('publicUtil', obj);
