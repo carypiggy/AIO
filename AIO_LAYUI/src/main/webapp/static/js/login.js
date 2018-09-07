@@ -9,11 +9,23 @@ layui.config({
 }).extend({
 	"application" : "application"
 })
+
+
 layui.use(['form','layer','application'],function(){
     var form = layui.form,
 		application = layui.application,
         layer = parent.layer === undefined ? layui.layer : top.layer;
 		
+//    	//加密
+//	    var key = CryptoJS.enc.Utf8.parse("8NONwyJtHesysWpM");  
+//	    var plaintText = 'ABCDEFGH'; // 明文  
+//	    var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {  
+//	        mode: CryptoJS.mode.ECB,  
+//	        padding: CryptoJS.pad.Pkcs7  
+//	    });
+//	    
+//	    alert(key);
+    
 		//验证码
 		$('#mpanel4').codeVerify({
         	type : 1,
