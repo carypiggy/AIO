@@ -40,7 +40,32 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	})
 	
 	var obj ={
-		
+		//获取缓存
+        cacheData : function (){//loadCacheMap
+            $.ajax({
+                url:application.SERVE_URL + "/loadCacheMap",
+                type: "POST",
+				success:function(result){
+                   if(result.code==application.REQUEST_SUCCESS){
+                	   var dict=sessionStorage.getItem("dictCache");
+                	   var org=sessionStorage.getItem("orgCache");
+                	   var area=sessionStorage.getItem("areaCache");
+
+                	   if(dict===null){
+                		   sessionStorage.setItem("dictCache",JSON.stringify(result.data.dictCache));
+                	   }
+                	   if(org===null){
+                		   sessionStorage.setItem("orgCache",JSON.stringify(result.data.orgCache));
+                	   }
+                	   if(area===null){
+                		   sessionStorage.setItem("areaCache",JSON.stringify(result.data.areaCache));
+                	   }
+                	   
+                   }
+				}
+			})
+        },
+        
 		//由子页面回填至父页面（多参数）
 		setAcrossNames : function(value , _idClass ,_nameClass) {
 			for(var i=0; i<value.length ;i++){
@@ -85,28 +110,21 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		},
 		
 		//取字典下拉框
-		selectBase: function(url,data,selectid,flag){
-			$.ajax({
-				url:url,
-				type: "POST",
-				data: data ,
-				success:function(res){
-					if(res.code==application.REQUEST_SUCCESS){
-						var data = res.data;
-						$("#"+selectid).empty();
-						if(flag){
-							$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
-						}
-						for(var i =0;i<data.length;i++){
-							$("#"+selectid).append('<option  value="'+data[i].value+'" >'+data[i].label+' </option>');//往下拉菜单里添加元素
-						}
-					}
-					form.render();//菜单渲染 把内容加载进去
-				},
-				error: function(){
-					errofuntion();
-				}
-			})
+		selectBase: function(url,typeCode,selectid,flag){
+			
+			//从缓存中获取字典类型
+			var dict=sessionStorage.getItem("dictCache");
+			//抓取相关字段属性
+			var data=JSON.parse(dict)[typeCode.typeCode];
+			$("#"+selectid).empty();
+			if(flag){
+				$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
+			}
+			for(var i =0;i<data.length;i++){
+				$("#"+selectid).append('<option  value="'+data[i].value+'" >'+data[i].label+' </option>');//往下拉菜单里添加元素
+			}
+			form.render();//菜单渲染 把内容加载进去
+
 		},
 		
 		//判断选中的行数
@@ -188,29 +206,21 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		},
 		
 		//取下拉菜单并进行回填
-		selectBaseAndSetVal : function (url,data,selectid,selectValue){
-			$.ajax({
-				url:url,
-				type: "POST",
-				data: data ,
-				success:function(res){
-					if(res.code==application.REQUEST_SUCCESS){
-						var data = res.data;
-						$("#"+selectid).empty();
-						for(var i =0;i<data.length;i++){
-							$("#"+selectid).append('<option  value="'+data[i].value+'">'+data[i].label+'</option>');//往下拉菜单里添加元素
-						}
-						$('#'+selectid).val(selectValue);
-						form.render('select');//菜单渲染 把内容加载进去
-					}else{
-						layui.layer.msg(res.msg);
-						return false;
-					}
-				},
-				error: function(){
-					errofuntion();
-				}
-			})
+		selectBaseAndSetVal : function (url,typeCode,selectid,selectValue){
+			
+			
+			//从缓存中获取字典类型
+			var dict=sessionStorage.getItem("dictCache");
+			//抓取相关字段属性
+			var data=JSON.parse(dict)[typeCode.typeCode];
+			
+			$("#"+selectid).empty();
+			for(var i =0;i<data.length;i++){
+				$("#"+selectid).append('<option  value="'+data[i].value+'">'+data[i].label+'</option>');//往下拉菜单里添加元素
+			}
+			$('#'+selectid).val(selectValue);
+			form.render('select');//菜单渲染 把内容加载进去
+
 		},
 		
 		//radio的回显
@@ -260,29 +270,18 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		/**
 		 * 表格字段取字典表回显
 		 */
-		tableSetStr : function(url,data,str){
-			$.ajax({
-				url:url,
-				type: "POST",
-				data: data ,
-				success:function(res){
-					var data = res.data;
-					if(res.code==application.REQUEST_SUCCESS){
-						/*渲染表格*/
-						$("[data-field = '"+str+"']").children().each(function(){
-							for(var i =0;i<data.length;i++){
-								if($(this).text().trim() == data[i].value){								
-									$(this).text(data[i].label);
-								}
-							}
-						})
-					}else{
-						// layui.layer.msg(res.msg);
-						return false;
+		tableSetStr : function(url,typeCode,str){
+			
+			//从缓存中获取字典类型
+			var dict=sessionStorage.getItem("dictCache");
+			//抓取相关字段属性
+			var data=JSON.parse(dict)[typeCode.typeCode];
+			/*渲染表格*/
+			$("[data-field = '"+str+"']").children().each(function(){
+				for(var i =0;i<data.length;i++){
+					if($(this).text().trim() == data[i].value){								
+						$(this).text(data[i].label);
 					}
-				},
-				error: function(data){
-					errofuntion(data);
 				}
 			})
 		},

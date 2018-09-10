@@ -24,6 +24,7 @@ import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.exception.UnauthorizedException;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.common.response.RestToken;
+import com.mpri.aio.system.init.InitCache;
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.model.SysRole;
 import com.mpri.aio.system.model.SysUser;
@@ -54,8 +55,6 @@ public class LoginController extends BaseController {
 	
 	//菜单根节点的父值定义为root
 	private final String parentId="root";
-	
-
 	
 	/**
 	 * 管理登录
@@ -135,8 +134,6 @@ public class LoginController extends BaseController {
     	}else {
     		freshTime=JWTUtil.REFESH_TIME;
     	}
-    	
-    	
     	//刷新token时间
     	if((tokenTime-nowTime)>0&(tokenTime-nowTime)<freshTime) {
     		SysUser sysUser=sysUserService.getSysUserByUsername(username);
@@ -215,7 +212,25 @@ public class LoginController extends BaseController {
 		return sysmenus;
 	}
 	
-
+	/**
+	 * 加载缓存到前台
+	 * @return
+	 */
+	@RequestMapping(value = "/loadCacheMap")
+	public RestResponse<Map<String,Object>> loadCacheMap() {
+		Map<String,Object> cacheMap=new HashMap<String,Object>();
+		Object dictCache  =InitCache.dictCache;
+		Object orgCache  = InitCache.orgCache;
+		Object areaCache  = InitCache.areaCache;
+		
+		cacheMap.put("dictCache", dictCache);
+		cacheMap.put("orgCache", orgCache);
+		cacheMap.put("areaCache", areaCache);
+		
+		return new RestResponse<Map<String,Object>>(ExceptionResult.REQUEST_SUCCESS, "缓存数据获取成功", cacheMap);
+		
+	}
+	
 	@GetMapping(path = "/401")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public RestResponse<String> unauthorized() {
