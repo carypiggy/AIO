@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.response.RestResponse;
+import com.mpri.aio.system.utils.AESUtil;
+
 
 /**
  * JWT过滤器
@@ -26,12 +28,13 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
-        
         String authorization = req.getHeader("Authorization");
-        if(null==authorization || authorization.equals("")) {
+        String time = req.getHeader("Time");
+        String key = req.getHeader("Key");
+        
+        if(null==authorization || authorization.equals("")|| !(time!=null&&key!=null&&AESUtil.aesDecrypt(key).equals(time))) {
         	return false;
-        	
-        }else {
+        }else{
         	return true;
         }
         //return authorization!=null;

@@ -13,14 +13,17 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	var application = layui.application;
 	var table = layui.table;
 	var treeGrid = layui.treeGrid;
-
-    
+    var keyTime =new Date().getTime().toString();
 	/**
 	 * 初始化AJAX的请求
 	 */
 	$.ajaxSetup( {
 	    type: "POST", // 默认使用POST方式
-	    headers : { "Authorization" : application.HEADER},
+	    headers : {
+	    	"Authorization" : application.HEADER,
+	    	"Time":keyTime,
+	    	"Key":application.encryptData(application.KEY,keyTime)
+	    },
 	    beforeSend: function(){
 	    	refreshToken();
 		},
@@ -432,15 +435,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			}
 		}
 		
-		//请求加密
-		function encryptData(key,value){
-			key=CryptoJS.enc.Utf8.parse;
-		    var encryptedData = CryptoJS.AES.encrypt(plaintText, key, {  
-		        mode: CryptoJS.mode.ECB,  
-		        padding: CryptoJS.pad.Pkcs7  
-		    }); 
-			return encryptedData;
-		}
+		
 		
 		
     exports('publicUtil', obj);

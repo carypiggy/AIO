@@ -30,6 +30,22 @@ layui.define('jquery',function(exports){
 			}
 		},
 		
+		//请求加密
+		encryptData : function (key,value){
+			key=CryptoJS.enc.Utf8.parse(key);
+			value=CryptoJS.enc.Utf8.parse(value);
+		    var encryptedData = CryptoJS.AES.encrypt(value, key, {  
+		        mode: CryptoJS.mode.ECB,  
+		        padding: CryptoJS.pad.Pkcs7  
+		    }); 
+			return encryptedData.toString();
+		},
+		
+		
+		
+		
+		
+		
 		//ajax请求返回的状态码
 		REQUEST_SUCCESS:200,
 		REQUEST_ERROR:500,
@@ -44,11 +60,12 @@ layui.define('jquery',function(exports){
 		TMP_SERVE_URL: "http://127.0.0.1:8080",
 		//获取权限的URL
 		PERMS_URL : 'http://127.0.0.1:8080/getPagePer',
-		
+		//token相关
 		HEADER : sessionStorage.getItem('token'),
 		TOKENTIME : sessionStorage.getItem('tokenTime'),
 		TOKENISSUE : 5*60*1000, //五分钟续约有效期
-		COMEFROM : 'WEB'
+		COMEFROM : 'WEB',
+		KEY:'tXbjTgdcQ32mmr6g'
 	}
     exports('application', obj);
 })

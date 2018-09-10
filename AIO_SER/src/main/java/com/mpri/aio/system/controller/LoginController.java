@@ -31,6 +31,7 @@ import com.mpri.aio.system.service.SysMenuService;
 import com.mpri.aio.system.service.SysRoleService;
 import com.mpri.aio.system.service.SysUserService;
 import com.mpri.aio.system.shiro.JWTUtil;
+import com.mpri.aio.system.utils.AESUtil;
 import com.mpri.aio.system.vo.MenuVo;
 
 /**
@@ -71,6 +72,8 @@ public class LoginController extends BaseController {
 		//确认用户是否存在
     	if(sysUser!=null) {
 			//存在后处理
+    		//解密密码
+    		password=AESUtil.aesDecrypt(password);
 			//加盐处理密码
 			String safeCode=sysUser.getSafecode();
 			ByteSource salt = ByteSource.Util.bytes(safeCode);
