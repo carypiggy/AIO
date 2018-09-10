@@ -102,7 +102,7 @@ public class LoginController extends BaseController {
             }
     	
     	}else {
-    		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
+    		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "账号或密码错误，请重新输入！", null);
     	}
 //    			
 //        }else {
