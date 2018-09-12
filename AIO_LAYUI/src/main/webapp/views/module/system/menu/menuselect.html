@@ -49,7 +49,7 @@
 				
 				$.ajax({
 					url: application.SERVE_URL+'/sys/sysmenu/list',
-					headers : { 'Authorization' : application.HEADER},				  //ajax请求地址
+					headers : { 'Authorization' : application.HEADER},				     //ajax请求地址
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
 						//获取根节点个数,getNodes获取的是根节点的集合

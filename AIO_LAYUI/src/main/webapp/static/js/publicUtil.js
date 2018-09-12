@@ -33,6 +33,10 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	    }
 	} );
 	
+	//loading 
+	var index = layer.load(2, {time: 10*1000,shade:0.1}); //又换了种风格，并且设定最长等待10秒 
+	//关闭loading
+	layer.close(index); 
 	
 	//刷新当前
 	$(document).on("click",".refreshTable",function(){ 
@@ -189,10 +193,10 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 									}
 								})
 								layui.layer.full(index);
-								//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-								$(window).on("resize", function() {
-									layui.layer.full(index);
-								})
+//								//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+//								$(window).on("resize", function() {
+//									layui.layer.full(index);
+//								})
 						 }else{
 							 layui.layer.msg(res.msg);
 							 return false;
@@ -207,7 +211,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		
 		//取下拉菜单并进行回填
 		selectBaseAndSetVal : function (url,typeCode,selectid,selectValue){
-			
 			
 			//从缓存中获取字典类型
 			var dict=sessionStorage.getItem("dictCache");

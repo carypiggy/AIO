@@ -20,7 +20,8 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 		upload = layui.upload,
 		application = layui.application,
 		layer =layui.layer;
-    	
+
+		
 		var formSelectsdata;
 		if(parent.editFormData != ''){
 			data = parent.editFormData;
