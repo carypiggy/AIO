@@ -22,6 +22,8 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 
 	application.initindex();
 	
+	//JS缓存
+	publicUtil.cacheData();
 	
 	tab = layui.bodyTab({
 		openTabNum: "20", //最大可打开窗口数量

@@ -20,7 +20,8 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 		upload = layui.upload,
 		application = layui.application,
 		layer =layui.layer;
-    	
+
+		
 		var formSelectsdata;
 		if(parent.editFormData != ''){
 			data = parent.editFormData;
@@ -103,7 +104,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','applicat
 			});
 		}
 		
-		//自定义验证规则
+		//自定义验证规则-校验用户名是否存在
 		form.verify({
 			user_exist: function(value){
 				var message="";

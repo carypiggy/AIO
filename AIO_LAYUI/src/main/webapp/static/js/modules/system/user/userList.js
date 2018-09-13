@@ -95,6 +95,7 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 				//生产坏境下请求后台
 				url : application.SERVE_URL+'/sys/sysuser/list',
 				cellMinWidth : 95,
+				loading : true,
 				page : true,
 				even : true ,
 				where:{orgId : treeNode.id},

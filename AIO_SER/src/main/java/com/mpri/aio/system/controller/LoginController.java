@@ -24,6 +24,7 @@ import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.exception.UnauthorizedException;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.common.response.RestToken;
+import com.mpri.aio.system.init.InitCache;
 import com.mpri.aio.system.model.SysMenu;
 import com.mpri.aio.system.model.SysRole;
 import com.mpri.aio.system.model.SysUser;
@@ -31,6 +32,7 @@ import com.mpri.aio.system.service.SysMenuService;
 import com.mpri.aio.system.service.SysRoleService;
 import com.mpri.aio.system.service.SysUserService;
 import com.mpri.aio.system.shiro.JWTUtil;
+import com.mpri.aio.system.utils.AESUtil;
 import com.mpri.aio.system.vo.MenuVo;
 
 /**
@@ -54,8 +56,6 @@ public class LoginController extends BaseController {
 	//菜单根节点的父值定义为root
 	private final String parentId="root";
 	
-
-	
 	/**
 	 * 管理登录
 	 */
@@ -71,6 +71,8 @@ public class LoginController extends BaseController {
 		//确认用户是否存在
     	if(sysUser!=null) {
 			//存在后处理
+    		//解密密码
+    		password=AESUtil.aesDecrypt(password);
 			//加盐处理密码
 			String safeCode=sysUser.getSafecode();
 			ByteSource salt = ByteSource.Util.bytes(safeCode);
@@ -99,7 +101,7 @@ public class LoginController extends BaseController {
             }
     	
     	}else {
-    		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "用户名不存在，请重新输入！", null);
+    		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "账号或密码错误，请重新输入！", null);
     	}
 //    			
 //        }else {
@@ -132,8 +134,6 @@ public class LoginController extends BaseController {
     	}else {
     		freshTime=JWTUtil.REFESH_TIME;
     	}
-    	
-    	
     	//刷新token时间
     	if((tokenTime-nowTime)>0&(tokenTime-nowTime)<freshTime) {
     		SysUser sysUser=sysUserService.getSysUserByUsername(username);
@@ -212,7 +212,25 @@ public class LoginController extends BaseController {
 		return sysmenus;
 	}
 	
-
+	/**
+	 * 加载缓存到前台
+	 * @return
+	 */
+	@RequestMapping(value = "/loadCacheMap")
+	public RestResponse<Map<String,Object>> loadCacheMap() {
+		Map<String,Object> cacheMap=new HashMap<String,Object>();
+		Object dictCache  =InitCache.dictCache;
+		Object orgCache  = InitCache.orgCache;
+		Object areaCache  = InitCache.areaCache;
+		
+		cacheMap.put("dictCache", dictCache);
+		cacheMap.put("orgCache", orgCache);
+		cacheMap.put("areaCache", areaCache);
+		
+		return new RestResponse<Map<String,Object>>(ExceptionResult.REQUEST_SUCCESS, "缓存数据获取成功", cacheMap);
+		
+	}
+	
 	@GetMapping(path = "/401")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public RestResponse<String> unauthorized() {

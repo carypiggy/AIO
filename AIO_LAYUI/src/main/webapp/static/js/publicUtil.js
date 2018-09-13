@@ -5,20 +5,25 @@
 	@Description: 封装一些公用
  */
 var editFormData;
+
 layui.define(['form','layer','jquery','application','table','treeGrid'],function(exports){
 	var form = layui.form;
 	var layer = layui.layer;
 	var $ = layui.jquery;
 	var application = layui.application;
 	var table = layui.table;
-	var treeGrid=layui.treeGrid;
-	
+	var treeGrid = layui.treeGrid;
+    var keyTime =new Date().getTime().toString();
 	/**
 	 * 初始化AJAX的请求
 	 */
 	$.ajaxSetup( {
 	    type: "POST", // 默认使用POST方式
-	    headers : { "Authorization" : application.HEADER},
+	    headers : {
+	    	"Authorization" : application.HEADER,
+	    	"Time":keyTime,
+	    	"Key":application.encryptData(application.KEY,keyTime)
+	    },
 	    beforeSend: function(){
 	    	refreshToken();
 		},
@@ -28,6 +33,10 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	    }
 	} );
 	
+	//loading 
+	var index = layer.load(2, {time: 10*1000,shade:0.1}); //又换了种风格，并且设定最长等待10秒 
+	//关闭loading
+	layer.close(index); 
 	
 	//刷新当前
 	$(document).on("click",".refreshTable",function(){ 
@@ -35,7 +44,32 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	})
 	
 	var obj ={
-		
+		//获取缓存
+        cacheData : function (){//loadCacheMap
+            $.ajax({
+                url:application.SERVE_URL + "/loadCacheMap",
+                type: "POST",
+				success:function(result){
+                   if(result.code==application.REQUEST_SUCCESS){
+                	   var dict=sessionStorage.getItem("dictCache");
+                	   var org=sessionStorage.getItem("orgCache");
+                	   var area=sessionStorage.getItem("areaCache");
+
+                	   if(dict===null){
+                		   sessionStorage.setItem("dictCache",JSON.stringify(result.data.dictCache));
+                	   }
+                	   if(org===null){
+                		   sessionStorage.setItem("orgCache",JSON.stringify(result.data.orgCache));
+                	   }
+                	   if(area===null){
+                		   sessionStorage.setItem("areaCache",JSON.stringify(result.data.areaCache));
+                	   }
+                	   
+                   }
+				}
+			})
+        },
+        
 		//由子页面回填至父页面（多参数）
 		setAcrossNames : function(value , _idClass ,_nameClass) {
 			for(var i=0; i<value.length ;i++){
@@ -80,28 +114,21 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		},
 		
 		//取字典下拉框
-		selectBase: function(url,data,selectid,flag){
-			$.ajax({
-				url:url,
-				type: "POST",
-				data: data ,
-				success:function(res){
-					if(res.code==application.REQUEST_SUCCESS){
-						var data = res.data;
-						$("#"+selectid).empty();
-						if(flag){
-							$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
-						}
-						for(var i =0;i<data.length;i++){
-							$("#"+selectid).append('<option  value="'+data[i].value+'" >'+data[i].label+' </option>');//往下拉菜单里添加元素
-						}
-					}
-					form.render();//菜单渲染 把内容加载进去
-				},
-				error: function(){
-					errofuntion();
-				}
-			})
+		selectBase: function(url,typeCode,selectid,flag){
+			
+			//从缓存中获取字典类型
+			var dict=sessionStorage.getItem("dictCache");
+			//抓取相关字段属性
+			var data=JSON.parse(dict)[typeCode.typeCode];
+			$("#"+selectid).empty();
+			if(flag){
+				$("#"+selectid).append('<option  value="" >'+"请选择"+' </option>');
+			}
+			for(var i =0;i<data.length;i++){
+				$("#"+selectid).append('<option  value="'+data[i].value+'" >'+data[i].label+' </option>');//往下拉菜单里添加元素
+			}
+			form.render();//菜单渲染 把内容加载进去
+
 		},
 		
 		//判断选中的行数
@@ -166,10 +193,10 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 									}
 								})
 								layui.layer.full(index);
-								//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-								$(window).on("resize", function() {
-									layui.layer.full(index);
-								})
+//								//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+//								$(window).on("resize", function() {
+//									layui.layer.full(index);
+//								})
 						 }else{
 							 layui.layer.msg(res.msg);
 							 return false;
@@ -183,29 +210,20 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		},
 		
 		//取下拉菜单并进行回填
-		selectBaseAndSetVal : function (url,data,selectid,selectValue){
-			$.ajax({
-				url:url,
-				type: "POST",
-				data: data ,
-				success:function(res){
-					if(res.code==application.REQUEST_SUCCESS){
-						var data = res.data;
-						$("#"+selectid).empty();
-						for(var i =0;i<data.length;i++){
-							$("#"+selectid).append('<option  value="'+data[i].value+'">'+data[i].label+'</option>');//往下拉菜单里添加元素
-						}
-						$('#'+selectid).val(selectValue);
-						form.render('select');//菜单渲染 把内容加载进去
-					}else{
-						layui.layer.msg(res.msg);
-						return false;
-					}
-				},
-				error: function(){
-					errofuntion();
-				}
-			})
+		selectBaseAndSetVal : function (url,typeCode,selectid,selectValue){
+			
+			//从缓存中获取字典类型
+			var dict=sessionStorage.getItem("dictCache");
+			//抓取相关字段属性
+			var data=JSON.parse(dict)[typeCode.typeCode];
+			
+			$("#"+selectid).empty();
+			for(var i =0;i<data.length;i++){
+				$("#"+selectid).append('<option  value="'+data[i].value+'">'+data[i].label+'</option>');//往下拉菜单里添加元素
+			}
+			$('#'+selectid).val(selectValue);
+			form.render('select');//菜单渲染 把内容加载进去
+
 		},
 		
 		//radio的回显
@@ -255,29 +273,18 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		/**
 		 * 表格字段取字典表回显
 		 */
-		tableSetStr : function(url,data,str){
-			$.ajax({
-				url:url,
-				type: "POST",
-				data: data ,
-				success:function(res){
-					var data = res.data;
-					if(res.code==application.REQUEST_SUCCESS){
-						/*渲染表格*/
-						$("[data-field = '"+str+"']").children().each(function(){
-							for(var i =0;i<data.length;i++){
-								if($(this).text().trim() == data[i].value){								
-									$(this).text(data[i].label);
-								}
-							}
-						})
-					}else{
-						// layui.layer.msg(res.msg);
-						return false;
+		tableSetStr : function(url,typeCode,str){
+			
+			//从缓存中获取字典类型
+			var dict=sessionStorage.getItem("dictCache");
+			//抓取相关字段属性
+			var data=JSON.parse(dict)[typeCode.typeCode];
+			/*渲染表格*/
+			$("[data-field = '"+str+"']").children().each(function(){
+				for(var i =0;i<data.length;i++){
+					if($(this).text().trim() == data[i].value){								
+						$(this).text(data[i].label);
 					}
-				},
-				error: function(data){
-					errofuntion(data);
 				}
 			})
 		},
@@ -429,6 +436,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 				return false;
 			}
 		}
+		
 		
 		
 		

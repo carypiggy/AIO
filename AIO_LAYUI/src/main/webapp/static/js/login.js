@@ -9,11 +9,14 @@ layui.config({
 }).extend({
 	"application" : "application"
 })
+
+
 layui.use(['form','layer','application'],function(){
     var form = layui.form,
 		application = layui.application,
         layer = parent.layer === undefined ? layui.layer : top.layer;
-		
+    var keyTime =new Date().getTime().toString();
+    
 		//验证码
 		$('#mpanel4').codeVerify({
         	type : 1,
@@ -55,15 +58,18 @@ layui.use(['form','layer','application'],function(){
 //				document.getElementById("input").value = "";//清空文本框
 //				return false;
 //			}else {
+				var password = application.encryptData(application.KEY,$("#password").val());
 				//请求登陆
 				$.ajax({
 					url: application.SERVE_URL+"/login", //ajax请求地址
 					type: "POST",
 					dataType: "json",
-					headers : { "Authorization" : "" },
+					headers : { 
+						"Authorization" : ""
+					},
 					data: { 
 						username : $("#username").val(),
-						password : $("#password").val(),
+						password : password,
 						// authCode : $("#code").val(),
 						comeFrom : application.COMEFROM
 					},

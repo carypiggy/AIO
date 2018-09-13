@@ -39,7 +39,7 @@
            and org_id=#{entity.orgId}
        </if>
        <if test="entity.username!=null and entity.username!='' ">
-           and username=#{entity.username}
+       	   and username LIKE '%${entity.username}%'
        </if>
        <if test="entity.password!=null and entity.password!='' ">
            and password=#{entity.password}
