@@ -19,18 +19,17 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 		publicUtil=layui.publicUtil;
 		$ = layui.$;
 		layer = parent.layer === undefined ? layui.layer : top.layer;
-
+	
+	tab = layui.bodyTab({
+		openTabNum: "20", //最大可打开窗口数量
+			// url: "static/json/menu.json" //获取菜单json地址,
+	});
+	
+	//页面初始
 	application.initindex();
 	
 	//JS缓存
 	publicUtil.cacheData();
-	
-	tab = layui.bodyTab({
-		openTabNum: "20", //最大可打开窗口数量
-		// url: "static/json/menu.json" //获取菜单json地址,
-	});
-
-	
 	
 	//初始化一级菜单
 	initTopMenu();
@@ -95,7 +94,6 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 				}
 			}
 		}
-		
 	}
 
 	//页面加载时判断左侧菜单是否显示
@@ -123,7 +121,6 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 		//渲染顶部窗口
 		tab.tabMove();
 	})
-
 
 	//清除缓存
 	$(".clearCache").click(function () {
@@ -210,11 +207,57 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 		window.sessionStorage.removeItem("menu");
 		window.sessionStorage.removeItem("curmenu");
 	}
-
-
 })
-
 //打开新窗口
 function addTab(_this) {
 	tab.tabAdd(_this);
+}
+
+function intro(){
+	var intro = introJs();
+    intro.setOptions({
+      steps: [
+        { 
+          intro: "欢迎进入操作指引~。请按照步骤熟悉基本使用。",
+        },
+        {
+          element: document.querySelector('.logo'),
+          intro: "logo：可以链接到主页"
+        },
+        {
+            element: '.layui-tab-content',
+            intro: "功能区：在此展示所有的业务功能。",
+            position: 'right',
+        },
+        {
+          element: '#topLevelMenus',
+          intro: "一级菜单，点击可以唤起二级菜单。",
+          position: 'top'
+        },
+        {
+          element: '#navBar',
+          intro: '二级菜单，单击二级菜单可以获取功能区内容。',
+          position: 'right'
+        },
+        {
+          element: '#pageInfo',
+          intro: "页面操作区：可在此对页面进行批量操作与刷新。",
+          position: 'top'
+        },
+        {
+          element: '#userInfo',
+          intro: '用户操作区，可以在此进行主题设置与退出等操作。',
+          position: 'left'
+        }
+      ],
+      nextLabel:"下一步",
+      prevLabel:"上一步",
+      skipLabel:"跳过指引",
+      doneLabel:"结束指引",
+      showStepNumbers:"false",
+      overlayOpacity:"1"
+      
+    });
+
+    intro.start();
 }

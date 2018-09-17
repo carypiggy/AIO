@@ -1,4 +1,9 @@
-/*常规验证码*/
+#verify{
+	padding:3px;
+	
+}
+
+/*甯歌楠岃瘉鐮�*/
 .verify-code {
 	font-size: 20px;
 	text-align: center;
@@ -53,7 +58,7 @@
 
 
 
-/*滑动验证码*/
+/*婊戝姩楠岃瘉鐮�*/
 .verify-bar-area {
     position: relative;
     background: #FFFFFF;
@@ -97,6 +102,7 @@
 
 .verify-img-panel {
 	margin:0;
+	border:1px;
 	-webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -127,6 +133,7 @@
 	position: relative;
 	z-index: 2;
 	border:1px solid #fff;
+	border-radius: 10px;
 }
 
 .verify-bar-area .verify-move-block .verify-sub-block {
@@ -134,6 +141,7 @@
     text-align: center;
 	z-index: 3;
 	border: 1px solid #fff;
+	border-radius: 10px;
 }
 
 .verify-bar-area .verify-move-block .verify-icon {
@@ -144,7 +152,7 @@
 	z-index : 3;
 }
 
-/*字体图标的css*/
+/*瀛椾綋鍥炬爣鐨刢ss*/
 @font-face {font-family: "iconfont";
   src: url('../fonts/iconfont.eot?t=1508229193188'); /* IE9*/
   src: url('../fonts/iconfont.eot?t=1508229193188#iefix') format('embedded-opentype'), /* IE6-IE8 */
