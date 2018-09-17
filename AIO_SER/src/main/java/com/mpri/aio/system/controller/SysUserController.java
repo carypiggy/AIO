@@ -192,6 +192,44 @@ public class SysUserController extends BaseController {
         return RestResponse.getInstance(-1, "上传失败", resfillPath+fileName);
     }
     
+	/**
+	 * 检查旧密码
+	* <p>Title: get</p>  
+	* <p>Description: </p>  
+	* @param sysUser
+	* @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/checkOldPwd")
+	public RestResponse<String> checkOldPwd(SysUser sysUser,@RequestParam("oldPwd") String oldPwd) {
+		Boolean check = checkPwd(sysUser,oldPwd);
+		if(check) {
+			return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "旧密码正确！", null);	
+		}
+		return new RestResponse<String>(ExceptionResult.NOT_FOUND, "旧密码输入有误！", null);	
+	}
+	
+	/**
+	 * 修改密码
+	 * @param sysUser
+	 * @param newPwd
+	 * @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/changePwd")
+	public RestResponse<String> changePwd(SysUser formUser,@RequestParam("newPwd") String newPwd,@RequestParam("oldPwd") String oldPwd){
+		Boolean check = checkPwd(formUser,oldPwd);
+		if(check) {
+			SysUser oldUser = sysUserService.getPwdByUsername(formUser);	
+			ByteSource salt = ByteSource.Util.bytes(oldUser.getSafecode());
+			//加盐炒三次safecode=salt
+			String result = new Md5Hash(newPwd,salt,3).toString();
+			oldUser.setPassword(result);
+			sysUserService.save(oldUser);
+			return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "密码修改成功！", null);	
+		}
+		return new RestResponse<String>(ExceptionResult.SYS_ERROR, "密码修改失败！", null);
+	}
     
     /**
      * 初始化密码
@@ -205,4 +243,23 @@ public class SysUserController extends BaseController {
 			return DEFAULT_PWD;
 		}
 	}
+	
+	/**
+	 * 验证密码
+	 * @param oldUser
+	 * @param newUser
+	 * @return
+	 */
+	private Boolean checkPwd(SysUser formUser,String oldPwd) {
+		SysUser oldUser = sysUserService.getPwdByUsername(formUser);		
+		ByteSource salt = ByteSource.Util.bytes(oldUser.getSafecode());
+		//加盐炒三次safecode=salt
+		String result = new Md5Hash(oldPwd,salt,3).toString();		
+		if(result.equals(oldUser.getPassword())) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

@@ -27,7 +27,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
         ,cellMinWidth: 100,
 		even : true     
         ,id: "areaTree"
-		,headers : { 'Authorization' : application.HEADER}
         ,treeId:'id'//树形id字段名称
         ,treeUpId:'parentId'//树形父id字段名称
         ,treeShowName:'name'//以树形式显示的字段
@@ -113,8 +112,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','publicUtil','applic
 					url: application.SERVE_URL+"/sys/sysarea/delete", //ajax请求地址
 					data:{
 						id : treeGrid.checkStatus('areaTree').data[0].id 
-					},
-					headers : { 'Authorization' : application.HEADER},												
+					},											
 					success: function (res) {
 						if(res.code==application.REQUEST_SUCCESS){
 							treeTable.reload();

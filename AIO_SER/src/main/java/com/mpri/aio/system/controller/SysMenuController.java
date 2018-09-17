@@ -6,7 +6,6 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +42,7 @@ public class SysMenuController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
+	@PostMapping(value = "/list")
 	public ResJson<SysMenu> list(SysMenu sysMenu) {
 		ResJson<SysMenu>rj = new ResJson<SysMenu>();
 		List<SysMenu> list =  sysMenuService.loadAllListBy(sysMenu);	
