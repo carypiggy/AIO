@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,16 @@ public class SysUserController extends BaseController {
 
 	@Autowired
 	private SysUserService sysUserService;
+	
+	@Value("${file.staticAccessPath}")
+	private String staticAccessPath;
+	
+	@Value("${file.uploadFolder}")
+	private String uploadFolder;
+	
+	
+	
+	
 	
 	/*初始没有身份证号的密码*/
 	private static final String DEFAULT_PWD = "123456";
@@ -169,10 +180,12 @@ public class SysUserController extends BaseController {
         String fileName = file.getOriginalFilename();
         String newFilName = String.valueOf(new Date().getTime())+"."+fileName.substring(fileName.lastIndexOf(".") + 1); /*更改文件名*/
         String resfillPath  = DateUtils.getDate();
-        String filePath = request.getSession().getServletContext().getRealPath(resfillPath+ "/");
+//        String filePath = request.getSession().getServletContext().getRealPath(resfillPath+ "/");
+        
+        String filePath = uploadFolder +resfillPath+"/";
         try {
             FileUtils.uploadFile(file.getBytes(), filePath, newFilName);
-            return RestResponse.getInstance(200, "上传成功", resfillPath +"/"+newFilName);
+            return RestResponse.getInstance(200, "上传成功", staticAccessPath.replaceAll("\\*", "")+resfillPath +"/"+newFilName);
         } catch (Exception e) {
             // TODO: handle exception
         }      
@@ -180,6 +193,11 @@ public class SysUserController extends BaseController {
     }
     
     
+    /**
+     * 初始化密码
+     * @param idCard
+     * @return
+     */
 	private String initPwd(String idCard) {
 		if( null != idCard && idCard.length() > 6 ) {
 			return idCard.substring(idCard.length()-6);
