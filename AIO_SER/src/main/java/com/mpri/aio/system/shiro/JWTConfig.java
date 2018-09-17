@@ -49,6 +49,7 @@ public class JWTConfig {
         filterChainDefinitionMap.put("/captcha", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/qrcode", "anon");
+        filterChainDefinitionMap.put("/upload/file/**", "anon");
         
         //6.访问401和404页面不通过我们的Filter
         filterChainDefinitionMap.put("/401", "anon");
