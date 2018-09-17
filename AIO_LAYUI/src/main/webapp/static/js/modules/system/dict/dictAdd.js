@@ -56,7 +56,6 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 			},
 			success: function (res) {
 				if(res.code==application.REQUEST_SUCCESS){
-					console.log('success');
 				 	top.layer.close(index);
 		            top.layer.msg(res.msg);	
 		            layer.closeAll("iframe");

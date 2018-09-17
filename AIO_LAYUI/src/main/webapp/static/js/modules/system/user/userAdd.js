@@ -9,18 +9,21 @@ layui.config({
 }).extend({
 	formSelects: 'formSelects-v4',
 	"application" : "application",
-	'publicUtil' : 'publicUtil'
+	'publicUtil' : 'publicUtil',
+	"validparam"  : "validparam"
 });
 
-layui.use(['jquery','form','layer','formSelects','publicUtil','upload','application'],function(){
+layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validparam','application'],function(){
     var form = layui.form,
 		$ = layui.jquery,
 		formSelects = layui.formSelects,
 		publicUtil  = layui.publicUtil,
 		upload = layui.upload,
 		application = layui.application,
+		validparam = layui.validparam,
 		layer =layui.layer;
 
+		form.verify(validparam);
 		
 		var formSelectsdata;
 		if(parent.editFormData != ''){

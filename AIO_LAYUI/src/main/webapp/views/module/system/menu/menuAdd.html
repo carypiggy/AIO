@@ -1,110 +1,113 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<title>菜单管理</title>
-    <script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_base.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>	
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_base.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>
 </head>
+
 <body class="childrenBody">
-<form class="layui-form" style="width:80%;margin-top:15px;">
-	<input type="text" class="layui-input id" style="display: none;">
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">上级菜单</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input parentId"  style="display: none;">
-				<input type="text" class="layui-input parentName" lay-verify="required">
+	<form class="layui-form" style="width:80%;margin-top:15px;">
+		<input type="text" class="layui-input id" style="display: none;">
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">上级菜单</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input parentId" style="display: none;">
+					<input type="text" class="layui-input parentName" lay-verify="required">
+				</div>
+			</div>
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">菜单编码</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input code" lay-verify="required">
+				</div>
 			</div>
 		</div>
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">菜单编码</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input code" lay-verify="required">
+
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">菜单名称</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input name" lay-verify="required" id="name">
+				</div>
 			</div>
-		</div>	
-	</div>
-		
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">菜单名称</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input name" lay-verify="required" id = "name">
-			</div>
-		</div>	
-		
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">菜单链接</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input href">
-			</div>
-		</div>	
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">菜单图标</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input icon">
+
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">菜单链接</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input href">
+				</div>
 			</div>
 		</div>
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">菜单类型</label>
-			<div class="layui-input-block" >
-				<select  id="type">
-				</select>				
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">菜单图标</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input icon">
+				</div>
 			</div>
-		</div>	
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">权限标记</label>
-			<div class="layui-input-block" >
-				<input type="text" class="layui-input permission">
-			</div>
-		</div>
-		<div class="magb15 layui-col-md3 layui-col-xs12">
-			<label class="layui-form-label">是否显示</label>
-			<div class="layui-input-block isShow">
-				<select  id="isShow">
-				</select>
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">菜单类型</label>
+				<div class="layui-input-block">
+					<select id="type">
+					</select>
+				</div>
 			</div>
 		</div>
-		<div class="magb15 layui-col-md3 layui-col-xs12 ">
-			<label class="layui-form-label ">权限类型</label>
-			<div class="layui-input-block operate ">
-				<select  id="operate">
-				</select>
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">权限标记</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input permission">
+				</div>
 			</div>
-		</div>	
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">目标</label>
+			<div class="magb15 layui-col-md3 layui-col-xs12">
+				<label class="layui-form-label">是否显示</label>
+				<div class="layui-input-block isShow">
+					<select id="isShow">
+					</select>
+				</div>
+			</div>
+			<div class="magb15 layui-col-md3 layui-col-xs12 ">
+				<label class="layui-form-label ">权限类型</label>
+				<div class="layui-input-block operate ">
+					<select id="operate">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">目标</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input target" lay-verify="required">
+				</div>
+			</div>
+			<div class="magb15 layui-col-md6 layui-col-xs12">
+				<label class="layui-form-label">排序</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input sort" lay-verify="required">
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<label class="layui-form-label">备注信息</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input target" lay-verify="required">
+				<input type="text" class="layui-input remark">
 			</div>
 		</div>
-		<div class="magb15 layui-col-md6 layui-col-xs12">
-			<label class="layui-form-label">排序</label>
+		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="layui-input-block">
-				<input type="text" class="layui-input sort" lay-verify="required">
+				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addMenu">确认</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
+				<button class="layui-btn layui-btn-sm layui-btn-normal" id="close">关闭</button>
 			</div>
-		</div>	
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">备注信息</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input remark">
 		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addMenu">确认</button>
-			<button class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
-			<button class="layui-btn layui-btn-sm layui-btn-normal" id="close">关闭</button>
-		</div>
-	</div>
-</form>
+	</form>
 	<script type="text/javascript" src="../../../../static/js/modules/system/menu/menuAdd.js"></script>
 </body>
+
 </html>

@@ -15,35 +15,35 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
-			application = layui.application,
-	        laydate = layui.laydate,
-	        laytpl = layui.laytpl,
-	        table = layui.table,
-			publicUtil=layui.publicUtil;
-    
-			application.init();
-				var start;
-				var end ;
-				//执行一个laydate实例
-				laydate.render({
-					elem: '#start'
-					,type:'datetime'
-					 //指定元素
-					,done: function(value, date, endDate){
-						//得到日期生成的值，如：2017-08-18
-							start	 =value;
-					}
-				});
+		application = layui.application,
+		laydate = layui.laydate,
+		laytpl = layui.laytpl,
+		table = layui.table,
+		publicUtil=layui.publicUtil;
 
-				//执行一个laydate实例
-				laydate.render({
-					elem: '#end' //指定元素,,
-					,type:'datetime'
-					,done: function(value, date, endDate){
-						//得到日期生成的值，如：2017-08-18
-							end	 =value;
-					}
-				});
+	application.init();
+		var start;
+		var end ;
+		//执行一个laydate实例
+		laydate.render({
+			elem: '#start'
+			,type:'datetime'
+			 //指定元素
+			,done: function(value, date, endDate){
+				//得到日期生成的值，如：2017-08-18
+					start	 =value;
+			}
+		});
+
+	//执行一个laydate实例
+	laydate.render({
+		elem: '#end' //指定元素,,
+		,type:'datetime'
+		,done: function(value, date, endDate){
+			//得到日期生成的值，如：2017-08-18
+				end	 =value;
+		}
+	});
 	//获取权限并加载按钮
 	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
 	
@@ -53,8 +53,8 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         url : application.SERVE_URL+'/sys/syslogs/list',
         cellMinWidth : 95,
         page : true,
-		even : true ,
-		headers : { 'Authorization' : application.HEADER},
+				even : true ,
+				skin: 'line',
         height : "full-160",
         limit : 10,
         id : "logsList",
@@ -62,22 +62,21 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         	//{type:'checkbox'},
             {field: 'type', title: '日志类型'},
             {field: 'username', title: '创建者'},
-			{field: 'createDate', title: '创建日期'},
-            {field: 'remoteAddr', title: '操作IP地址'},
+						{field: 'createDate', title: '创建日期'},
+						{field: 'remoteAddr', title: '操作IP地址'},
 						{field: 'userAgent', title: '用户代理'},
 						{field: 'requestUri', title: '请求URI'},
 						{field: 'method', title: '操作方式'},
             {field: 'params', title: '操作提交的数据'},
             {field: 'excContent', title: '异常信息'}
-        ]],
-				done: function(res, curr, count){    //res 接口返回的信息
-						publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'LOGS_TYPE'},'type');
-				}
+			]],
+			done: function(res, curr, count){    //res 接口返回的信息
+					publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'LOGS_TYPE'},'type');
+			}
     });
 		
     //右键点击事件
-	table.on('rowRight(logsList)', function(obj){
-		
+	table.on('rowRight(logsList)', function(obj){		
 		publicUtil.show_menu(obj);
 	});
 	
@@ -92,7 +91,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 			 top.layer.msg("开始时间不能大于结束时间");
 			 return;
 		 }		
-			table.reload("logsListTable",{
+			table.reload("logsList",{
 				page: {
 					curr: 1 //重新从第 1 页开始
 				},

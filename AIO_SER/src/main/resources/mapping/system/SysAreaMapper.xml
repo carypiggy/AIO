@@ -30,6 +30,9 @@
        <if test="entity.name!=null and entity.name!='' ">
            and name LIKE '%${entity.name}%'
        </if>
+       <if test="entity.parentId!=null and entity.parentId!='' ">
+           and parent_id =#{entity.parentId}
+       </if>
        <if test="entity.sort!=null and entity.sort!='' ">
            and sort=#{entity.sort}
        </if>

@@ -38,7 +38,6 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         page : true,
         height : "full-160",
         limit : 10,
-		headers : { 'Authorization' : application.HEADER},	
         id : "dictList",
         cols : [[
 /*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/

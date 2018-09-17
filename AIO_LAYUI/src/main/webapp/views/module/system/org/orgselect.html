@@ -17,8 +17,9 @@
 		})
 		layui.use(['layer','application',"publicUtil",'application'],function(){
 			layer = parent.layer,
-			application = layui.application;
-			publicUtil  = layui.publicUtil
+			application = layui.application,
+			publicUtil  = layui.publicUtil,
+			_$ = layui.jquery;
 			//ztree设置
 			var setting = {
 					view: {
@@ -48,9 +49,8 @@
 				});
 				
 				
-				$.ajax({
+				_$.ajax({
 					url: application.SERVE_URL+'/sys/sysorg/tree',
-					type:"post",
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
 						//获取根节点个数,getNodes获取的是根节点的集合
@@ -64,7 +64,10 @@
 				 });	
 				 
 				 $("#getSelectData").click(function(){
-					 publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
+					 console.log(ztreeObj.getCheckedNodes());
+					 if(ztreeObj.getCheckedNodes() != null && ztreeObj.getCheckedNodes().size != 0){
+						publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
+					 }
 				 })
 			});
 

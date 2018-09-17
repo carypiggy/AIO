@@ -26,12 +26,11 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	    },
 	    beforeSend: function(){
 	    	refreshToken();
-		},
-	    error: function(res){ // 出错时默认的处理函数
-	    	console.log(res);
-	    	//publicUtil.errofunc(res);
-	    }
-	} );
+			},
+			error: function(res){ // 出错时默认的处理函数
+				errofunc(res);
+			}
+	});
 	
 	//loading 
 	var index = layer.load(2, {time: 10*1000,shade:0.1}); //又换了种风格，并且设定最长等待10秒 
@@ -300,17 +299,23 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 				var nodes = treeObj.getNodesByParam("id",
 						treeNode, null);
 				//勾选当前选中的节点
-				treeObj.checkNode(nodes[0], true, true);
-				ztreeObj.expandNode(nodes[0], true);
-			}else{
-				//遍历勾选角色关联的菜单数据
-				for (var i = 0; i < treeNode.length; i++) {
-					//根据角色菜单节点数据的属性搜索，获取与完整菜单树完全匹配的节点JSON对象集合
-					var nodes = treeObj.getNodesByParam("id",
-							treeNode[i].id, null);
-					//勾选当前选中的节点
+				if(nodes.length > 0){
 					treeObj.checkNode(nodes[0], true, true);
 					ztreeObj.expandNode(nodes[0], true);
+				}
+			}else{
+				if(treeNode.length < 0){
+					return;
+				}else{
+					//遍历勾选角色关联的菜单数据
+					for (var i = 0; i < treeNode.length; i++) {
+						//根据角色菜单节点数据的属性搜索，获取与完整菜单树完全匹配的节点JSON对象集合
+						var nodes = treeObj.getNodesByParam("id",
+								treeNode[i].id, null);
+						//勾选当前选中的节点
+						treeObj.checkNode(nodes[0], true, true);
+						ztreeObj.expandNode(nodes[0], true);
+					}
 				}
 			}
 		},
@@ -394,8 +399,8 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		}
 
 		//error方法
-		function errofuntion(res){	
-			var result=data.responseJSON;
+		function errofunc(res){	
+			var result=res.responseJSON;
 			if(result==undefined){
 				top.layer.msg("服务连接中断，请检查网络连接情况，并重新登陆！");
 			}else{
