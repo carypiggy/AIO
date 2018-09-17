@@ -5,8 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
 import javax.imageio.ImageIO;
 
 public class LogoConfig {
@@ -17,7 +18,7 @@ public class LogoConfig {
 	 * @throws IOException
 	 * @author Administrator sangwenhao
 	 */
-     public BufferedImage LogoMatrix(BufferedImage matrixImage) throws IOException{
+     public BufferedImage LogoMatrix(BufferedImage matrixImage,String photo) throws IOException{
     	 /**
           * 读取二维码图片，并构建绘图对象
           */
@@ -29,7 +30,8 @@ public class LogoConfig {
          /**
           * 读取Logo图片
           */
-         BufferedImage logo = ImageIO.read(new File("D:\\logo.jpg"));
+    	 URL url = new URL(photo);
+         BufferedImage logo = ImageIO.read(url);
  
          //开始绘制图片
          g2.drawImage(logo,matrixWidth/5*2,matrixHeigh/5*2, matrixWidth/5, matrixHeigh/5, null);//绘制     

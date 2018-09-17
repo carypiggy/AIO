@@ -1,20 +1,21 @@
 package com.mpri.aio.system.utils.qrcode;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
- 
+
 import javax.imageio.ImageIO;
- 
+
 import com.google.zxing.common.BitMatrix;
 
-public class MatrixToImageWriter {
+public class QRWriter {
 
 	private static final int BLACK = 0xFF000000;//用于设置图案的颜色
 	private static final int WHITE = 0xFFFFFFFF; //用于背景色
  
-	private MatrixToImageWriter() {
+	private QRWriter() {
 	}
  
 	public static BufferedImage toBufferedImage(BitMatrix matrix) {
@@ -24,17 +25,17 @@ public class MatrixToImageWriter {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				image.setRGB(x, y,  (matrix.get(x, y) ? BLACK : WHITE));
-//				image.setRGB(x, y,  (matrix.get(x, y) ? Color.YELLOW.getRGB() : Color.CYAN.getRGB()));
+				//image.setRGB(x, y,  (matrix.get(x, y) ? Color.YELLOW.getRGB() : Color.CYAN.getRGB()));
 			}
 		}
 		return image;
 	}
  
-	public static void writeToFile(BitMatrix matrix, String format, File file) throws IOException {
+	public static void writeToFile(BitMatrix matrix, String format, File file,String photo) throws IOException {
 		BufferedImage image = toBufferedImage(matrix);
 		//设置logo图标
 		LogoConfig logoConfig = new LogoConfig();
-		image = logoConfig.LogoMatrix(image);
+		image = logoConfig.LogoMatrix(image,photo);
 		
 		if (!ImageIO.write(image, format, file)) {
 			throw new IOException("Could not write an image of format " + format + " to " + file);
@@ -43,11 +44,11 @@ public class MatrixToImageWriter {
 		}
 	}
  
-	public static void writeToStream(BitMatrix matrix, String format, OutputStream stream) throws IOException {
+	public static void writeToStream(BitMatrix matrix, String format, OutputStream stream,String photo) throws IOException {
 		BufferedImage image = toBufferedImage(matrix);
 		//设置logo图标
 		LogoConfig logoConfig = new LogoConfig();
-		image = logoConfig.LogoMatrix(image);
+		image = logoConfig.LogoMatrix(image,photo);
 		
 		if (!ImageIO.write(image, format, stream)) {
 			throw new IOException("Could not write an image of format " + format);

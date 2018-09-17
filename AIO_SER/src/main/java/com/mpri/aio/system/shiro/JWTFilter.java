@@ -1,5 +1,7 @@
 package com.mpri.aio.system.shiro;
 
+import java.util.Date;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +30,33 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
+        
+        StringBuffer url=req.getRequestURL();
         String authorization = req.getHeader("Authorization");
         String time = req.getHeader("Time");
         String key = req.getHeader("Key");
-        
-        if(null==authorization || authorization.equals("")|| !(time!=null&&key!=null&&AESUtil.aesDecrypt(key).equals(time))) {
+        long nowTime=new Date().getTime();
+        long tokenTime=0;
+
+        //token 存在
+        if(null==authorization || authorization.equals("")) {
         	return false;
-        }else{
-        	return true;
+        }else {
+        	tokenTime=JWTUtil.getTokenTime(authorization);
         }
-        //return authorization!=null;
+        
+        //请求校验
+        if(!(time!=null&&key!=null&&AESUtil.aesDecrypt(key).equals(time))) {
+        	return false;
+        }
+        
+        //token过期
+        if(tokenTime-nowTime<0) {
+        	return false;
+        }
+        
+        return true;
+
     }
 
     /**
@@ -69,13 +88,15 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         if (isLoginAttempt(request, response)) {
             try {
                 executeLogin(request, response);
+                return true;
             } catch (Exception e) {
                 response401(request, response);
+                return false;
             }
         }else {
         	response401(request, response);
+        	return false;
         }
-        return true;
     }
 
     /**

@@ -412,7 +412,8 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
 					data : {"comeFrom" : application.COMEFROM},
 					success: function (data) {
-						sessionStorage.clear();
+						sessionStorage.removeItem("token");
+						sessionStorage.removeItem("tokenTime");
 						sessionStorage.setItem("token", data.data.token);
 						sessionStorage.setItem("tokenTime", data.data.tokenTime);
 					},
@@ -429,7 +430,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			if(timelogin < application.TOKENISSUE && timelogin>0){
 				return true;
 			}else if(timelogin < 0) {
-				top.layer.alert("因长时间未操作，请重新登陆!",function(){
+				top.layer.alert("因长时间未操作，请重新登陆!",{closeBtn:0},function(){
 					top.location.href = application.BASE_URL+"/login.html";
 				});
 			}else{
