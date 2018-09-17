@@ -81,7 +81,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'table', 'publicUtil', 'applica
 					cellMinWidth : 95,
 					page : true,
 					even : true ,
-					height : "full-180",
+					height : "full-200",
 					id : "areaList",
 					cols : [[
 						{type:'checkbox'}

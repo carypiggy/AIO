@@ -3,6 +3,7 @@ package com.mpri.aio.system.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @date 2018年9月14日
  */
 @Configuration
-public class UploadFilePathConfig extends WebMvcConfigurerAdapter {
+public class UploadFilePathConfig extends WebMvcConfigurationSupport  {
 	
 	@Value("${file.staticAccessPath}")
 	private String staticAccessPath;

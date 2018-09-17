@@ -31,6 +31,7 @@ layui.use(['application', 'form', 'layer', 'laydate', 'table', 'publicUtil'], fu
 		url: application.SERVE_URL + '/sys/sysrole/list',
 		cellMinWidth: 95,
 		method: "POST",
+		even : true ,
 		page: true,
 		height: "full-160",
 		limit: 20,
