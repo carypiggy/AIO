@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	    <meta charset="utf-8">
-	    <title>用户管理</title>
-	    <script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_base.js"></script>
-	    <script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_ztree.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>	
-		<script type="text/javascript" src="../../../../static/js/modules/system/user/userList.js"></script>
-	</head>
-	<body class="childrenBody">
-		<div class="layui-fluid">
-			<div class="layui-row layui-col-space11">
-				<div class="layui-col-md2 layui-overflow-tree">
-					<fieldset class="layui-elem-field fieldset-div">
-						<legend >机构树</legend>
-						<ul id="orgTree" class="ztree"></ul>		
-					</fieldset>
-				</div>
-	
-				<div class="layui-col-md10">
-					<fieldset id="user_div" class="layui-elem-field">
-						<legend>用户列表</legend>
-						<div class="layui-field-box">
-							<blockquote class="layui-elem-quote quoteBox">
-								<form class="layui-form">
-									<div class="layui-inline" style="margin-left: 15px">
-										<label>登录名：</label>
-										<div class="layui-input-inline">
-											<input type="text"   placeholder="请输入登录名" class="layui-input username">
-										</div>
+
+<head>
+	<meta charset="utf-8">
+	<title>用户管理</title>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_base.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_ztree.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>
+	<script type="text/javascript" src="../../../../static/js/modules/system/user/userList.js"></script>
+</head>
+
+<body class="childrenBody">
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space11">
+			<div class="layui-col-md2 layui-overflow-tree">
+				<fieldset class="layui-elem-field fieldset-div">
+					<legend>机构树</legend>
+					<ul id="orgTree" class="ztree"></ul>
+				</fieldset>
+			</div>
+
+			<div class="layui-col-md10">
+				<fieldset id="user_div" class="layui-elem-field">
+					<legend>用户列表</legend>
+					<div class="layui-field-box">
+						<blockquote class="layui-elem-quote quoteBox">
+							<form class="layui-form">
+								<div class="layui-inline" style="margin-left: 15px">
+									<label>登录名：</label>
+									<div class="layui-input-inline">
+										<input type="text" placeholder="请输入登录名" class="layui-input username">
 									</div>
-									<div class="layui-inline" style="margin-left: 15px">
-										<label>姓名：</label>
-										<div class="layui-input-inline">
-											<input type="text"  placeholder="请输入姓名" class="layui-input name">
-										</div>
+								</div>
+								<div class="layui-inline" style="margin-left: 15px">
+									<label>姓名：</label>
+									<div class="layui-input-inline">
+										<input type="text" placeholder="请输入姓名" class="layui-input name">
 									</div>
-									<div class="layui-inline" style="margin-left: 15px">
-										<label>用户类型：</label>
-										<div class="layui-input-inline">
-											<select id="type" >
-												<option value=""></option>
-											</select>
-										</div>
+								</div>
+								<div class="layui-inline" style="margin-left: 15px">
+									<label>用户类型：</label>
+									<div class="layui-input-inline">
+										<select id="type">
+											<option value=""></option>
+										</select>
 									</div>
-									<div class="layui-inline">
-										<a class="layui-btn" lay-submit="" lay-filter="searchForm" class="layui-btn search_btn">
-											<i class="layui-icon layui-icon-search" ></i>查询
-										</a>
-									</div>
-								</form>
-							</blockquote>
-						</div>
-						<div layui-inline class="layui-but-per">
-							<div class="layui-btn-group" id="but_per"></div>
-						</div>
-						<table id="userList" lay-filter="userList"></table>
-					</fieldset>
-				</div>  
+								</div>
+								<div class="layui-inline">
+									<a class="layui-btn" lay-submit="" lay-filter="searchForm" class="layui-btn search_btn">
+										<i class="layui-icon layui-icon-search"></i>查询
+									</a>
+								</div>
+							</form>
+						</blockquote>
+					</div>
+					<div layui-inline class="layui-but-per">
+						<div class="layui-btn-group" id="but_per"></div>
+					</div>
+					<table id="userList" lay-filter="userList"></table>
+				</fieldset>
 			</div>
 		</div>
-	</body>
-	
+	</div>
+</body>
+
 </html>

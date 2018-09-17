@@ -304,6 +304,7 @@
 		and srm.role_id = sr.id
 		and sr.id = sur.role_id
 		and sur.user_id = su.id
+	order by sm.sort
   </select>
   
   
@@ -324,5 +325,6 @@
 		and srm.role_id = sr.id
 		and sr.id = sur.role_id
 		and sur.user_id = su.id
+	order by sm.sort asc
   </select>
 </mapper>

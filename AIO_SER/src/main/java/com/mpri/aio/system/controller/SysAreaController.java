@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
+import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.page.ResJson;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysArea;
+import com.mpri.aio.system.model.SysDict;
 import com.mpri.aio.system.service.SysAreaService;
 
 /**
@@ -41,12 +43,29 @@ public class SysAreaController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
-	public ResJson<SysArea> list(SysArea sysDict) {
+	@PostMapping(value = "/tree")
+	public ResJson<SysArea> tree(SysArea sysDict) {
 		ResJson<SysArea> rj = new ResJson<SysArea>();
 		List<SysArea> list =  sysAreaService.loadAllListBy(sysDict);	
 		rj.setData(list);
 		return rj;
+	}
+	
+	
+	/**
+	 * 
+	* <p>Title: list</p>  
+	* <p>Description: </p>  
+	* @param pageNo
+	* @param pageSize
+	* @param sysDict
+	* @return
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/list")
+	public PageIo<SysArea> list(int pageNo,int pageSize,SysArea sysDict) {
+		PageIo<SysArea> info = sysAreaService.loadByPage(pageNo,pageSize,sysDict);	
+		return info;
 	}
 	
 	
@@ -135,7 +154,6 @@ public class SysAreaController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/loadAllListBy")
-	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public RestResponse<List<SysArea>> loadAllListBy(SysArea sysArea) {
 		return new RestResponse<List<SysArea>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysAreaService.loadAllListBy(sysArea));
 	}
