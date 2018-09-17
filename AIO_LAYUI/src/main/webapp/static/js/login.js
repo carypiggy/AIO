@@ -17,24 +17,24 @@ layui.use(['form','layer','application'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer;
     var keyTime =new Date().getTime().toString();
     
-		//验证码
-		$('#mpanel4').codeVerify({
-        	type : 1,
-        	width : '100px',
-		    height : '36px',
-		    fontSize : '20px',
-				codeLength : 4,
-				ready : function() {
-				},
-				success : function() {
-					alert('验证成功，添加你自己的代码！');
-					//......后续操作
-				},
-				error : function() {
-				// alert('验证失败！');
-				}
- 
-		}); 
+//		//验证码
+//		$('#mpanel4').codeVerify({
+//        	type : 1,
+//        	width : '100px',
+//		    height : '36px',
+//		    fontSize : '20px',
+//				codeLength : 4,
+//				ready : function() {
+//				},
+//				success : function() {
+//					alert('验证成功，添加你自己的代码！');
+//					//......后续操作
+//				},
+//				error : function() {
+//				// alert('验证失败！');
+//				}
+// 
+//		}); 
 		
 		//清缓存
 		window.sessionStorage.clear();
@@ -42,14 +42,95 @@ layui.use(['form','layer','application'],function(){
 
 	    //登录按钮
 	    form.on("submit(login)",function(data){
-			//$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写  
-			//获取验证吗内容	 
-			var code_area = '';
-			for(var i=0;i<$(".verify-code").find("font").length;i++){
-				code_area += $(".verify-code").find("font").eq(i).html();//遍历所有font的文本
-			} 
-			code_area = code_area.toUpperCase();
+	    	//构建弹窗
+			layer.open({
+				type: 1,
+				skin: "layui-layer-rim", //加上边框
+				title: false,
+				closeBtn: 1,
+				anim: 2,
+				area: ['440px', '255px'], //宽高
+				content: "<div id='verify'></div>"
+			});
+			
+			//验证登陆
+			$('#verify').slideVerify({
+	    		title:"",
+	    	    type : 2,
+	    	    mode : 'fixed',
+	    	    vOffset : 5,
+	    	    vSpace : 5,
+	    	    explain : '向右滑动完成验证',
+	    	    imgUrl : 'static/verify/images/',
+	    	    imgName : ['1.jpg', '2.jpg'],
+	    	    imgSize : {
+	    		    width: '430px',
+	    		    height: '200px',
+	    	    },
+	    	    blockSize : {
+	    		    width: '45px',
+	    		    height: '45px',
+	    	    },
+	    	    barSize : {
+	    		    width: '430px',
+	    		    height : '40px',
+	    	    },
+	    	    ready : function() {
+	    	    },
+	    	    success : function() {
+	    	    	//登陆
+	    	    	var password = application.encryptData(application.KEY,$("#password").val());
+					//请求登陆
+					$.ajax({
+						url: application.SERVE_URL+"/login", //ajax请求地址
+						type: "POST",
+						dataType: "json",
+						headers : { 
+							"Authorization" : ""
+						},
+						data: { 
+							username : $("#username").val(),
+							password : password,
+							// authCode : $("#code").val(),
+							comeFrom : application.COMEFROM
+						},
+						success: function (data) {
+							if(data.code==application.REQUEST_SUCCESS){
+								//将token保存在cookie中	
+								sessionStorage.setItem("token", data.data.token);
+								sessionStorage.setItem("tokenTime", data.data.tokenTime);
+								top.layer.msg("登陆成功");
+								window.location.href = "../index.html";
+							}else{
+								top.layer.msg(data.msg+"("+data.code+")");
+							}
+						},
+						error: function(data){
+							var result=data.responseJSON;
+							if(result==undefined){
+								top.layer.msg("服务连接中断，请检查网络连接情况");
+							}else{
+								top.layer.msg(result.msg+"("+result.code+")");
+								$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
+							}
+						}
+					});
+	    	    },
+	    	    error : function() {
+	    	    	top.layer.msg("验证码不匹配,请重新验证！",);
+	    	    }
+	    	    
+	    	});
+			  return false;
+
+//			$(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+//			var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写  
+//			获取验证吗内容	 
+//			var code_area = '';
+//			for(var i=0;i<$(".verify-code").find("font").length;i++){
+//				code_area += $(".verify-code").find("font").eq(i).html();//遍历所有font的文本
+//			} 
+//			code_area = code_area.toUpperCase();
 //			if(inputCode.length <= 0) { //若输入的验证码长度为0
 //				top.layer.msg("请输入验证码！");
 //				return false;//则弹出请输入验证码
@@ -58,44 +139,9 @@ layui.use(['form','layer','application'],function(){
 //				document.getElementById("input").value = "";//清空文本框
 //				return false;
 //			}else {
-				var password = application.encryptData(application.KEY,$("#password").val());
-				//请求登陆
-				$.ajax({
-					url: application.SERVE_URL+"/login", //ajax请求地址
-					type: "POST",
-					dataType: "json",
-					headers : { 
-						"Authorization" : ""
-					},
-					data: { 
-						username : $("#username").val(),
-						password : password,
-						// authCode : $("#code").val(),
-						comeFrom : application.COMEFROM
-					},
-					success: function (data) {
-						if(data.code==application.REQUEST_SUCCESS){
-							//将token保存在cookie中	
-							sessionStorage.setItem("token", data.data.token);
-							sessionStorage.setItem("tokenTime", data.data.tokenTime);
-							top.layer.msg("登陆成功");
-							window.location.href = "../index.html";
-						}else{
-							top.layer.msg(data.msg+"("+data.code+")");
-						}
-					},
-					error: function(data){
-						var result=data.responseJSON;
-						if(result==undefined){
-							top.layer.msg("服务连接中断，请检查网络连接情况");
-						}else{
-							top.layer.msg(result.msg+"("+result.code+")");
-							$(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
-						}
-					}
-				});
+				
 		//	} 
-        return false;
+      
     })
 
 	$("#codeImg").on('click',function(){

@@ -177,7 +177,7 @@ layui.use(['form','jquery',"layer"],function() {
                                     '<input type="radio" name="skin" value="默认" title="默认" lay-filter="default" checked="">'+
                                     '<input type="radio" name="skin" value="橙色" title="橙色" lay-filter="orange">'+
                                     '<input type="radio" name="skin" value="蓝色" title="蓝色" lay-filter="blue">'+
-                                    '<input type="radio" name="skin" value="自定义" title="自定义" lay-filter="custom">'+
+//                                    '<input type="radio" name="skin" value="自定义" title="自定义" lay-filter="custom">'+
                                     '<div class="skinCustom">'+
                                         '<input type="text" class="layui-input topColor" name="topSkin" placeholder="顶部颜色" />'+
                                         '<input type="text" class="layui-input leftColor" name="leftSkin" placeholder="左侧颜色" />'+
@@ -186,7 +186,7 @@ layui.use(['form','jquery',"layer"],function() {
                                 '</div>'+
                                 '<div class="layui-form-item skinBtn">'+
                                     '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="changeSkin">确定更换</a>'+
-                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noChangeSkin">再想想</a>'+
+                                    '<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-primary" lay-submit="" lay-filter="noChangeSkin">容朕三思</a>'+
                                 '</div>'+
                             '</form>'+
                         '</div>',

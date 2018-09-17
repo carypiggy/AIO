@@ -5,14 +5,19 @@
 	<title>AIO</title>
 	<script type="text/javascript" charset="UTF-8" src="static/js/header_base.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="static/js/header_com.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="static/intro/intro.js"></script>
+	<script type="text/javascript" src="static/js/index.js"></script>
+	<script type="text/javascript" src="static/js/cache.js"></script>
 	<link rel="stylesheet" href="static/css/index.css" media="all" />
+	<link rel="stylesheet" href="static/intro/introjs.css" media="all" />
+
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
 		<!-- 顶部 --> 
 		<div class="layui-header header">
 			<div class="layui-main mag0">
-				<a href="#" class="logo">AIO开发平台</a>
+				<a href="javascript:;" class="logo">AIO</a>
 				<!-- 显示/隐藏菜单 -->
 				<a href="javascript:;" class="seraph hideMenu"><i class="layui-icon layui-icon-spread-left"></i></a>
 				<!-- 顶部主菜单 -->
@@ -20,7 +25,7 @@
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
 			    	<li class="layui-nav-item">
-						<a href="javascript:;"><i class="layui-icon layui-icon-layouts"></i>页面操作</a>
+						<a href="javascript:;" id="pageInfo"><i class="layui-icon layui-icon-layouts"></i>页面操作</a>
 						<dl class="layui-nav-child">
 							<dd><a href="javascript:;" class="refresh refreshThis">
 								<i class="layui-icon layui-icon-refresh-1"></i><cite>刷新当前</cite>
@@ -51,8 +56,11 @@
 							<dd><a href="javascript:;" class="changeSkin">
 								<i class="layui-icon layui-icon-theme"></i><cite>更换皮肤</cite>
 							</a></dd>
+							<dd><a href="javascript:intro();" class="">
+								<i class="layui-icon layui-icon-help"></i><cite>操作指引</cite>
+							</a></dd>
 							<dd><a href="login.html" class="signOut">
-								<i class="layui-icon layui-icon-close"></i><cite>退出</cite>
+								<i class="layui-icon layui-icon-close"></i><cite>安全退出</cite>
 								</a></dd>
 						</dl>
 					</li>
@@ -74,7 +82,7 @@
 		<div class="layui-body layui-form">
 			<div class="layui-tab mag0 self" lay-filter="bodyTab" id="top_tabs_box">
 				<ul class="layui-tab-title top_tab" id="top_tabs">
-					<li class="layui-this" lay-id=""><i class="layui-icon">&#xe68e;</i> <cite>首页</cite></li>
+					<li class="layui-this" lay-id=""><i class="layui-icon layui-icon-home "></i> <cite>首页</cite></li>
 				</ul>
 				
 				<div class="layui-tab-content clildFrame">
@@ -90,12 +98,8 @@
 		</div>
 	</div>
 
-	<!-- 移动导航 -->
+	<!-- 移动导航
 	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
-	<div class="site-mobile-shade"></div>
-	
-	<script type="text/javascript" src="static/js/index.js"></script>
-	<script type="text/javascript" src="static/js/cache.js"></script>
-
+	<div class="site-mobile-shade"></div> -->
 </body>
 </html>
