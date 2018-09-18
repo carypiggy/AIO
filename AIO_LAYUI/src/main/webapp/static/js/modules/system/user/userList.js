@@ -52,9 +52,8 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 	//初始化树
 	initTree();
 	function initTree() {
-		$.ajax({
+		_$.ajax({
 			url: application.SERVE_URL+'/sys/sysorg/tree',
-			type: "POST", // 默认使用POST方式
 			success: function (data) {
 				treeObj = $.fn.zTree.init($("#orgTree"), setting, covert(data.data)); //加载数据
 				//初始化
@@ -148,12 +147,12 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 				var parm = table.checkStatus('userList').data[0].id ;
 				if(flag){
 					layer.confirm('确定删除此用户吗？',{icon:3, title:'提示信息'},function(index){
-						$.ajax({
+						_$.ajax({
 								url: application.SERVE_URL+'/sys/sysuser/delete', //ajax请求地址
 								data:{
 									id :  parm
 								},										
-								success: function (data) {
+								success: function (res) {
 									if(res.code==application.REQUEST_SUCCESS){
 										table.reload('userList');
 										// location.reload();
@@ -184,9 +183,9 @@ layui.use(['table','form','element','layer','jquery','application','publicUtil',
 			})
 		})
 		
-	    //添加用户
-	    function addUser(edit){
-				publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysuser/get',edit ==undefined?null:edit.id,"用户管理","userAdd.html")
-	    }		
+		//添加用户
+		function addUser(edit){
+			publicUtil.gotoEditPage(application.SERVE_URL +'/sys/sysuser/get',edit ==undefined?null:edit.id,"用户管理","userAdd.html")
+		}		
 })
 })

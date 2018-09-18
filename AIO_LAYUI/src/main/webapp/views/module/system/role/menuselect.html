@@ -17,8 +17,9 @@
 		layui.use(['layer','application',"publicUtil",'application'],function(){
 			var form = layui.form;
 				layer = layui.layer,
-				application = layui.application;
-				publicUtil  = layui.publicUtil
+				application = layui.application,
+				publicUtil  = layui.publicUtil,
+				_$ = layui.jquery,
 				layer =layui.layer;
 		
 
@@ -51,12 +52,8 @@
 					ztreeObj.checkAllNodes(false);
 				});
 				
-				$.ajax({
+				_$.ajax({
 					url:  application.SERVE_URL+'/sys/sysmenu/list',                  //ajax请求地址
-					beforSend: function () {
-						publicUtil.refreshToken();
-					},
-					headers : { 'Authorization' : application.HEADER},
 					success: function (res) {
 							ztreeObj = $.fn.zTree.init($("#tree"), setting,res.data);  //加载数据
 							var nodeList = ztreeObj.getNodes();
@@ -64,9 +61,6 @@
 							ztreeObj.expandNode(nodeList[0], true);
 							// getTreeCheckDatas(ztreeObj);
 							publicUtil.setTreeSel(parent.formdatas.menuList,ztreeObj);
-					},
-					error: function(res){
-						publicUtil.errofunc(res);
 					}
 				});
 					
@@ -77,7 +71,7 @@
 			form.on("submit(getSelectData)",function(data){
 				//弹出loading
 				var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});		
-				$.ajax({
+				_$.ajax({
 					url: application.SERVE_URL+"/sys/sysrole/saveRoleMenu", //ajax请求地址
 					contentType: "application/json",
 					data:JSON.stringify({
@@ -94,9 +88,6 @@
 						}else{
 							layer.msg("权限修改失败！");
 						}
-					},
-					error: function(res){
-						publicUtil.errofunc(res);
 					}
 				});	
 				return false;

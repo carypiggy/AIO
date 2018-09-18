@@ -19,7 +19,6 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 
 	function formEdit(FormDatas){
 		if(FormDatas != ''){
-			console.log(parent.isAdd)
 			var data = FormDatas;
 			if(parent.isAdd){
 				$(".parentId").val(data.id);

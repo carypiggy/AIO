@@ -53,7 +53,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 		//初始化树
 		initTree();
 		function initTree() {
-			$.ajax({
+			_$.ajax({
 				url: application.SERVE_URL+'/sys/sysorg/tree',
 				type:"post",
 				success: function (data) {
