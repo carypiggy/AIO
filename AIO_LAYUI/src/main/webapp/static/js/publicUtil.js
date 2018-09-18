@@ -14,6 +14,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	var table = layui.table;
 	var treeGrid = layui.treeGrid;
     var keyTime =new Date().getTime().toString();
+    var nowTime = new Date().getTime();
 	/**
 	 * 初始化AJAX的请求
 	 */
@@ -26,10 +27,11 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	    },
 	    beforeSend: function(){
 	    	refreshToken();
-			},
-			error: function(res){ // 出错时默认的处理函数
-				errofunc(res);
-			}
+	    	nowTime=new Date().getTime();
+		},
+		error: function(res){ // 出错时默认的处理函数
+			errofunc(res);
+		}
 	});
 	
 	//loading 
@@ -410,23 +412,29 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		
 		//刷新token的方法（）
 		function refreshToken(){
-			if(judgeTokenIssue()){
-				$.ajax({
-					async:false,
-					beforeSend: function(){},
-					url: application.SERVE_URL +'/refreshToken', //ajax请求地址
-					data : {"comeFrom" : application.COMEFROM},
-					success: function (data) {
-						sessionStorage.removeItem("token");
-						sessionStorage.removeItem("tokenTime");
-						sessionStorage.setItem("token", data.data.token);
-						sessionStorage.setItem("tokenTime", data.data.tokenTime);
-					},
-					error: function (errdata) {
-						top.location.href = application.BASE_URL+"/login.html";
-					}
-				});
+			var exeTime=new Date().getTime();
+			var isrun=exeTime-nowTime;
+			if(isrun>application.SPACE){//请求频度过滤重复刷新请求
+				if(judgeTokenIssue()){
+					$.ajax({
+						async:false,
+						beforeSend: function(){},
+						url: application.SERVE_URL +'/refreshToken', //ajax请求地址
+						data : {"comeFrom" : application.COMEFROM},
+						success: function (data) {
+							sessionStorage.removeItem("token");
+							sessionStorage.removeItem("tokenTime");
+							sessionStorage.setItem("token", data.data.token);
+							sessionStorage.setItem("tokenTime", data.data.tokenTime);
+						},
+						error: function (errdata) {
+							top.location.href = application.BASE_URL+"/login.html";
+						}
+					});
+				}
+				
 			}
+			
 		}
 		
 		//判断token起效时间的方法
@@ -441,10 +449,8 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			}else{
 				return false;
 			}
+			
 		}
-		
-		
-		
-		
+
     exports('publicUtil', obj);
 })

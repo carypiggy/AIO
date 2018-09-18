@@ -1,6 +1,7 @@
 "use strict";
 layui.define("jquery",function(exports){
     var $ = layui.jquery;
+    
     var obj ={
         //初始化
         init : function (){
@@ -50,7 +51,8 @@ layui.define("jquery",function(exports){
         TOKENTIME : sessionStorage.getItem("tokenTime"),
         TOKENISSUE : 5*60*1000, //五分钟续约有效期
         COMEFROM : "WEB",
-        KEY : "tXbjTgdcQ32mmr6g"
+        KEY : "tXbjTgdcQ32mmr6g",
+        SPACE: 25 //Token刷新请求频度(毫秒数) 频度毫秒数内不进行重复请求.
     }
     
     exports("application", obj);
