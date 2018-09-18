@@ -6,8 +6,8 @@
 .rightztree{height:100% ;!important;}
 .layui-but-per{margin-bottom: 7px;margin-top:7px;}
 .layui-overflow-tree{overflow: auto;}
-.show_menu{width: 100px; display: none; position: absolute; left: 118px; top: 141px; line-height: 36px; padding: 5px; box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 4px; border: 1px solid rgb(210, 210, 210); background-color: #f2f2f2; z-index: 100; border-radius: 2px; white-space: nowrap;}
-.show_menu dd a{font:14px;font-weight:bold}
+.show_menu{width: 100px; display: none; position: absolute; left: 118px; top: 141px; line-height: 36px; padding: 3px; box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 4px; border: 1px solid rgb(210, 210, 210); background-color: #f2f2f2; z-index: 100; border-radius: 2px; white-space: nowrap;}
+.show_menu dd a{font-size:16px;font-weight:bold}
 .show_menu dd a:hover{background: #009688;  display: block; color:white}
 .layui-form{}
 .layui-upload-list{border-style: groove;}
