@@ -17,6 +17,7 @@
 		layui.use(['layer','application',"publicUtil"],function(){
 			layer = parent.layer,
 			application = layui.application,
+			_$ = layui.jquery,
 			publicUtil  = layui.publicUtil;
 			//ztree设置
 			var setting = {
@@ -38,7 +39,7 @@
 					}
 			};
 
-			$(document).ready(function(){
+			_$(document).ready(function(){
 				//重置按钮
 				//生产环境具体考虑
 				$("#reset").click(function(){
@@ -46,8 +47,8 @@
 				});
 				
 				
-				$.ajax({
-					url: application.SERVE_URL+'/sys/sysarea/list',                  //ajax请求地址
+				_$.ajax({
+					url: application.SERVE_URL+'/sys/sysarea/tree',                  //ajax请求地址
 					headers : { 'Authorization' : application.HEADER},
 					success: function (data) {	
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data);  //加载数据
@@ -55,7 +56,7 @@
 					}
 				 });	
 				 
-				 $("#getSelectData").click(function(){
+				_$("#getSelectData").click(function(){
 					 publicUtil.setAcrossName(ztreeObj.getCheckedNodes(),".parentId",".parentName")
 
 				 })
