@@ -200,9 +200,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 							 layui.layer.msg(res.msg);
 							 return false;
 						 }
-					},
-					error: function(){
-						errofuntion();
 					}
 				});				
 			}
@@ -261,9 +258,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 // 						// layui.layer.msg(result.msg);
 // 						return false;
 // 					}
-				},
-				error: function(){
-					errofuntion();
 				}
 			}); 
 		},

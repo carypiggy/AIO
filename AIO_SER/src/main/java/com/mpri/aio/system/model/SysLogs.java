@@ -2,6 +2,7 @@ package com.mpri.aio.system.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mpri.aio.base.model.DataEntity;
 /**
  * 
@@ -78,7 +79,7 @@ public class SysLogs extends DataEntity<SysLogs>{
     public void setCreateBy(String createBy) {
         this.createBy = createBy == null ? null : createBy.trim();
     }
-
+    @JsonFormat(pattern ="yyyy-MM-dd", timezone = "GMT+8")
     public Date getCreateDate() {
         return createDate;
     }

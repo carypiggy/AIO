@@ -61,12 +61,12 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         cols : [[
         	//{type:'checkbox'},
             {field: 'type', title: '日志类型'},
-            {field: 'username', title: '创建者'},
-						{field: 'createDate', title: '创建日期'},
-						{field: 'remoteAddr', title: '操作IP地址'},
-						{field: 'userAgent', title: '用户代理'},
-						{field: 'requestUri', title: '请求URI'},
-						{field: 'method', title: '操作方式'},
+            {field: 'createBy', title: '创建者'},
+			{field: 'createDate', title: '创建日期'},
+			{field: 'remoteAddr', title: '操作IP地址'},
+			{field: 'userAgent', title: '用户代理'},
+			{field: 'requestUri', title: '请求URI'},
+			{field: 'method', title: '操作方式'},
             {field: 'params', title: '操作提交的数据'},
             {field: 'excContent', title: '异常信息'}
 			]],
