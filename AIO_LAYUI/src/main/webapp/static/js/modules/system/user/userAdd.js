@@ -7,7 +7,7 @@
 layui.config({
 	base: '../../../../static/js/' //此处路径请自行处理, 可以使用绝对路径
 }).extend({
-	formSelects: 'formSelects-v4',
+	"formSelects": 'formSelects-v4',
 	"application" : "application",
 	'publicUtil' : 'publicUtil',
 	"validparam"  : "validparam"
@@ -28,16 +28,16 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 		var formSelectsdata;
 		if(parent.editFormData != ''){
 			data = parent.editFormData;
-			$(".id").val(data.id);
-			$(".username").val(data.username);
-			$(".name").val(data.name);
-			$(".email").val(data.email);
-			$(".mobile").val(data.mobile);
-			$(".idcard").val(data.idcard);  
-			$(".remark").val(data.remark);
+			$(".id").val(publicUtil.htmlDecode(data.id));
+			$(".username").val(publicUtil.htmlDecode(data.username));
+			$(".name").val(publicUtil.htmlDecode(data.name));
+			$(".email").val(publicUtil.htmlDecode(data.email));
+			$(".mobile").val(publicUtil.htmlDecode(data.mobile));
+			$(".idcard").val(publicUtil.htmlDecode(data.idcard));  
+			$(".remark").val(publicUtil.htmlDecode(data.remark));
 			$('#photoPath').html(data.photo);
-			$('.orgName').val(data.orgName);
-			$(".orgId").val(data.orgId);
+			$('.orgName').val(publicUtil.htmlDecode(data.orgName));
+			$(".orgId").val(publicUtil.htmlDecode(data.orgId));
 			if(data.photo != null){
 				document.getElementById("photo").src= data.photo;	
 			}
@@ -138,23 +138,26 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 		initSelect();
 		form.on("submit(addUser)",function(data){
 			//弹出loading
-			 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});				 
+			 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});	
+			 //参数封装
+			 var data={
+					"id" : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+					"username" : $(".username").val(),
+					"name" : $(".name").val(),
+					"email" : $(".email").val(),
+					"mobile" : $(".mobile").val(),
+					"idcard" : $(".idcard").val(),
+					"remark" : $(".remark").val(),
+					"photo" : $('#photoPath').html(),
+					"orgId" : $(".orgId").val(),
+					"type" : $("#type").val(),
+					"roleList" : convert(layui.formSelects.value('userRole', 'val'))
+			 }
+			 
 			 $.ajax({
 					url: application.SERVE_URL+'/sys/sysuser/save', //ajax请求地址
 					contentType: "application/json",
-					data: JSON.stringify({
-						id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-						username : $(".username").val(),
-						name : $(".name").val(),
-						email : $(".email").val(),
-						mobile : $(".mobile").val(),
-						idcard : $(".idcard").val(),
-						remark : $(".remark").val(),
-						photo : $('#photoPath').html(),
-						orgId : $(".orgId").val(),
-						type : $("#type").val(),
-						roleList : convert(layui.formSelects.value('userRole', 'val'))
-					}),		
+					data: publicUtil.htmlEscape(JSON.stringify(data)),		
 					success: function (res) {
 						// if(res.code==200){
 							top.layer.close(index);

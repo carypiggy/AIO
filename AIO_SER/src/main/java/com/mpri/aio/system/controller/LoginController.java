@@ -144,7 +144,7 @@ public class LoginController extends BaseController {
 			String newToken=JWTUtil.sign(username, password,comeFrom);
 			
 			//获取token过期时间
-			long newTokenTime= JWTUtil.getTokenTime(token);
+			long newTokenTime= JWTUtil.getTokenTime(newToken);
 			
 			//封装token
 			RestToken restToken=new RestToken();

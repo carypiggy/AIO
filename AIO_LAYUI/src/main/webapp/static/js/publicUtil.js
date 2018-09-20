@@ -204,7 +204,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 						 }
 					},
 					error: function(){
-						errofuntion();
+						errofunc();
 					}
 				});				
 			}
@@ -263,9 +263,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 // 						// layui.layer.msg(result.msg);
 // 						return false;
 // 					}
-				},
-				error: function(){
-					errofuntion();
 				}
 			}); 
 		},
@@ -348,15 +345,21 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 				top.layer.msg(result.msg+"("+result.code+")");
 			}
 		},
-		
 		hiddenMenu : function(obj){
 			check_ed(obj);
 			//隐藏右键菜单
 			$("#show_menu").css({display:'block'}).hide();
 			return;
-		}
-		
-	
+		},
+		//Html转义
+		htmlEscape : function(value){
+			return $('<div/>').text(value).html();
+		},
+		//Html反转义
+		htmlDecode :function(value){
+			return $('<div/>').html(value).text();
+		}	
+
 	}
 		//checkbox 被选中事件
 		function check_ed(obj){		
@@ -404,7 +407,10 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		function errofunc(res){	
 			var result=res.responseJSON;
 			if(result==undefined){
-				top.layer.msg("服务连接中断，请检查网络连接情况，并重新登陆！");
+				top.layer.msg("服务连接异常，请检查网络连接，并重新登陆！",function(){
+					top.location.href = application.BASE_URL+"/login.html";
+				});
+				
 			}else{
 				top.layer.msg(result.msg+"("+result.code+")");
 			}
@@ -426,9 +432,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 							sessionStorage.removeItem("tokenTime");
 							sessionStorage.setItem("token", data.data.token);
 							sessionStorage.setItem("tokenTime", data.data.tokenTime);
-						},
-						error: function (errdata) {
-							top.location.href = application.BASE_URL+"/login.html";
 						}
 					});
 				}
@@ -439,11 +442,13 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		
 		//判断token起效时间的方法
 		function judgeTokenIssue(){
-			var timelogin= application.TOKENTIME - new Date().getTime() ;
+			var timelogin= application.TOKENTIME - new Date().getTime();
 			if(timelogin < application.TOKENISSUE && timelogin>0){
 				return true;
 			}else if(timelogin < 0) {
-				top.layer.alert("因长时间未操作，请重新登陆!",{closeBtn:0},function(){
+				sessionStorage.removeItem("token");
+				sessionStorage.removeItem("tokenTime");
+				top.layer.msg("因长时间未操作，请重新登陆!",function(){
 					top.location.href = application.BASE_URL+"/login.html";
 				});
 			}else{
