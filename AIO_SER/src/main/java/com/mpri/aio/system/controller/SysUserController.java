@@ -46,10 +46,6 @@ public class SysUserController extends BaseController {
 	@Value("${file.uploadFolder}")
 	private String uploadFolder;
 	
-	
-	
-	
-	
 	/*初始没有身份证号的密码*/
 	private static final String DEFAULT_PWD = "123456";
 	/**
@@ -76,7 +72,7 @@ public class SysUserController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/save")
+	@RequestMapping(value = "/save")
 	public RestResponse<String> save(@RequestBody @Validated SysUser sysUser){
 				
 		if((null == sysUser.getId() || "".equals(sysUser.getId()))) {

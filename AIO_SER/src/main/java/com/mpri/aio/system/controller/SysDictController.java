@@ -89,8 +89,8 @@ public class SysDictController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-	@RequiresAuthentication
-	@RequiresPermissions("sysdict:edit")
+//	@RequiresAuthentication
+//	@RequiresPermissions("sysdict:edit")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public RestResponse<SysDict> get(SysDict sysDict) {
 		
