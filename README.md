@@ -1,16 +1,16 @@
 # ALL In One
+项目首页：http://www.caryskying.com
 
 演示地址：http://aio.caryskying.com
 
 （暂不可访问）
 
 
-
 一、AIO_SER:服务端程序
 
-1.当前springboot2.0.4框架整合样例
+1.当前springboot 2.0.4框架整合样例
 
-2.加入layui2.4.2版本及其相关内容
+2.加入layui 2.4.2版本及其相关内容
 
 3.shiro框架基础功能
 
@@ -39,3 +39,5 @@
 4.工具类
 
 5.全局异常处理
+
+6.其他
