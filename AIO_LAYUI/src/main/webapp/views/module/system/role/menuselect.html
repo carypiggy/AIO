@@ -69,27 +69,32 @@
 			
 			
 			form.on("submit(getSelectData)",function(data){
-				//弹出loading
-				var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});		
-				_$.ajax({
-					url: application.SERVE_URL+"/sys/sysrole/saveRoleMenu", //ajax请求地址
-					contentType: "application/json",
-					data:JSON.stringify({
-						id : parent.formdatas.id,
-						menuList : getSelectData(ztreeObj.getCheckedNodes())
-					}),			
-					success: function (res) {
-						
-						if(res.code==application.REQUEST_SUCCESS){
-							top.layer.close(index);
-							layer.msg("权限修改成功");
-							//刷新父页面
-							parent.location.reload();	
-						}else{
-							layer.msg("权限修改失败！");
+				//弹出loading				
+				if(getSelectData(ztreeObj.getCheckedNodes()).length === 0 ){					
+					layer.msg("请至少选择一个菜单");
+					return  false ;
+				}else{
+					var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+					_$.ajax({
+						url: application.SERVE_URL+"/sys/sysrole/saveRoleMenu", //ajax请求地址
+						contentType: "application/json",
+						data:JSON.stringify({
+							id : parent.formdatas.id,
+							menuList : getSelectData(ztreeObj.getCheckedNodes())
+						}),			
+						success: function (res) {
+							
+							if(res.code==application.REQUEST_SUCCESS){
+								top.layer.close(index);
+								layer.msg("权限修改成功");
+								//刷新父页面
+								parent.location.reload();	
+							}else{
+								layer.msg("权限修改失败！");
+							}
 						}
-					}
-				});	
+					});	
+				}	
 				return false;
 			})
 			

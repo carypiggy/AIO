@@ -16,11 +16,11 @@
 			"application": "application",
 			"publicUtil": "publicUtil"
 		})
-		layui.use(['layer', 'application', "publicUtil", 'application'], function () {
+		layui.use(['layer', 'application', "publicUtil", 'application','jquery'], function () {
 			layer = parent.layer,
-			application = layui.application;
-			publicUtil = layui.publicUtil
-			
+			application = layui.application,
+			publicUtil = layui.publicUtil,
+			_$ = layui.jquery;
 			//ztree设置
 			var setting = {
 				view: {
@@ -42,31 +42,28 @@
 				}
 			};
 
-			$(document).ready(function () {
+			_$(document).ready(function () {
 				//重置按钮
 				//生产环境具体考虑
-				$("#reset").click(function () {
+				_$("#reset").click(function () {
 					ztreeObj.checkAllNodes(true);
 				});
 
 
-				$.ajax({
+				_$.ajax({
 					url: application.SERVE_URL + '/sys/sysmenu/list',
-					headers: {
-						'Authorization': application.HEADER
-					}, //ajax请求地址
 					success: function (data) {
 						ztreeObj = $.fn.zTree.init($("#treeDemo"), setting, data.data); //加载数据
 						//获取根节点个数,getNodes获取的是根节点的集合
 						var nodeList = ztreeObj.getNodes();　　　　　　 //展开第一个根节点
 						ztreeObj.expandNode(nodeList[0], true);
 						//树回显
-						publicUtil.setTreeSel($(".parentId", parent.document).val(), ztreeObj);
+						publicUtil.setTreeSel(_$(".parentId", parent.document).val(), ztreeObj);
 
 					}
 				});
 
-				$("#getSelectData").click(function () {
+				_$("#getSelectData").click(function () {
 					publicUtil.setAcrossName(ztreeObj.getCheckedNodes(), ".parentId", ".parentName")
 				})
 			});

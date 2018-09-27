@@ -79,14 +79,12 @@ public class LogAspect {
 		sysLogs.setRequestUri(request.getRequestURI());
 		// 用户名
 		String token=request.getHeader("Authorization");
-        sysLogs.setUsername(JWTUtil.getUsername(token));
-		// 创建人
-		sysLogs.setCreateBy("admin");
+        sysLogs.setCreateBy(JWTUtil.getUsername(token));
 		// 浏览器
 		sysLogs.setUserAgent(request.getHeader("User-Agent"));
 		// 时间
 		sysLogs.setCreateDate(new Date());
 	       //保存系统日志
-	       sysLogsService.save(sysLogs);
+		sysLogsService.save(sysLogs);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
+import com.mpri.aio.common.logs.Logs;
 import com.mpri.aio.common.page.ResJson;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysMenu;
@@ -57,6 +58,7 @@ public class SysMenuController extends BaseController {
 	* @param sysMenu
 	* @return
 	 */
+	@Logs(value = "菜单修改",type ="UPDATE")
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	//@RequiresAuthentication
@@ -80,6 +82,7 @@ public class SysMenuController extends BaseController {
 	* @param sysMenu
 	* @return
 	 */
+	@Logs(value = "菜单删除",type ="DELETE")
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public RestResponse<String> delete(SysMenu sysMenu) {

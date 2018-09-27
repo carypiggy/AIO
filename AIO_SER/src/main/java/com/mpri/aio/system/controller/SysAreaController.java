@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
+import com.mpri.aio.common.logs.Logs;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.page.ResJson;
 import com.mpri.aio.common.response.RestResponse;
@@ -74,6 +75,7 @@ public class SysAreaController extends BaseController {
 	* @param sysDict
 	* @return
 	 */
+	@Logs(value = "区域修改",type ="UPDATE")
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public RestResponse<String> save(@Validated SysArea sysArea){
@@ -97,6 +99,7 @@ public class SysAreaController extends BaseController {
 	* @param sysDict
 	* @return
 	 */
+	@Logs(value = "区域删除",type ="DELETE")
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public RestResponse<String> delete(SysArea sysArea) {

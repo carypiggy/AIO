@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -58,20 +59,20 @@ public class XSSMappingJackson2HttpMessageConverter extends MappingJackson2HttpM
 			if (clazz == null) {
 				return obj;
 			}
-			Field[] fields = clazz.getDeclaredFields();
-			if (fields != null && fields.length > 0) {
+			List<Field> fields = getFieldList(clazz);
+			if (fields != null && fields.size() > 0) {
 				// string类型字段名称列表
-				List<String> strList = new ArrayList<String>(fields.length);
+				List<String> strList = new ArrayList<String>(fields.size());
 				// 1. 将需要xss处理的string类型的字段放入strlist
-				for (int i = 0; i < fields.length; i++) {
-					String mod = Modifier.toString(fields[i].getModifiers());
+				for (int i = 0; i < fields.size(); i++) {
+					String mod = Modifier.toString(fields.get(i).getModifiers());
 					if (mod.indexOf("static") != -1)
 						continue;
 					// 得到属性的类名
-					String className = fields[i].getType().getSimpleName();
+					String className = fields.get(i).getType().getSimpleName();
 					// 得到属性字段名
 					if (className.equalsIgnoreCase("String")) {
-						strList.add(fields[i].getName());
+						strList.add(fields.get(i).getName());
 					}
 				}
 				// 2.将strlist中的字段进行xss处理
@@ -116,5 +117,36 @@ public class XSSMappingJackson2HttpMessageConverter extends MappingJackson2HttpM
 		outputMessage.getBody().write(result.getBytes());
 	}
 
-
+	/**
+	 * 获取该类的字段及父级字段
+	* <p>Title: getFieldList</p>  
+	* <p>Description: </p>  
+	* @param clazz
+	* @return
+	 */
+	private List<Field> getFieldList(Class<?> clazz){
+	    if(null == clazz){
+	        return null;
+	    }
+	    List<Field> fieldList = new LinkedList<Field>();
+	    Field[] fields = clazz.getDeclaredFields();
+	    for(Field field : fields){
+	        /** 过滤静态属性**/
+	        if(Modifier.isStatic(field.getModifiers())){
+	            continue;
+	        }
+	        /** 过滤transient 关键字修饰的属性**/
+	        if(Modifier.isTransient(field.getModifiers())){
+	            continue;
+	        }
+	        fieldList.add(field);
+	    }
+	    /** 处理父类字段**/
+	    Class<?> superClass = clazz.getSuperclass();
+	    if(superClass.equals(Object.class)){
+	        return fieldList;
+	    }
+	    fieldList.addAll(getFieldList(superClass));
+	    return fieldList;
+	}
 }

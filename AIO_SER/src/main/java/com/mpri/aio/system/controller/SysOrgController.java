@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
+import com.mpri.aio.common.logs.Logs;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.page.ResJson;
 import com.mpri.aio.common.response.RestResponse;
@@ -74,6 +75,7 @@ public class SysOrgController extends BaseController {
 	* @param sysOrg
 	* @return
 	 */
+	@Logs(value = "机构修改",type ="UPDATE")
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public RestResponse<String> save(@RequestBody SysOrg sysOrg){		
@@ -93,6 +95,7 @@ public class SysOrgController extends BaseController {
 	* @param sysOrg
 	* @return
 	 */
+	@Logs(value = "机构删除",type ="DELETE")
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public RestResponse<String> delete(SysOrg sysOrg) {
