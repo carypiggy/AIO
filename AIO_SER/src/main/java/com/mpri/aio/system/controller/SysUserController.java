@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
+import com.mpri.aio.common.logs.Logs;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.common.utils.DateUtils;
@@ -75,6 +76,7 @@ public class SysUserController extends BaseController {
 	* @param SysUser
 	* @return
 	 */
+	@Logs(value = "用户修改",type ="UPDATE")
 	@CrossOrigin
 	@RequestMapping(value = "/save")
 	public RestResponse<String> save(@RequestBody @Validated SysUser sysUser){
@@ -101,6 +103,7 @@ public class SysUserController extends BaseController {
 	 * @param SysUser
 	 * @return
 	 */
+	@Logs(value = "用户删除",type ="DELETE")
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public RestResponse<String> delete(SysUser sysUser) {
@@ -209,6 +212,7 @@ public class SysUserController extends BaseController {
 	 * @param newPwd
 	 * @return
 	 */
+	@Logs(value = "修改密码",type ="OTHER")
 	@CrossOrigin
 	@PostMapping(value = "/changePwd")
 	public RestResponse<String> changePwd(SysUser formUser,@RequestParam("newPwd") String newPwd,@RequestParam("oldPwd") String oldPwd){

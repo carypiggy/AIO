@@ -18,7 +18,7 @@
   
   <!-- 基础字段定义 -->
   <sql id="Base_Column_List">
-    sl.id, sl.type, sl.create_by, sl.create_date, sl.remote_addr, sl.user_agent, sl.request_uri, sl.method,params, sl.exc_content,su.username
+    sl.id, sl.type, sl.create_by, sl.create_date, sl.remote_addr, sl.user_agent, sl.request_uri, sl.method,params, sl.exc_content
   </sql>
   
 	<!-- 查询条件定义 -->
@@ -68,7 +68,6 @@
     select 
     <include refid="Base_Column_List" />
     from sys_logs sl
-   	JOIN sys_user su ON su.id = sl.create_by  
     where sl.id = #{id,jdbcType=VARCHAR}
   </select>
   
@@ -192,12 +191,10 @@
    	select
    		<include refid="Base_Column_List" />
    	from sys_logs sl
-   	
-   		JOIN sys_user su ON su.id = sl.create_by   	
    	WHERE   	
   		sl.flag = #{entity.FLAG_NORMAL}
       <if test="entity.username != null">
-        and su.username like '%${entity.username}%'
+        and sl.create_by like '%${entity.username}%'
       </if>
        <if test="entity.queryBeginDate!=null">
            and sl.create_date &gt;= #{entity.queryBeginDate}  

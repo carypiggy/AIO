@@ -316,7 +316,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 						var nodes = treeObj.getNodesByParam("id",
 								treeNode[i].id, null);
 						//勾选当前选中的节点
-						treeObj.checkNode(nodes[0], true, true);
+						treeObj.checkNode(nodes[0], true, false);
 						ztreeObj.expandNode(nodes[0], true);
 					}
 				}

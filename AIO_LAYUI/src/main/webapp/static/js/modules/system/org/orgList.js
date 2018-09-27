@@ -70,7 +70,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 			
 		function covert(data) {
 			for (var i = 0; i < data.length; i++) {
-				data[i].name = data[i].name +"("+dateUtils.getYearAndDay(data[i].openDate)+"--"+ judgeNull(data[i].closeDate)+")"
+				data[i].name = publicUtil.htmlDecode(data[i].name) +"("+dateUtils.getYearAndDay(data[i].openDate)+"--"+ judgeNull(data[i].closeDate)+")"
 			}
 			return data;
 		}

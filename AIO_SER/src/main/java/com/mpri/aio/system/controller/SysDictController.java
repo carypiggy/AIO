@@ -41,7 +41,6 @@ public class SysDictController extends BaseController {
 	* @param sysDict
 	* @return
 	 */
-	@Logs(value = "编码查询",type ="QUERY")
 	@CrossOrigin
 	@PostMapping(value = "/list")
 	public PageIo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
@@ -57,6 +56,7 @@ public class SysDictController extends BaseController {
 	* @param sysDict
 	* @return
 	 */
+	@Logs(value = "编码修改",type ="UPDATE")
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public RestResponse<String> save(@Validated SysDict sysDict){
@@ -71,6 +71,7 @@ public class SysDictController extends BaseController {
 	* @param sysDict
 	* @return
 	 */
+	@Logs(value = "编码删除",type ="DELETE")
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public RestResponse<String> delete(SysDict sysDict) {

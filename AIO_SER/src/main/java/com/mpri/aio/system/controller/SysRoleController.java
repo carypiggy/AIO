@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
+import com.mpri.aio.common.logs.Logs;
 import com.mpri.aio.common.page.PageIo;
 import com.mpri.aio.common.response.RestResponse;
 import com.mpri.aio.system.model.SysRole;
@@ -79,6 +80,7 @@ public class SysRoleController extends BaseController {
 	* @param sysRole
 	* @return
 	 */
+	@Logs(value = "角色删除",type ="DELETE")
 	@CrossOrigin
 	@PostMapping(value = "/delete")
 	public RestResponse<String> delete(SysRole sysRole) {
@@ -96,6 +98,7 @@ public class SysRoleController extends BaseController {
 	* @param sysRole
 	* @return
 	 */
+	@Logs(value = "角色修改",type ="UPDATE")
 	@CrossOrigin
 	@PostMapping(value = "/save")
 	public RestResponse<String> save(@Validated SysRole sysRole){
@@ -110,6 +113,7 @@ public class SysRoleController extends BaseController {
 	* @param sysRole
 	* @return
 	 */
+	@Logs(value = "角色权限",type ="OTHER")
 	@CrossOrigin
 	@PostMapping(value = "/saveRoleMenu")
 	public RestResponse<String> saveRoleMenu(@RequestBody SysRole sysRole) {
