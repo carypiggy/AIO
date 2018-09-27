@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mpri.aio.system.utils.qrcode.QRCode;
+import com.mpri.aio.common.utils.qrcode.QRCode;
 
 /**
  * 微信相关请求

@@ -1,4 +1,4 @@
-package com.mpri.aio.system.utils.qrcode;
+package com.mpri.aio.common.utils.qrcode;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,11 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+/**
+ * QRCode的生成
+ * @author Cary
+ * @date 2018年9月27日
+ */
 public class QRCode {
 
 	public static void Stream_QRCode(String content,String photo,OutputStream stream) throws IOException, WriterException{

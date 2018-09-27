@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +58,9 @@ public class LoginController extends BaseController {
 	//菜单根节点的父值定义为root
 	private final String parentId="root";
 	
+	@Value("${ps.salt}")
+	private int saltTimes;
+	
 	/**
 	 * 管理登录
 	 */
@@ -64,8 +68,6 @@ public class LoginController extends BaseController {
 	public RestResponse<RestToken> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("comeFrom")String comeFrom) {
-	
-
 		//首先校认验证码
         //if(true) {
     	SysUser sysUser=sysUserService.getSysUserByUsername(username);
@@ -77,7 +79,7 @@ public class LoginController extends BaseController {
 			//加盐处理密码
 			String safeCode=sysUser.getSafecode();
 			ByteSource salt = ByteSource.Util.bytes(safeCode);
-			String result = new Md5Hash(password,salt,3).toString();
+			String result = new Md5Hash(password,salt,saltTimes).toString();
 			
 			//验证码获取
 			//String severCode = (String)session.getAttribute("authCode");

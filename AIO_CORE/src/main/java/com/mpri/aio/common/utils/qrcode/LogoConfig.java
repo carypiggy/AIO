@@ -1,4 +1,4 @@
-package com.mpri.aio.system.utils.qrcode;
+package com.mpri.aio.common.utils.qrcode;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -9,7 +9,11 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
-
+/**
+ * QRCode的头像设置
+ * @author Cary
+ * @date 2018年9月27日
+ */
 public class LogoConfig {
 	/**
 	 * 设置 logo 

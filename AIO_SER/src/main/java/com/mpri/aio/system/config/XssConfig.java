@@ -1,35 +1,28 @@
 package com.mpri.aio.system.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.mpri.aio.common.xss.XssStringJsonSerializer;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.mpri.aio.common.xss.XSSMappingJackson2HttpMessageConverter;
+
 /**
  * xxs过滤配置
+ * 
  * @author Cary
  * @date 2018年9月19日
  */
-
 @Configuration
-public class XssConfig extends WebMvcConfigurationSupport{
+public class XssConfig implements WebMvcConfigurer{
 
-	@Bean
-	@Primary
-	public ObjectMapper xssObjectMapper(Jackson2ObjectMapperBuilder builder) {
-		//解析器
-		ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-		//注册xss解析器
-		SimpleModule xssModule = new SimpleModule("XssStringJsonSerializer");
-		xssModule.addSerializer(new XssStringJsonSerializer());
-		objectMapper.registerModule(xssModule);
-		//返回
-		return objectMapper;
-	}
-
-
+	/**
+	 * 替换消息转换器
+	 */
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(new XSSMappingJackson2HttpMessageConverter()); 
+	}	
 }

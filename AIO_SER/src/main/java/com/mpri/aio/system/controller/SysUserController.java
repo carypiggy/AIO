@@ -46,8 +46,12 @@ public class SysUserController extends BaseController {
 	@Value("${file.uploadFolder}")
 	private String uploadFolder;
 	
+	@Value("${ps.salt}")
+	private int saltTimes;
+	
 	/*初始没有身份证号的密码*/
-	private static final String DEFAULT_PWD = "123456";
+	private static final String DEFAULT_PWD = "DF"+DateUtils.getYear();
+	
 	/**
 	 * 获取用户列表
 	* <p>Title: list</p>  
@@ -74,13 +78,12 @@ public class SysUserController extends BaseController {
 	@CrossOrigin
 	@RequestMapping(value = "/save")
 	public RestResponse<String> save(@RequestBody @Validated SysUser sysUser){
-				
 		if((null == sysUser.getId() || "".equals(sysUser.getId()))) {
 			sysUser.setSafecode(IdGen.uuid());
 			sysUser.setPassword(initPwd(sysUser.getIdcard()));
 			ByteSource salt = ByteSource.Util.bytes(sysUser.getSafecode());
 			//加盐炒三次safecode=salt
-			String result = new Md5Hash(sysUser.getPassword(),salt,3).toString();
+			String result = new Md5Hash(sysUser.getPassword(),salt,saltTimes).toString();
 			sysUser.setPassword(result);
 		}
 		
@@ -93,10 +96,10 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 删除用户（逻辑删除）
-	* <p>Title: delete</p>  
-	* <p>Description: </p>  
-	* @param SysUser
-	* @return
+	 * <p>Title: delete</p>  
+	 * <p>Description: </p>  
+	 * @param SysUser
+	 * @return
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
@@ -109,10 +112,10 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 根据id获取用户
-	* <p>Title: get</p>  
-	* <p>Description: </p>  
-	* @param id
-	* @return
+	 * <p>Title: get</p>  
+	 * <p>Description: </p>  
+	 * @param id
+	 * @return
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
@@ -122,10 +125,10 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 根据username获取用户
-	* <p>Title: get</p>  
-	* <p>Description: </p>  
-	* @param username
-	* @return
+	 * <p>Title: get</p>  
+	 * <p>Description: </p>  
+	 * @param username
+	 * @return
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/getusername")
@@ -142,10 +145,10 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 根据username获取用户
-	* <p>Title: get</p>  
-	* <p>Description: </p>  
-	* @param username
-	* @return
+	 * <p>Title: get</p>  
+	 * <p>Description: </p>  
+	 * @param username
+	 * @return
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/checkUserExist")
@@ -162,38 +165,33 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 文件图上传     
-	* <p>Title: uploadImg</p>  
-	* <p>Description: </p>  
-	* @param file
-	* @param request
-	* @return
+	 * <p>Title: uploadImg</p>  
+	 * <p>Description: </p>  
+	 * @param file
+	 * @param request
+	 * @return
 	 */
     @CrossOrigin
     @PostMapping(value = "/uploadimg")
-    public RestResponse<String> uploadImg(@RequestParam("file") MultipartFile file,
-            HttpServletRequest request) {
-//        String contentType = file.getContentType();
+    public RestResponse<String> uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         String fileName = file.getOriginalFilename();
         String newFilName = String.valueOf(new Date().getTime())+"."+fileName.substring(fileName.lastIndexOf(".") + 1); /*更改文件名*/
         String resfillPath  = DateUtils.getDate();
-//        String filePath = request.getSession().getServletContext().getRealPath(resfillPath+ "/");
-        
         String filePath = uploadFolder +resfillPath+"/";
         try {
             FileUtils.uploadFile(file.getBytes(), filePath, newFilName);
-            return RestResponse.getInstance(200, "上传成功", staticAccessPath.replaceAll("\\*", "")+resfillPath +"/"+newFilName);
+            return RestResponse.getInstance(ExceptionResult.REQUEST_SUCCESS, "上传成功", staticAccessPath.replaceAll("\\*", "")+resfillPath +"/"+newFilName);
         } catch (Exception e) {
-            // TODO: handle exception
+        	return RestResponse.getInstance(ExceptionResult.SYS_ERROR, "上传失败", resfillPath+fileName);
         }      
-        return RestResponse.getInstance(-1, "上传失败", resfillPath+fileName);
     }
     
 	/**
 	 * 检查旧密码
-	* <p>Title: get</p>  
-	* <p>Description: </p>  
-	* @param sysUser
-	* @return
+	 * <p>Title: get</p>  
+	 * <p>Description: </p>  
+	 * @param sysUser
+	 * @return
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/checkOldPwd")
@@ -218,8 +216,8 @@ public class SysUserController extends BaseController {
 		if(check) {
 			SysUser oldUser = sysUserService.getPwdByUsername(formUser);	
 			ByteSource salt = ByteSource.Util.bytes(oldUser.getSafecode());
-			//加盐炒三次safecode=salt
-			String result = new Md5Hash(newPwd,salt,3).toString();
+			//加盐炒safecode=salt
+			String result = new Md5Hash(newPwd,salt,saltTimes).toString();
 			oldUser.setPassword(result);
 			sysUserService.save(oldUser);
 			return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "密码修改成功！", null);	
@@ -249,8 +247,8 @@ public class SysUserController extends BaseController {
 	private Boolean checkPwd(SysUser formUser,String oldPwd) {
 		SysUser oldUser = sysUserService.getPwdByUsername(formUser);		
 		ByteSource salt = ByteSource.Util.bytes(oldUser.getSafecode());
-		//加盐炒三次safecode=salt
-		String result = new Md5Hash(oldPwd,salt,3).toString();		
+		//加盐炒safecode=salt
+		String result = new Md5Hash(oldPwd,salt,saltTimes).toString();		
 		if(result.equals(oldUser.getPassword())) {
 			return true;
 		}

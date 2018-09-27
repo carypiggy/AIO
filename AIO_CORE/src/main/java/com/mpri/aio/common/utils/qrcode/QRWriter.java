@@ -1,6 +1,5 @@
-package com.mpri.aio.system.utils.qrcode;
+package com.mpri.aio.common.utils.qrcode;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +9,11 @@ import javax.imageio.ImageIO;
 
 import com.google.zxing.common.BitMatrix;
 
+/**
+ * QRCode的输出
+ * @author Cary
+ * @date 2018年9月27日
+ */
 public class QRWriter {
 
 	private static final int BLACK = 0xFF000000;//用于设置图案的颜色
