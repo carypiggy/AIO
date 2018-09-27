@@ -1,5 +1,5 @@
 "use strict";
-layui.define("jquery",function(exports){
+layui.define(["jquery",'layer'],function(exports){
     var $ = layui.jquery;
     
     var obj ={
@@ -8,7 +8,10 @@ layui.define("jquery",function(exports){
             if(sessionStorage.getItem("token") === null ||
             sessionStorage.getItem("token") === "" ||
             sessionStorage.getItem("token") === undefined){
-            top.location.href = "../../../../login.html";
+        	top.layer.msg("因长时间未操作，请重新登陆!",{time:1000},function(){
+        		top.location.href = "../../../../login.html";
+			});
+            	
             }
             $(document).bind("contextmenu",function(e){
                return false;
@@ -18,8 +21,10 @@ layui.define("jquery",function(exports){
         initindex : function (){
             if(sessionStorage.getItem("token") === null ||
             sessionStorage.getItem("token") === "" ||
-            sessionStorage.getItem("token") === undefined){
-            top.location.href = "login.html";
+            sessionStorage.getItem("token") === undefined){ 	
+            	top.layer.msg("因长时间未操作，请重新登陆!",{time:1000},function(){
+            		top.location.href = "login.html";
+    			});
             }
         },
         //请求加密

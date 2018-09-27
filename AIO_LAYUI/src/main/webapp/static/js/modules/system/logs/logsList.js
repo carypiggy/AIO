@@ -88,7 +88,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	//搜索【此功能需要后台配合，所以暂时没有动态效果演示】
 	$(".search_btn").on("click",function(){
 		 if(end < start){
-			 top.layer.msg("开始时间不能大于结束时间");
+			 top.layer.msg("开始时间不能大于结束时间",{time: 1000});
 			 return;
 		 }		
 			table.reload("logsList",{

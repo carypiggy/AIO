@@ -22,7 +22,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 	
 	tab = layui.bodyTab({
 		openTabNum: "20", //最大可打开窗口数量
-			// url: "static/json/menu.json" //获取菜单json地址,
+		// url: "static/json/menu.json" //获取菜单json地址,
 	});
 	
 	//页面初始
@@ -73,7 +73,9 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 						$("#topLevelMenus li").first().trigger("click");
 					}
 				}else{
-					top.layer.msg("您没有被授权使用系统，请联系管理员！");
+					top.layer.msg("您没有被授权使用系统，请联系管理员！",{time:3000},function(){
+						top.location.href = "login.html";
+					});
 				}
 			}
 		});
@@ -122,22 +124,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 		tab.tabMove();
 	})
 
-	//清除缓存
-	$(".clearCache").click(function () {
-		window.sessionStorage.clear();
-		window.localStorage.clear();
-		var index = layer.msg('清除缓存中，请稍候', {
-			icon: 16,
-			time: false,
-			shade: 0.8
-		});
-		setTimeout(function () {
-			layer.close(index);
-			layer.msg("缓存清除成功！");
-		}, 1000);
-	})
-
-	// 添加新窗口
+	//添加新窗口
 	$("body").on("click", ".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')", function () {
 		//如果不存在子级
 		if ($(this).siblings().length == 0) {

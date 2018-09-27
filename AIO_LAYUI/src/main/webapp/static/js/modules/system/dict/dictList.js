@@ -40,7 +40,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
         limit : 10,
         id : "dictList",
         cols : [[
-/*            {field: 'id', title: 'ID', align:"center",style:'display:none;'},*/
+        	//{field: 'id', title: 'ID', align:"center",style:'display:none;'},
 			{type:'checkbox'},
             {field: 'typeCode', title: '编码类型'},
             {field: 'label', title: '编码名称'},
@@ -94,9 +94,9 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 							tableIns.reload();
 							// location.reload();
 							top.layer.close(index);	
-							top.layer.msg(res.msg);							
+							top.layer.msg(res.msg,{time:1000});							
 						}else{
-							top.layer.msg(res.msg);
+							top.layer.msg(res.msg,{time:1000});
 						}
 
 					}

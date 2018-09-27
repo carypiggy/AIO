@@ -115,9 +115,5 @@ public class SysRoleController extends BaseController {
 	public RestResponse<String> saveRoleMenu(@RequestBody SysRole sysRole) {
 		sysRoleService.saveRoleMenu(sysRole);
 		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
-
 	}
-	
-		
-	
 }

@@ -133,7 +133,7 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 					}
 				})
 			}else{
-				layer.msg("请输入搜索的内容");
+				layer.msg("请输入搜索的内容",{time: 1000});
 			}
 		});			
 
@@ -180,9 +180,9 @@ layui.use(['element', 'layer', 'form', 'tree','table','laydate','application','p
 									tableIns.reload();
 									// location.reload();
 									top.layer.close(index);	
-									top.layer.msg(res.msg);							
+									top.layer.msg(res.msg,{time: 1000});							
 								}else{
-									top.layer.msg(res.msg);
+									top.layer.msg(res.msg,{time: 1000});
 								}
 
 							}

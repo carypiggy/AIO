@@ -39,29 +39,23 @@ layui.use(['application', 'form', 'layer', 'laydate', 'table', 'publicUtil'], fu
 		id: "roleList",
 		cols: [
 			[{
-					type: 'checkbox'
-				},
-				{
-					field: 'name',
-					title: '角色名称'
-				},
-				{
-					field: 'type',
-					title: '角色类型'
-				},
-				{
-					field: 'code',
-					title: '角色编码'
-				},
-				{
-					field: 'createDate',
-					title: '创建时间'
-				},
-				{
-					field: 'remark',
-					title: '备注信息'
-				}
-			]
+				type: 'checkbox'
+			},{
+				field: 'name',
+				title: '角色名称'
+			},{
+				field: 'type',
+				title: '角色类型'
+			},{
+				field: 'code',
+				title: '角色编码'
+			},{
+				field: 'createDate',
+				title: '创建时间'
+			},{
+				field: 'remark',
+				title: '备注信息'
+			}]
 		],
 		done: function (res, curr, count) { //res 接口返回的信息,
 			publicUtil.tableSetStr(application.SERVE_URL + "/sys/sysdict/getByTypeCode", {
@@ -95,7 +89,7 @@ layui.use(['application', 'form', 'layer', 'laydate', 'table', 'publicUtil'], fu
 				}
 			})
 		} else {
-			layer.msg("请输入搜索的内容");
+			layer.msg("请输入搜索的内容",{time: 1000});
 		}
 	});
 
@@ -130,11 +124,11 @@ layui.use(['application', 'form', 'layer', 'laydate', 'table', 'publicUtil'], fu
 					},
 					success: function (res) {
 						if (res.code == application.REQUEST_SUCCESS) {
-							top.layer.msg(res.msg);
+							top.layer.msg(res.msg,{time: 1000});
 							layer.close(index);
 							table.reload();
 						} else {
-							layer.msg('权限配置失败');
+							layer.msg(res.msg,{time: 1000});
 						}
 					}
 				})

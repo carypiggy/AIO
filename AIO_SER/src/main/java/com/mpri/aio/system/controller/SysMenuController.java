@@ -2,7 +2,6 @@ package com.mpri.aio.system.controller;
 
 import java.util.List;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,7 +59,7 @@ public class SysMenuController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	@RequiresAuthentication
+	//@RequiresAuthentication
 	public RestResponse<String> save(@Validated SysMenu sysMenu){
 		if("".equals(sysMenu.getParentId())|| null == sysMenu.getParentId()) {
 			//setRoot 目录
@@ -97,7 +96,6 @@ public class SysMenuController extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-
 	public RestResponse<SysMenu> get(SysMenu sysMenu) {
 		SysMenu resSysMenu = sysMenuService.get(sysMenu);
 		SysMenu parentSysMenu = new SysMenu();

@@ -27,18 +27,18 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",true);
 				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow");
 			}else{				
-				$(".id").val(data.id);
-				$(".remark").val(data.remark);
-				$(".code").val(data.code);
-				$(".parentId").val(data.parentId);
-				$(".name").val(data.name);
-				$(".type select").val(data.type); 
-				$(".permission").val(data.permission);  
-				$(".sort").val(data.sort);  
-				$(".icon").val(data.icon);  
-				$(".target").val(data.target);  
-				$(".href").val(data.href); 
-				$(".parentName").val(data.parentSysMenu !=null ?data.parentSysMenu.name:"");  
+				$(".id").val(publicUtil.htmlDecode(data.id));
+				$(".remark").val(publicUtil.htmlDecode(data.remark));
+				$(".code").val(publicUtil.htmlDecode(data.code));
+				$(".parentId").val(publicUtil.htmlDecode(data.parentId));
+				$(".name").val(publicUtil.htmlDecode(data.name));
+				$(".type select").val(publicUtil.htmlDecode(data.type)); 
+				$(".permission").val(publicUtil.htmlDecode(data.permission));  
+				$(".sort").val(publicUtil.htmlDecode(data.sort));  
+				$(".icon").val(publicUtil.htmlDecode(data.icon));  
+				$(".target").val(publicUtil.htmlDecode(data.target));  
+				$(".href").val(publicUtil.htmlDecode(data.href)); 
+				$(".parentName").val(data.parentSysMenu !=null ?publicUtil.htmlDecode(data.parentSysMenu.name):"");  
 				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'} ,"isShow",data.isShow);		
 				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'} ,"type",data.type);		
 				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'PERMISSION'} ,"operate",data.operate);
@@ -48,51 +48,44 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 		}
 	}
 
-	/**
-	 * 表单回填
-	 */
+	//表单回填
 	formEdit(parent.editFormData);
-
-
-
+	
     form.on("submit(addMenu)",function(data){
         //弹出loading
-        //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-
-			var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
-
-			$.ajax({
-				
-				url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
-				data:{	
-					id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-					parentId : $(".parentId").val(),
-					name : $(".name").val(),
-					code : $(".code").val(),
-					href : $(".href").val(),
-					icon : $(".icon").val(),
-					type : $("#type").val(),
-					operate : $("#operate").val(),
-					permission : $(".permission").val(),
-					sort : $(".sort").val(),
-					operate : $("#operate").val(),
-					remark : $(".remark").val(),
-					isShow :$("#isShow").val(),
-					target : $(".target").val()
-
-				},
-				success: function (data) {
-					if(data.code==application.REQUEST_SUCCESS){
-						top.layer.close(index);
-						top.layer.msg(data.msg);
-						layer.closeAll("iframe");
-						//刷新父页面
-						parent.location.reload();
-					}else{
-						top.layer.msg(data.msg+"("+data.code+")");
-					}
+		var res = $(".id").val() ==null|| $(".id").val() =="" ? "新增":"修改" ;
+		var data={	
+				"id" : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+				"parentId" : $(".parentId").val(),
+				"name" : $(".name").val(),
+				"code" : $(".code").val(),
+				"href" : $(".href").val(),
+				"icon" : $(".icon").val(),
+				"type" : $("#type").val(),
+				"operate" : $("#operate").val(),
+				"permission" : $(".permission").val(),
+				"sort" : $(".sort").val(),
+				"operate" : $("#operate").val(),
+				"remark" : $(".remark").val(),
+				"isShow" :$("#isShow").val(),
+				"target" : $(".target").val()
+		}
+		//数据提交
+		$.ajax({
+			url: application.SERVE_URL+"/sys/sysmenu/save", //ajax请求地址
+			data:data,
+			success: function (data) {
+				if(data.code==application.REQUEST_SUCCESS){
+					top.layer.close(index);
+					top.layer.msg(data.msg,{time: 1000});
+					layer.closeAll("iframe");
+					//刷新父页面
+					parent.location.reload();
+				}else{
+					top.layer.msg(data.msg+"("+data.code+")",{time: 1000});
 				}
+			}
 		}); 
         return false;
     })

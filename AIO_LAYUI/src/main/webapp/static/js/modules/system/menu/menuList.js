@@ -22,62 +22,57 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 	    laytpl = layui.laytpl; //很重要
 	
 		application.init();	
+		
 		var treeTable =treeGrid.render({
-        elem: '#menuTree'
-        ,url: application.SERVE_URL+'/sys/sysmenu/list'
-        ,id: "menuTree"
-				,method: "post"
-				,even : true 
-				,headers : { 'Authorization' : application.HEADER}
-        ,treeId:'id'//树形id字段名称
-        ,treeUpId:'parentId'//树形父id字段名称
-        ,treeShowName:'name'//以树形式显示的字段
-        ,cols: [[
-			{type:'checkbox'},			
-            {field:'name', title: '菜单名称'}
-            ,{field:'code', title: '菜单编码'}
-			,{field:'href', title: '菜单链接'}
-			,{field:'type', title: '菜单类型'}
-			,{field:'permission', title: '权限标记'}
-            ,{field:'isShow', title: '是否显示'}
-        ]]        
-		,done: function(res, curr, count){    //res 接口返回的信息,
-			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'},'isShow');
-			publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'},'type');
-		}
-
-    });
-    
-	//获取权限并加载按钮
-	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
-	
-	//右键点击事件
-	treeGrid.on('rowRight(menuTree)', function(obj){
-		publicUtil.show_menu(obj);
-	});
-	
-	//左键点击事件
-	treeGrid.on('row(menuTree)', function(obj){
-		publicUtil.hiddenMenu(obj);
-	});
-//	
-//	//行点击事件
-//	//监听单元格事件
-//	treeGrid.on('tool(menuTree)', function(obj){
-//		publicUtil.show_menu(obj);
-//	});
-	
-    //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
-    $(".search_btn").on("click",function(){
-		treeGrid.reload("menuTree",{
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				name: $(".searchVal").val()  //搜索的关键字
+	        elem: '#menuTree',
+	        url: application.SERVE_URL+'/sys/sysmenu/list',
+	        id: "menuTree",
+	        method: "post",
+	        even : true ,
+	        headers : { 'Authorization' : application.HEADER},
+	        treeId:'id',//树形id字段名称 ,
+	        treeUpId:'parentId',//树形父id字段名称
+	        treeShowName:'name',//以树形式显示的字段
+	        cols: [[
+				{type:'checkbox'},			
+	            {field:'name', title: '菜单名称'},
+	            {field:'code', title: '菜单编码'},
+				{field:'href', title: '菜单链接'},
+				{field:'type', title: '菜单类型'},
+				{field:'permission', title: '权限标记'},
+	            {field:'isShow', title: '是否显示'}
+	        ]]        
+			,done: function(res, curr, count){    //res 接口返回的信息,
+				publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_SHOW'},'isShow');
+				publicUtil.tableSetStr(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'MENU_TYPE'},'type');
 			}
-		})
-    });
+
+		});
+    
+		//获取权限并加载按钮
+		publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'get','but_per');
+		
+		//右键点击事件
+		treeGrid.on('rowRight(menuTree)', function(obj){
+			publicUtil.show_menu(obj);
+		});
+		
+		//左键点击事件
+		treeGrid.on('row(menuTree)', function(obj){
+			publicUtil.hiddenMenu(obj);
+		});
+		
+	    //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
+	    $(".search_btn").on("click",function(){
+			treeGrid.reload("menuTree",{
+				page: {
+					curr: 1 //重新从第 1 页开始
+				},
+				where: {
+					name: $(".searchVal").val()  //搜索的关键字
+				}
+			})
+	    });
 
    
 		//新增操作
@@ -117,9 +112,9 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 							if(res.code==application.REQUEST_SUCCESS){
 								treeTable.reload();
 								layer.close(index);
-								top.layer.msg(res.msg);
+								top.layer.msg(res.msg,{time: 1000});
 							}else{
-								top.layer.msg(res.msg);
+								top.layer.msg(res.msg,{time: 1000});
 							}
 						}
 					});											 
@@ -128,7 +123,6 @@ layui.use(['element', 'layer', 'form', 'upload', 'treeGrid','application','publi
 				return false;
 			}
 	    })
-	
 	
 	//添加菜单
 	function _addMenu(edit,type){

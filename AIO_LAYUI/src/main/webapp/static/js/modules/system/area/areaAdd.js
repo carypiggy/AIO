@@ -22,17 +22,17 @@ layui.use(['form','layer','publicUtil','application'],function(){
 			console.log(parent.isAdd)
 			var data = FormDatas;
 			if(parent.isAdd){
-				$(".parentId").val(data.id);
-				$(".parentName").val(data.name); 
+				$(".parentId").val(publicUtil.htmlDecode(data.id));
+				$(".parentName").val(publicUtil.htmlDecode(data.name)); 
 				publicUtil.selectBase(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'} ,"type");
 			}else{
-				 $(".id").val(data.id);
-				 $(".parentId").val(data.parentSysArea.id);
-				 $(".name").val(data.name);
-				 $(".sort").val(data.sort);
-				 $(".code").val(data.code);
-				 $(".remark").val(data.remark);
-				 $(".parentName").val(data.parentSysArea.name);
+				 $(".id").val(publicUtil.htmlDecode(data.id));
+				 $(".parentId").val(publicUtil.htmlDecode(data.parentSysArea.id));
+				 $(".name").val(publicUtil.htmlDecode(data.name));
+				 $(".sort").val(publicUtil.htmlDecode(data.sort));
+				 $(".code").val(publicUtil.htmlDecode(data.code));
+				 $(".remark").val(publicUtil.htmlDecode(data.remark));
+				 $(".parentName").val(publicUtil.htmlDecode(data.parentSysArea.name));
 				 publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'AREA_TYPE'} ,"type",data.type);
 			}
 		}else{
@@ -69,26 +69,27 @@ layui.use(['form','layer','publicUtil','application'],function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 		var res = ($(".id").val() ==null|| $(".id").val() =="") ? "新增":"修改" ;
+		var data={
+			id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+			parentId : $(".parentId").val(),
+			name : $(".name").val(),
+			code : $(".code").val(),
+			type : $("#type").val(),
+			sort : $(".sort").val(),
+			remark : $(".remark").val()
+		}
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysarea/save", //ajax请求地址
-			data:{
-				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-				parentId : $(".parentId").val(),
-				name : $(".name").val(),
-				code : $(".code").val(),
-				type : $("#type").val(),
-				sort : $(".sort").val(),
-				remark : $(".remark").val(),
-			},			
+			data:data,			
 			success: function (data) {
 				if(data.code==application.REQUEST_SUCCESS){
 					top.layer.close(index);
-					top.layer.msg(data.msg);
+					top.layer.msg(data.msg,{time:1000});
 					layer.closeAll("iframe");
 					//刷新父页面
 					parent.location.reload();
 				}else{
-					top.layer.msg(data.msg+"("+data.code+")");
+					top.layer.msg(data.msg+"("+data.code+")",{time:1000});
 				}
 			}
 		}); 
