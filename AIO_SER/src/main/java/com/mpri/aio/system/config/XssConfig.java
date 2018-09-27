@@ -2,7 +2,6 @@ package com.mpri.aio.system.config;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.mpri.aio.common.xss.XSSMappingJackson2HttpMessageConverter;
 
 /**
- * xxs过滤配置
+ * xss过滤配置
  * 
  * @author Cary
  * @date 2018年9月19日
