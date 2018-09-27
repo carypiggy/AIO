@@ -23,9 +23,8 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 		validparam = layui.validparam,
 		layer =layui.layer;
 
-		form.verify(validparam);
-		
 		var formSelectsdata;
+		
 		if(parent.editFormData != ''){
 			data = parent.editFormData;
 			$(".id").val(publicUtil.htmlDecode(data.id));
@@ -60,39 +59,31 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 			,url: application.SERVE_URL+'/sys/sysuser/uploadimg'
 			,accept: 'images'
 			,exts : 'jpg|png|gif|bmp|jpeg'
-			,size : 50
+			,size : 500
 			,choose: function(obj){
 				//预读本地文件示例，不支持ie8
 				obj.preview(function(index, file, result){
 					$('#photo').attr('src', result); //图片链接（base64）
 				});
-			}
-			,done: function(res){
-				$('#photoPath').html(application.SERVE_URL+'/'+res.data);
-				//如果上传失败
-				if(res.code > 0){
-					return layer.msg('上传成功');							
+			},done: function(res){
+				var data=res;
+				if(data.code==application.REQUEST_SUCCESS){
+					$('#photoPath').html(application.SERVE_URL+'/'+res.data);
+					top.layer.msg(data.msg,{time: 1000});
+				}else{
+					top.layer.msg(data.msg+"("+data.code+")",{time: 1000});
 				}
-				//上传成功
-			}
-			,error: function(){
-				//演示失败状态，并实现重传
-				var photoPath = $('#photoPath');
-				photoPath.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-				photoPath.find('.demo-reload').on('click', function(){
-					uploadInst.upload();
-				});
 			}
 		});
 
 		//多选下拉框配置
 		formSelects.config('userRole', {
-			keyName: 'name',            //自定义返回数据中name的key, 默认 name
+			keyName: 'name',//自定义返回数据中name的key, 默认 name
 			keyVal: 'id', 
 		}, true);
 		//初始化用户下拉框(此处应该时经后台过滤处理 选中与为选中)
 		// selected: boolean,         //自定义返回数据中selected的key, 默认 selected
-			// selected: boolean',         //自定义返回数据中disabled的key, 默认 disabled
+		// selected: boolean',         //自定义返回数据中disabled的key, 默认 disabled
 		function initSelect(){
 			$.ajax({
 				url: application.SERVE_URL+'/sys/sysrole/loadAll', //ajax请求地址
@@ -107,6 +98,8 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 			});
 		}
 		
+		//验证表单
+		form.verify(validparam);
 		//自定义验证规则-校验用户名是否存在
 		form.verify({
 			user_exist: function(value){
@@ -136,10 +129,11 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 		
 		
 		initSelect();
+		
 		form.on("submit(addUser)",function(data){
-			//弹出loading
+			 //弹出loading
 			 var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});	
-			 //参数封装
+			 
 			 var data={
 					"id" : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
 					"username" : $(".username").val(),
@@ -157,17 +151,14 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 			 $.ajax({
 					url: application.SERVE_URL+'/sys/sysuser/save', //ajax请求地址
 					contentType: "application/json",
-					data: publicUtil.htmlEscape(JSON.stringify(data)),		
+					data: JSON.stringify(data),//publicUtil.htmlEscape(JSON.stringify(data)), 前端可格式化特殊字符的方法，现已置于后台处理		
 					success: function (res) {
-						// if(res.code==200){
-							top.layer.close(index);
-							top.layer.msg(res.msg);	
+						top.layer.close(index);
+						top.layer.msg(res.msg,{time: 1000},function(){
 							layer.closeAll("iframe");
-							//刷新父页面
 							parent.location.reload();
-// 								}else{
-// 									layer.msg(res.msg);
-// 								}
+						});	
+						
 					}
 			 });
 			 return false;

@@ -21,11 +21,11 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
 	function formEdit(FormDatas){
 		if(FormDatas != ''){
 			var data = FormDatas;
-		$(".id").val(data.id);
-		$(".role").val(data.role);
-		$(".code").val(data.code);
-		$(".name").val(data.name);
-		$(".remark").val(data.remark);	
+			$(".id").val(publicUtil.htmlDecode(data.id));
+			$(".role").val(publicUtil.htmlDecode(data.role));
+			$(".code").val(publicUtil.htmlDecode(data.code));
+			$(".name").val(publicUtil.htmlDecode(data.name));
+			$(".remark").val(publicUtil.htmlDecode(data.remark));	
 		}else{
 			return false;
 		}
@@ -47,25 +47,33 @@ layui.use(['form','layer','validparam','publicUtil','application'],function(){
     form.on("submit(addRole)",function(data){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+        //参数封装
+		var data={
+			"id" : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+			"name" : $(".name").val(),
+			"code" : $(".code").val(),
+			"type" : $("#type").val(),
+			"sort" : $(".sort").val(),
+			"remark" : $(".remark").val()
+		}
+		//处理参数中可能的特殊字符
+		//var json_str=publicUtil.htmlEscape(JSON.stringify(data));
+		//将json字符串转化为json对象（依据后台是否具有requestbody）
+		//var json_obj=JSON.parse(json_str);
+		//异步请求
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysrole/save", //ajax请求地址
-			data:{
-				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-				name : $(".name").val(),
-				code : $(".code").val(),
-				type : $("#type").val(),
-				sort : $(".sort").val(),
-				remark : $(".remark").val(),
-			},	
+			data:data,
+			//contentType: "application/json",
 			success: function (res) {
 				if(res.code==application.REQUEST_SUCCESS){
 				 	top.layer.close(index);
-		            top.layer.msg(res.msg);	
-		            layer.closeAll("iframe");
-		            //刷新父页面
+				 	layer.closeAll("iframe");
+	            	//刷新父页面
 		            parent.location.reload();
+		            top.layer.msg(res.msg,{time: 1000});			            
 				}else{
-					layer.msg(res.msg);
+					layer.msg(res.msg,{time: 1000});
 				}
 			}
 		}); 

@@ -21,18 +21,18 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
 		function formEdit(FormDatas){
 			if(FormDatas != ''){
 				var data = FormDatas;	 
-				 $(".id").val(data.id);
-				 $(".parentId").val(data.parentId);
-				 $(".name").val(data.name);
-				 $(".code").val(data.code);													
-				 $(".master").val(data.master);  
-				 $(".mobile").val(data.mobile);  
-				 $(".mobile").val(data.mobile);  
-				 $("#openDate").val(data.openDate);  
-				 $("#closeDate").val(data.closeDate); 
-				 $(".remark").val(data.remark);
-				 $(".sort").val(data.sort);
-				 $(".parentName").val(data.parentSysOrg.name);
+				 $(".id").val(publicUtil.htmlDecode(data.id));
+				 $(".parentId").val(publicUtil.htmlDecode(data.parentId));
+				 $(".name").val(publicUtil.htmlDecode(data.name));
+				 $(".code").val(publicUtil.htmlDecode(data.code));													
+				 $(".master").val(publicUtil.htmlDecode(data.master));  
+				 $(".mobile").val(publicUtil.htmlDecode(data.mobile));  
+				 $(".mobile").val(publicUtil.htmlDecode(data.mobile));  
+				 $("#openDate").val(publicUtil.htmlDecode(data.openDate));  
+				 $("#closeDate").val(publicUtil.htmlDecode(data.closeDate)); 
+				 $(".remark").val(publicUtil.htmlDecode(data.remark));
+				 $(".sort").val(publicUtil.htmlDecode(data.sort));
+				 $(".parentName").val(publicUtil.htmlDecode(data.parentSysOrg.name));
 				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_TYPE'} ,"type",data.type);		
 				publicUtil.selectBaseAndSetVal(application.SERVE_URL+"/sys/sysdict/getByTypeCode", {'typeCode' : 'ORG_USEABLE'} ,"useable",data.useable);
 			}else{
@@ -74,32 +74,35 @@ layui.use(['form','layer','upload','laydate','publicUtil','application'],functio
     form.on("submit(addOrg)",function(data){
 		
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-		$.ajax({
+        //参数封装
+        var data={
+    		"id" : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
+			"parentId" : $(".parentId").val(),
+			"name" : $(".name").val(),
+			"useable" : $("#useable").val(),
+			"type" : $("#type").val(),
+			"code" : $(".code").val(),
+			"master" : $(".master").val(),
+			"mobile" : $(".mobile").val(),
+			"sort" : $(".sort").val(),
+			"openDate" : openDate,
+			"closeDate" : closeDate,
+			"remark" : $(".remark").val()
+        }
+        
+        $.ajax({
 			url: application.SERVE_URL+"/sys/sysorg/save", //ajax请求地址
 			contentType: "application/json",
-			data:JSON.stringify({
-				id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
-				parentId : $(".parentId").val(),
-				name : $(".name").val(),
-				useable : $("#useable").val(),
-				type : $("#type").val(),
-				code : $(".code").val(),
-				master : $(".master").val(),
-				mobile : $(".mobile").val(),
-				sort : $(".sort").val(),
-				openDate : openDate,
-				closeDate : closeDate,
-				remark : $(".remark").val()
-			}),			
+			data:JSON.stringify(data),
 			success: function (res) {
 				if(res.code==application.REQUEST_SUCCESS){
 				 	top.layer.close(index);
-		            top.layer.msg(res.msg);	
+		            top.layer.msg(res.msg,{time:1000});	
 		            layer.closeAll("iframe");
 		            //刷新父页面
 		            parent.location.reload();
 				}else{
-					layer.msg(res.msg);
+					layer.msg(res.msg,{time:1000});
 				}
 			}
 		}); 

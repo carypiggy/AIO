@@ -84,13 +84,14 @@ layui.use(['form','layer','laytpl','application','publicUtil'],function(){
 			},											
 			success: function (res) {
 				if(res.code==application.REQUEST_SUCCESS){
-					layer.msg(res.msg);
 					window.sessionStorage.clear();
 					window.localStorage.clear();
-					layer.msg("请重新登录");
-					top.location.href = application.BASE_URL+"/login.html";
+					layer.msg(res.msg+"请重新登录",{time: 1000},function(){
+						top.location.href = application.BASE_URL+"/login.html";
+					});
+					
 				}else{
-					layer.msg(res.msg);
+					layer.msg(res.msg,{time: 1000});
 				}
 			}
 		})

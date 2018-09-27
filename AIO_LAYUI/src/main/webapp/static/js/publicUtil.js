@@ -15,9 +15,13 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 	var treeGrid = layui.treeGrid;
     var keyTime =new Date().getTime().toString();
     var nowTime = new Date().getTime();
-	/**
-	 * 初始化AJAX的请求
-	 */
+    
+    //全局弹窗
+	layer.config({
+		anim: 5//默认动画风格
+	});
+	
+	//初始化AJAX的请求 
 	$.ajaxSetup( {
 	    type: "POST", // 默认使用POST方式
 	    headers : {
@@ -340,9 +344,9 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		errofunc :function(res){
 			var result=data.responseJSON;
 			if(result==undefined){
-				top.layer.msg("服务连接中断，请检查网络连接情况！");
+				top.layer.msg("服务连接中断，请检查网络连接情况！",{time:1000});
 			}else{
-				top.layer.msg(result.msg+"("+result.code+")");
+				top.layer.msg(result.msg+"("+result.code+")",{time:1000});
 			}
 		},
 		hiddenMenu : function(obj){
@@ -448,7 +452,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			}else if(timelogin < 0) {
 				sessionStorage.removeItem("token");
 				sessionStorage.removeItem("tokenTime");
-				top.layer.msg("因长时间未操作，请重新登陆!",function(){
+				top.layer.msg("因长时间未操作，请重新登陆!",{time:1000},function(){
 					top.location.href = application.BASE_URL+"/login.html";
 				});
 			}else{
