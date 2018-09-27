@@ -33,7 +33,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 			$(".email").val(publicUtil.htmlDecode(data.email));
 			$(".mobile").val(publicUtil.htmlDecode(data.mobile));
 			$(".idcard").val(publicUtil.htmlDecode(data.idcard));  
-			$(".remark").val(publicUtil.htmlDecode(data.remark));
+			$(".remark").html(publicUtil.htmlDecode(data.remark));
 			$('#photoPath').html(data.photo);
 			$('.orgName').val(publicUtil.htmlDecode(data.orgName));
 			$(".orgId").val(publicUtil.htmlDecode(data.orgId));
