@@ -33,7 +33,6 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 		return mapper.get(entity);
 	}
 	
-	
 	/**
 	 * 根据条件查询所有列表数据
 	 * @param entity
@@ -49,16 +48,12 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 	 * @param entity
 	 * @return
 	 */
-	
 	public PageIo<T> loadByPage(int pageNo, int pageSize,T entity) {
         PageHelper.startPage(pageNo, pageSize);
         Page<T> pageList=mapper.loadByPage(entity);
         PageIo<T> pageInfo = new PageIo<>(pageList);
 		return pageInfo;
 	}
-	
-	
-	
 
 	/**
 	 * 保存数据（插入或更新）
@@ -74,7 +69,7 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 			mapper.update(entity);
 		}
 	}
-	
+	 
 	/**
 	 * 删除数据
 	 * @param String

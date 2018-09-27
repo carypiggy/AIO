@@ -44,10 +44,6 @@ public class BaseController {
 	 */
 	@Autowired
 	protected Validator validator;
-
-	/**返回成功**/
-	public static final String SUCCESS = "success";
-	
 	
 	
 	/**
@@ -183,6 +179,7 @@ public class BaseController {
 				return value != null ? value.toString() : "";
 			}
 		});
+		
 		// Date 类型转换
 		binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
 			@Override
@@ -190,12 +187,6 @@ public class BaseController {
 				setValue(DateUtils.parseDate(text));
 			}
 		});
-		
-//		//转换日期格式
-//	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true) {
-//
-//		});
 	}
 	
 }
