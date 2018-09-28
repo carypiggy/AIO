@@ -80,7 +80,7 @@ public abstract class BaseEntity<T> implements Serializable {
      * @return
      */
 	public boolean getIsNewRecord() {
-        return isNewRecord || StringUtils.isBlank(getId());
+        return isNewRecord || StringUtils.isBlank(this.getId());
     }
 
 	/**

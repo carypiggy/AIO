@@ -368,8 +368,16 @@
 		    <configuration>    
 		     	<warSourceExcludes>src/test/java/**</warSourceExcludes>    
 		    </configuration>
-		    
 	   </plugin>
+	   <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <includeSystemScope>true</includeSystemScope>
+            </configuration>
+       </plugin>
+
 	</plugins>
-    </build>
+  </build>
+
 </project>

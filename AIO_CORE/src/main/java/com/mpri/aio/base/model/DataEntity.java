@@ -2,7 +2,6 @@ package com.mpri.aio.base.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mpri.aio.common.utils.IdGen;
 
 /**
@@ -42,11 +41,8 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	 */
 	@Override
 	public void preInsert(){
-		// 不限制ID为UUID，调用setIsNewRecord()使用自定义ID
-		if (!this.isNewRecord){
-			setId(IdGen.uuid());
-			setCreateDate(new Date());
-		}
+		setId(IdGen.uuid());
+		setCreateDate(new Date());
 	}
 	
 	/**
