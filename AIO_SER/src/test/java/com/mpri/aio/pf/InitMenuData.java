@@ -269,7 +269,7 @@ public class InitMenuData extends ApplicationTests{
 		SysMenu sysuser_perm = new SysMenu();
 		sysuser_perm.setParentId("6506dee426074b3fb43ede08996ae851");
 		sysuser_perm.setParentIds("d6c29be2265c4a05a8b00b105cf7c424,105c8d5f492a440d93da7afd29994966,6506dee426074b3fb43ede08996ae851");
-		sysuser_perm.setName("删除");
+		sysuser_perm.setName("授权");
 		sysuser_perm.setCode("sys_role_perm");
 		sysuser_perm.setHref("");
 		sysuser_perm.setIcon("layui-icon-auz");
