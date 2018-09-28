@@ -13,7 +13,7 @@ layui.config({
 var formdatas;
 var isAdd;
 layui.use(['element', 'layer', 'form', 'upload', 'table', 'publicUtil', 'application'], function () {
-	var treeGrid = layui.treeGrid,
+	var table = layui.table,
 		_$ = layui.jquery,
 		publicUtil = layui.publicUtil,
 		application = layui.application,
@@ -138,10 +138,10 @@ layui.use(['element', 'layer', 'form', 'upload', 'table', 'publicUtil', 'applica
 
 	//编辑操作
 	_$(document).on('click', '.PER_EDIT', function () {
-		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaList').data);
+		var flag = publicUtil.jurgeSelectRows(table.checkStatus('areaList').data);
 		if (flag) {
 			isAdd = false;
-			_addArea(treeGrid.checkStatus('areaList').data[0]);
+			_addArea(table.checkStatus('areaList').data[0]);
 		} else {
 			return false;
 		}
@@ -150,7 +150,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'table', 'publicUtil', 'applica
 
 	//删除
 	_$(document).on('click', '.PER_DEL', function () {
-		var flag = publicUtil.jurgeSelectRows(treeGrid.checkStatus('areaList').data);
+		var flag = publicUtil.jurgeSelectRows(table.checkStatus('areaList').data);
 		if (flag) {
 			layer.confirm('确定删除此区域吗？', {
 				icon: 3,
@@ -159,7 +159,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'table', 'publicUtil', 'applica
 				_$.ajax({
 					url: application.SERVE_URL + "/sys/sysarea/delete", //ajax请求地址
 					data: {
-						id: treeGrid.checkStatus('areaTree').data[0].id
+						id: table.checkStatus('areaTree').data[0].id
 					},
 					success: function (res) {
 						if (res.code == application.REQUEST_SUCCESS) {
