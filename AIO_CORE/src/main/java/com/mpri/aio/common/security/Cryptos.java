@@ -28,7 +28,7 @@ import com.mpri.aio.common.utils.Exceptions;
 public class Cryptos {
 
 	private static final String AES = "AES";
-	private static final String AES_CBC = "AES/CBC/PKCS7Padding";
+	//private static final String AES_CBC = "AES/CBC/PKCS7Padding";
 	private static final String AES_ECB = "AES/ECB/PKCS7Padding";
 	private static final String HMACSHA1 = "HmacSHA1";
 
