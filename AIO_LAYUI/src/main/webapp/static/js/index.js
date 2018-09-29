@@ -73,7 +73,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 						$("#topLevelMenus li").first().trigger("click");
 					}
 				}else{
-					top.layer.msg("您没有被授权使用系统，请联系管理员！",{time:3000},function(){
+					top.layer.msg("您没有被授权使用系统，请联系管理员！",{time:2000},function(){
 						top.location.href = "login.html";
 					});
 				}
