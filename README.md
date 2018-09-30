@@ -3,7 +3,7 @@
 
 演示地址：http://aio.caryskying.com
 
-（暂不可访问）
+账号：guest  密码：111111
 
 
 一、AIO_SER:服务端程序
