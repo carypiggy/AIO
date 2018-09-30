@@ -58,9 +58,10 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 	/**
 	 * 保存数据（插入或更新）
 	 * @param entity
+	 * @return 
 	 */
 	@Transactional(readOnly = false)
-	public void save(T entity) {
+	public T save(T entity) {
 		if (entity.getIsNewRecord()){
 			entity.preInsert();//自检插入id
 			mapper.insert(entity);
@@ -68,6 +69,7 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 			entity.preUpdate();//自建，自定义操作扩展
 			mapper.update(entity);
 		}
+		return entity;
 	}
 	 
 	/**
