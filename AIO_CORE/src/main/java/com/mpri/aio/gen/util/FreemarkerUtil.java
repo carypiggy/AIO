@@ -37,7 +37,7 @@ public class FreemarkerUtil {
 		String fileName = genConfigInfo.getGenTableInfo().getEntityName() + getprefix(templateName);
 		try {
 			// 通过FreeMarker的Confuguration读取相应的模板文件
-			Configuration configuration = new Configuration();
+			Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
 			// 设置模板路径
 			configuration.setClassForTemplateLoading(FreemarkerUtil.class, "/templates/ftl");
 			// 设置默认字体

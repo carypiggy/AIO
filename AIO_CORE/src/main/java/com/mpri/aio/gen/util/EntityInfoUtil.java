@@ -2,7 +2,6 @@ package com.mpri.aio.gen.util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.mpri.aio.gen.model.GenColumuInfo;

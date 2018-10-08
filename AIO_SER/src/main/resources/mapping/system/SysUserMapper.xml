@@ -39,7 +39,47 @@
            and org_id=#{entity.orgId}
        </if>
        <if test="entity.username!=null and entity.username!='' ">
-       	   and username LIKE '%${entity.username}%'
+           and username=#{entity.username}
+       </if>
+       <if test="entity.password!=null and entity.password!='' ">
+           and password=#{entity.password}
+       </if>
+       <if test="entity.name!=null and entity.name!='' ">
+           and name LIKE '%${entity.name}%'
+       </if>
+       <if test="entity.idcard!=null and entity.idcard!='' ">
+           and idcard=#{entity.idcard}
+       </if>
+       <if test="entity.mobile!=null and entity.mobile!='' ">
+           and mobile=#{entity.mobile}
+       </if>
+       <if test="entity.email!=null and entity.email!='' ">
+           and email=#{entity.email}
+       </if>
+       <if test="entity.queryBeginDate!=null and entity.queryBeginDate!=''">
+           and create_date &gt;= #{queryBeginDate}  
+       </if>
+	     <if test="entity.queryEndDate!=null and entity.queryEndDate!='' ">
+           and create_date &lt;= #{queryEndDate}  
+       </if>
+       <if test="entity.type!=null and entity.type!='' ">
+           and type=#{entity.type}
+       </if>
+           and flag= #{entity.FLAG_NORMAL}
+	</if>
+  </sql>
+  
+   <!-- 查询条件分页定义 -->
+  <sql id="query_where_page" >
+    <if test="entity!=null">
+       <if test="entity.id!=null and entity.id!='' ">
+           and id=#{entity.id}
+       </if>
+       <if test="entity.orgId!=null and entity.orgId!='' ">
+           and org_id   in (SELECT org.id FROM sys_org org WHERE find_in_set(#{entity.orgId}, org.parent_ids) or org.id = #{entity.orgId})
+       </if>
+       <if test="entity.username!=null and entity.username!='' ">
+           and username=#{entity.username}
        </if>
        <if test="entity.password!=null and entity.password!='' ">
            and password=#{entity.password}
@@ -69,7 +109,6 @@
 	</if>
   </sql>
  
- 
   <!-- 根据username查询对象 -->
   <select id="getSysUserByUsername" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
     select 
@@ -77,18 +116,15 @@
     from sys_user a
     where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
-  
-  
-  
-  <!-- 查询user数量 -->
+ 
+ 
+   <!-- 查询user数量 -->
   <select id="getUserNum" parameterType="com.mpri.aio.system.model.SysUser" resultType = "Integer">
     select 
     	count(a.id)
     from sys_user a
     where username = #{username,jdbcType=VARCHAR} and flag=#{FLAG_NORMAL}
   </select>
-  
-  
  
   <!-- 根据id查询对象-->
   <select id="get" parameterType="com.mpri.aio.system.model.SysUser" resultMap="BaseResultMap">
@@ -243,7 +279,7 @@
     <include refid="Base_Column_List" />
     from sys_user a
     <where>
-	  <include refid="query_where"></include>
+	  <include refid="query_where_page"></include>
     </where>
   </select>
   
@@ -268,7 +304,7 @@
 	</insert>	
   
   
-    <!--删除角色和用户的关系中间表-->
+  <!--删除角色和用户的关系中间表-->
 	<delete id="deleteUserRole">
 		DELETE FROM sys_user_role WHERE user_id = #{id}
 	</delete>
