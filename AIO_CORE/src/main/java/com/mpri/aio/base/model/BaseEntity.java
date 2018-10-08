@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import com.mpri.aio.common.utils.StringUtils;
 
 /**
- *  所有业务实体类基类
+ * 所有业务实体类基类
  * @author Cary
  * @Date  2018年7月27日
  * @param <T>
@@ -53,7 +53,6 @@ public abstract class BaseEntity<T> implements Serializable {
 		this.id = id;
 	}
 
-
 	public String getId() {
 		return id;
 	}
@@ -62,8 +61,6 @@ public abstract class BaseEntity<T> implements Serializable {
 		this.id = id;
 	}
 
-	
-	
 	/**
 	 * 插入之前执行方法，子类实现
 	 */

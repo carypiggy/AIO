@@ -54,6 +54,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
             $.ajax({
                 url:application.SERVE_URL + "/loadCacheMap",
                 type: "POST",
+                async: true,
 				success:function(result){
                    if(result.code==application.REQUEST_SUCCESS){
                 	   var dict=sessionStorage.getItem("dictCache");
@@ -69,7 +70,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
                 	   if(area===null){
                 		   sessionStorage.setItem("areaCache",JSON.stringify(result.data.areaCache));
                 	   }
-                	   
                    }
 				}
 			})

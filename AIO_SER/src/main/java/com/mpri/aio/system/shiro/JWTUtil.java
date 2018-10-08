@@ -44,10 +44,12 @@ public class JWTUtil  {
             JWTVerifier verifier = JWT.require(algorithm)
                     .withClaim("username", username)
                     .build();
+            
             //DecodedJWT jwt = 
             verifier.verify(token);
             return true;
         } catch (Exception exception) {
+        	exception.printStackTrace();
             return false;
         }
     }

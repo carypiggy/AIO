@@ -25,7 +25,7 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	@CachePut(value = "userCache", key ="#sysUser.username")
 	public SysUser save(SysUser sysUser) {
 		super.save(sysUser);
-		return sysUser;
+		return mapper.getSysUserByUsername(sysUser);
 	} 
 	
 	

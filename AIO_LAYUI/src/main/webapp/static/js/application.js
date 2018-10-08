@@ -43,14 +43,14 @@ layui.define(["jquery",'layer'],function(exports){
         REQUEST_ERROR:500,
         DATA_USED:201,
         //Login
-        BASE_URL : "http://aio.caryskying.com:80",
+        BASE_URL : "http://127.0.0.1:80",
         //服务的IP及端口
         SERVE_PORT: "8080",
-        SERVE_IP: "aio.caryskying.com",
-        SERVE_URL: "http://aio.caryskying.com:8080",
-        TMP_SERVE_URL: "http://aio.caryskying.com:8080",
+        SERVE_IP: "127.0.0.1",
+        SERVE_URL: "http://127.0.0.1:8080",
+        TMP_SERVE_URL: "http://127.0.0.1:8080",
         //获取权限的URL
-        PERMS_URL : "http://aio.caryskying.com:8080/getPagePer",
+        PERMS_URL : "http://127.0.0.1:8080/getPagePer",
         //token相关
         HEADER : sessionStorage.getItem("token"),
         TOKENTIME : sessionStorage.getItem("tokenTime"),

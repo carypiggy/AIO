@@ -57,6 +57,7 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 
 	/**
 	 * 保存数据（插入或更新）
+	 * 返回已经保存的对象，可应用于缓存
 	 * @param entity
 	 * @return 
 	 */
