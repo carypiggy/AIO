@@ -1,4 +1,4 @@
-package com.mpri.aio.gen.util;
+package com.mpri.aio.common.utils;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;

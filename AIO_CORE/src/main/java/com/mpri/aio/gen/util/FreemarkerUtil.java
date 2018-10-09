@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import com.mpri.aio.base.utils.SpringUtil;
 import com.mpri.aio.gen.model.GenConfigInfo;
 import com.mpri.aio.gen.model.GenExecuteResult;
 
@@ -31,6 +34,8 @@ public class FreemarkerUtil {
 	public static GenExecuteResult createFile (GenConfigInfo genConfigInfo,String templateName, String filePath) {
 		GenExecuteResult result = new GenExecuteResult();
 		FileWriter out = null;
+		FreeMarkerConfigurer fc=(FreeMarkerConfigurer)SpringUtil.getBean("FreeMarkerConfigurer");
+		 
 		/*
 		 * 文件名称
 		 */
@@ -38,6 +43,7 @@ public class FreemarkerUtil {
 		try {
 			// 通过FreeMarker的Confuguration读取相应的模板文件
 			Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
+
 			// 设置模板路径
 			configuration.setClassForTemplateLoading(FreemarkerUtil.class, "/templates/ftl");
 			// 设置默认字体

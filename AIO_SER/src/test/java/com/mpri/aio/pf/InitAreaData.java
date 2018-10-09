@@ -11,7 +11,7 @@ import com.mpri.aio.system.mapper.SysAreaMapper;
 import com.mpri.aio.system.model.SysArea;
 import com.mpri.aio.system.service.SysAreaService;
 
-public class InitData extends ApplicationTests {
+public class InitAreaData extends ApplicationTests {
 	@Autowired
 	SysAreaMapper sysAreaMapper;
 	

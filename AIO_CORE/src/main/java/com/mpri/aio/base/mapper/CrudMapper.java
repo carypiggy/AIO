@@ -36,7 +36,7 @@ public interface CrudMapper<T> extends BaseMapper{
 	public int update(T entity);
 	
 	/**
-	 * 删除数据（一般为逻辑删除，更新flag字段为1）
+	 * 删除数据
 	 * @param id
 	 * @see public int delete(T entity)
 	 * @return

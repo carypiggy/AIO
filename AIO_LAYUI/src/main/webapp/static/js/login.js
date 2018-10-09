@@ -27,7 +27,7 @@ layui.use(['form','layer','application'],function(){
 				skin: "layui-layer-rim", //加上边框
 				title: false,
 				closeBtn: 1,
-				anim: 2,
+				anim: 5,
 				area: ['440px', '255px'], //宽高
 				content: "<div id='verify'></div>"
 			});

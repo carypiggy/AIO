@@ -9,7 +9,7 @@ package com.mpri.aio.gen.model;
  */
 public class GenColumuInfo {
 
-	private static final long serialVersionUID = 123124L;
+	//private static final long serialVersionUID = 123124L;
 	/**
 	 * 列名
 	 */

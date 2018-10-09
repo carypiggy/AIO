@@ -53,7 +53,11 @@ public class LogAspect {
         return result;
     }
     
-    
+    /**
+     * 保存操作日志
+     * @param joinPoint
+     * @param time
+     */
 	private void saveLog(ProceedingJoinPoint joinPoint, long time) {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
@@ -84,7 +88,7 @@ public class LogAspect {
 		sysLogs.setUserAgent(request.getHeader("User-Agent"));
 		// 时间
 		sysLogs.setCreateDate(new Date());
-	       //保存系统日志
+	    //保存系统日志
 		sysLogsService.save(sysLogs);
     }
 }

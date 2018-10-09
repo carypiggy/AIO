@@ -33,8 +33,6 @@ public class SpringUtil implements ApplicationContextAware, DisposableBean {
 		logger.info("ApplicationContext配置成功,applicationContext对象："+SpringUtil.applicationContext);
 	}
 	
-	
-	
 	/**
 	 * 取得存储在静态变量中的ApplicationContext.
 	 */

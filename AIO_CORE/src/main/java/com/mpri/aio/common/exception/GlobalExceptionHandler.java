@@ -3,6 +3,7 @@ package com.mpri.aio.common.exception;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.ShiroException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,11 +36,20 @@ public class GlobalExceptionHandler {
         return new RestResponse<UnauthorizedException>(ExceptionResult.NO_PERMISSION, "账号或密码错误，请重新输入！", null);
     }
     
+    // 捕捉AuthenticationException 捕获token的 异常
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(AuthenticationException.class)
+    public RestResponse<UnauthorizedException> handleTokenError() {
+        return new RestResponse<UnauthorizedException>(ExceptionResult.NO_PERMISSION, "Token异常，请重新登陆！", null);
+    }
+    
+    
 //    // 捕捉系统内部错误异常
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 //    public RestResponse<Exception> handle500(HttpServletRequest request, Throwable ex) {
 //        return new RestResponse<Exception>(ExceptionResult.SYS_ERROR, "服务器内部错误，请检查网络或联系系统管理员！", null);
 //    }
+    
     
     
     // 捕捉其他所有异常
