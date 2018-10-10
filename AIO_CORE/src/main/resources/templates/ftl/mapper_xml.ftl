@@ -32,7 +32,7 @@
 			<#list genTableInfo.columuInfos as ci>
 			<#if ci.objProperty == "name">
 	       	<if test="entity.name!=null and entity.name!='' ">
-	           	and name LIKE ${r'%#{entity.name}%'}
+	           	and name = ${r'#{entity.name}'} 
 	       	</if>		
 			<#elseif ci.objProperty == "flag">
 			<if test="entity.flag != null and entity.flag!='' ">
