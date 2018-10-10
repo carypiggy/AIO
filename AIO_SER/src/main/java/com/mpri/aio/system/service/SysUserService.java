@@ -25,6 +25,7 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	@CachePut(value = "userCache", key ="#sysUser.username")
 	public SysUser save(SysUser sysUser) {
 		super.save(sysUser);
+		//反查对象并返回至缓存
 		return mapper.getSysUserByUsername(sysUser);
 	} 
 	
@@ -54,9 +55,9 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	}
     /**
      * 插入用户和角色信息
-    * <p>Title: insertUserRole</p>  
-    * <p>Description: </p>  
-    * @param sysUser
+     * <p>Title: insertUserRole</p>  
+     * <p>Description: </p>  
+     * @param sysUser
      */
 	@Transactional(readOnly = false)
 	public void insertUserRole(SysUser sysUser) {
@@ -66,9 +67,9 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	
     /**
      * 删除用户和角色信息
-    * <p>Title: insertUserRole</p>  
-    * <p>Description: </p>  
-    * @param sysUser
+     * <p>Title: insertUserRole</p>  
+     * <p>Description: </p>  
+     * @param sysUser
      */
 	@Transactional(readOnly = false)
 	public void deleteUserRole(SysUser sysUser) {

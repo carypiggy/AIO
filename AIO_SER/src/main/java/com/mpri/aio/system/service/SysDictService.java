@@ -9,7 +9,7 @@ import com.mpri.aio.base.service.CrudService;
 import com.mpri.aio.system.mapper.SysDictMapper;
 import com.mpri.aio.system.model.SysDict;
 /**
- *.系统编码业务类
+ *系统编码业务类
  * @author xw
  * @date 2018年8月3日
  */
