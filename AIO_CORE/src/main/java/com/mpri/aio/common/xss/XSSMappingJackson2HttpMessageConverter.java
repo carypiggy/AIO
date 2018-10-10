@@ -50,12 +50,11 @@ public class XSSMappingJackson2HttpMessageConverter extends MappingJackson2HttpM
 	 * @param type
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	private Object readAfter(Object obj, Type type) {
 		try {
 			// type实际上就是我们需要convert的model，我们通过反射来完成根据NeedXss注解对String
 			// 的字段进行xss过滤
-			Class clazz = Class.forName(JSON.toJSONString(type).replace("\"", ""));
+			Class<?> clazz = Class.forName(JSON.toJSONString(type).replace("\"", ""));
 			if (clazz == null) {
 				return obj;
 			}

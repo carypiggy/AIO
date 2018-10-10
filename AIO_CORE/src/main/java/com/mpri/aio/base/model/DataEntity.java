@@ -15,11 +15,12 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 
 	private static final long serialVersionUID = 1L;
 	
-
+	//创建时间
 	protected Date createDate;
-	
-	protected String remark;	// 备注
-	protected String flag; 	// 删除标记（0：正常；1：删除；2：审核）
+	// 备注
+	protected String remark;
+	// 删除标记（见base定义）
+	protected String flag; 	
 	
 	//补充查询属性，不进行持久化，时间区间
 	protected Date queryBeginDate;
@@ -28,8 +29,6 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	//扩展查询参数
 	protected String paramA;
 	protected String paramB; 
-	
-	
 	
 	public DataEntity() {
 		super();
@@ -42,11 +41,8 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	 */
 	@Override
 	public void preInsert(){
-		// 不限制ID为UUID，调用setIsNewRecord()使用自定义ID
-		if (!this.isNewRecord){
-			setId(IdGen.uuid());
-			setCreateDate(new Date());
-		}
+		setId(IdGen.uuid());
+		setCreateDate(new Date());
 	}
 	
 	/**
@@ -54,7 +50,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	 */
 	@Override
 	public void preUpdate(){
-
+		
 	}
 	
 	public DataEntity(String id) {
@@ -77,7 +73,7 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		this.flag = flag;
 	}
 
-	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	public Date getCreateDate() {
 		return createDate;
 	}

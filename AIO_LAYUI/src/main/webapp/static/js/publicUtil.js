@@ -54,6 +54,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
             $.ajax({
                 url:application.SERVE_URL + "/loadCacheMap",
                 type: "POST",
+                async: true,
 				success:function(result){
                    if(result.code==application.REQUEST_SUCCESS){
                 	   var dict=sessionStorage.getItem("dictCache");
@@ -69,7 +70,6 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
                 	   if(area===null){
                 		   sessionStorage.setItem("areaCache",JSON.stringify(result.data.areaCache));
                 	   }
-                	   
                    }
 				}
 			})
@@ -411,12 +411,10 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		function errofunc(res){	
 			var result=res.responseJSON;
 			if(result==undefined){
-				top.layer.msg("服务连接异常，请检查网络连接，并重新登陆！",function(){
-					top.location.href = application.BASE_URL+"/login.html";
-				});
+				top.layer.msg("服务连接异常，请检查网络连接情况 ！",{time:1000});
 				
 			}else{
-				top.layer.msg(result.msg+"("+result.code+")");
+				top.layer.msg(result.msg+"("+result.code+")",{time:1000});
 			}
 		}
 		
@@ -439,9 +437,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 						}
 					});
 				}
-				
-			}
-			
+			}   
 		}
 		
 		//判断token起效时间的方法

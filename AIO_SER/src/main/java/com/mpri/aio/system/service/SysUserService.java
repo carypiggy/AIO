@@ -1,5 +1,6 @@
 package com.mpri.aio.system.service;
 
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,19 @@ import com.mpri.aio.system.model.SysUser;
 @Service
 public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	
-
+	/**
+	 * 保存用户信息的重写
+	 * @param username
+	 * @return
+	 */
+	@CachePut(value = "userCache", key ="#sysUser.username")
+	public SysUser save(SysUser sysUser) {
+		super.save(sysUser);
+		return mapper.getSysUserByUsername(sysUser);
+	} 
+	
+	
+	
 	/**
 	 * 根据用户名获取用户对象
 	 * @param username

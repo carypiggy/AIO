@@ -57,13 +57,13 @@ public class JWTRealm extends AuthorizingRealm {
 		String username = JWTUtil.getUsername(token);
 		
 		if (username == null) {
-		    throw new AuthenticationException("token invalid");
+		    throw new AuthenticationException("token异常!");
 		}
 		
 		//获取用户是数据
 		SysUser sysUser=sysUserService.getSysUserByUsername(username);
-		
 		if (sysUser == null) {
+			
 		    throw new AuthenticationException("用户不存在!");
 		}
 		
