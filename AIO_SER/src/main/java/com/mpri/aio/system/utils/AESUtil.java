@@ -11,8 +11,13 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.lang3.StringUtils;
 
-
+/**
+ * AES加密类
+ * @author Cary
+ * @date 2018年10月10日
+ */
 public class AESUtil {
+	
 	//密钥 (需要前端和后端保持一致)
     private static final String KEY = "tXbjTgdcQ32mmr6g";  
     //算法

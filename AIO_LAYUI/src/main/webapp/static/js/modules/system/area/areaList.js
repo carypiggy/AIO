@@ -24,7 +24,7 @@ layui.use(['element', 'layer', 'form', 'upload', 'table', 'publicUtil', 'applica
 
 	application.init();
 	//获取权限并加载按钮
-	publicUtil.getPerms(application.PERMS_URL, application.HEADER, parent.cur_menu_id, 'get', 'but_per');
+	publicUtil.getPerms(application.PERMS_URL, application.HEADER, parent.cur_menu_id, 'post', 'but_per');
 
 
 	//选中标记

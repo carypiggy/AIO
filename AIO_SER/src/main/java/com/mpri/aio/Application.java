@@ -5,7 +5,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
- *.主函数
+ * 主函数
  * @author Cary
  * @date 2018年7月18日
  */

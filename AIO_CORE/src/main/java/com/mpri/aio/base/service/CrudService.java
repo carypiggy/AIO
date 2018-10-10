@@ -72,7 +72,7 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 		}
 		return entity;
 	}
-	 
+	
 	/**
 	 * 删除数据
 	 * @param String

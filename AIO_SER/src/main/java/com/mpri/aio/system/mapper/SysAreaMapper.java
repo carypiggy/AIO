@@ -14,14 +14,14 @@ import com.mpri.aio.system.model.SysArea;
 @Mapper
 public interface SysAreaMapper extends CrudMapper<SysArea>{
     /**
-     * .根据code获取地区
+     * 根据code获取地区
      * @param sysArea
      * @return
      */
 	SysArea getSysAreaByCode(SysArea sysArea);
 	
 	/**
-	 * .根据父获取所有子
+	 * 根据父获取所有子
 	 * @param sysArea
 	 * @return
 	 */

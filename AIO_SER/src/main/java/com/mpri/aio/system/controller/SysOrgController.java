@@ -36,15 +36,15 @@ public class SysOrgController extends BaseController {
 		
 	/**
 	 * 获取机构树
-	* <p>Title: list</p>  	
-	* <p>Description: </p>  
-	* @param pageNo
-	* @param pageSize
-	* @param sysOrg
-	* @return
+	 * <p>Title: list</p>  	
+	 * <p>Description: </p>  
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sysOrg
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/tree")
+	@PostMapping("tree")
 	public ResJson<SysOrg> tree(SysOrg sysOrg) {
 		List<SysOrg> list = sysOrgService.loadAllListBy(sysOrg);							
 		ResJson<SysOrg> rj = new ResJson<SysOrg>();
@@ -54,15 +54,15 @@ public class SysOrgController extends BaseController {
 
 	/**
 	 * 根据父ID 加载下面的子机构列表
-	* <p>Title: list</p>  
-	* <p>Description: </p>  
-	* @param pageNo
-	* @param pageSize
-	* @param sysOrg
-	* @return
+	 * <p>Title: list</p>  
+	 * <p>Description: </p>  
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sysOrg
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/list")
+	@PostMapping("list")
 	public PageIo<SysOrg> list(int pageNo,int pageSize,SysOrg sysOrg){
 		PageIo<SysOrg> pageInfo = sysOrgService.loadByPage(pageNo,pageSize,sysOrg);
 		return pageInfo;
@@ -70,14 +70,14 @@ public class SysOrgController extends BaseController {
 	
 	/**
 	 * 增加或者更新机构
-	* <p>Title: add</p>  
-	* <p>Description: </p>  
-	* @param sysOrg
-	* @return
+	 * <p>Title: add</p>  
+	 * <p>Description: </p>  
+	 * @param sysOrg
+	 * @return
 	 */
 	@Logs(value = "机构修改",type ="UPDATE")
 	@CrossOrigin
-	@PostMapping(value = "/save")
+	@PostMapping("save")
 	public RestResponse<String> save(@RequestBody SysOrg sysOrg){		
 		SysOrg parentSysOrg = new SysOrg();
 		parentSysOrg.setId(sysOrg.getParentId());
@@ -90,14 +90,14 @@ public class SysOrgController extends BaseController {
 	
 	/**
 	 * 删除机构（逻辑删除）
-	* <p>Title: delete</p>  
-	* <p>Description: </p>    
-	* @param sysOrg
-	* @return
+	 * <p>Title: delete</p>  
+	 * <p>Description: </p>    
+	 * @param sysOrg
+	 * @return
 	 */
 	@Logs(value = "机构删除",type ="DELETE")
 	@CrossOrigin
-	@PostMapping(value = "/delete")
+	@PostMapping("delete")
 	public RestResponse<String> delete(SysOrg sysOrg) {
 		sysOrgService.delete(sysOrg);
 		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
@@ -106,13 +106,13 @@ public class SysOrgController extends BaseController {
 	
 	/**
 	 * 获取机构
-	* <p>Title: get</p>  
-	* <p>Description: </p>  
-	* @param sysOrg
-	* @return
+	 * <p>Title: get</p>  
+	 * <p>Description: </p>  
+	 * @param sysOrg
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/get")
+	@PostMapping("get")
 	public RestResponse<SysOrg> get(SysOrg sysOrg) {
 		SysOrg resSysOrg = sysOrgService.get(sysOrg);
 		SysOrg parentSysOrg = new SysOrg();
@@ -127,8 +127,8 @@ public class SysOrgController extends BaseController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/loadAllListBy")
-	public RestResponse<List<SysOrg>>  loadAllListBy(SysOrg sysOrg) {			
+	@PostMapping("loadAllListBy")
+	public RestResponse<List<SysOrg>> loadAllListBy(SysOrg sysOrg) {			
 		return new RestResponse<List<SysOrg>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysOrgService.loadAllListBy(sysOrg));
 
 	}
