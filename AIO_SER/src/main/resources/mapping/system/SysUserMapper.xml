@@ -45,7 +45,7 @@
            and password=#{entity.password}
        </if>
        <if test="entity.name!=null and entity.name!='' ">
-           and name LIKE '%${entity.name}%'
+           and name LIKE concat('%',#{entity.name},'%')
        </if>
        <if test="entity.idcard!=null and entity.idcard!='' ">
            and idcard=#{entity.idcard}
@@ -85,7 +85,7 @@
            and password=#{entity.password}
        </if>
        <if test="entity.name!=null and entity.name!='' ">
-           and name LIKE '%${entity.name}%'
+           and name LIKE concat('%',#{entity.name},'%')
        </if>
        <if test="entity.idcard!=null and entity.idcard!='' ">
            and idcard=#{entity.idcard}

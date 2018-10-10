@@ -26,7 +26,7 @@
            and id=#{entity.id}
        </if>
        <if test="entity.name!=null and entity.name!='' ">
-           and name LIKE '%${entity.name}%'
+           and name LIKE concat('%',#{entity.name},'%')
        </if>
        <if test="entity.code!=null and entity.code!='' ">
            and code=#{entity.code}
