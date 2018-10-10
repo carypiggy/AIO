@@ -24,7 +24,7 @@ import ${serviceUrl}.${genTableInfo.entityName}Service;
  *    
  */
 @RestController
-@RequestMapping("/sys/${genTableInfo.objectName}")
+@RequestMapping("/${requestUrl}/${genTableInfo.objectName}")
 public class ${genTableInfo.entityName}Controller extends BaseController {
 	
 	@Autowired

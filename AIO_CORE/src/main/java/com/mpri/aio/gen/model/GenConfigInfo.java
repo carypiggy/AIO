@@ -18,6 +18,16 @@ public class GenConfigInfo {
 	private String version;
 
 	private String createTime;
+	
+	private String requestUrl;
+
+	public String getRequestUrl() {
+		return requestUrl;
+	}
+
+	public void setRequestUrl(String requestUrl) {
+		this.requestUrl = requestUrl;
+	}
 
 	/*
 	 * 生成的文件路径

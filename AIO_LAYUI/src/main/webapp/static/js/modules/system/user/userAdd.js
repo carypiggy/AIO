@@ -22,7 +22,6 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 		application = layui.application,
 		validparam = layui.validparam,
 		layer =layui.layer;
-
 		var formSelectsdata;
 		
 		if(parent.editFormData != ''){
@@ -38,7 +37,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 			$('.orgName').val(publicUtil.htmlDecode(data.orgName));
 			$(".orgId").val(publicUtil.htmlDecode(data.orgId));
 			if(data.photo != null){
-				document.getElementById("photo").src= data.photo;	
+				document.getElementById("photo").src= application.SERVE_URL+ data.photo;	
 			}
 			if($(".id").val()){
 				$(".username").addClass("layui-disabled");
@@ -68,7 +67,7 @@ layui.use(['jquery','form','layer','formSelects','publicUtil','upload','validpar
 			},done: function(res){
 				var data=res;
 				if(data.code==application.REQUEST_SUCCESS){
-					$('#photoPath').html(application.SERVE_URL+'/'+res.data);
+					$('#photoPath').html(res.data);
 					top.layer.msg(data.msg,{time: 1000});
 				}else{
 					top.layer.msg(data.msg+"("+data.code+")",{time: 1000});
