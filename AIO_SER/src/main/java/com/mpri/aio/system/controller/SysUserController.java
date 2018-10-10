@@ -228,6 +228,28 @@ public class SysUserController extends BaseController {
 		return new RestResponse<String>(ExceptionResult.SYS_ERROR, "密码修改失败！", null);
 	}
     
+	
+	/**
+	 * 重置密码
+	* <p>Title: resetpwd</p>  
+	* <p>Description: </p>  
+	* @param sysUser
+	* @return
+	 */
+	@Logs(value = "重置密码",type ="OTHER")
+	@CrossOrigin
+	@PostMapping(value = "/resetPwd")
+	public RestResponse<String> resetpwd(SysUser sysUser) {
+		SysUser resUser = sysUserService.get(sysUser);
+		resUser.setPassword(initPwd(resUser.getIdcard()));
+		ByteSource salt = ByteSource.Util.bytes(resUser.getSafecode());
+		//加盐炒三次safecode=salt
+		String result = new Md5Hash(resUser.getPassword(),salt,saltTimes).toString();
+		resUser.setPassword(result);
+		sysUserService.save(resUser);
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "重置密码成功！", null);	
+	}
+	
     /**
      * 初始化密码
      * @param idCard

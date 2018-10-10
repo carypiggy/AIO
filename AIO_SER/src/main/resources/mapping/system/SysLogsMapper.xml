@@ -194,7 +194,7 @@
    	WHERE   	
   		sl.flag = #{entity.FLAG_NORMAL}
       <if test="entity.username != null">
-        and sl.create_by like '%${entity.username}%'
+        and sl.create_by like concat('%', #{entity.username}, '%') 
       </if>
        <if test="entity.queryBeginDate!=null">
            and sl.create_date &gt;= #{entity.queryBeginDate}  

@@ -142,6 +142,34 @@ $(function(){
 	
 			})		
 		
+			//重置密码操作
+			_$(document).on('click','.PER_RESETPWD',function(){		
+				var flag = publicUtil.jurgeSelectRows(table.checkStatus('userList').data);
+				var parm = table.checkStatus('userList').data[0].id ;
+				if(flag){
+					layer.confirm('确定重置此用户密码吗？',{icon:3, title:'提示信息'},function(index){
+						_$.ajax({
+								url: application.SERVE_URL+'/sys/sysuser/resetPwd', //ajax请求地址
+								data:{
+									id :  parm
+								},										
+								success: function (res) {
+									if(res.code==application.REQUEST_SUCCESS){
+										table.reload('userList');
+										// location.reload();
+										layer.close(index);	
+										layer.msg(res.msg,{time: 1000});							
+									}else{
+										layer.msg(res.msg,{time: 1000});
+									}
+								}
+						})
+					});		
+				}else{
+					return false;
+				}
+	
+			});	
 			//删除
 			_$(document).on('click','.PER_DEL',function(){		
 				var flag = publicUtil.jurgeSelectRows(table.checkStatus('userList').data);
