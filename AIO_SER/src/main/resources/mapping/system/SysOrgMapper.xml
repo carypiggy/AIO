@@ -42,7 +42,7 @@
         		and parent_ids=#{entity.parentIds}
       		</if>	      	
 	       	<if test="entity.name!=null and entity.name!='' ">
-	           	and name like concat(concat('%',#{entity.name}),'%')
+	           	and name like concat('%',#{entity.name},'%')
 	       	</if>		
 			<if test="entity.code != null and entity.code!='' ">
         		and code=#{entity.code}
