@@ -78,11 +78,11 @@ public class LoginController extends BaseController {
 			String safeCode=sysUser.getSafecode();
 			ByteSource salt = ByteSource.Util.bytes(safeCode);
 			String result = new Md5Hash(password,salt,saltTimes).toString();
-    	
+			String userId=sysUser.getId();
         	//登陆密码校验
     		if (sysUser.getPassword().equals(result)) {
     			//注册token
-    			String token=JWTUtil.sign(username, result,comeFrom);
+    			String token=JWTUtil.sign(username,userId, result,comeFrom);
     			
     			//获取token过期时间
     			long tokenTime= JWTUtil.getTokenTime(token);
@@ -131,9 +131,9 @@ public class LoginController extends BaseController {
     	if((tokenTime-nowTime)>0&(tokenTime-nowTime)<freshTime) {
     		SysUser sysUser=sysUserService.getSysUserByUsername(username);
     		String password=sysUser.getPassword();
-    		
+    		String userId=sysUser.getId();
     		//注册new token
-			String newToken=JWTUtil.sign(username, password,comeFrom);
+			String newToken=JWTUtil.sign(username,userId, password,comeFrom);
 			
 			//获取token过期时间
 			long newTokenTime= JWTUtil.getTokenTime(newToken);
