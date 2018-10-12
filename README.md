@@ -6,7 +6,7 @@
 账号：guest  密码：111111
 
 
-一、AIO_SER:服务端程序
+一、AIO_SER:服务端
 
 1.当前springboot 2.0.4框架整合样例
 
@@ -20,7 +20,7 @@
 
 6.对自动生成二维码支持
 
-二、AIO_LAYUI：前端程序，使用LAYUI实现
+二、AIO_LAYUI：前端A，使用LAYUI实现
 
 1.使用layui实现前端系统管理部分
 
@@ -28,7 +28,7 @@
 
 3.jquery实现简单路由守卫
 
-二、AIO_CORE：核心程序
+三、AIO_CORE：核心程序
 
 1.多层抽象接口
 
