@@ -1,4 +1,5 @@
 AIO_CORE/src/main/java/META-INF/MANIFEST.MF
+AIO_VUE/.idea/*
 AIO_LAYUI/.project
 AIO_LAYUI/.classpath
 AIO_SER/src/main/resources/application.yml
@@ -9,3 +10,4 @@ AIO_LAYUI/.externalToolBuilders/org.eclipse.jdt.core.javabuilder.launch
 AIO_LAYUI/.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder (1).launch
 AIO_LAYUI/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder (1).launch
 *.launch
+AIO_VUE/AIO_VUE.iml
