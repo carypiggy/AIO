@@ -138,7 +138,6 @@ public class JWTUtil  {
 //    	if((nowTime-tokenTime)<REFESH_TIME) {
 //    		return sign(username,password);
 //    	}else {
-    		
     		return token;
 //    	}
     }
