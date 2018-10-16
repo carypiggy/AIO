@@ -50,16 +50,19 @@ public abstract class CrudService<M extends CrudMapper<T>, T extends DataEntity<
 	 */
 	public PageIo<T> loadByPage(int pageNo, int pageSize,T entity) {
         PageHelper.startPage(pageNo, pageSize);
+        
+        
         Page<T> pageList=mapper.loadByPage(entity);
         PageIo<T> pageInfo = new PageIo<>(pageList);
 		return pageInfo;
 	}
-
+   
 	/**
 	 * 保存数据（插入或更新）
 	 * 返回已经保存的对象，可应用于缓存
 	 * @param entity
 	 * @return 
+	 * 
 	 */
 	@Transactional(readOnly = false)
 	public T save(T entity) {

@@ -86,7 +86,7 @@ public class JWTRealm extends AuthorizingRealm {
 		
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		
-		//根据token获取uername
+		//根据token获取username
 		String username = JWTUtil.getUsername(principals.toString());
 		//获取用户对象
 		SysUser sysUser = sysUserService.getSysUserByUsername(username);
