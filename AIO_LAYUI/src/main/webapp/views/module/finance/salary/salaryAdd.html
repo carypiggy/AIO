@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>编码管理</title>
+    <script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_base.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_ztree.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>	
+</head>
+<body class="childrenBody">
+<form class="layui-form " id= "dictForm" style="width:80%;margin-top:15px;">
+	<input type="text" class="layui-input id"  style="display: none;">
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">编码类型</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input typeCode" lay-verify="required" placeholder="请输入编码类型">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">编码值</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input value" lay-verify="required" placeholder="请输入字典编码值" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">编码名称</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input label" lay-verify="required" placeholder="请输入编码名称">
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">排序</label>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input sort" lay-verify="Num" placeholder="请输入编码排序" >
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">备注信息</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入备注信息" class="layui-textarea remark"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="layui-input-block">
+			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addDict">确认</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
+			<button class="layui-btn layui-btn-sm layui-btn-normal" id="close">关闭</button>
+		</div>
+	</div>
+</form>
+	<script type="text/javascript" src="../../../../static/js/modules/system/dict/dictAdd.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>编码管理</title>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_base.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>
+	<link rel="stylesheet" href="../../../../static/css/formSelects-v4.css" media="all" />
+</head>
+
+<body class="childrenBody">
+	<div class="layui-fluid">
+		<form class="layui-form">
+
+			<blockquote class="layui-elem-quote ">
+
+				<div class="layui-inline">
+					<label>年月：</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input data-month" placeholder="请选择需要查询的年月" />
+					</div>
+					<a class="layui-btn search_btn" data-type="reload">搜索</a>
+				</div>
+
+
+			</blockquote>
+			<!--操作-->
+			<div layui-inline class="layui-but-per">
+				<div class="layui-btn-group" id="but_per">
+				</div>
+			</div>
+
+			<table id="salaryList" lay-filter="salaryList	"></table>
+		</form>
+	</div>
+	<script type="text/javascript" src="../../../../static/js/modules/finance/salary/salaryList.js"></script>
+</body>
+
+</html>
