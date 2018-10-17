@@ -33,9 +33,7 @@ public class FreemarkerUtil {
 	 */
 	public static GenExecuteResult createFile (GenConfigInfo genConfigInfo,String templateName, String filePath) {
 		GenExecuteResult result = new GenExecuteResult();
-		FileWriter out = null;
-		FreeMarkerConfigurer fc=(FreeMarkerConfigurer)SpringUtil.getBean("FreeMarkerConfigurer");
-		 
+		FileWriter out = null;	 
 		/*
 		 * 文件名称
 		 */
