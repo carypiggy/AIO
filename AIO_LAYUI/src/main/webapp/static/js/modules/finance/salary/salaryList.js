@@ -62,10 +62,11 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 		publicUtil.hiddenMenu(obj);
 	});
 	
-	//新增操作
+	//导入
 	$(document).on('click','.PER_ADD',function(){
-    	_addDict();
-    });
+		_addSalary();
+	});
+	
 	
 	//查看操作
 	$(document).on('click','.PER_VIEW',function(){		
@@ -106,9 +107,6 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 		}
     })	
 	
-	
-	
-	
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
             table.reload("salaryList",{
@@ -120,12 +118,14 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
                 }
             })
     });
+	
 
-	
-	
 	//添加编码
-	function _addDict(edit){
-		publicUtil.gotoEditPage(application.SERVE_URL +'/finance/salary/get',edit ==undefined?null:edit.id,"编码管理","salaryAdd.html");
+	function _addSalary(edit){
+		publicUtil.gotoEditPage(application.SERVE_URL +'/finance/salary/get',edit ==undefined?null:edit.id,"发放信息","salaryAdd.html");
 	}
+	
+	
 
+	
 })

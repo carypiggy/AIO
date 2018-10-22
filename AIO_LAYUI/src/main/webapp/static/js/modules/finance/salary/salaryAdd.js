@@ -9,32 +9,30 @@ layui.config({
 }).extend({
 	"validparam"  : "validparam"
 }) 
-layui.use(['form','layer','application','validparam','publicUtil'],function(){
+layui.use(['form','upload','layer','application','validparam','publicUtil'],function(){
     var form = layui.form,
     	application = layui.application,
     	validparam = layui.validparam,
     	publicUtil = layui.publicUtil,
         layer = parent.layer,
+        upload=layui.upload,
         $ = layui.jquery;
     
     form.verify(validparam);
-	
-	function formEdit(FormDatas){
-		if(FormDatas != ""){
-			var data = FormDatas;
-			$(".id").val(publicUtil.htmlDecode(data.id));
-			$(".remark").val(publicUtil.htmlDecode(data.remark));
-			$(".value").val(publicUtil.htmlDecode(data.value));
-			$(".typeCode").val(publicUtil.htmlDecode(data.typeCode));
-			$(".label").val(publicUtil.htmlDecode(data.label));
-			$(".value").val(publicUtil.htmlDecode(data.value));
-			$(".sort").val(publicUtil.htmlDecode(data.sort));
-		}else{
-			return false;
-		}
-	}
-
-	
+    
+    //拖拽上传
+    upload.render({
+      elem: '#upfile',
+      url: '/upload/',
+      accept: 'file',
+      exts : 'xls|xlsx',
+      size : 10240,
+      done: function(res){
+    	alert(1);
+        console.log(res)
+      }
+    });
+    
 	/**
 	 * 表单回显
 	 */
@@ -72,6 +70,24 @@ layui.use(['form','layer','application','validparam','publicUtil'],function(){
 	$("#close").click(function(){
 		layer.closeAll("iframe");
 		//刷新父页面
-		parent.location.reload();	
+		//parent.location.reload();	
 	})
+	
+	/**
+	 * 表单回显
+	 */
+	function formEdit(FormDatas){
+		if(FormDatas != ""){
+			var data = FormDatas;
+			$(".id").val(publicUtil.htmlDecode(data.id));
+			$(".remark").val(publicUtil.htmlDecode(data.remark));
+			$(".value").val(publicUtil.htmlDecode(data.value));
+			$(".typeCode").val(publicUtil.htmlDecode(data.typeCode));
+			$(".label").val(publicUtil.htmlDecode(data.label));
+			$(".value").val(publicUtil.htmlDecode(data.value));
+			$(".sort").val(publicUtil.htmlDecode(data.sort));
+		}else{
+			return false;
+		}
+	}
 })
