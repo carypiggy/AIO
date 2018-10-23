@@ -1,8 +1,8 @@
 /**
- * @autor syp
+ * @autor Cary
  * @content 字典列表页面js
  * @returns
- * @Time 2018-08-02
+ * @Time 2018-10-23
  */
 layui.config({
 	base : "../../../../static/js/"
@@ -25,7 +25,7 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	//获取权限并加载按钮
 	publicUtil.getPerms(application.PERMS_URL,application.HEADER,parent.cur_menu_id,'post','but_per');
 	
-    //编码列表
+    //列表
     var tableIns = table.render({
 		pageName: 'pageNo' //页码的参数名称，默认：page
 		,limitName: 'pageSize' //每页数据量的参数名，默认：limit,

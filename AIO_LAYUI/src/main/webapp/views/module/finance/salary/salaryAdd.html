@@ -8,25 +8,26 @@
 	<script type="text/javascript" charset="UTF-8" src="../../../../static/js/header_com.js"></script>	
 </head>
 <body class="childrenBody">
-<form class="layui-form " id= "salaryForm" style="width:80%;margin-top:15px;">
+<form class="layui-form " id="salaryForm" style="width:80%;margin-top:15px;">
 	<input type="text" class="layui-input id"  style="display: none;">
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">发放年月   </label>
+		<label class="layui-form-label">发放年月</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input typeCode" lay-verify="required" placeholder="请输入编码类型">
+			<input type="text" id="dateMonth" name="dateMonth" class="layui-input" readonly="true" lay-verify="required" placeholder="请选择发放年月">
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">信息备注</label>
 		<div class="layui-input-block">
-      		<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+      		<textarea placeholder="请输入备注内容" class="layui-textarea"></textarea>
     	</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">文件上传</label>
 		<div class="layui-upload-drag" style="padding:90px;" id="upfile">
 	  		<i class="layui-icon"></i>
-	  		<p>点击上传，或将excel文件拖拽到此处</p>
+	  		<p>点击上传，或将xls/xlsx文件拖拽到此处</p>
+	  		<input type="hidden" id="filepath"/>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">

@@ -9,16 +9,27 @@ layui.config({
 }).extend({
 	"validparam"  : "validparam"
 }) 
-layui.use(['form','upload','layer','application','validparam','publicUtil'],function(){
+layui.use(['form','upload','layer','laydate','application','validparam','publicUtil'],function(){
     var form = layui.form,
     	application = layui.application,
     	validparam = layui.validparam,
     	publicUtil = layui.publicUtil,
         layer = parent.layer,
         upload=layui.upload,
+        laydate=layui.laydate,
         $ = layui.jquery;
     
     form.verify(validparam);
+    
+    //月份选择器
+    laydate.render({
+		elem: '#dateMonth',
+		type:'month',
+		value: new Date(),
+		//指定元素
+		done: function(){}
+	});
+    
     
     //拖拽上传
     upload.render({
@@ -28,7 +39,6 @@ layui.use(['form','upload','layer','application','validparam','publicUtil'],func
       exts : 'xls|xlsx',
       size : 10240,
       done: function(res){
-    	alert(1);
         console.log(res)
       }
     });
@@ -36,19 +46,19 @@ layui.use(['form','upload','layer','application','validparam','publicUtil'],func
 	/**
 	 * 表单回显
 	 */
-	formEdit(parent.editFormData);
+	//formEdit(parent.editFormData);
 	
-    form.on("submit(addDict)",function(){
+    form.on("submit(salaryForm)",function(){
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
         var data = {
 			id : $(".id").val() ==null|| $(".id").val() =="" ? null : $(".id").val(),
 			typeCode : $(".typeCode").val(),
 			value : $(".value").val(),
-			label : $(".label").val(),
-			sort : $(".sort").val(),
-			remark : $(".remark").val()
+			remark : $(".remark").val(),
+			
 		}
+        
 		$.ajax({
 			url: application.SERVE_URL+"/sys/sysdict/save", //ajax请求地址
 			data:data,
