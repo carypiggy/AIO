@@ -43,9 +43,8 @@ public class JWTConfig {
         //4.LinkedHashMap是有序的，进行顺序拦截器配置
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         
-        
-        
         //5.设置默认通过的的url
+        filterChainDefinitionMap.put("/endMessage/**", "anon");
         filterChainDefinitionMap.put("/captcha", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/qrcode", "anon");
@@ -101,8 +100,8 @@ public class JWTConfig {
     }
     
     /**
-     * .开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
-     * .配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
      * @return
      */
     @Bean
