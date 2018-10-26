@@ -1,20 +1,27 @@
 package com.mpri.aio.message;
 
 public class ChatRoomRequest {
-
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getChatValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	private String name;
+	private String chatValue;
+	private String userId;
+	
 	public String getUserId() {
-		// TODO Auto-generated method stub
-		return null;
+		return userId;
 	}
-
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getChatValue() {
+		return chatValue;
+	}
+	public void setChatValue(String chatValue) {
+		this.chatValue = chatValue;
+	}
+	
 }

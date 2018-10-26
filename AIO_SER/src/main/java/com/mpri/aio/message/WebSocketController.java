@@ -50,7 +50,7 @@ public class WebSocketController {
 	    return response;
 	}
 			
-	//单独聊天
+	//单独聊天 
 	@MessageMapping("/aloneRequest")	
 	public ChatRoomResponse alone(ChatRoomRequest chatRoomRequest){
 	    //方法用于一对一测试

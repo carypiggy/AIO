@@ -2,14 +2,20 @@ package com.mpri.aio.message;
 
 public class ChatRoomResponse {
 
+	private String name;
+	private String chatValue;
+	public String getName() {
+		return name;
+	}
 	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		this.name = name;
 	}
-
+	public String getChatValue() {
+		return chatValue;
+	}
 	public void setChatValue(String chatValue) {
-		// TODO Auto-generated method stub
-		
+		this.chatValue = chatValue;
 	}
+	
 
 }
