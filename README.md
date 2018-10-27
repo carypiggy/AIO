@@ -20,6 +20,8 @@
 
 6.对自动生成二维码支持
 
+7.基础websocket服务搭建
+
 二、AIO_LAYUI：前端A，使用LAYUI实现
 
 1.使用layui实现前端系统管理部分
