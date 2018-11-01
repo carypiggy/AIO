@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-//@AutoConfigureAfter(RedisAutoConfiguration.class)
 public class RedisConfig {
+	
 	@Bean
 	public KeyGenerator simpleKeyGenerator() {
 		return (o, method, objects) -> {
@@ -57,26 +57,26 @@ public class RedisConfig {
 		redisCacheConfigurationMap.put("userCache", this.getRedisCacheConfigurationWithTtl(1200));
 		redisCacheConfigurationMap.put("dictCache", this.getRedisCacheConfigurationWithTtl(3600));
 		redisCacheConfigurationMap.put("roleCache", this.getRedisCacheConfigurationWithTtl(1200));
-		
+
 		return redisCacheConfigurationMap;
 	}
 
 	private RedisCacheConfiguration getRedisCacheConfigurationWithTtl(Integer seconds) {
-	        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
-	        ObjectMapper om = new ObjectMapper();
-	        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-	        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-	        jackson2JsonRedisSerializer.setObjectMapper(om);
+		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(
+				Object.class);
+		ObjectMapper om = new ObjectMapper();
+		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		jackson2JsonRedisSerializer.setObjectMapper(om);
 
-	        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-	        redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(
-	            RedisSerializationContext
-	                .SerializationPair
-	                .fromSerializer(jackson2JsonRedisSerializer)
-	        ).entryTtl(Duration.ofSeconds(seconds));
+		RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+		redisCacheConfiguration = redisCacheConfiguration
+				.serializeValuesWith(
+						RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+				.entryTtl(Duration.ofSeconds(seconds));
 
-	        return redisCacheConfiguration;
-	        }
+		return redisCacheConfiguration;
+	}
 
 	/**
 	 * Redis的模板 作为发布者
