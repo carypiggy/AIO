@@ -38,11 +38,12 @@ public class JWTUtil  {
      * @param secret 用户的密码
      * @return 是否正确
      */
-    public static boolean verify(String token, String username, String secret) {
+    public static boolean verify(String token, String username,String userId, String secret) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withClaim("username", username)
+                    .withClaim("userId", userId)
                     .build();
             
             //DecodedJWT jwt = 
@@ -66,11 +67,23 @@ public class JWTUtil  {
             return null;
         }
     }
+    /**
+     *  获得token中的信息无需secret解密也能获得 
+     * @return token中包含的用户Id
+     */
+    public static String getUserId(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("userId").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
     
     
     /**
      * 获得token中的过期时间
-     * @return token中包含的用户名
+     * @return token中包含的时间
      */
     public static long getTokenTime(String token) {
         try {
@@ -88,7 +101,7 @@ public class JWTUtil  {
      * @param secret 用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret,String comeFrom) {
+    public static String sign(String username, String userId,String secret,String comeFrom) {
         try {
         	
         	Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -96,7 +109,7 @@ public class JWTUtil  {
         	// 附带username信息
         	if(comeFrom.equals(FROM_WEB)) {
         		Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
-        		return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
+        		return JWT.create().withClaim("username", username).withClaim("userId", userId).withExpiresAt(date).sign(algorithm);
         	}else if(comeFrom.equals(FROM_APP)){
         		Date date = new Date(System.currentTimeMillis()+APP_EXPIRE_TIME);	
         		return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
@@ -125,8 +138,20 @@ public class JWTUtil  {
 //    	if((nowTime-tokenTime)<REFESH_TIME) {
 //    		return sign(username,password);
 //    	}else {
-    		
     		return token;
 //    	}
     }
+    
+    
+    public static void main(String args[]) {
+    	
+    	String token=sign("1","2","3","WEB");
+    	
+    	String userId=getUserId(token);
+    	String username=getUsername(token);
+    	System.out.println(token);
+    	System.out.println(userId);
+    	System.out.println(username);
+    }
 }
+

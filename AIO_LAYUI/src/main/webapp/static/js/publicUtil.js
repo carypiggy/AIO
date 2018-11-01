@@ -339,12 +339,26 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 			check_ed(obj);
 			
 		},
-			
 		//error 方法 
 		errofunc :function(res){
-			var result=data.responseJSON;
+			var result=res.responseJSON;
+			//判断后台是否返回值
 			if(result==undefined){
-				top.layer.msg("服务连接中断，请检查网络连接情况！",{time:1000});
+				//判断头文件报错信息
+				//error
+				var statusText=res.statusText;
+				//401 402
+				var status=res.status;
+				if(status===401){
+					top.layer.msg("操作权限不足，或因为长时间未操作，请重新登录！(401)",{time:1000},function(){
+						top.location.href = application.BASE_URL+"/login.html";
+					});
+				}else if(status===500){
+					top.layer.msg("服务内部错误，请刷新页面或联系管理员 ！",{time:1000});
+				}else{
+					top.layer.msg("服务连接异常，请检查网络连接情况，并重新操作 ！",{time:1000});
+				}
+
 			}else{
 				top.layer.msg(result.msg+"("+result.code+")",{time:1000});
 			}
@@ -408,11 +422,25 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
 		}
 
 		//error方法
-		function errofunc(res){	
+		function errofunc(res){
 			var result=res.responseJSON;
+			//判断后台是否返回值
 			if(result==undefined){
-				top.layer.msg("服务连接异常，请检查网络连接情况 ！",{time:1000});
-				
+				//判断头文件报错信息
+				//error
+				var statusText=res.statusText;
+				//401 402
+				var status=res.status;
+				if(status===401){
+					top.layer.msg("操作权限不足，或因为长时间未操作，请重新登录！(401)",{time:1000},function(){
+						top.location.href = application.BASE_URL+"/login.html";
+					});
+				}else if(status===500){
+					top.layer.msg("服务内部错误，请刷新页面或联系管理员 ！",{time:1000});
+				}else{
+					top.layer.msg("服务连接异常，请检查网络连接情况，并重新操作 ！",{time:1000});
+				}
+
 			}else{
 				top.layer.msg(result.msg+"("+result.code+")",{time:1000});
 			}

@@ -15,8 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,12 +63,11 @@ public class LoginController extends BaseController {
 	/**
 	 * 管理登录
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@PostMapping(value = "login")
 	public RestResponse<RestToken> login(@RequestParam("username") String username,
             			@RequestParam("password") String password, 
             			@RequestParam("comeFrom")String comeFrom) {
-		//首先校认验证码
-        //if(true) {
+		
     	SysUser sysUser=sysUserService.getSysUserByUsername(username);
 		//确认用户是否存在
     	if(sysUser!=null) {
@@ -80,15 +78,11 @@ public class LoginController extends BaseController {
 			String safeCode=sysUser.getSafecode();
 			ByteSource salt = ByteSource.Util.bytes(safeCode);
 			String result = new Md5Hash(password,salt,saltTimes).toString();
-			
-			//验证码获取
-			//String severCode = (String)session.getAttribute("authCode");
-	        //String clientCode = authCode;
-    	
+			String userId=sysUser.getId();
         	//登陆密码校验
     		if (sysUser.getPassword().equals(result)) {
     			//注册token
-    			String token=JWTUtil.sign(username, result,comeFrom);
+    			String token=JWTUtil.sign(username,userId, result,comeFrom);
     			
     			//获取token过期时间
     			long tokenTime= JWTUtil.getTokenTime(token);
@@ -106,10 +100,6 @@ public class LoginController extends BaseController {
     	}else {
     		return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "账号或密码错误，请重新输入！", null);
     	}
-//    			
-//        }else {
-//        	return new RestResponse<RestToken>(ExceptionResult.NO_PERMISSION, "验证码错误！", null);
-//        }
 	}
 
 	
@@ -118,7 +108,7 @@ public class LoginController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "refreshToken")
+	@PostMapping("refreshToken")
 	public RestResponse<RestToken> refreshToken(@RequestParam("comeFrom")String comeFrom,HttpServletRequest request) {
 		String token=request.getHeader("Authorization");
     	//当前时间
@@ -141,9 +131,9 @@ public class LoginController extends BaseController {
     	if((tokenTime-nowTime)>0&(tokenTime-nowTime)<freshTime) {
     		SysUser sysUser=sysUserService.getSysUserByUsername(username);
     		String password=sysUser.getPassword();
-    		
+    		String userId=sysUser.getId();
     		//注册new token
-			String newToken=JWTUtil.sign(username, password,comeFrom);
+			String newToken=JWTUtil.sign(username,userId, password,comeFrom);
 			
 			//获取token过期时间
 			long newTokenTime= JWTUtil.getTokenTime(newToken);
@@ -171,7 +161,7 @@ public class LoginController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/index")
+	@PostMapping("index")
 	public Map<String,Object> index(HttpServletRequest request) {
 		
 		String username = JWTUtil.getUsername(request.getHeader("Authorization"));
@@ -204,7 +194,7 @@ public class LoginController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/getPagePer")
+	@PostMapping("getPagePer")
 	public List<SysMenu> getPagePer(String menuId,HttpServletRequest request) {
 		
 		String username = JWTUtil.getUsername(request.getHeader("Authorization"));
@@ -219,7 +209,7 @@ public class LoginController extends BaseController {
 	 * 加载缓存到前台
 	 * @return
 	 */
-	@RequestMapping(value = "/loadCacheMap")
+	@PostMapping("loadCacheMap")
 	public RestResponse<Map<String,Object>> loadCacheMap() {
 		Map<String,Object> cacheMap=new HashMap<String,Object>();
 		Object dictCache  =InitCache.dictCache;

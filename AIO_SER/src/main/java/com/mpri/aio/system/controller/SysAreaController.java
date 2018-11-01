@@ -34,15 +34,15 @@ public class SysAreaController extends BaseController {
 	
 	/**
 	 * 
-	* <p>Title: list</p>  
-	* <p>Description: </p>  
-	* @param pageNo
-	* @param pageSize
-	* @param sysDict
-	* @return
+	 * <p>Title: list</p>  
+	 * <p>Description: </p>  
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sysDict
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/tree")
+	@PostMapping("tree")
 	public ResJson<SysArea> tree(SysArea sysDict) {
 		ResJson<SysArea> rj = new ResJson<SysArea>();
 		List<SysArea> list =  sysAreaService.loadAllListBy(sysDict);	
@@ -53,15 +53,15 @@ public class SysAreaController extends BaseController {
 	
 	/**
 	 * 
-	* <p>Title: list</p>  
-	* <p>Description: </p>  
-	* @param pageNo
-	* @param pageSize
-	* @param sysDict
-	* @return
+	 * <p>Title: list</p>  
+	 * <p>Description: </p>  
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sysDict
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/list")
+	@PostMapping("list")
 	public PageIo<SysArea> list(int pageNo,int pageSize,SysArea sysDict) {
 		PageIo<SysArea> info = sysAreaService.loadByPage(pageNo,pageSize,sysDict);	
 		return info;
@@ -70,14 +70,14 @@ public class SysAreaController extends BaseController {
 	
 	/**
 	 * 
-	* <p>Title: save</p>  
-	* <p>Description: </p>  
-	* @param sysDict
-	* @return
+	 * <p>Title: save</p>  
+	 * <p>Description: </p>  
+	 * @param sysDict
+	 * @return
 	 */
 	@Logs(value = "区域修改",type ="UPDATE")
 	@CrossOrigin
-	@PostMapping(value = "/save")
+	@PostMapping("save")
 	public RestResponse<String> save(@Validated SysArea sysArea){
 		if("Root".equals(sysArea.getParentId())|| null == sysArea.getParentId()) {
 			//setRoot 目录
@@ -92,16 +92,15 @@ public class SysAreaController extends BaseController {
 		
 	}	
 	
-	/**\
-	 * 
-	* <p>Title: delete</p>  
-	* <p>Description: </p>  
-	* @param sysDict
-	* @return
+	/* 
+	 * <p>Title: delete</p>  
+	 * <p>Description: </p>  
+	 * @param sysDict
+	 * @return
 	 */
 	@Logs(value = "区域删除",type ="DELETE")
 	@CrossOrigin
-	@PostMapping(value = "/delete")
+	@PostMapping("delete")
 	public RestResponse<String> delete(SysArea sysArea) {
 		sysAreaService.delete(sysArea);
 		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
@@ -117,7 +116,7 @@ public class SysAreaController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/get")
+	@PostMapping("get")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public RestResponse<SysArea> get(SysArea sysArea) {
 		
@@ -132,13 +131,13 @@ public class SysAreaController extends BaseController {
 	
 	/**
 	 * 
-	* <p>Title: POST</p>  
-	* <p>Description: </p>  
-	* @param sysDict
-	* @return
+	 * <p>Title: POST</p>  
+	 * <p>Description: </p>  
+	 * @param sysDict
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/loadChildrenByParent")
+	@PostMapping("loadChildrenByParent")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public RestResponse<List<SysArea>> loadChildrenByParent(SysArea sysArea) {
 		
@@ -148,13 +147,13 @@ public class SysAreaController extends BaseController {
 	
 	/**
 	 * 
-	* <p>Title: POST</p>  
-	* <p>Description: </p>  
-	* @param sysDict
-	* @return
+	 * <p>Title: POST</p>  
+	 * <p>Description: </p>  
+	 * @param sysDict
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/loadAllListBy")
+	@PostMapping("loadAllListBy")
 	public RestResponse<List<SysArea>> loadAllListBy(SysArea sysArea) {
 		return new RestResponse<List<SysArea>>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysAreaService.loadAllListBy(sysArea));
 	}

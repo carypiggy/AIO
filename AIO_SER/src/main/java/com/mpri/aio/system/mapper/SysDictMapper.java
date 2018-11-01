@@ -16,7 +16,7 @@ import com.mpri.aio.system.model.SysDict;
 public interface SysDictMapper extends CrudMapper<SysDict>{
 
 	/**
-	 * .根据typecode获取编码集合
+	 * 根据typecode获取编码集合
 	 * @param sysDict
 	 * @return
 	 */

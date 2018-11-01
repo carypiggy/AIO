@@ -77,6 +77,9 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery', 'application','publi
 						top.location.href = "login.html";
 					});
 				}
+			},
+			error:function(){
+				
 			}
 		});
 	}

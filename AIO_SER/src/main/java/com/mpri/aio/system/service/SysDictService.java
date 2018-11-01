@@ -9,7 +9,7 @@ import com.mpri.aio.base.service.CrudService;
 import com.mpri.aio.system.mapper.SysDictMapper;
 import com.mpri.aio.system.model.SysDict;
 /**
- *.系统编码业务类
+ *系统编码业务类
  * @author xw
  * @date 2018年8月3日
  */
@@ -22,6 +22,9 @@ public class SysDictService extends CrudService<SysDictMapper, SysDict>  {
 	 * @return
 	 */
 	@Cacheable(value = "dictCache", key ="#typeCode")
+//	@Cacheable(value = "dictCache", key ="#typeCode", depict = "字典信息缓存",
+//	        firstCache = @FirstCache(expireTime = 15, timeUnit = TimeUnit.SECONDS),
+//	        secondaryCache = @SecondaryCache(expireTime = 30, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public List<SysDict> getSysDictByTypecode(String typeCode) {
 		SysDict sysDict = new SysDict();
 		sysDict.setTypeCode(typeCode);

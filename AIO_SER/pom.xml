@@ -16,7 +16,7 @@
   </parent>
 
   <dependencies>
-  
+	<!-- 
 	<dependency>
 		<groupId>com.mpri.aio</groupId>
 		<artifactId>AIO_CORE</artifactId>
@@ -24,7 +24,8 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
 	</dependency>
-
+	 -->
+	 
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -58,29 +59,24 @@
 		<artifactId>spring-boot-starter-cache</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>com.github.ben-manes.caffeine</groupId>
-		<artifactId>caffeine</artifactId>
-	</dependency>
-	
-	<!-- ehcache缓存 
-	<dependency>
-	    <groupId>net.sf.ehcache</groupId>
-	    <artifactId>ehcache</artifactId>
-	    <version>2.9.1</version>
-	</dependency> -->
-	<!-- 二级缓存相关 
-	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-redis</artifactId>
 	</dependency>
-	-->
-	<!-- spring session管理相关 
+	
 	<dependency>
-	   <groupId>org.springframework.session</groupId>
-	   <artifactId>spring-session-data-redis</artifactId>
+         <groupId>com.github.ben-manes.caffeine</groupId>
+         <artifactId>caffeine</artifactId>
+         <optional>true</optional>
+    </dependency>
+	
+    <!--
+	<dependency>
+	    <groupId>com.github.xiaolyuh</groupId>
+	    <artifactId>layering-cache-aspectj</artifactId>
+	    <version>1.1.7</version>
 	</dependency>
 	-->
-	
+		
 	<!-- JWT token支持 -->
 	<dependency>
 	    <groupId>com.auth0</groupId>
@@ -277,27 +273,7 @@
 	   <version>1.5.6</version>
 	</dependency>
 	
-	<!-- jackson json -->
-	<dependency>
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-core</artifactId>
-		<version>2.9.1</version>
-	</dependency>
-	<dependency>
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-databind</artifactId>
-		<version>2.9.1</version>
-	</dependency>
-	<dependency>
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-annotations</artifactId>
-		<version>2.9.1</version>
-	</dependency>
-	<dependency>
-		<groupId>com.fasterxml.jackson.module</groupId>
-		<artifactId>jackson-module-jaxb-annotations</artifactId>
-		<version>2.9.1</version>
-	</dependency>
+
 	
 	<!-- fastjson依赖 -->
     <dependency>
@@ -327,6 +303,28 @@
     	<artifactId>jsoup</artifactId>
     	<version>1.11.3</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>4.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jsp-api</artifactId>
+	    <version>2.0</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<!-- springboot websocket -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+
   </dependencies>
   
   

@@ -55,8 +55,9 @@ public class JWTRealm extends AuthorizingRealm {
 	        
 		// 解密获得username，用于和数据库进行对比
 		String username = JWTUtil.getUsername(token);
+		String userId = JWTUtil.getUserId(token);
 		
-		if (username == null) {
+		if (username == null|| userId==null) {
 		    throw new AuthenticationException("token异常!");
 		}
 		
@@ -67,7 +68,7 @@ public class JWTRealm extends AuthorizingRealm {
 		    throw new AuthenticationException("用户不存在!");
 		}
 		
-		if (!JWTUtil.verify(token, username, sysUser.getPassword())) {
+		if (!JWTUtil.verify(token, username, userId,sysUser.getPassword())) {
 		    throw new AuthenticationException("Token认证失败");
 		}
 		
@@ -85,7 +86,7 @@ public class JWTRealm extends AuthorizingRealm {
 		
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		
-		//根据token获取uername
+		//根据token获取username
 		String username = JWTUtil.getUsername(principals.toString());
 		//获取用户对象
 		SysUser sysUser = sysUserService.getSysUserByUsername(username);

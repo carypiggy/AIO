@@ -24,6 +24,9 @@ public class SysRoleService  extends CrudService<SysRoleMapper, SysRole>{
 	 * @return
 	 */
 	@Cacheable(value = "roleCache", key = "#id")
+//	@Cacheable(value = "roleCache", key = "#id", depict = "当前用户角色信息缓存",
+//    firstCache = @FirstCache(expireTime = 10, timeUnit = TimeUnit.SECONDS),
+//    secondaryCache = @SecondaryCache(expireTime = 15, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public List<SysRole> loadRoleByUser(String id) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);

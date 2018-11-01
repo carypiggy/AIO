@@ -9,10 +9,10 @@ import com.mpri.aio.system.mapper.SysAreaMapper;
 import com.mpri.aio.system.model.SysArea;
 
 /**
-* .地区CRUD实现
-* @author lzq
-* @date 2018年8月1日
-*/
+ * 地区CRUD实现
+ * @author lzq
+ * @date 2018年8月1日
+ */
 @Service
 public class SysAreaService extends CrudService<SysAreaMapper, SysArea>  {	
 
@@ -27,7 +27,7 @@ public class SysAreaService extends CrudService<SysAreaMapper, SysArea>  {
 	}
 	
 	/**
-	 * .根据父获取所有子
+	 * 根据父获取所有子
 	 * @param sysArea
 	 * @return
 	 */

@@ -29,11 +29,10 @@ import com.mpri.aio.system.model.SysUser;
 import com.mpri.aio.system.service.SysUserService;
 
 /**
- * 用户登陆控制器 
+ * 用户控制器 
  * @author Cary
  * @date 2018年9月7日
  */
-
 @RestController
 @RequestMapping("/sys/sysuser")
 public class SysUserController extends BaseController {
@@ -55,15 +54,15 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 获取用户列表
-	* <p>Title: list</p>  
-	* <p>Description: </p>  
-	* @param pageNo
-	* @param pageSize
-	* @param SysUser
-	* @return
+	 * <p>Title: list</p>  
+	 * <p>Description: </p>  
+	 * @param pageNo
+	 * @param pageSize
+	 * @param SysUser
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/list")
+	@PostMapping("list")
 	public PageIo<SysUser> list(int pageNo,int pageSize,SysUser SysUser) {
 		PageIo<SysUser> pageInfo =  sysUserService.loadByPage(pageNo,pageSize,SysUser);							
 		return pageInfo;
@@ -71,14 +70,14 @@ public class SysUserController extends BaseController {
 	
 	/**
 	 * 增加或者更新用户
-	* <p>Title: add</p>  
-	* <p>Description: </p>  
-	* @param SysUser
-	* @return
+	 * <p>Title: add</p>  
+	 * <p>Description: </p>  
+	 * @param SysUser
+	 * @return
 	 */
 	@Logs(value = "用户修改",type ="UPDATE")
 	@CrossOrigin
-	@RequestMapping(value = "/save")
+	@RequestMapping("save")
 	public RestResponse<String> save(@RequestBody @Validated SysUser sysUser){
 		if((null == sysUser.getId() || "".equals(sysUser.getId()))) {
 			sysUser.setSafecode(IdGen.uuid());
@@ -105,7 +104,7 @@ public class SysUserController extends BaseController {
 	 */
 	@Logs(value = "用户删除",type ="DELETE")
 	@CrossOrigin
-	@PostMapping(value = "/delete")
+	@PostMapping("delete")
 	public RestResponse<String> delete(SysUser sysUser) {
 		sysUserService.deleteUserRole(sysUser);
 		sysUserService.delete(sysUser);
@@ -121,7 +120,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/get")
+	@PostMapping("get")
 	public RestResponse<SysUser> get(SysUser sysUser) {
 		return new RestResponse<SysUser>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysUserService.get(sysUser));	
 	}
@@ -134,7 +133,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/getusername")
+	@PostMapping("getusername")
 	public RestResponse<String> getSysUserByUsername(@RequestParam("username") String username) {
 		
 		SysUser sysUser=sysUserService.getSysUserByUsername(username);
@@ -154,7 +153,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/checkUserExist")
+	@PostMapping("checkUserExist")
 	public RestResponse<String> checkUserExist(@RequestParam("username") String username) {
 		int userNum=sysUserService.getUserNum(username);
 		if(userNum>0) {
@@ -175,7 +174,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
     @CrossOrigin
-    @PostMapping(value = "/uploadimg")
+    @PostMapping("uploadimg")
     public RestResponse<String> uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         String fileName = file.getOriginalFilename();
         String newFilName = String.valueOf(new Date().getTime())+"."+fileName.substring(fileName.lastIndexOf(".") + 1); /*更改文件名*/
@@ -197,7 +196,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/checkOldPwd")
+	@PostMapping("checkOldPwd")
 	public RestResponse<String> checkOldPwd(SysUser sysUser,@RequestParam("oldPwd") String oldPwd) {
 		Boolean check = checkPwd(sysUser,oldPwd);
 		if(check) {
@@ -214,7 +213,7 @@ public class SysUserController extends BaseController {
 	 */
 	@Logs(value = "修改密码",type ="OTHER")
 	@CrossOrigin
-	@PostMapping(value = "/changePwd")
+	@PostMapping("changePwd")
 	public RestResponse<String> changePwd(SysUser formUser,@RequestParam("newPwd") String newPwd,@RequestParam("oldPwd") String oldPwd){
 		Boolean check = checkPwd(formUser,oldPwd);
 		if(check) {

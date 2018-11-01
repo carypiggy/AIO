@@ -19,13 +19,11 @@ import com.mpri.aio.system.model.SysUser;
 
 public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
     
-	
 	/**
 	 * 根据角色id获取角色集合
 	 * @param username
 	 * @return
 	 */
-	
 	public List<SysMenu> loadPerByRole(String id) {
 		SysRole sysRole=new SysRole();
 		sysRole.setId(id);
@@ -38,6 +36,9 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 	 * @return
 	 */
 	@Cacheable(value = "menuCache", key = "#id")
+//	@Cacheable(value = "menuCache", key = "#id+#menuId", depict = "菜单信息缓存",
+//    firstCache = @FirstCache(expireTime = 10, timeUnit = TimeUnit.SECONDS),
+//    secondaryCache = @SecondaryCache(expireTime = 15, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public List<SysMenu> loadMenuByUser(String id) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);
@@ -50,6 +51,9 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 	 * @return
 	 */
 	@Cacheable(value = "pagePerCache", key = "#id+#menuId")
+//	@Cacheable(value = "pagePerCache", key = "#id+#menuId", depict = "当前用户菜单信息缓存",
+//    firstCache = @FirstCache(expireTime = 10, timeUnit = TimeUnit.SECONDS),
+//    secondaryCache = @SecondaryCache(expireTime = 15, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public List<SysMenu> loadPagePer(String id,String menuId) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);
@@ -63,6 +67,9 @@ public class SysMenuService  extends CrudService<SysMenuMapper, SysMenu>{
 	 * @return
 	 */
 	@Cacheable(value = "perCache", key ="#id")
+//	@Cacheable(value = "pagePerCache", key ="#id", depict = "当前用户权限信息缓存",
+//		    firstCache = @FirstCache(expireTime = 10, timeUnit = TimeUnit.SECONDS),
+//		    secondaryCache = @SecondaryCache(expireTime = 15, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public List<SysMenu> loadAllPer(String id) {
 		SysUser sysUser=new SysUser();
 		sysUser.setId(id);

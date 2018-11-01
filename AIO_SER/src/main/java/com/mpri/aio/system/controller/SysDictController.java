@@ -42,7 +42,7 @@ public class SysDictController extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/list")
+	@PostMapping("list")
 	public PageIo<SysDict> list(int pageNo,int pageSize,SysDict sysDict) {
 		PageIo<SysDict> info = sysDictService.loadByPage(pageNo,pageSize,sysDict);	
 		return info;
@@ -58,7 +58,7 @@ public class SysDictController extends BaseController {
 	 */
 	@Logs(value = "编码修改",type ="UPDATE")
 	@CrossOrigin
-	@PostMapping(value = "/save")
+	@PostMapping("save")
 	public RestResponse<String> save(@Validated SysDict sysDict){
 		sysDictService.save(sysDict);							
 		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");
@@ -73,7 +73,7 @@ public class SysDictController extends BaseController {
 	 */
 	@Logs(value = "编码删除",type ="DELETE")
 	@CrossOrigin
-	@PostMapping(value = "/delete")
+	@PostMapping("delete")
 	public RestResponse<String> delete(SysDict sysDict) {
 		sysDictService.delete(sysDict);
 		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
@@ -81,29 +81,28 @@ public class SysDictController extends BaseController {
 	
 	/**
 	 * 根据id获取字典
-	* <p>Title: get</p>  
-	* <p>Description: </p>  
-	* @param id
-	* @return
+	 * <p>Title: get</p>  
+	 * <p>Description: </p>  
+	 * @param id
+	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/get")
-//	@RequiresAuthentication
-//	@RequiresPermissions("sysdict:edit")
+	@PostMapping("get")
+	//@RequiresAuthentication
+	//@RequiresPermissions("sysdict:edit")
 	//@Cacheable(value = "dictCache", key = "#sysDict.id")
 	public RestResponse<SysDict> get(SysDict sysDict) {
 		
 		return new RestResponse<SysDict>(ExceptionResult.REQUEST_SUCCESS, "获取成功！", sysDictService.get(sysDict));
-
 	}
 	
 	/**
-	 * .根据编码获取字典集
+	 * 根据编码获取字典集
 	 * @param typeCode
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/getByTypeCode")
+	@PostMapping("getByTypeCode")
 	public  RestResponse<List<SysDict>> getSysDictByTypecode(String typeCode) {
 		
 		List<SysDict> dictList = InitCache.dictCache.get(typeCode);
