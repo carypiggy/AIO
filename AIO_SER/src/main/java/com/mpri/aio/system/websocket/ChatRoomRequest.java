@@ -1,9 +1,16 @@
-package com.mpri.aio.message;
+package com.mpri.aio.system.websocket;
 
-public class ChatRoomResponse {
-
+public class ChatRoomRequest {
 	private String name;
 	private String chatValue;
+	private String userId;
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getName() {
 		return name;
 	}
@@ -17,5 +24,4 @@ public class ChatRoomResponse {
 		this.chatValue = chatValue;
 	}
 	
-
 }

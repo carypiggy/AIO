@@ -1,4 +1,4 @@
-package com.mpri.aio.message;
+package com.mpri.aio.system.websocket;
 
 import java.util.Map;
 

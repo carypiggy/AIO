@@ -22,6 +22,9 @@ public class SysDictService extends CrudService<SysDictMapper, SysDict>  {
 	 * @return
 	 */
 	@Cacheable(value = "dictCache", key ="#typeCode")
+//	@Cacheable(value = "dictCache", key ="#typeCode", depict = "字典信息缓存",
+//	        firstCache = @FirstCache(expireTime = 15, timeUnit = TimeUnit.SECONDS),
+//	        secondaryCache = @SecondaryCache(expireTime = 30, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public List<SysDict> getSysDictByTypecode(String typeCode) {
 		SysDict sysDict = new SysDict();
 		sysDict.setTypeCode(typeCode);

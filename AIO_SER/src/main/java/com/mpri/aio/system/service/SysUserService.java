@@ -23,6 +23,9 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	 * @return
 	 */
 	@CachePut(value = "userCache", key ="#sysUser.username")
+//	@CachePut(value = "userCache", key = "#sysUser.username", depict = "用户信息缓存",
+//			firstCache = @FirstCache(expireTime = 5, timeUnit = TimeUnit.SECONDS),
+//			secondaryCache = @SecondaryCache(expireTime = 10, preloadTime = 2, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public SysUser save(SysUser sysUser) {
 		super.save(sysUser);
 		//反查对象并返回至缓存
@@ -37,6 +40,9 @@ public class SysUserService extends CrudService<SysUserMapper, SysUser>  {
 	 * @return
 	 */
 	@Cacheable(value = "userCache", key ="#username")
+//	@Cacheable(value = "userCache", key ="#username", depict = "用户基础信息缓存",
+//    firstCache = @FirstCache(expireTime = 10, timeUnit = TimeUnit.SECONDS),
+//    secondaryCache = @SecondaryCache(expireTime = 15, preloadTime = 5, forceRefresh = true, timeUnit = TimeUnit.SECONDS))
 	public SysUser getSysUserByUsername(String username) {
 		SysUser sysUser=new SysUser();
 		sysUser.setUsername(username);

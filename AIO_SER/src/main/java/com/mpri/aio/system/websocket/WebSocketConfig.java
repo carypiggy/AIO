@@ -1,4 +1,4 @@
-package com.mpri.aio.message;
+package com.mpri.aio.system.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -10,9 +10,9 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  * @author Cary
  * @date 2018年10月26日
  */
-@Configuration
+//@Configuration
 //注解开启使用STOMP协议来传输基于代理(message broker)的消息,这时控制器支持使用@MessageMapping,就像使用@RequestMapping一样
-@EnableWebSocketMessageBroker
+//@EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override

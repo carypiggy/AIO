@@ -1,4 +1,4 @@
-package com.mpri.aio.message;
+package com.mpri.aio.system.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -9,21 +9,21 @@ import org.springframework.stereotype.Controller;
 
 import com.mpri.aio.system.model.SysUser;
 
-@Controller
+//@Controller
 public class WebSocketController {
 
 	@Autowired
 	private SimpMessagingTemplate template;
 
 	// 广播推送消息
-	@Scheduled(fixedRate = 50000)
+	//@Scheduled(fixedRate = 50000)
 	public void sendTopicMessage() {
 		System.out.println("后台广播推送！");
 		this.template.convertAndSend("/topic/getResponse", "11111");
 	}
 
 	// 一对一推送消息
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	public void sendQueueMessage() {
 		System.out.println("后台一对一推送！");
 		SysUser user = new SysUser();

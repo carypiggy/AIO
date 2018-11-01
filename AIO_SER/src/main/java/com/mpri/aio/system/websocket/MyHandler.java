@@ -1,4 +1,4 @@
-package com.mpri.aio.message;
+package com.mpri.aio.system.websocket;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.alibaba.fastjson.JSONObject;
 
-@Service
+//@Service
 public class MyHandler implements WebSocketHandler {
 	// 在线用户列表
 	private static final Map<String, WebSocketSession> users;

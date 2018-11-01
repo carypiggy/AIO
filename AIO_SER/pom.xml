@@ -16,7 +16,7 @@
   </parent>
 
   <dependencies>
-  
+	<!-- 
 	<dependency>
 		<groupId>com.mpri.aio</groupId>
 		<artifactId>AIO_CORE</artifactId>
@@ -24,7 +24,8 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
 	</dependency>
-
+	 -->
+	 
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -58,29 +59,24 @@
 		<artifactId>spring-boot-starter-cache</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>com.github.ben-manes.caffeine</groupId>
-		<artifactId>caffeine</artifactId>
-	</dependency>
-	
-	<!-- ehcache缓存 
-	<dependency>
-	    <groupId>net.sf.ehcache</groupId>
-	    <artifactId>ehcache</artifactId>
-	    <version>2.9.1</version>
-	</dependency> -->
-	<!-- 二级缓存相关 
-	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-redis</artifactId>
 	</dependency>
-	-->
-	<!-- spring session管理相关 
+	
 	<dependency>
-	   <groupId>org.springframework.session</groupId>
-	   <artifactId>spring-session-data-redis</artifactId>
+         <groupId>com.github.ben-manes.caffeine</groupId>
+         <artifactId>caffeine</artifactId>
+         <optional>true</optional>
+    </dependency>
+	
+    <!--
+	<dependency>
+	    <groupId>com.github.xiaolyuh</groupId>
+	    <artifactId>layering-cache-aspectj</artifactId>
+	    <version>1.1.7</version>
 	</dependency>
 	-->
-	
+		
 	<!-- JWT token支持 -->
 	<dependency>
 	    <groupId>com.auth0</groupId>
