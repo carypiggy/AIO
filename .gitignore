@@ -9,3 +9,4 @@ AIO_LAYUI/.externalToolBuilders/org.eclipse.jdt.core.javabuilder.launch
 AIO_LAYUI/.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder (1).launch
 AIO_LAYUI/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder (1).launch
 *.launch
+AIO_SER/src/main/resources/application.properties
