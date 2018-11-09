@@ -16,7 +16,7 @@
   </parent>
 
   <dependencies>
-	<!-- 
+	<!-- -->
 	<dependency>
 		<groupId>com.mpri.aio</groupId>
 		<artifactId>AIO_CORE</artifactId>
@@ -24,7 +24,7 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
 	</dependency>
-	 -->
+	 
 	 
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
@@ -58,6 +58,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-cache</artifactId>
 	</dependency>
+	<!-- redis缓存相关 -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-redis</artifactId>
