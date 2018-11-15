@@ -10,6 +10,7 @@ layui.config({
 	"application" : "application",
 	"publicUtil"  : "publicUtil"
 })
+var salaryId;
 layui.use(['form','layer','laydate','table','laytpl','application','publicUtil'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -69,10 +70,10 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
 	
 	
 	//查看操作
-	$(document).on('click','.PER_VIEW',function(){		
+	$(document).on('click','.PER_EDIT',function(){		
 		var flag = publicUtil.jurgeSelectRows(table.checkStatus('salaryList').data);
 		if(flag){			
-			_addDict(table.checkStatus('salaryList').data[0]);
+			_viewSalary(table.checkStatus('salaryList').data[0]);
 		}else{
 			return false;
 		}
@@ -114,18 +115,38 @@ layui.use(['form','layer','laydate','table','laytpl','application','publicUtil']
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                	typeCode: $(".data-month").val()
+                	dateMonth: $(".data-month").val()
                 }
             })
     });
 	
 
-	//添加编码
+	//添加
 	function _addSalary(edit){
 		publicUtil.gotoEditPage(application.SERVE_URL +'/finance/salary/get',edit ==undefined?null:edit.id,"发放信息","salaryAdd.html");
 	}
 	
-	
+	//查看
+	function _viewSalary(edit){
+		salaryId = edit ==undefined?null:edit.id;
+		var index = layui.layer.open({
+			title: "发送详情",
+			type: 2,
+			content: "salaryDetail.html",
+			success: function(layero, index) {
+				setTimeout(function() {
+					layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+						tips: 3
+					});
+				}, 500)
+			}
+		})
+		layui.layer.full(index);
+		//改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+		$(window).on("resize", function() {
+			layui.layer.full(index);
+		})
+	}
 
 	
 })

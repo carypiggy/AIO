@@ -23,10 +23,7 @@
 		<if test="entity!=null">
 			<if test="entity.id != null and entity.id!='' ">
         		and id=#{entity.id}
-      		</if>	      	
-			<if test="entity.dateMonth != null and entity.dateMonth!='' ">
-        		and date_month=#{entity.dateMonth}
-      		</if>	      	
+      		</if>	      	      	
 			<if test="entity.personNum != null and entity.personNum!='' ">
         		and person_num=#{entity.personNum}
       		</if>	      	
@@ -59,7 +56,11 @@
     		<include refid="Base_Column_List" />
     	from fin_salary 
     	<where>
+    		1 =1
 	  		<include refid="query_where"></include>
+			<if test="entity.dateMonth != null and entity.dateMonth!='' ">
+        		and date_month LIKE concat('%', #{entity.dateMonth},'%') 
+      		</if>	 	  		
     	</where>
   	</select>
 

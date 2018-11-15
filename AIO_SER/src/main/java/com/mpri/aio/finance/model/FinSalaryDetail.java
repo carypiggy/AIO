@@ -14,6 +14,7 @@ public class FinSalaryDetail extends DataEntity<FinSalaryDetail> {
 
 	private static final long serialVersionUID = 1539743793931L;
 	
+	private String salaryId;
 	private String card;
 	private String name;
 	private String email;
@@ -21,6 +22,12 @@ public class FinSalaryDetail extends DataEntity<FinSalaryDetail> {
 	private String path;
 
 	
+	public String getSalaryId() {
+		return salaryId;
+	}
+	public void setSalaryId(String salaryId) {
+		this.salaryId = salaryId;
+	}
 	public String getCard() {
 		return this.card;
 	}

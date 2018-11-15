@@ -16,7 +16,7 @@
   </parent>
 
   <dependencies>
-	<!-- -->
+	<!-- 
 	<dependency>
 		<groupId>com.mpri.aio</groupId>
 		<artifactId>AIO_CORE</artifactId>
@@ -24,7 +24,7 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
 	</dependency>
-	 
+	--> 
 	 
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
@@ -263,15 +263,10 @@
 	</dependency>
 	
 	<!-- email -->
+	<!-- email -->
 	<dependency>
-	   <groupId>org.apache.commons</groupId>
-	   <artifactId>commons-email</artifactId>
-	   <version>1.5</version>
-	</dependency>
-	<dependency>
-	   <groupId>com.sun.mail</groupId>
-	   <artifactId>javax.mail</artifactId>
-	   <version>1.5.6</version>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-mail</artifactId>
 	</dependency>
 	
 

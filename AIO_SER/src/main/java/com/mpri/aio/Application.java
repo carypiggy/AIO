@@ -1,11 +1,15 @@
 package com.mpri.aio;
+import java.util.concurrent.Executor;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
- * 主函数
+ * 主函数 
  * @author Cary
  * @date 2018年7月18日
  */
@@ -24,5 +28,4 @@ public class Application {
 //    public void run(String... args) throws Exception {
 //        new NettyService();
 //    }
-
 }

@@ -2,12 +2,12 @@ package ${controllerUrl};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import com.mpri.aio.common.response.RestResponse;
+import com.mpri.aio.common.exception.ExceptionResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.page.PageIo;
@@ -40,7 +40,7 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	* @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/list")
+	@PostMapping(value = "/list")
 	public PageInfo<${genTableInfo.entityName}> list(int pageNo,int pageSize,${genTableInfo.entityName} ${genTableInfo.objectName}) {
 		PageIo<${genTableInfo.entityName}> pageInfo =  ${genTableInfo.objectName}Service.loadByPage(pageNo,pageSize,${genTableInfo.objectName});							
 		return pageInfo;
@@ -56,9 +56,9 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/save")
-	public String save(@Validated ${genTableInfo.entityName} ${genTableInfo.objectName}){
-		${genTableInfo.objectName}Service.save(${genTableInfo.objectName});							
-		return SUCCESS;
+	public RestResponse<String> save(@Validated ${genTableInfo.entityName} ${genTableInfo.objectName}){
+		${genTableInfo.objectName}Service.save(${genTableInfo.objectName});
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "保存成功！", "");							
 	}	
 	
 	/**
@@ -70,9 +70,9 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/delete")
-	public String delete(${genTableInfo.entityName} ${genTableInfo.objectName}) {
+	public RestResponse<String> delete(${genTableInfo.entityName} ${genTableInfo.objectName}) {
 		${genTableInfo.objectName}Service.delete(${genTableInfo.objectName});
-		return SUCCESS;
+		return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "删除成功！", "");
 	}
 	
 	/**
@@ -84,8 +84,9 @@ public class ${genTableInfo.entityName}Controller extends BaseController {
 	 */
 	@CrossOrigin
 	@PostMapping(value = "/get")
-	public ${genTableInfo.entityName} get(${genTableInfo.entityName} ${genTableInfo.objectName}) {
-		return ${genTableInfo.objectName}Service.get(${genTableInfo.objectName});
+	public RestResponse<${genTableInfo.entityName}> get(${genTableInfo.entityName} ${genTableInfo.objectName}) {
+		return new RestResponse<${genTableInfo.entityName}>(ExceptionResult.REQUEST_SUCCESS, "获取成功！",
+				${genTableInfo.objectName}Service.get(${genTableInfo.objectName}));	
 	}
 		
 }

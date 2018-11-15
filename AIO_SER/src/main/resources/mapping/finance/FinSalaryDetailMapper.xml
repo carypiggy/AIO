@@ -5,6 +5,7 @@
   	<!-- 基础返回值定义 -->
 	<resultMap id="BaseResultMap" type="com.mpri.aio.finance.model.FinSalaryDetail">
 			<id column="id" jdbcType="VARCHAR" property="id" />
+			<result column="salary_id" jdbcType="VARCHAR" property="salaryId" />
 			<result column="card" jdbcType="VARCHAR" property="card" />
 			<result column="name" jdbcType="VARCHAR" property="name" />
 			<result column="email" jdbcType="VARCHAR" property="email" />
@@ -17,15 +18,18 @@
 	
     <!-- 基础字段定义 -->
 	<sql id="Base_Column_List">
-    	id, card, name, email, status, path, create_date, remark, flag
+    	id, salary_id,card, name, email, status, path, create_date, remark, flag
 	</sql>
 
 	<!-- 查询条件定义 -->
 	<sql id="query_where">
 		<if test="entity!=null">
+			<if test="entity.salaryId != null and entity.salaryId!='' ">
+        		and salary_id=#{entity.salaryId}
+      		</if>
 			<if test="entity.id != null and entity.id!='' ">
-        		and id=#{entity.id}
-      		</if>	      	
+        		and id=#{entity.id}        		
+      		</if>      			      	
 			<if test="entity.card != null and entity.card!='' ">
         		and card=#{entity.card}
       		</if>	      	
@@ -69,6 +73,7 @@
     	<where>
 	  		<include refid="query_where"></include>
     	</where>
+    	order by card
   	</select>
 
   	<!-- 依照条件查询所有对象 -->
@@ -92,7 +97,10 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 	   		<if test="id != null">
 	    		id,
-	  		</if>   			
+	  		</if>   	
+	   		<if test="salaryId != null">
+	    		salary_id,
+	  		</if>	  				
 	   		<if test="card != null">
 	    		card,
 	  		</if>   			
@@ -121,7 +129,10 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 	   		<if test="id != null">
 	   			#{id,jdbcType=VARCHAR},
-	  		</if>   			
+	  		</if> 
+	   		<if test="salaryId != null">
+	    		#{salaryId,jdbcType=VARCHAR},
+	  		</if>	  		  			
 	   		<if test="card != null">
 	   			#{card,jdbcType=VARCHAR},
 	  		</if>   			
@@ -155,7 +166,10 @@
     	<set>
 			<if test="card != null">
 	   			card = #{card,jdbcType=VARCHAR},
-	  		</if>  
+	  		</if>
+	   		<if test="salaryId != null">
+	    		salary_id = #{salaryId,jdbcType=VARCHAR},
+	  		</if>	  		  
 			<if test="name != null">
 	   			name = #{name,jdbcType=VARCHAR},
 	  		</if>  
