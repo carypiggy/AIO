@@ -22,48 +22,50 @@ import com.mpri.aio.gen.util.MySqlToJavaUtil;
 public class GenTemplateTest extends ApplicationTests {
 
 	@Autowired
-	private Generator generator;
+	private Generator generator; 
 	
 	//是否加载ID、Flag、Remark
 	public static final boolean LODE = true;
 	public static final boolean NOT_LODE = false;
 	
 	//路径信息E:\git_res\AIO\AIO_SER\src\main\resources\mapping\system
-	public static final String ENTITY_URL="com.mpri.aio.finance.model";
-	public static final String MAPPER_URL="com.mpri.aio.finance.mapper";
-	public static final String MAPPER_XML_URL="finance";
-	public static final String SERVICE_URL="com.mpri.aio.finance.service";
-	public static final String CONTROLLER_URL="com.mpri.aio.finance.controller";
+	public static final String ENTITY_URL="com.mpri.aio.message.model";
+	public static final String MAPPER_URL="com.mpri.aio.message.mapper";
+	public static final String MAPPER_XML_URL="message";
+	public static final String SERVICE_URL="com.mpri.aio.message.service";
+	public static final String CONTROLLER_URL="com.mpri.aio.message.controller";
 	
 	//需要修改的
 
-	public static final String TABLE = "fin_salary_detail";    //表名
-	public static final String CLASSCOMMENT ="薪资管理"; //模块名称
-	public static final String JAVA_URL = "D:\\workspace\\AIO\\AIO_SER\\src\\main\\java\\";  // 物理路径       E:\git_res\AIO\AIO_SER\src\main\java
-	public static final String XML_URL = "D:\\workspace\\AIO\\AIO_SER\\src\\main\\resources\\mapping\\";
+	public static final String TABLE = "mes_group_condition";    //表名
+	public static final String CLASSCOMMENT ="信息群组条件"; //模块名称
+//	public static final String JAVA_URL = "E:\\";
+	public static final String JAVA_URL = "E:\\Pro\\X-sites\\sm2.0\\SRC\\smmp_ser\\src\\main\\java\\";  // 物理路径       E:\git_res\AIO\AIO_SER\src\main\java
+	public static final String XML_URL = "E:\\Pro\\X-sites\\sm2.0\\SRC\\smmp_ser\\src\\main\\resources\\mapping\\";
 	public static final String TIME=new Date().toString();  // 创建时间
 	public static final String AGILE=new Date().getTime()+"";	//序列化 -扩展字段
 	
-	@Test
+	@Test 
 	public void creat(){
 		//设相关值
 		GenConfigInfo genConfigInfo = new GenConfigInfo();
 		//作者名
-		genConfigInfo.setAuthor("Cary");
+		genConfigInfo.setAuthor("syp");
 		//项目名
-		genConfigInfo.setProject("aio");
+		genConfigInfo.setProject("smmp");
 		//版本号
-		genConfigInfo.setVersion("v_1.0");
-		
+		genConfigInfo.setVersion("v_1.02");
+		//请求url前缀
+		genConfigInfo.setRequestUrl("msg");
 		//mapping的GenConfigInfo对象
 		GenConfigInfo genConfigInfoMapping = setGenConfigInfo(genConfigInfo);		
 		//此处需要id remark flag等数据操作
 		genConfigInfoMapping = EntityInfoUtil.getInfo(genConfigInfoMapping,LODE);
-		//生成mapper 映射文件
+//		生成mapper 映射文件
 		super.outprint("com.mpri.aio.gen.model.GenExecuteResult", generator.createMapping(XML_URL, genConfigInfoMapping));
 
-		
-		
+//		
+//		
 		//mapping的GenConfigInfo对象
 		GenConfigInfo genConfigInfoJava = setGenConfigInfo(genConfigInfo);
 		genConfigInfoJava=EntityInfoUtil.getInfo(genConfigInfoJava,NOT_LODE);

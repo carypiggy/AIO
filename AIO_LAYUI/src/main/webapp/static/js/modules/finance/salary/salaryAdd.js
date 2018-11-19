@@ -52,12 +52,44 @@ layui.use(['form', 'upload', 'layer', 'laydate', 'application', 'validparam', 'p
 	//formEdit(parent.editFormData);
 
 	form.on("submit(send)", function() {
-		//弹出loading
-		var index = top.layer.msg('发送中，请稍候', {
-			icon: 16,
-			time: false,
-			shade: 0.8
-		});
+		if(fileUrl ="" || null = fileUrl){
+			top.layer.msg("请先选择要发送的文件", {
+				time: 800
+			});
+			return false;
+		}else{
+			//弹出loading
+			var index = top.layer.msg('发送中，请稍候', {
+				icon: 16,
+				time: false,
+				shade: 0.8
+			});
+			
+			$.ajax({
+				url: application.SERVE_URL + "/finance/salary/sendFinace", //ajax请求地址
+				data: {
+					fileUrl : fileUrl
+				},
+				success: function(res) {
+					if (res.code == application.REQUEST_SUCCESS) {
+						top.layer.close(index);
+						top.layer.msg(res.msg, {
+							time: 1000
+						});
+						layer.closeAll("iframe");
+						//刷新父页面
+						parent.location.reload();
+					} else {
+						layer.msg(res.msg, {
+							time: 1000
+						});
+					}
+				}
+			});
+		}
+		
+		
+
 // 		var data = {
 // 			id: $(".id").val() == null || $(".id").val() == "" ? null : $(".id").val(),
 // 			typeCode: $(".typeCode").val(),
@@ -66,27 +98,7 @@ layui.use(['form', 'upload', 'layer', 'laydate', 'application', 'validparam', 'p
 // 
 // 		}
 
-		$.ajax({
-			url: application.SERVE_URL + "/finance/salary/sendFinace", //ajax请求地址
-			data: {
-				fileUrl : fileUrl
-			},
-			success: function(res) {
-				if (res.code == application.REQUEST_SUCCESS) {
-					top.layer.close(index);
-					top.layer.msg(res.msg, {
-						time: 1000
-					});
-					layer.closeAll("iframe");
-					//刷新父页面
-					parent.location.reload();
-				} else {
-					layer.msg(res.msg, {
-						time: 1000
-					});
-				}
-			}
-		});
+
 		return false;
 	})
 

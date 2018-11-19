@@ -84,6 +84,7 @@
 		<where>
 	  		<include refid="query_where"></include>
     	</where>
+    	order by card
   	</select>
 
 	<!-- 删除对象 -->
