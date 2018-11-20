@@ -44,6 +44,7 @@ public class JWTConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         
         //5.设置默认通过的的url
+        filterChainDefinitionMap.put("/file/**", "anon");
         filterChainDefinitionMap.put("/endMessage/**", "anon");
         filterChainDefinitionMap.put("/captcha", "anon");
         filterChainDefinitionMap.put("/login", "anon");

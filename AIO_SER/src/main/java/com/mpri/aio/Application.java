@@ -1,8 +1,6 @@
 package com.mpri.aio;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Cary
  * @date 2018年7月18日
  */
-@SpringBootApplication(exclude = {MongoAutoConfiguration.class,MongoDataAutoConfiguration.class})
+@SpringBootApplication
 @EnableTransactionManagement
 @EnableCaching// 开启缓存，需要显示的指定
 @EnableAsync// 开启异步
