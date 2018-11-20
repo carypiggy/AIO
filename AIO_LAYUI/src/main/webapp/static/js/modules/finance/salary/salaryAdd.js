@@ -52,7 +52,7 @@ layui.use(['form', 'upload', 'layer', 'laydate', 'application', 'validparam', 'p
 	//formEdit(parent.editFormData);
 
 	form.on("submit(send)", function() {
-		if(fileUrl ="" || null = fileUrl){
+		if(fileUrl =="" || null == fileUrl){
 			top.layer.msg("请先选择要发送的文件", {
 				time: 800
 			});
