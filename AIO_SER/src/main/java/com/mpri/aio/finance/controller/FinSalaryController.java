@@ -8,10 +8,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -159,7 +161,7 @@ public class FinSalaryController extends BaseController{
             System.out.println(filePath+"/"+newFilName);
             return RestResponse.getInstance(200, "上传成功", filePath+newFilName);
         } catch (Exception e) {
-            // TODO: handle exception
+        	e.printStackTrace();
         }      
         return RestResponse.getInstance(-1, "上传失败", filePath+newFilName);
     }
@@ -218,8 +220,11 @@ public class FinSalaryController extends BaseController{
                     } else {
                         cellValue = "";
                     }
+                    //设置背景颜色
+//                    XSSFCellStyle style = newwb.createCellStyle();
                     //写值
                     newcell.setCellValue(cellValue);
+                    newcell.getCellStyle().cloneStyleFrom(cell.getCellStyle());
             	}
             }           
 	        return newwb;
@@ -240,7 +245,7 @@ public class FinSalaryController extends BaseController{
     @CrossOrigin
     @PostMapping(value = "/sendFinace")
     public RestResponse<String> sendFinace(String fileUrl){
-    	
+        String resfillPath  = "finance/"+DateUtils.getDate()+"/";
     	//创建整月
     	FinSalary finSalary = new FinSalary();
     	finSalary.setDateMonth(DateUtils.getYear()+"-"+DateUtils.getMonth());
@@ -307,14 +312,19 @@ public class FinSalaryController extends BaseController{
             		}                    
                     //写值
                     newcell.setCellValue(cellValue);
+                    newcell.getCellStyle().cloneStyleFrom(cell.getCellStyle());
             	}
-            	FileOutputStream fout = new FileOutputStream(uploadFolder+finSalaryDetail.getName()+".xlsx");
+            	FileOutputStream fout = new FileOutputStream(uploadFolder+resfillPath+
+            			finSalaryDetail.getName()+"_"+finSalaryDetail.getCard()+".xlsx");
             	xss.write(fout);  
                 fout.close();
 		    	Map<String, Object> map = new HashMap<String, Object>();
 		    	map.put("name",finSalaryDetail.getName());
-		    	Boolean flag=  mailUtil.asyncSendMail(finSalaryDetail.getEmail(), "email", map,uploadFolder+finSalaryDetail.getName()+".xlsx");
-		    	finSalaryDetail.setPath(uploadFolder+finSalaryDetail.getName()+".xlsx");
+		    	System.err.println(uploadFolder+resfillPath+finSalaryDetail.getName()+"_"+finSalaryDetail.getCard()+".xlsx");
+		    	Boolean flag=  mailUtil.asyncSendMail(finSalaryDetail.getEmail(), "email", map,
+		    			uploadFolder+resfillPath+finSalaryDetail.getName()+"_"+finSalaryDetail.getCard()+".xlsx"
+		            			,finSalaryDetail.getName()+"_salary");
+		    	finSalaryDetail.setPath(uploadFolder+resfillPath+finSalaryDetail.getName()+"_"+finSalaryDetail.getCard()+".xlsx");
 		    	if(flag) {
 		    		personNum++;
                 	finSalaryDetail.setStatus("YES");
