@@ -1,19 +1,17 @@
 package com.mpri.aio;
-import java.util.concurrent.Executor;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * 主函数 
  * @author Cary
  * @date 2018年7月18日
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class,MongoDataAutoConfiguration.class})
 @EnableTransactionManagement
 @EnableCaching// 开启缓存，需要显示的指定
 @EnableAsync// 开启异步
