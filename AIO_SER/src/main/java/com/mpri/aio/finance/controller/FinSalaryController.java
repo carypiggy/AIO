@@ -308,17 +308,17 @@ public class FinSalaryController extends BaseController{
                     //入库
                     if(j==0) {
                     	if(StringUtil.isEmpty(cellValue)) {
-                    		break;
+                    		 return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "成功！", "");
                     	}
                     	finSalaryDetail.setName(cellValue);
             		}else if(j==1) {
                     	if(StringUtil.isEmpty(cellValue)) {
-                    		break;
+                    		 return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "成功！", "");
                     	}
             			finSalaryDetail.setCard(cellValue);
             		}else if(j==2) {
                     	if(StringUtil.isEmpty(cellValue)) {
-                    		break;
+                    		 return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "成功！", "");
                     	}
             			finSalaryDetail.setEmail(cellValue);
             		}                    
