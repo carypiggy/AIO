@@ -16,7 +16,7 @@
   </parent>
 
   <dependencies>
-	<!-- 
+	<!-- core --> 
 	<dependency>
 		<groupId>com.mpri.aio</groupId>
 		<artifactId>AIO_CORE</artifactId>
@@ -24,7 +24,7 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
 	</dependency>
-	--> 
+	
 	 
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
@@ -269,8 +269,6 @@
 	    <artifactId>spring-boot-starter-mail</artifactId>
 	</dependency>
 	
-
-	
 	<!-- fastjson依赖 -->
     <dependency>
       	<groupId>com.alibaba</groupId>
@@ -294,31 +292,40 @@
 		<artifactId>poi-ooxml-schemas</artifactId>
 		<version>3.17</version>
 	</dependency>
+	
+	<!-- 
 	<dependency>
     	<groupId>org.jsoup</groupId>
     	<artifactId>jsoup</artifactId>
     	<version>1.11.3</version>
 	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+	 -->
+	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api 
 	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>javax.servlet-api</artifactId>
 	    <version>4.0.1</version>
 	    <scope>provided</scope>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
+	</dependency>-->
+	
+	<!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api
 	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>jsp-api</artifactId>
 	    <version>2.0</version>
 	    <scope>provided</scope>
-	</dependency>
+	</dependency> -->
 	
 	<!-- springboot websocket -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+    
+	<!-- mongodb -->
+	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
     </dependency>
 
   </dependencies>

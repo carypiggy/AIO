@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter2 数据绑定和第一个Vue应用</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name" placeholder="你的名字">
+        <h1>你好，{{name}}</h1>
+        <h2>{{date | formatDate}}</h2>
+        <span v-html="link"></span><br>
+        <span v-pre>{{不编译部分script}}</span><br>
+        <span>{{number/3}}</span><br>
+        <span>{{isOk?'确定':'取消'}}</span><br>
+        <span>{{text.split(',').reverse().join(',')}}</span><br>
+        <p v-if="show">show it</p>
+        <a v-bind:href="url" target="_blank">163</a><br>
+        <img v-bind:src="images" style="height: 100px;width: 140px"/><br>
+        <button v-on:click="handleClose">hidden show it</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    <script>
+        var padDate=function (value) {
+            return value<10?'0'+value:value;
+        };
+        var app= new Vue({
+            el:'#app',
+            data:{
+                name:'q111',
+                a:'2',
+                date:new Date(),
+                link:'<a href="http://www.163.com/" target="_blank">163</a>',
+                number:100,
+                isOk:true,
+                text:'123,45,6',
+                show:true,
+                url:'http://www.163.com',
+                images:'http://t2.hddhhn.com/uploads/tu/201610/198/scx30045vxd.jpg'
+            },
+            methods:{
+                handleClose:function () {
+                    this.close();
+                },
+                close:function () {
+                    this.show=false;
+                },
+                init:function (text) {
+                    console.log(text);
+                }
+            },
+            filters:{
+                formatDate:function (value) {
+                    var date=new Date(value);
+                    var year=date.getFullYear();
+                    var month=padDate(date.getMonth()-1);
+                    var day=padDate(date.getDate());
+                    var hours=padDate(date.getHours());
+                    var minutes=padDate(date.getMinutes());
+                    var seconds=padDate(date.getSeconds());
+                    return year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+seconds
+                }
+            },
+            created:function () {
+                console.log(this.a);
+            },
+            mounted:function () {
+                console.log(this.$el);
+                var _this=this;
+                this.timer=setInterval(function(){
+                    _this.date= new Date();
+                },1000);
+                this.init('init the system!!');
+            },
+            beforeDestrory:function () {
+                if(this.timer){
+                    clearImmediate(this.timer);
+                }
+            }
+        });
+        app.init('init the second times')
+
+
+    </script>
+</body>
+</html>
+
