@@ -220,7 +220,7 @@
 	   			#{openDate,jdbcType=TIMESTAMP},
 	  		</if> 
 	   		<if test="closeDate != null">
-	   			#{openDate,jdbcType=TIMESTAMP},
+	   			#{closeDate,jdbcType=TIMESTAMP},
 	  		</if> 	  			  		
 	  		
 	  		<if test="createDate != null">
