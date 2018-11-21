@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter3 计算属性</title>
+</head>
+<body>
+    <div id="app">
+        测试： {{reversedTest}}<br>
+        总价：{{prices}}<br>
+        姓名：{{fullname}}<br>
+    </div>
+    <div id="app1">
+        测试2： {{reversedTest}}<br>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                text:'123,456',
+                package1:[{
+                    name: 'iphone7',
+                    price: 7199,
+                    count: 2
+                },{
+                    name:'ipad',
+                    price:2888,
+                    count:1
+                }],
+                package2:[{
+                    name:'apple',
+                    price:3,
+                    count:5
+                },{
+                    name:'banana',
+                    price:2,
+                    count:10
+                }],
+                firstname:'Jim',
+                lastname:'Green'
+            },
+            computed:{
+                reversedTest:function () {
+                    return this.text.split(',').reverse().join(',');
+                },
+                prices:function () {
+                    var prices=0;
+                    for (var i=0;i<this.package1.length;i++){
+                        prices+=this.package1[i].price*this.package1[i].count;
+                    }
+                    for(var i=0;i<this.package2.length;i++){
+                        prices+=this.package2[i].price*this.package2[i].count;
+                    }
+                    return prices;
+                },
+                fullname:{
+                    get:function () {
+                        return this.firstname+' '+this.lastname;
+                    },
+                    set:function (newValue) {
+                        var names=newValue.split(' ');
+                        this.firstname = names[0];
+                        this.lastname = names[names.length-1];
+                    }
+                }
+            }
+        });
+
+        var app1=new Vue({
+            el:'#app1',
+            computed:{
+                reversedTest:function () {
+                    return app.text.split(',').reverse().join(',');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

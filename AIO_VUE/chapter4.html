@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter4 v-bind及class与style绑定</title>
+    <style>
+        .active{color:pink}
+        .error{background: burlywood}
+        .static{font-weight: bolder}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <a :href="url" target="_blank">链接</a><br>
+        <img :src="imgUrl" style="height:100px;width:auto"><br>
+        <div class="static" :class="{'active':isActive,'error':isError}" >123</div>
+        <div :class="classes">456</div>
+        <div :class="[isActive?activeCls:'',errorCls]">789</div>
+        <div :class="[{'active':isActive},errorCls]">JQK</div>
+        <button :class="classes_btn">ABC</button>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                url:'http://www.163.com/',
+                imgUrl:'http://t2.hddhhn.com/uploads/tu/201610/198/scx30045vxd.jpg',
+                isActive:true,
+                isError:null,
+                activeCls:'active',
+                errorCls:'error',
+                size:'large'
+            },
+            computed:{
+                classes:function () {
+                    return {
+                        active : this.isActive && !this.error,
+                        'text-fail' : this.error && this.error.type ==='fail'
+                    }
+                },
+                classes_btn:function () {
+                    return [
+                        'btn',{
+                            ['btn-' + this.size] : this.size!=='',
+                            ['btn-disabled'] : this.disabled
+                        }
+                    ]
+
+
+                }
+            }
+        });
+    </script>
+</body>
+</html>
