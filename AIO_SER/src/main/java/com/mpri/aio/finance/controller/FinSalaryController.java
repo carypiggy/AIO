@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.util.StringUtil;
 import com.mpri.aio.base.controller.BaseController;
 import com.mpri.aio.common.exception.ExceptionResult;
 import com.mpri.aio.common.page.PageIo;
@@ -244,11 +245,12 @@ public class FinSalaryController extends BaseController{
      */
     @CrossOrigin
     @PostMapping(value = "/sendFinace")
-    public RestResponse<String> sendFinace(String fileUrl){
+    public RestResponse<String> sendFinace(String fileUrl,String dateMonth,String remark){
         String resfillPath  = "finance/"+DateUtils.getDate()+"/";
     	//创建整月
     	FinSalary finSalary = new FinSalary();
-    	finSalary.setDateMonth(DateUtils.getYear()+"-"+DateUtils.getMonth());
+    	finSalary.setDateMonth(dateMonth);
+    	finSalary.setRemark(remark);
     	finSalary.setStatus("DONING");
 		try {
 			//得到Excel工作簿对象    
@@ -302,12 +304,22 @@ public class FinSalaryController extends BaseController{
                     } else {
                         cellValue = "";
                     }
+                    
                     //入库
                     if(j==0) {
+                    	if(StringUtil.isEmpty(cellValue)) {
+                    		 return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "成功！", "");
+                    	}
                     	finSalaryDetail.setName(cellValue);
             		}else if(j==1) {
+                    	if(StringUtil.isEmpty(cellValue)) {
+                    		 return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "成功！", "");
+                    	}
             			finSalaryDetail.setCard(cellValue);
             		}else if(j==2) {
+                    	if(StringUtil.isEmpty(cellValue)) {
+                    		 return new RestResponse<String>(ExceptionResult.REQUEST_SUCCESS, "成功！", "");
+                    	}
             			finSalaryDetail.setEmail(cellValue);
             		}                    
                     //写值
