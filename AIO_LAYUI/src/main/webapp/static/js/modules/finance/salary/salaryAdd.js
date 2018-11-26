@@ -68,7 +68,9 @@ layui.use(['form', 'upload', 'layer', 'laydate', 'application', 'validparam', 'p
 			$.ajax({
 				url: application.SERVE_URL + "/finance/salary/sendFinace", //ajax请求地址
 				data: {
-					fileUrl : fileUrl
+					fileUrl : fileUrl,
+					dateMonth : $("#dateMonth").val(),
+					remark :  $(".remark").val()
 				},
 				success: function(res) {
 					if (res.code == application.REQUEST_SUCCESS) {
