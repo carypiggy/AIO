@@ -67,8 +67,21 @@
                 </li>
             </ul>
             <span v-for="n in 12">{{n}}</span>
-        </p>
 
+            <ul>
+                <template v-for="book in filterBooks">
+                    <li>{{index}}-{{book.name}}-{{book.auth}}</li>
+                </template>
+            </ul>
+        </p>
+        <p>
+            5.4 method and event<br>
+            点击次数：{{counter}}
+            <button @click="counter++">+1</button>
+            <button @click="handleAdd()">+1</button>
+            <button @click="handleAdd(10)">+10</button><br>
+            <a href="http://www.163.com" @click="handleClick('禁止','$event')" target="_blank">open it</a>
+        </p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -85,18 +98,39 @@
                 ],
                 user:{
                     name:'00101',auth:'zhang3'
-                }
+                },
+                counter:0
 
             },
             methods:{
                 handleToggleClick:function () {
                     this.type=this.type==='name'?'mail':'name';
+                },
+                handleAdd:function(count){
+                    count=count ||1;
+                    this.counter+=count;
+
+                },
+                handleClick:function (message,event) {
+                    event.preventDefault();
+                    window.alert(message);
                 }
             },
             computed:{
-
+                filterBooks:function(){
+                    return this.books.filter(function (book) {
+                        return book.auth.match(/li/);
+                    });
+                }
             }
         });
+        app.books.push({
+            name:'--211',
+            auth:'3131'
+        })
+        app.books=app.books.filter(function (item) {
+            return item.name.match(/00/);
+        })
     </script>
 </body>
 </html>
