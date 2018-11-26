@@ -59,7 +59,14 @@
                     <li>{{index}}-{{book.name}}-{{book.auth}}</li>
                 </template>
             </ul>
-            <span v-for="value in user">{{value}}</span>
+            <span v-for="value in user">{{value}}</span><br>
+
+            <ul>
+                <li v-for="(value,key,index) in user" >
+                    {{index}}--{{key}}:{{value}}
+                </li>
+            </ul>
+            <span v-for="n in 12">{{n}}</span>
         </p>
 
     </div>
