@@ -73,7 +73,7 @@
     	<where>
 	  		<include refid="query_where"></include>
     	</where>
-    	order by card
+    	order by status asc,card asc
   	</select>
 
   	<!-- 依照条件查询所有对象 -->
