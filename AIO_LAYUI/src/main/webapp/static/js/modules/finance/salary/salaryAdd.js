@@ -41,8 +41,13 @@ layui.use(['form', 'upload', 'layer', 'laydate', 'application', 'validparam', 'p
 		done: function(res) {
 			var data=res;
 			fileUrl = res.data;
-				console.log(fileUrl);
-				top.layer.msg(data.msg,{time: 800});
+			console.log(fileUrl);
+			top.layer.msg(data.msg+",请点击保存发送邮件！",{time: 1000},function(){
+				
+				$("#upfile").css("display","none");
+				$("#upfile").prev().css("display","none");
+			});
+			
 		}
 	});
 

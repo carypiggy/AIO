@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter5 内置指令</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <p>
+            5.1.1 v-cloak:
+            {{message}}<br>
+        </p>
+        <p>
+            5.1.2 v-once:
+            <span v-once>{{message}}</span><br>
+            <div v-once>
+                <span>{{message}}</span><br>
+                <input type="text" v-model="message" placeholder="你的名字">
+            </div>
+        </p>
+        <p>
+            5.2.1 v-if等：
+            <p v-if="status===1">当status=1时显示</p>
+            <p v-else-if="status===2">当status=2时显示</p>
+            <p v-else>否则显示该行</p>
+
+            <template v-if="status===2">
+                <p>显示该行</p>
+            </template>
+            <template v-if="type==='name'" >
+                请输入用户名<input placeholder="pass1" key="id">
+            </template>
+            <template v-else>
+                请输入邮箱
+                <input placeholder="pass" key="pass">
+            </template>
+
+            <button @click ="handleToggleClick" >show it</button>
+        </p>
+        <p>
+            5.2.2 v-show:
+            <p v-show="status===1">当status=2时显示</p>
+        </p>
+        <p>
+            5.3 v-for:
+            <ul>
+                <li v-for="(book,index) in books">
+                    {{index}}-{{book.name}}
+                </li>
+            </ul>
+            <ul>
+                <template v-for="(book,index) in books">
+                    <li>{{index}}-{{book.name}}-{{book.auth}}</li>
+                </template>
+            </ul>
+            <span v-for="value in user">{{value}}</span><br>
+
+            <ul>
+                <li v-for="(value,key,index) in user" >
+                    {{index}}--{{key}}:{{value}}
+                </li>
+            </ul>
+            <span v-for="n in 12">{{n}}</span>
+
+            <ul>
+                <template v-for="book in filterBooks">
+                    <li>{{index}}-{{book.name}}-{{book.auth}}</li>
+                </template>
+            </ul>
+        </p>
+        <p>
+            5.4 method and event<br>
+            点击次数：{{counter}}
+            <button @click="counter++">+1</button>
+            <button @click="handleAdd()">+1</button>
+            <button @click="handleAdd(10)">+10</button><br>
+            <a href="http://www.163.com" @click="handleClick('禁止','$event')" target="_blank">open it</a>
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                message:'这是一段文本',
+                status:2,
+                type:'name',
+                books:[
+                    {name:'0001',auth:'zhang'},
+                    {name:'---3',auth:'li'},
+                    {name:'33004',auth:'liu'}
+                ],
+                user:{
+                    name:'00101',auth:'zhang3'
+                },
+                counter:0
+
+            },
+            methods:{
+                handleToggleClick:function () {
+                    this.type=this.type==='name'?'mail':'name';
+                },
+                handleAdd:function(count){
+                    count=count ||1;
+                    this.counter+=count;
+
+                },
+                handleClick:function (message,event) {
+                    event.preventDefault();
+                    window.alert(message);
+                }
+            },
+            computed:{
+                filterBooks:function(){
+                    return this.books.filter(function (book) {
+                        return book.auth.match(/li/);
+                    });
+                }
+            }
+        });
+        app.books.push({
+            name:'--211',
+            auth:'3131'
+        })
+        app.books=app.books.filter(function (item) {
+            return item.name.match(/00/);
+        })
+    </script>
+</body>
+</html>

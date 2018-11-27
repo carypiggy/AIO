@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
-      xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head>
+    xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <head>
     <meta charset="UTF-8">
     <title>Chapter2 数据绑定和第一个Vue应用</title>
 </head>
 <body>
     <div id="app">
+        <input type="text" v-model="name" placeholder="你的名字">
         <input type="text" v-model="name" placeholder="你的名字">
         <h1>你好，{{name}}</h1>
         <h2>{{date | formatDate}}</h2>
@@ -18,7 +19,7 @@
         <p v-if="show">show it</p>
         <a v-bind:href="url" target="_blank">163</a><br>
         <img v-bind:src="images" style="height: 100px;width: 140px"/><br>
-        <button v-on:click="handleClose">hidden show it</button>
+        <button @click="handleClose">hidden show it</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 

@@ -40,8 +40,8 @@ layui.use(['form','layer','application'],function(){
 	    	    vOffset : 5,
 	    	    vSpace : 5,
 	    	    explain : '向右滑动完成验证',
-	    	    imgUrl : 'static/verify/images/',
-	    	    imgName : ['1.jpg', '2.jpg','3.jpg'],
+	    	    imgUrl : application.BASE_URL+'/static/verify/images/',
+	    	    imgName : ['1.jpg', '2.jpg','3.jpg','4.jpg', '5.jpg','6.jpg','7.jpg'],
 	    	    imgSize : {
 	    		    width: '430px',
 	    		    height: '200px',
