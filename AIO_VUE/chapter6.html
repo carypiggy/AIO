@@ -37,13 +37,19 @@
             <option>html</option>
             <option>css</option>
             <option>js</option>
-
         </select>
 
         <input type="radio" v-model="picked" :value="value">
-
         <p>{{picked}} --- {{value}}</p>
 
+
+        <select v-model="selected2">
+            <option
+                v-for="option in options" :value="option.value">
+                {{option.text}}
+            </option>
+        </select>
+        <p>you selected {{selected2}}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -55,7 +61,17 @@
                 picked:false,
                 value:11,
                 checked:['js2','css2'],
-                selected:['css','js']
+                selected:['css','js'],
+                selected2:'html',
+                options:[
+                    {
+                        text:'Html',
+                        value:'html'
+                    },{
+                        text:'Css',
+                        value:'css'
+                    }
+                ]
             },
             computed:{
 
