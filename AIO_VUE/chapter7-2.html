@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter7 组件详解</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="parentModel">
+        <my-component :width="100" init-count="1" :message="parentModel" :message2="[1,2,3]" warning-text="waring"></my-component>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            props:['message','message2','warningText','initCount','width'],
+            template:'<div :style="style">{{count}}what is this?{{message}} & {{message2.length}}&{{warningText}}</div>',
+            data:function () {
+                return {
+                    count:this.initCount
+                }
+            },
+            computed:{
+                style:function () {
+                    console.log(this.width);
+                    return {
+
+                        width:this.width
+                    }
+                }
+            }
+        });
+
+
+        var app=new Vue({
+            el:'#app',
+            data:{
+                parentModel:''
+            }
+        });
+    </script>
+</body>
+</html>
