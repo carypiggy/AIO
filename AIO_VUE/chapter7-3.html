@@ -43,12 +43,12 @@
                     this.$emit('reduce',this.counter);
                 },
                 handleClick:function(){
+
                     this.counter++;
                     this.$emit('input',this.counter);
                 }
             }
         });
-
 
         var app=new Vue({
             el:'#app',
