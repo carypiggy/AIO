@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -49,6 +50,14 @@ public class GlobalExceptionHandler {
 //    public RestResponse<Exception> handle500(HttpServletRequest request, Throwable ex) {
 //        return new RestResponse<Exception>(ExceptionResult.SYS_ERROR, "服务器内部错误，请检查网络或联系系统管理员！", null);
 //    }
+    
+    // 捕捉字段校验异常
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public RestResponse<Exception> DataIntegrityViolationException(HttpServletRequest request, Throwable ex) {
+        return new RestResponse<Exception>(getStatus(request).value(), "由于字段中存在特殊字符,已经最大长度", null);
+    }
+    
     
     
     
