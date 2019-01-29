@@ -12,20 +12,11 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-parent</artifactId>
-	<version>2.0.4.RELEASE</version>
+	<version>2.1.2.RELEASE</version>
   </parent>
 
   <dependencies>
-	<!-- core --> 
-	<dependency>
-		<groupId>com.mpri.aio</groupId>
-		<artifactId>AIO_CORE</artifactId>
-		<version>1.0</version>
-		<scope>system</scope>
-		<systemPath>${project.basedir}/src/main/resources/lib/AIO_CORE-1.0-SNAPSHOT.jar</systemPath>
-	</dependency>
-	
-	 
+
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -292,7 +283,14 @@
 		<artifactId>poi-ooxml-schemas</artifactId>
 		<version>3.17</version>
 	</dependency>
-	
+	<!-- core --> 
+	<dependency>
+		<groupId>com.mpri.aio</groupId>
+		<artifactId>aio_core</artifactId>
+		<version>1.0</version>
+		<scope>system</scope>
+		<systemPath>${project.basedir}/src/main/resources/lib/aio_core-1.0-SNAPSHOT.jar</systemPath>
+	</dependency>
 	<!-- 
 	<dependency>
     	<groupId>org.jsoup</groupId>

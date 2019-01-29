@@ -69,5 +69,46 @@ public class PinyinUtil {
         }
         return py.trim();
     }
+    
+    /**
+     * 取首字母
+     * @param chinese
+     * @return
+     */
+    public static String getFirstSpell(String chinese) {
+        StringBuffer pybf = new StringBuffer(); 
+        char[] arr = chinese.toCharArray(); 
+        HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat(); 
+        defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE); 
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE); 
+        for (int i = 0; i < arr.length; i++) { 
+                if (arr[i] > 128) { 
+                        try { 
+                                String[] temp = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat); 
+                                if (temp != null) { 
+                                        pybf.append(temp[0].charAt(0)); 
+                                } 
+                        } catch (BadHanyuPinyinOutputFormatCombination e) { 
+                                e.printStackTrace(); 
+                        } 
+                } else { 
+                        pybf.append(arr[i]); 
+                } 
+        } 
+        return pybf.toString().replaceAll("\\W", "").trim(); 
+} 
+    
+    public static void main(String args[]) {
+    	PinyinUtil pu=new PinyinUtil();
+    	try {
+			String s = pu.toPinYin("皮您","",Type.FIRSTUPPER);
+			String s2=PinyinUtil.getFirstSpell("匹配发");
+			System.out.println(s2);
+		} catch (BadHanyuPinyinOutputFormatCombination e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	System.out.println();
+    }
 
 }
