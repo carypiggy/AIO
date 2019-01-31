@@ -9,6 +9,7 @@
 			FROM
 				information_schema. COLUMNS
 			WHERE  table_schema = (SELECT DATABASE())
-				AND table_name = (#{table})			
+				AND table_name = (#{table})		
+				order by COLUMN_NAME = 'id' DESC	
 	</select>
 </mapper>
