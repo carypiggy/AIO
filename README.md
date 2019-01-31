@@ -24,7 +24,7 @@
 
 二、AIO_SER:服务端
 
-1.当前springboot 2.0.4框架整合样例
+1.当前springboot 2.1.2框架整合样例
 
 2.加入layui 2.4.2版本及其相关内容
 
