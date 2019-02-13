@@ -54,7 +54,7 @@ layui.define(['form','layer','jquery','application','table','treeGrid'],function
             $.ajax({
                 url:application.SERVE_URL + "/loadCacheMap",
                 type: "POST",
-                async: true,
+                async: false,
 				success:function(result){
                    if(result.code==application.REQUEST_SUCCESS){
                 	   var dict=sessionStorage.getItem("dictCache");

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter7 组件详解</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <Card style="width:350px;">
+      <p solt="title">taking with zs</p>
+      <a href="#" solt="extra">
+          <Icon type="android-close"></Icon>
+      </a>
+      <div style="height:100px;">
+
+      </div>
+      <div>
+          <Row :gutter="16">
+              <i-col span="17">
+                  <i-input v-model="value" placeholder="please writing..."></i-input>
+              </i-col>
+              <i-col span="4">
+                  <i-button type="primary" icon="paper-airplane">send</i-button>
+              </i-col>
+          </Row>
+      </div>
+    </Card>
+
+    <div id="app">
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+    </div>
+
+        <!--<table>-->
+            <!--<tbody is="my-component"></tbody>-->
+        <!--</table>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            template:'<div>what is this?<button @click="counter++">{{counter}}</button></div>',
+            data : function(){
+                return {
+                    counter:0
+                };
+                // return {
+                //     message:'component body'
+                // }
+            }
+        });
+        var child={
+            template:'<div>this is part component</div>'
+        }
+
+        var data={
+            counter:0
+        }
+
+        var app=new Vue({
+            el:'#app',
+            data:{
+            }//,
+            // components:{
+            //     'my-component':child
+            // }
+        });
+    </script>
+</body>
+</html>

@@ -54,7 +54,7 @@ layui.define(["jquery",'layer'],function(exports){
         //token相关
         HEADER : sessionStorage.getItem("token"),
         TOKENTIME : sessionStorage.getItem("tokenTime"),
-        TOKENISSUE : 5*60*1000, //五分钟续约有效期
+        TOKENISSUE : 1*60*1000, //五分钟续约有效期
         COMEFROM : "WEB",
         KEY : "tXbjTgdcQ32mmr6g",
         SPACE: 25 //Token刷新请求频度(毫秒数) 频度毫秒数内不进行重复请求.

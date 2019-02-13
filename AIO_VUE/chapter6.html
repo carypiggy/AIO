@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter6 表单与v-model</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="message" placeholder="Please input something...">{{message}}
+
+        <p>Do you want to some rabbits?{{message}}</p>
+
+        <textarea  v-model="text" placeholder="Please input something..."></textarea>
+        <p style="white-space: pre">
+            Do you want to some big rabbits?{{text}}
+        </p>
+
+        <input type="text" @input="handleInput" placeholder="Please input something...">{{message}}
+
+        <p>Do you want to some rabbits?{{message}}</p>
+
+        <input type="radio" v-model="picked" id="html" value="html">html<br>
+        <input type="radio" v-model="picked" id="js" value="js">js<br>
+        <input type="radio" v-model="picked" id="css" value="css">css<br>
+        <p>your choose is {{picked}}</p>
+
+        <input type="checkbox" v-model="checked" id="html2" value="html2">html<br>
+        <input type="checkbox" v-model="checked" id="js2" value="js2">js<br>
+        <input type="checkbox" v-model="checked" id="css2" value="css2">css<br>
+        <p>your choose is {{checked}}</p>
+
+        <select v-model="selected" multiple>
+            <option>html</option>
+            <option>css</option>
+            <option>js</option>
+        </select>
+
+        <input type="radio" v-model="picked" :value="value">
+        <p>{{picked}} --- {{value}}</p>
+
+
+        <select v-model="selected2">
+            <option
+                v-for="option in options" :value="option.value">
+                {{option.text}}
+            </option>
+        </select>
+        <p>you selected {{selected2}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                message:'',
+                text:'',
+                picked:false,
+                value:11,
+                checked:['js2','css2'],
+                selected:['css','js'],
+                selected2:'html',
+                options:[
+                    {
+                        text:'Html',
+                        value:'html'
+                    },{
+                        text:'Css',
+                        value:'css'
+                    }
+                ]
+            },
+            computed:{
+
+            },
+            methods:{
+                handleInput:function (e) {
+                    this.message=e.target.value;
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bild="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter7 组件详解</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>
+            总数：{{total}}
+        </p>
+        <!--<my-component-->
+            <!--@increase="handleGetTotal"-->
+            <!--@reduce="handleGetTotal"></my-component>-->
+        <my-component v-model="total"></my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            template:
+                '<div>' +
+                '<button @click="handleClick">+1</button>'+
+                '<button @click="handleIncrease">+1</button>' +
+                '<button @click="handleReduce">-1</button>' +
+                '</div>',
+            data:function () {
+                return {
+                    counter:0
+                }
+            },
+            methods:{
+                handleIncrease:function () {
+                    this.counter++;
+                    this.$emit('increase',this.counter);
+                },
+                handleReduce:function () {
+                    this.counter--;
+                    this.$emit('reduce',this.counter);
+                },
+                handleClick:function(){
+
+                    this.counter++;
+                    this.$emit('input',this.counter);
+                }
+            }
+        });
+
+        var app=new Vue({
+            el:'#app',
+            data:{
+                total:0
+            },
+            methods:{
+                handleGetTotal:function (total) {
+                    this.total=total;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
