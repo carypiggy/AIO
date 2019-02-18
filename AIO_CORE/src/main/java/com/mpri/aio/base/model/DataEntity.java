@@ -30,6 +30,9 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	protected String paramA;
 	protected String paramB; 
 	
+	//缓存默认key
+	protected String cacheKey;
+	
 	public DataEntity() {
 		super();
 		//默认删除标记为正常
@@ -116,5 +119,12 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 		this.paramB = paramB;
 	}
 
-	
+	public String getCacheKey() {
+		return cacheKey;
+	}
+
+	public void setCacheKey(String cacheKey) {
+		this.cacheKey = cacheKey;
+	}
+
 }
