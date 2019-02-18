@@ -31,7 +31,11 @@ public class EntityInfoUtil {
 		GenTableInfo genTableInfo = configInfo.getGenTableInfo();
 		
 		List<GenColumuInfo> columns = genTableInfo.getColumuInfos(); 
-		
+		//处理特殊数据
+		for(GenColumuInfo column : columns) {
+			column.setColumnType(MySqlToJavaUtil.covertJdbcType(column.getColumnType()));
+		}
+			
 		List<GenColumuInfo> columns_checked = new ArrayList<GenColumuInfo>();
 		if(statu) {
 			for (GenColumuInfo genColumuInfo : columns) {

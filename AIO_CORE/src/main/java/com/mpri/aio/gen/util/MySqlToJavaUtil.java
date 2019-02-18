@@ -98,5 +98,16 @@ public class MySqlToJavaUtil {
 		}
 		return null;
 	}
-
+	
+	
+	/**
+	 * 
+	 */
+	public static String covertJdbcType(String sqlType) {
+		if (sqlType.equalsIgnoreCase("text")) {
+			return "varchar";
+		}else {
+			return sqlType;
+		}	
+	}
 }
