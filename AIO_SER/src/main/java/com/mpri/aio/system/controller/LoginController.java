@@ -78,6 +78,7 @@ public class LoginController extends BaseController {
 			String safeCode=sysUser.getSafecode();
 			ByteSource salt = ByteSource.Util.bytes(safeCode);
 			String result = new Md5Hash(password,salt,saltTimes).toString();
+			
 			String userId=sysUser.getId();
         	//登陆密码校验
     		if (sysUser.getPassword().equals(result)) {
