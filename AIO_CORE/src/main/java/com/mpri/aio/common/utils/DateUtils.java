@@ -4,6 +4,7 @@
 package com.mpri.aio.common.utils;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -170,6 +171,26 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		return (afterTime - beforeTime) / (1000 * 60 * 60 * 24);
 	}
 	
+	//获取当前周数
+	public static int getWeekDay(Calendar c){
+		int i=1;
+		if(Calendar.MONDAY == c.get(Calendar.DAY_OF_WEEK)){
+		    i=1;
+		}else if(Calendar.TUESDAY == c.get(Calendar.DAY_OF_WEEK)){
+			i= 2;
+		}else if(Calendar.WEDNESDAY == c.get(Calendar.DAY_OF_WEEK)){
+			i= 3;
+		}else if(Calendar.THURSDAY == c.get(Calendar.DAY_OF_WEEK)){
+			i= 4;
+		}else if(Calendar.FRIDAY == c.get(Calendar.DAY_OF_WEEK)){
+			i= 5;
+		}else if(Calendar.SATURDAY == c.get(Calendar.DAY_OF_WEEK)){
+			i= 6;
+		}else if(Calendar.SUNDAY == c.get(Calendar.DAY_OF_WEEK)){
+			i= 7;
+		}
+		return i;
+	}
 	/**
 	 * @param args
 	 * @throws ParseException
