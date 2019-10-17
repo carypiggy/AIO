@@ -11,12 +11,11 @@
   <!-- Inherit defaults from Spring Boot -->
   <parent>
     <groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-parent</artifactId>
+	<artifactId>spring-boot-starter-parent</artifactId>	
 	<version>2.1.9.RELEASE</version>
   </parent>
 
   <dependencies>
-
 	<!-- Add typical dependencies for a web application -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -294,8 +293,6 @@
 	
   </dependencies>
   
-  
-
   <build>
 	<finalName>AIO_SER</finalName>
 	<plugins>
