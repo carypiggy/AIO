@@ -20,6 +20,13 @@ import java.util.zip.ZipOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -984,5 +991,79 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         out.write(file);
         out.flush();
         out.close();
+    }
+    
+    
+    /**
+     * 创建file对象
+     * @param fileName
+     * @param filePath
+     * @return
+     */
+    public static FileItem createFileItem(String fileName,String filePath)  
+    {  
+        FileItemFactory factory = new DiskFileItemFactory(16, null);  
+        String textFieldName = "textField";  
+        int num = filePath.lastIndexOf(".");  
+        String extFile = filePath.substring(num);  
+        FileItem item = factory.createItem(textFieldName, "text/plain", true,fileName + extFile);  
+        File newfile = new File(filePath);  
+        int bytesRead = 0;  
+        byte[] buffer = new byte[8192];  
+        try  
+        {  
+            FileInputStream fis = new FileInputStream(newfile);  
+            OutputStream os = item.getOutputStream();  
+            while ((bytesRead = fis.read(buffer, 0, 8192))  
+                != -1)  
+            {  
+                os.write(buffer, 0, bytesRead);  
+            }  
+            os.close();  
+            fis.close();  
+        }  
+        catch (IOException e)  
+        {  
+            e.printStackTrace();  
+        }  
+        return item;  
+    }  
+
+    /**
+     * 获取网络图片
+     * @param url
+     * @param fileName
+     * @param path
+     */
+    public static boolean getNetFile(String url,String fileName,String path) {
+    	boolean isSave=false;
+    	HttpGet httpGet = new HttpGet(url);
+    	
+		HttpClient client =HttpClients.createDefault();    
+		FileOutputStream fos;
+		try {
+			// 客户端开始向指定的网址发送请求
+			HttpResponse response = client.execute(httpGet);
+			InputStream inputStream = response.getEntity().getContent();
+			File file = new File(path);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+
+			fos = new FileOutputStream(path+fileName);
+			byte[] data = new byte[1024];
+			int len = 0;
+			while ((len = inputStream.read(data)) != -1) {
+				fos.write(data, 0, len);
+			}
+			isSave=true;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			isSave=true;
+		} 
+		return isSave;
+    	
     }
 }
