@@ -9,18 +9,18 @@
 			<id column="${ci.columnName}" jdbcType="${ci.columnType?upper_case}" property="${ci.objProperty}" />
 			<#else>
 				<#if ci.columnType == "datetime" || ci.columnType == "DATETIME">
-			<result column="${ci.columnName}" jdbcType="TIMESTAMP" property="${ci.objProperty}" />					
+			<result column="${ci.columnName}" jdbcType="TIMESTAMP" property="${ci.objProperty}" />
 				<#elseif ci.columnType == "int" || ci.columnType == "INT">
-			<result column="${ci.columnName}" jdbcType="INTEGER" property="${ci.objProperty}" />	
+			<result column="${ci.columnName}" jdbcType="INTEGER" property="${ci.objProperty}" />
 				<#elseif ci.columnType == "text" || ci.columnType == "TEXT">
-			<result column="${ci.columnName}" jdbcType="VARCHAR" property="${ci.objProperty}" />	
-				<#else>				
+			<result column="${ci.columnName}" jdbcType="VARCHAR" property="${ci.objProperty}" />
+				<#else>
 			<result column="${ci.columnName}" jdbcType="${ci.columnType?upper_case}" property="${ci.objProperty}" />
 				</#if>
-			</#if>				
+			</#if>
 		</#list>
 	</resultMap>
-	
+
     <!-- 基础字段定义 -->
 	<sql id="Base_Column_List">
     	${genTableInfo.agile}
@@ -32,34 +32,34 @@
 			<#list genTableInfo.columuInfos as ci>
 			<#if ci.objProperty == "name">
 	       	<if test="entity.name!=null and entity.name!='' ">
-	           	and name = ${r'#{entity.name}'} 
-	       	</if>		
+	           	and name = ${r'#{entity.name}'}
+	       	</if>
 			<#elseif ci.objProperty == "flag">
 			<if test="entity.flag != null and entity.flag!='' ">
         		and flag= ${r'#{entity.FLAG_NORMAL}'}
-      		</if>
+  		</if>
 	      	<#else>
 			<if test="entity.${ci.objProperty} != null and entity.${ci.objProperty}!='' ">
         		and ${ci.columnName}=${r'#{entity.'}${ci.objProperty}}
-      		</if>	      	
-			</#if>      		
+  		</if>
+			</#if>
       		</#list>
 		</if>
 	</sql>
-	
+
   	<!-- 根据id查询 -->
   	<select id="get" parameterType="${entityUrl}.${genTableInfo.entityName}" resultMap="BaseResultMap">
-   	    select 
+   	    select
     		<include refid="Base_Column_List" />
     	from ${genTableInfo.table}
     	where id = ${r'#{id,jdbcType=VARCHAR}'} and flag = ${r'#{FLAG_NORMAL}'}
   	</select>
- 
+
  	<!-- 分页查询 -->
     <select id="loadByPage" parameterType="${entityUrl}.${genTableInfo.entityName}" resultMap="BaseResultMap" >
     	select
     		<include refid="Base_Column_List" />
-    	from ${genTableInfo.table} 
+    	from ${genTableInfo.table}
     	<where>
 	  		<include refid="query_where"></include>
     	</where>
@@ -69,7 +69,7 @@
   	<select id="loadAllListBy"  parameterType="${entityUrl}.${genTableInfo.entityName}" resultMap="BaseResultMap" >
     	select
     		<include refid="Base_Column_List" />
-    	from ${genTableInfo.table} 
+    	from ${genTableInfo.table}
 		<where>
 	  		<include refid="query_where"></include>
     	</where>
@@ -79,24 +79,24 @@
   	<update id="delete" parameterType="${entityUrl}.${genTableInfo.entityName}">
     	update ${genTableInfo.table} set flag = ${r'#{FLAG_HOLD}'} where id = ${r'#{id,jdbcType=VARCHAR}'}
   	</update>
-  	
+
   	<!-- 插入数据 -->
   	<insert id="insert" parameterType="${entityUrl}.${genTableInfo.entityName}">
-		insert into ${genTableInfo.table}
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<#list genTableInfo.columuInfos as ci>
-	   		<if test="${ci.objProperty} != null">
-	    		${ci.columnName},
-	  		</if>   			
-			</#list>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<#list genTableInfo.columuInfos as ci>
-	   		<if test="${ci.objProperty} != null">
-	   			${r'#{'}${ci.objProperty},jdbcType=${ci.columnType?upper_case}},
-	  		</if>   			
-			</#list>    	
-		</trim>
+			insert into ${genTableInfo.table}
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<#list genTableInfo.columuInfos as ci>
+		   		<if test="${ci.objProperty} != null">
+		    		${ci.columnName},
+		  		</if>
+				</#list>
+			</trim>
+			<trim prefix="values (" suffix=")" suffixOverrides=",">
+				<#list genTableInfo.columuInfos as ci>
+		   		<if test="${ci.objProperty} != null">
+						${r'#{'}${ci.objProperty},jdbcType=${ci.columnType?upper_case}},
+		  		</if>
+				</#list>
+			</trim>
   	</insert>
 
   	<!-- 更新数据 -->
@@ -107,10 +107,10 @@
 			<#if ci.objProperty == "id">
 			<#else>
 			<if test="${ci.objProperty} != null">
-	   			${ci.columnName} = ${r'#{'}${ci.objProperty},jdbcType=${ci.columnType?upper_case}},
-	  		</if>  
-			</#if>		
-			</#list>        	
+				${ci.columnName} = ${r'#{'}${ci.objProperty},jdbcType=${ci.columnType?upper_case}},
+  		</if>
+			</#if>
+			</#list>
     	</set>
     	where id = ${r'#{id,jdbcType=VARCHAR}'}
 	</update>

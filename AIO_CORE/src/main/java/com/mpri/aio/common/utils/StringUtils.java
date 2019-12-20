@@ -99,7 +99,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     	if (str != null){
         	for (String s : strs){
         		if (str.equals(trim(s))){
-        			return true;
+     return true;
         		}
         	}
     	}
