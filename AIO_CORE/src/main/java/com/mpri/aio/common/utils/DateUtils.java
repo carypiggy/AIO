@@ -61,6 +61,13 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	public static String getTime() {
 		return formatDate(new Date(), "HH:mm:ss");
 	}
+	
+	/**
+	 * 得到固定日期字符串 格式（HH:mm:ss）
+	 */
+	public static String getDateTime(Date date) {
+		return formatDate(date, "HH:mm:ss");
+	}
 
 	/**
 	 * 得到当前日期和时间字符串 格式（yyyy-MM-dd HH:mm:ss）
