@@ -255,7 +255,7 @@
 	<dependency>
     	<groupId>org.jsoup</groupId>
     	<artifactId>jsoup</artifactId>
-    	<version>1.11.3</version>
+    	<version>1.15.3</version>
 	</dependency>
 	<!-- 汉字拼音转化 -->
 	<dependency>
